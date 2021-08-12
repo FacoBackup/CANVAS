@@ -304,6 +304,5 @@ Overview.propTypes = {
     setState: PropTypes.func,
     data: PropTypes.object,
     handleClose: PropTypes.func,
-    root: PropTypes.object,
     nodeIndex: PropTypes.number
 }

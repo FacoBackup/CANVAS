@@ -106,6 +106,4 @@ Context.propTypes = {
 
     copiedNode: NodeTemplate,
     setCopiedNode: PropTypes.func,
-
-    root: PropTypes.object
 }

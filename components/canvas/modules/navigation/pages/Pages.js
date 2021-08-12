@@ -12,7 +12,6 @@ export default function Pages(props) {
                 <React.Fragment key={'page-'+index}>
                     <PageField
                         page={page}
-                        contextMenuRef={props.contextMenuRef}
                         setAsDefault={() => {
                             let newPages = [...props.data.pages]
                             let defaultIndex = -1

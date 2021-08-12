@@ -18,6 +18,5 @@ export default function PageField(props) {
 }
 PageField.propTypes = {
     page: PropTypes.object,
-    contextMenuRef: PropTypes.object,
     setAsDefault: PropTypes.func
 }

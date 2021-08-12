@@ -8,9 +8,7 @@ export default function Shapes(props) {
         DragNew({
             event: event,
             scale: props.scale,
-            root: props.root,
             element: document.getElementById(shape + '-draggable'),
-            contextMenuRef: props.contextMenuRef,
             type: shape,
             data: props.data,
             setData: props.setData
@@ -113,7 +111,5 @@ export default function Shapes(props) {
 Shapes.propTypes = {
     setData: PropTypes.func,
     data: PropTypes.object,
-    scale: PropTypes.number,
-    root: PropTypes.object,
-    contextMenuRef: PropTypes.object
+    scale: PropTypes.number
 }

@@ -32,8 +32,8 @@ export default function SideBar(props) {
             </div>
             {!open ? null :
                 <Shapes
-                    data={props.data} setData={props.setState} scale={props.scale}
-                    root={props.root} contextMenuRef={props.contextMenuRef}
+                    data={props.data} setData={props.setState}
+                    scale={props.scale}
                 />
             }
             {!open ? null :
@@ -47,8 +47,6 @@ export default function SideBar(props) {
 SideBar.propTypes = {
     data: PropTypes.object,
     setState: PropTypes.func,
-    root: PropTypes.object,
-    contextMenuRef: PropTypes.object,
     selectedNode: NodeTemplate,
     setSelectedNode: PropTypes.func
 }

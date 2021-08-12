@@ -4,6 +4,7 @@ import GetCurve from "./GetCurve";
 export default function FollowMouse(props) {
     let moving = true
     const frame = document.getElementById('frame')
+    const root = document.getElementById('frame-content')
     const markerEnd = document.getElementById(props.pathRef.getAttribute('marker-end').replace('url(#', '').replace(')', ''))
     if(markerEnd !== null)
         markerEnd.setAttribute('visibility', 'hidden')
@@ -33,8 +34,8 @@ export default function FollowMouse(props) {
         if (props.pathRef !== null && frame !== null)
             props.pathRef.setAttribute('d', GetCurve({
                 target: {
-                    x: event.clientX - props.root.offsetLeft + props.root.scrollLeft,
-                    y: event.clientY - frame.offsetTop - 55 + props.root.scrollTop,
+                    x: event.clientX - root.offsetLeft + root.scrollLeft,
+                    y: event.clientY - frame.offsetTop - 55 + root.scrollTop,
                     height: 0,
                     width: 0,
                     connectionPoint: 'c',
@@ -64,6 +65,5 @@ FollowMouse.propTypes = {
         nodeShape: PropTypes.string
     }),
     pathRef: PropTypes.object,
-    type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line']),
-    root: PropTypes.object
+    type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
 }

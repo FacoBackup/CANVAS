@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import {v4 as uuid4} from "uuid";
 import ReactDOM from 'react-dom'
+
 export default function DragNew(props) {
     let moving = true
-
+    const root = document.getElementById('frame-content')
     const getDimensions = () => {
         let res = {}
         switch (true) {
@@ -71,15 +72,18 @@ export default function DragNew(props) {
 
         if (moving) {
             const elements = document.elementsFromPoint(event.clientX, event.clientY)
+            console.log(elements[2])
+            console.log(elements[3])
+            console.log(elements[4])
             document.body.removeChild(newWrapper)
-            if (elements.length >= 2 && typeof elements[3].className === 'object' && elements[3].className.animVal.includes('Canvas_canvasBackground') && props.root !== undefined) {
+            if (elements.length >= 2 && elements[3].id === 'frame-content' && root !== undefined) {
 
                 event.target.style.background = "";
                 const rootBounding = {
-                    x: props.root.getBoundingClientRect().left,
-                    y: props.root.getBoundingClientRect().top
+                    x: root.getBoundingClientRect().left,
+                    y: root.getBoundingClientRect().top
                 }
-
+                console.log(rootBounding)
                 props.setData(({
                     ...props.data,
                     nodes: [...props.data.nodes, ...[{
@@ -87,8 +91,8 @@ export default function DragNew(props) {
                         title: '',
                         description: null,
                         placement: {
-                            x: (event.clientX - rootBounding.x + props.root.scrollLeft - 40),
-                            y: (event.clientY - rootBounding.y + props.root.scrollTop - 40)
+                            x: (event.clientX - rootBounding.x + root.scrollLeft - 40),
+                            y: (event.clientY - rootBounding.y + root.scrollTop - 40)
                         },
                         shape: props.type,
                         creationDate: (new Date()).getTime(),
@@ -127,14 +131,11 @@ export default function DragNew(props) {
         newWrapper.style.left = placementX + 'px'
 
     }
-
-
 }
 
 DragNew.propTypes = {
     element: PropTypes.object,
     scale: PropTypes.number,
-    root: PropTypes.object,
     event: PropTypes.object,
     type: PropTypes.string,
     setData: PropTypes.func,

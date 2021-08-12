@@ -131,22 +131,35 @@
     background: white radial-gradient(#d5d5d5 1.5px, transparent 0);
     background-size: 20px 20px;
     position: relative;
-    top: 0;
-    left: 0;
+
 
     border-left: #ecedf2 1px solid;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 .canvasContainer {
-    transition: 150ms linear;
+    /*transition: 150ms linear;*/
     overflow: auto;
     position: relative;
     width: 100%;
     height: 100%;
-
-
     cursor: default;
     scroll-behavior: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+
+
+.contentWrapper{
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background: #f4f5fa;
+}
+.middleWrapper{
+    height: calc(100% - 70px);
+    display: flex;
+    width: 100%;
+}

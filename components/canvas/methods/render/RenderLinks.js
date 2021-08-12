@@ -39,7 +39,6 @@ export default function RenderLinks(props) {
                             if (node.id === link.parent.id)
                                 return node
                         })
-                        console.log(color)
                         if (color !== undefined)
                             return color.styling.color
                         else return 'transparent'
@@ -54,22 +53,8 @@ export default function RenderLinks(props) {
                         newLinks[index] = newLink
                         props.setData({...props.data, links: newLinks})
                     }}
-                    canEdit={props.options.edit} handleContextClose={props.handleContextClose}
+                    canEdit={props.options.edit}
                     rootOffset={props.root} handleStepCreation={event => handleStepCreation(event, link)}
-                    openContextMenu={(event, x, y) => {
-                        if (event === null) {
-                            ReactDOM.unmountComponentAtNode(props.contextMenuRef)
-
-                        } else {
-                            ReactDOM.render(
-                                event,
-                                props.contextMenuRef
-                            )
-
-                            props.contextMenuRef.style.top = y + 'px'
-                            props.contextMenuRef.style.left = x + 'px'
-                        }
-                    }}
                     deleteLink={() => {
                         let newLinks = [...props.data.links]
                         const index = newLinks.indexOf(link)

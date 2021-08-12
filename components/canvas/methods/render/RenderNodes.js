@@ -89,19 +89,6 @@ export default function RenderNodes(props) {
             }
         })
     }
-    const handleContextMenu = (event, x, y) => {
-        if (event === null)
-            ReactDOM.unmountComponentAtNode(props.contextMenuRef)
-        else {
-            ReactDOM.render(
-                event,
-                props.contextMenuRef
-            )
-
-            props.contextMenuRef.style.top = y + 'px'
-            props.contextMenuRef.style.left = x + 'px'
-        }
-    }
     const handleSizeChange = (index, node, dimensions) => {
         let newNodes = [...props.data.nodes]
         let newNode = {...node}
@@ -129,7 +116,6 @@ export default function RenderNodes(props) {
                         handleDelete={handleDelete} scale={props.scale}
                         move={nodeProps => handleMove(nodeProps, index)}
                         root={props.root} options={props.options}
-                        setOpenContext={handleContextMenu}
                     />
                 </g>
             ))}
@@ -139,7 +125,6 @@ export default function RenderNodes(props) {
 RenderNodes.propTypes = {
     ...CanvasTemplate,
     ...{
-        contextMenuRef: PropTypes.object,
         root: PropTypes.object,
         scale: PropTypes.number,
         setData: PropTypes.func,

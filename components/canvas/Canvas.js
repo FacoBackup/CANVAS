@@ -15,23 +15,18 @@ import Context from "./modules/misc/Context";
 import Pages from "./modules/navigation/pages/Pages";
 import Scale from "./modules/navigation/misc/Scale";
 import TopBar from "./modules/navigation/top/TopBar";
+import Frame from "./modules/frame/Frame";
 
 
 export default function Canvas(props) {
-
-    const [offsetTop, setOffsetTop] = useState(-1)
     const [data, setData] = useState(NewProjectTemplate)
     const [toBeLinked, setToBeLinked] = useState(null)
     const [nodeOnOverview, setNodeOnOverview] = useState(undefined)
-    const root = useRef()
-    const contextMenuRef = useRef()
     const [selectedNode, setSelectedNode] = useState(undefined)
     const [scale, setScale] = useState(1)
     const [copiedNode, setCopiedNode] = useState(null)
-
-    const printRef = useRef()
     const handlePrint = useReactToPrint({
-        content: () => printRef.current
+        content: () => document.getElementById('frame-content')
     });
 
     useEffect(() => {
@@ -65,14 +60,6 @@ export default function Canvas(props) {
                 setToBeLinked(null)
         }, {once: true})
 
-        if (offsetTop === -1) {
-            const element = document.getElementById('frame')
-            if (element !== null)
-                setOffsetTop(element.offsetTop)
-
-            if (props.data !== undefined && props.data.id !== undefined)
-                setData(props.data)
-        }
         return () => {
             document.removeEventListener('mouseup', () => null)
             document.removeEventListener('keydown', () => null)
@@ -91,7 +78,7 @@ export default function Canvas(props) {
         if (i !== -1)
             response = (
                 <Overview
-                    root={root.current} data={data}
+                    data={data}
                     node={data.nodes[i]}
                     setState={setData}
                     nodeIndex={i}
@@ -111,78 +98,34 @@ export default function Canvas(props) {
                 if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
                     setToBeLinked(null)
             }}>
-            <div ref={contextMenuRef} style={{position: 'fixed', zIndex: '999'}}/>
             <Context data={data} setData={setData} scale={scale} setScale={setScale} copiedNode={copiedNode}
-                     setCopiedNode={setCopiedNode} root={root.current} setNodeOnOverview={setNodeOnOverview}/>
+                     setCopiedNode={setCopiedNode} setNodeOnOverview={setNodeOnOverview}/>
             <div className={styles.content}>
                 <Header
-                    root={root.current}
+
                     data={data}
                     setData={setData}
                     onSave={props.onSave}
                     handlePrint={handlePrint}
                 />
                 <TopBar/>
-                <div style={{
-                    height: 'calc(100% - 70px)',
-                    display: 'flex',
-                    width: '100%',
-                }}>
-
+                <div className={styles.middleWrapper}>
                     <SideBar
-                        root={root.current}
                         data={data} scale={scale}
-                        setState={setData} contextMenuRef={contextMenuRef.current}
+                        setState={setData}
                     />
-                    <div style={{display: 'grid', width: '100%', overflow: 'hidden',     background: '#f4f5fa'}}>
+                    <div className={styles.contentWrapper}>
                         <Pages
                             scale={scale} setScale={setScale}
                             data={data} setData={setData}
-                            contextMenuRef={contextMenuRef.current}
                         />
-                        <div
-                            ref={root} className={styles.canvasContainer}
-                            onMouseDown={event => {
-                                if (typeof event.target.className === 'object' && event.button === 2)
-                                    ScrollCanvas({canvas: root.current, event: event})
-                            }}>
-
-                            <svg
-                                onContextMenu={event => {
-                                    event.preventDefault()
-                                }}
-                                style={{
-                                    minWidth: data.dimensions.width + 'px',
-                                    minHeight: data.dimensions.height + 'px',
-                                    transform: `scale(${scale})`,
-                                    transformOrigin: scale !== 1 ? 'top left' : undefined,
-                                }}
-                                className={styles.canvasBackground}
-                                ref={printRef} id={'canvas-area'}
-                            >
-                                <LinkIndicator source={toBeLinked} type={data.connectionType} root={root.current}/>
-                                <RenderNodes
-                                    {...props} contextMenuRef={contextMenuRef.current}
-                                    scale={scale} root={root.current}
-                                    setData={setData} data={data}
-                                    nodeOnOverview={nodeOnOverview}
-                                    setNodeOnOverview={setNodeOnOverview}
-                                    selectedNode={selectedNode} toBeLinked={toBeLinked}
-                                    setToBeLinked={setToBeLinked}
-                                    asStep={false} setSelectedNode={setSelectedNode}
-                                />
-                                <RenderLinks
-                                    {...props} data={data} setData={setData}
-                                    root={root.current}
-                                    contextMenuRef={contextMenuRef.current}
-                                    handleContextClose={() => ReactDOM.unmountComponentAtNode(contextMenuRef.current)}
-                                />
-
-                            </svg>
-                        </div>
+                        <Frame
+                            {...props} toBeLinked={toBeLinked} scale={scale}
+                            data={data} nodeOnOverview={nodeOnOverview} setData={setData}
+                            setNodeOnOverview={setNodeOnOverview} setToBeLinked={setToBeLinked}
+                            selectedNode={selectedNode} setSelectedNode={setSelectedNode}
+                        />
                     </div>
-                    {/*</div>*/}
-
                     {renderOverview()}
                 </div>
             </div>

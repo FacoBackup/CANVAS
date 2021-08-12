@@ -178,8 +178,6 @@ export default function Link(props) {
 
 Link.propTypes = {
     deleteLink: PropTypes.func,
-    openContextMenu: PropTypes.func,
-
     source: PropTypes.shape({
         id: PropTypes.string,
         nodeShape: PropTypes.string,
@@ -196,6 +194,5 @@ Link.propTypes = {
     canEdit: PropTypes.bool,
     handleChange: PropTypes.func,
     color: PropTypes.func,
-    handleContextClose: PropTypes.func,
     handleStepCreation: PropTypes.func
 }
