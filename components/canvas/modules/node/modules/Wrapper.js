@@ -1,46 +1,63 @@
-import styles from "../../../styles/Node.module.css";
+import React, {useRef} from "react";
+import styles from '../styles/Node.module.css'
 import NodePropsTemplate from "../../../templates/NodePropsTemplate";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import ResizeIndicator from "./ResizeIndicator";
+import ConnectionIndicator from "./ConnectionIndicator";
+import EllipseShape from "../shapes/simple/EllipseShape";
+import PolygonShape from "../shapes/simple/PolygonShape";
+import RectShape from "../shapes/simple/RectShape";
+import SelectedWrapper from "./SelectedWrapper";
+import ConnectionsWrapper from "./ConnectionsWrapper";
 
 
 export default function Wrapper(props) {
-
+    const ref = useRef()
+    const getShape = () => {
+        let res
+        switch (props.node.shapeVariant) {
+            case 'ellipse': {
+                res =  <EllipseShape {...props} />
+                break
+            }
+            case 'rect': {
+                res = <RectShape {...props}/>
+                break
+            }
+            case 'polygon': {
+                res = <PolygonShape {...props}/>
+                break
+            }
+            case 'complex': {
+                break
+            }
+            default:
+                break
+        }
+        return res
+    }
     return (
-        <div className={styles.nodeShapeContainer} id={props.node.id + '-*wrapper'}
-             onMouseDown={event => {
-                 if (typeof event === 'object' && event.button === 0 && typeof event.target.className !== 'object' && (props.toBeLinked === null || props.node.id !== props.toBeLinked.id)) {
+        <g
+            id={props.node.id + '-node'} overflow={'visible'}
+            transform={`translate(${props.node.placement.x}, ${props.node.placement.y})`}
+            style={{
+                cursor: !props.linkable && props.toBeLinked !== null ? 'unset' : "pointer"
+            }} ref={ref}
 
-                     props.setSelected(props.node)
-                     props.move({
-                         node: props.node,
-                         event: event
-                     })
-                 }
-             }}
-             onClick={() => {
-                 props.setSelected(props.node)
-             }}
-             onDoubleClick={() => {
-                 props.openOverview()
-             }}
-             onContextMenu={e => {
-                 // if (props.toBeLinked === null && !props.asStep)
-                 // props.setOpenContext(
-                 //     <ContextMenu
-                 //         handleClose={() => props.setOpenContext(null, null, null)}
-                 //         entity={props.node}
-                 //         handleDelete={() => props.handleDelete(props.index, props.node.id)}
-                 //         show={props.openOverview}
-                 //         handleLink={type => props.handleLink(props.node.id, type)}
-                 //     />,
-                 //     (e.clientX),
-                 //     (e.clientY - 40)
-                 // )
-             }}
+            className={styles.entityContainer}
         >
-            {props.children}
-        </div>
+            <SelectedWrapper {...props}/>
+            <ConnectionsWrapper {...props}/>
+            {getShape()}
+        </g>
     )
 }
 
-Wrapper.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object}}
+Wrapper.propTypes = {
+    ...NodePropsTemplate,
+    ...{
+        linkable: PropTypes.bool,
+        setLinkable: PropTypes.func,
+        onMove: PropTypes.bool
+    }
+}

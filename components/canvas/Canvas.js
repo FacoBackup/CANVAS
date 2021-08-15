@@ -1,16 +1,11 @@
 import CanvasTemplate from "./templates/CanvasPropsTemplate";
 import styles from './styles/Canvas.module.css'
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useReactToPrint} from "react-to-print";
-import ReactDOM from "react-dom";
-import ScrollCanvas from "./methods/misc/ScrollCanvas";
-import RenderNodes from "./methods/render/RenderNodes";
-import RenderLinks from "./methods/render/RenderLinks";
 import NewProjectTemplate from "./templates/NewProjectTemplate";
-import LinkIndicator from "./modules/link/LinkIndicator";
 import Header from "./modules/navigation/header/Header";
 import SideBar from "./modules/navigation/side/SideBar";
-import Overview from "./modules/node/misc/Overview";
+import Overview from "./modules/misc/Overview";
 import Context from "./modules/misc/Context";
 import Pages from "./modules/navigation/pages/Pages";
 import Scale from "./modules/navigation/misc/Scale";
@@ -20,6 +15,7 @@ import Frame from "./modules/frame/Frame";
 
 export default function Canvas(props) {
     const [data, setData] = useState(NewProjectTemplate)
+    const [defaultPage, setDefaultPage] = useState(0)
     const [toBeLinked, setToBeLinked] = useState(null)
     const [nodeOnOverview, setNodeOnOverview] = useState(undefined)
     const [selectedNode, setSelectedNode] = useState(undefined)
@@ -55,9 +51,11 @@ export default function Canvas(props) {
 
         document.addEventListener('mouseup', event => {
 
-            const closest = event.target.closest('circle')
-            if (toBeLinked !== null && closest === null)
-                setToBeLinked(null)
+
+            if (toBeLinked !== null) {
+                if (event.target.closest('circle') === null)
+                    setToBeLinked(null)
+            }
         }, {once: true})
 
         return () => {
@@ -69,18 +67,24 @@ export default function Canvas(props) {
     const renderOverview = () => {
         let i = -1
         if (nodeOnOverview !== undefined)
-            data.nodes.find((node, index) => {
+            data.pages[defaultPage].nodes.find((node, index) => {
                 if (node.id === nodeOnOverview.id)
                     i = index
             })
+
+        console.log(i)
         let response = null
 
-        if (i !== -1)
+        if (i !== -1 && i !== undefined)
             response = (
                 <Overview
-                    data={data}
-                    node={data.nodes[i]}
-                    setState={setData}
+                    data={data.pages[defaultPage]}
+                    node={data.pages[defaultPage].nodes[i]}
+                    setState={(event) => {
+                        let newPages = [...data.pages]
+                        newPages[defaultPage] = event
+                        setData({...data, pages: newPages})
+                    }}
                     nodeIndex={i}
                     handleClose={() => setNodeOnOverview(undefined)}/>
             )
@@ -98,8 +102,15 @@ export default function Canvas(props) {
                 if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
                     setToBeLinked(null)
             }}>
-            <Context data={data} setData={setData} scale={scale} setScale={setScale} copiedNode={copiedNode}
-                     setCopiedNode={setCopiedNode} setNodeOnOverview={setNodeOnOverview}/>
+            <Context
+                data={data.pages[defaultPage]}
+                setData={(event) => {
+                    let newPages = [...data.pages]
+                    newPages[defaultPage] = event
+                    setData({...data, pages: newPages})
+                }}
+                scale={scale} setScale={setScale} copiedNode={copiedNode}
+                setCopiedNode={setCopiedNode} setNodeOnOverview={setNodeOnOverview}/>
             <div className={styles.content}>
                 <Header
 
@@ -111,17 +122,31 @@ export default function Canvas(props) {
                 <TopBar/>
                 <div className={styles.middleWrapper}>
                     <SideBar
-                        data={data} scale={scale}
-                        setState={setData}
+                        data={data.pages[defaultPage]}
+                        scale={scale}
+                        setState={(event) => {
+                            let newPages = [...data.pages]
+                            newPages[defaultPage] = event
+                            setData({...data, pages: newPages})
+                        }}
                     />
                     <div className={styles.contentWrapper}>
                         <Pages
                             scale={scale} setScale={setScale}
                             data={data} setData={setData}
+                            setDefaultPage={setDefaultPage}
+                            defaultPage={defaultPage}
                         />
                         <Frame
                             {...props} toBeLinked={toBeLinked} scale={scale}
-                            data={data} nodeOnOverview={nodeOnOverview} setData={setData}
+                            data={data.pages[defaultPage]}
+                            dimensions={data.dimensions}
+                            nodeOnOverview={nodeOnOverview}
+                            setData={(event) => {
+                                let newPages = [...data.pages]
+                                newPages[defaultPage] = event
+                                setData({...data, pages: newPages})
+                            }}
                             setNodeOnOverview={setNodeOnOverview} setToBeLinked={setToBeLinked}
                             selectedNode={selectedNode} setSelectedNode={setSelectedNode}
                         />

@@ -31,17 +31,16 @@ export default function Context(props) {
     }
     const handleMouseUp = (event) => {
         event.preventDefault()
-        if (event.button === 2 && (originalPlacement.x - event.clientX) === 0 && (originalPlacement.y - event.clientY) === 0) {
+        if (event.button === 2) {
             setE(event)
             const el = document.elementFromPoint(event.clientX, event.clientY)
             let newButtons = []
             setOnRender(true)
             onRenderListener = true
-            if (el !== null && el.id.includes('canvas'))
+            if (el !== null && el.id.includes('frame'))
                 newButtons = CanvasContext
             else if (el.id.includes('node') || (typeof el.className === 'string' && el.className.includes('Node')))
                 newButtons = NodeContext
-
             setButtons(newButtons)
             const marginTop = newButtons.length * 40
             if (event.clientY > marginTop)
@@ -82,17 +81,36 @@ export default function Context(props) {
         <div ref={ref} style={{display: onRender ? undefined : 'none'}}
              className={onRender ? styles.context : undefined}>
             {buttons.map((button, i) => (
-                <button
-                    onClick={() => {
-                        button.onClick(props, e)
-                        remove()
-                    }} key={i + '-button'} id={i + '-button'}
-                    disabled={button.getDisabled !== undefined ? button.getDisabled(props) : false}
-                    className={styles.contextButton}
-                >
-                    {button.icon}
-                    {button.label}
-                </button>
+                <div>
+                    <div className={styles.header}>
+                        {button.label}
+                    </div>
+                    {button.children.map(c => (
+                        <button
+                            onClick={() => {
+                                c.onClick(props, e)
+                                remove()
+                            }} key={c.key}
+                            disabled={c.getDisabled !== undefined ? c.getDisabled(props) : false}
+                            className={styles.contextButton}
+                        >
+                            {c.icon}
+                            {c.label}
+                            {c.shortcutButtons ?
+                                <div className={styles.shortcuts}>
+                                    {c.shortcutButtons.map((s, index) => (
+                                        <div className={index === 0 ? styles.mainButton : styles.secondaryButton} key={c.key+'-shortcut'}>
+
+                                            {index > 0 ?     <div> + </div> : null}
+                                            {s}
+                                        </div>
+                                    ))}
+                                </div>
+                                :
+                                null}
+                        </button>
+                    ))}
+                </div>
             ))}
         </div>
     )

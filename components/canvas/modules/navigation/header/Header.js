@@ -3,16 +3,18 @@ import styles from './styles/Header.module.css'
 
 import HandleUpload from "../../../methods/handles/HandleUpload";
 import {
-    LocalLibraryRounded,
+    GetAppRounded,
+    ImageRounded,
     PictureAsPdfRounded,
-    PublishRounded,
-    SaveAltRounded,
-    ShareRounded
+    SaveRounded,
+    ShareRounded,
+    StorageRounded
 } from "@material-ui/icons";
-import HandleDownload from "../../../methods/handles/HandleDownload";
+import Dropdown from "./modules/Dropdown";
+import {useState} from "react";
 
 export default function Header(props) {
-
+    const [openMenu, setOpenMenu] = useState(null)
     return (
         <div className={styles.navigation}>
             <div className={styles.column}>
@@ -40,43 +42,89 @@ export default function Header(props) {
                        })}
                        accept={'.json'}/>
 
-                <button
-                    onClick={() => {
-                        const input = document.getElementById('upload_file_input')
-                        if (input !== null)
-                            input.click()
-                    }} id="upload_file"
-                    className={styles.buttonContainer}>
-                    {/*<PublishRounded/>*/}
-                    Arquivo
-                </button>
 
-                <button
-                    className={styles.buttonContainer}
-                    disabled={true}>
-                    {/*<LocalLibraryRounded/>*/}
-                    {/*Salvar base de conhecimento*/}
-                    Exibir
-                </button>
+                <Dropdown
+                    handleClose={() => setOpenMenu(null)}
+                    open={openMenu === 1} handleOpen={ () => setOpenMenu(1)}
+                    buttons={[
+                        {
+                            children: [
+                                {
+                                    label: 'Renomear projeto',
+                                    onClick: () => null
+                                },
+                            ]
+                        },
+                        {
+                            children: [
+                                {
+                                    label: 'Salvar',
+                                    icon: <SaveRounded style={{fontSize: '1.3rem'}}/>,
+                                    onClick: () => null
+                                },
+                                {
+                                    label: 'Importar projeto',
+                                    icon: <StorageRounded style={{fontSize: '1.3rem'}}/>,
+                                    onClick: () => null
+                                }
+                            ]
+                        }
+                    ]}
+                    label={'Arquivo'}/>
 
-                <button className={styles.buttonContainer} onClick={() => props.handlePrint()}
-                        disabled={props.data.nodes.length === 0}>
-                    {/*<PictureAsPdfRounded/>*/}
-                    Inserir
 
-                </button>
-                <button className={styles.buttonContainer} onClick={() => props.handlePrint()}
-                        disabled={props.data.nodes.length === 0}>
-                    {/*<PictureAsPdfRounded/>*/}
-                    Ajuda
-                </button>
+                <Dropdown
+                    handleClose={() => setOpenMenu(null)}
+                    open={openMenu === 2} handleOpen={ () => setOpenMenu(2)}
+                    buttons={[
+                        {
+                            children: [
+                                {
+                                    label: 'Projeto',
+                                    icon: <GetAppRounded style={{fontSize: '1.3rem'}}/>,
+                                    onClick: () => null
+                                }
+                            ]
+                        },
+                        {
+                            children: [
+                                {
+                                    label: 'PDF',
+                                    icon: <PictureAsPdfRounded style={{fontSize: '1.3rem'}}/>,
+                                    onClick: () => null
+                                },
+                                {
+                                    label: 'PNG',
+                                    icon: <ImageRounded style={{fontSize: '1.3rem'}}/>,
+                                    onClick: () => null
+                                }
+                            ]
+                        }
+                    ]}
+                    label={'Exportar'}
+                />
+
+                <Dropdown
+                    handleClose={() => setOpenMenu(null)}
+                    open={openMenu === 3} handleOpen={ () => setOpenMenu(3)}
+                    buttons={[
+                        {
+
+                            children: [
+                                {
+                                    label: 'Aumentar',
+                                    onClick: () => null
+                                },
+                                {
+                                    label: 'Reduzir',
+                                    onClick: () => null
+                                }
+                            ]
+                        }
+                    ]}
+                    label={'Exibir'}/>
             </div>
-            <button className={styles.buttonContainer} onClick={() => props.handlePrint()}
-                    disabled={props.data.nodes.length === 0}>
-                <ShareRounded style={{fontSize: '1.3rem'}}/>
-                Compartilhar
 
-            </button>
         </div>
     )
 }

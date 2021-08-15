@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import {v4 as uuid4} from "uuid";
-import ReactDOM from 'react-dom'
 
 export default function DragNew(props) {
     let moving = true
@@ -8,31 +7,18 @@ export default function DragNew(props) {
     const getDimensions = () => {
         let res = {}
         switch (true) {
-            case props.type.includes('circle'): {
+
+            case props.type.includes('rect') || props.type.includes('parallelogram') || props.type.includes('trapezoid') ||  props.type.includes('ellipse') || props.type.includes('relationship'): {
+                res = {
+                    width: 160,
+                    height: 80
+                }
+                break
+            }
+            case props.type.includes('square') || props.type.includes('triangle') || props.type.includes('circle') : {
                 res = {
                     width: 80,
-                    height: 80
-                }
-                break
-            }
-            case props.type.includes('ellipse') : {
-                res = {
-                    width: 120,
-                    height: 80
-                }
-                break
-            }
-            case props.type.includes('rect') || props.type.includes('parallelogram') || props.type.includes('trapezoid'): {
-                res = {
-                    width: 150,
-                    height: 80
-                }
-                break
-            }
-            case props.type.includes('square') || props.type.includes('triangle'): {
-                res = {
-                    width: 80,
-                    height: 80
+                    height: 80,
                 }
                 break
             }
@@ -41,11 +27,35 @@ export default function DragNew(props) {
         }
         return res
     }
-    const dimensions = getDimensions()
-    const element = props.element.firstChild.cloneNode(true)
+    const getVariant = () => {
+        let res
+        switch (true) {
+            case props.type.includes('ellipse') || props.type.includes('circle'): {
+                res = 'ellipse'
+                break
+            }
+            case props.type.includes('rect') || props.type.includes('square'): {
+                res = 'rect'
+                break
+            }
+            case props.type.includes('relationship') || props.type.includes('triangle') || props.type.includes('parallelogram') || props.type.includes('trapezoid'): {
+                res = 'polygon'
+                break
+            }
+            default:
+                break
+        }
+        return res
+    }
 
+    const dimensions = getDimensions()
+    const variant = getVariant()
+    const element = props.element.firstChild.cloneNode(true)
+    console.log(props.element.id)
+    console.log(props.element.children)
     const newWrapper = document.createElement('div')
     document.body.appendChild(newWrapper)
+
 
     newWrapper.appendChild(element)
     newWrapper.style.position = 'fixed'
@@ -55,7 +65,8 @@ export default function DragNew(props) {
     newWrapper.firstChild.setAttribute('width', dimensions.width)
     newWrapper.firstChild.setAttribute('height', dimensions.height)
     newWrapper.firstChild.setAttribute('stroke-dasharray', '5,5')
-    newWrapper.firstChild.setAttribute('fill', 'transparent')
+    newWrapper.firstChild.firstChild.setAttribute('fill', 'transparent')
+    newWrapper.style.cursor = 'grabbing'
 
     let lastPlacement = {
         x: props.event.clientX,
@@ -94,11 +105,12 @@ export default function DragNew(props) {
                             x: (event.clientX - rootBounding.x + root.scrollLeft - 40),
                             y: (event.clientY - rootBounding.y + root.scrollTop - 40)
                         },
-                        shape: props.type,
+                        shapeVariant: variant,
                         creationDate: (new Date()).getTime(),
                         links: [],
                         dimensions: dimensions,
                         styling: {
+                            shape: props.type,
                             border: 0,
                             color: '#0095ff',
                             borderWidth: 2,

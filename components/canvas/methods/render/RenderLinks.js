@@ -1,5 +1,4 @@
 import Link from "../../modules/link/Link";
-import ReactDOM from "react-dom";
 import React from "react";
 import CanvasTemplate from "../../templates/CanvasPropsTemplate";
 import PropTypes from "prop-types";

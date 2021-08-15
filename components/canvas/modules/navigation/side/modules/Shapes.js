@@ -16,7 +16,7 @@ export default function Shapes(props) {
     }
     return (
 
-        <Elements {...props} label={'Fluxograma:'}>
+        <Elements {...props} label={'Módulos'}>
             <div className={styles.shapes}>
                 <div
                     className={styles.shapeContainer}
@@ -35,7 +35,8 @@ export default function Shapes(props) {
                     onMouseDown={event => drag(event, 'square')}
                 >
                     <svg overflow={'visible'} width={'45px'} height={'45px'} viewBox={'0 0 100 100'}>
-                        <rect fill={'white'} width={'100%'} height={'100%'} stroke={"#0095ff"} strokeWidth={2} vectorEffect="non-scaling-stroke"/>
+                        <rect fill={'white'} width={'100%'} height={'100%'} stroke={"#0095ff"} strokeWidth={2}
+                              vectorEffect="non-scaling-stroke"/>
                     </svg>
                     Square
                 </div>
@@ -102,6 +103,34 @@ export default function Shapes(props) {
                     </svg>
                     Triangle
                 </div>
+                <div
+                    className={styles.shapeContainer}
+                    id={'relationship-draggable'}
+                    onMouseDown={event => drag(event, 'relationship')}
+                >
+                    <svg overflow={'visible'} width={'100%'} height={'45px'} viewBox="0 0 200 100">
+                        <polygon points={'0,50 100,100 200,50 100,0'} stroke={'#0095ff'} strokeWidth={'2px'}
+                                 vectorEffect="non-scaling-stroke"
+                                 fill={'white'}/>
+                    </svg>
+                    <div className={styles.overflowEllipsis}>
+                        Relationship
+                    </div>
+                </div>
+                <div
+                    className={styles.shapeContainer}
+                    id={'entity-draggable'}
+                    onMouseDown={event => drag(event, 'entity')}
+                >
+                    <svg overflow={'visible'} width={'100%'} height={'45px'} viewBox={'0 0 200 100'}>
+                        <rect fill={'white'} x={0} y={0} width={'100%'} height={'15%'} stroke={"#0095ff"}
+                              strokeWidth={2} vectorEffect="non-scaling-stroke"/>
+                        <rect fill={'white'} x={0} y={'15'} width={'100%'} height={'85%'} stroke={"#0095ff"}
+                              strokeWidth={2} vectorEffect="non-scaling-stroke"/>
+                    </svg>
+                    Entity
+                </div>
+
             </div>
         </Elements>
     )

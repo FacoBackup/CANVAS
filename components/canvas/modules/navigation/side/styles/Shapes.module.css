@@ -73,29 +73,6 @@
 }
 
 
-.linkType {
-    border: #e0e0e0 1px solid;
-    border-radius: 5px;
-    width: 80px;
-    height: 80px;
-
-    color: #555555;
-    transition: 150ms linear;
-    cursor: pointer;
-    font-size: .8rem;
-
-    padding-left: 8px;
-    padding-right: 8px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.linkType:hover {
-    border-color: #0095ff;
-}
-
 .stepRounded {
     cursor: grab;
     border-radius: 5px;

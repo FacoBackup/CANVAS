@@ -4,7 +4,6 @@ import ScrollCanvas from "../../methods/misc/ScrollCanvas";
 import LinkIndicator from "../link/LinkIndicator";
 import RenderNodes from "../../methods/render/RenderNodes";
 import RenderLinks from "../../methods/render/RenderLinks";
-import ReactDOM from "react-dom";
 import React, {useRef} from "react";
 
 export default function Frame(props) {
@@ -22,8 +21,8 @@ export default function Frame(props) {
                     event.preventDefault()
                 }}
                 style={{
-                    minWidth: props.data.dimensions.width + 'px',
-                    minHeight: props.data.dimensions.height + 'px',
+                    minWidth: props.dimensions.width + 'px',
+                    minHeight: props.dimensions.height + 'px',
                     transform: `scale(${props.scale})`,
                     transformOrigin: props.scale !== 1 ? 'top left' : undefined,
                 }}
@@ -32,18 +31,10 @@ export default function Frame(props) {
             >
                 <LinkIndicator source={props.toBeLinked} type={props.data.connectionType} root={root.current}/>
                 <RenderNodes
-                    {...props}
-                    scale={props.scale} root={root.current}
-                    setData={props.setData} data={props.data}
-                    nodeOnOverview={props.nodeOnOverview}
-                    setNodeOnOverview={props.setNodeOnOverview}
-                    selectedNode={props.selectedNode} toBeLinked={props.toBeLinked}
-                    setToBeLinked={props.setToBeLinked}
-                    asStep={false} setSelectedNode={props.setSelectedNode}
+                    {...props} root={root.current}
                 />
                 <RenderLinks
-                    {...props} data={props.data}
-                    setData={props.setData}
+                    {...props}
                     root={root.current}
                 />
 
@@ -60,5 +51,9 @@ Frame.propTypes = {
     toBeLinked: PropTypes.object,
     setToBeLinked: PropTypes.func,
     selectedNode: PropTypes.object,
-    setSelectedNode: PropTypes.func
+    setSelectedNode: PropTypes.func,
+    dimensions: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.number
+    })
 }

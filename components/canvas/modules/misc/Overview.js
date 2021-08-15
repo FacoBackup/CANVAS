@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import NodeTemplate from "../../../templates/NodeTemplate";
-import styles from '../../../styles/NodeOverview.module.css'
+import NodeTemplate from "../../templates/NodeTemplate";
+import styles from '../../styles/NodeOverview.module.css'
 import {AttachFileRounded, CloseRounded, DeleteForeverRounded} from "@material-ui/icons";
 import {useEffect, useRef, useState} from "react";
-import Tabs from "../../navigation/misc/Tabs";
+import Tabs from "../navigation/misc/Tabs";
 import {CirclePicker} from "react-color";
 
 export default function Overview(props) {
@@ -23,17 +23,6 @@ export default function Overview(props) {
         }))
     }
 
-    useEffect(() => {
-        let newPlacement = {...props.node.placement}
-        newPlacement.y = nodeRef.getBBox().y
-        newPlacement.x = nodeRef.getBBox().x
-        handleChange('placement', newPlacement)
-
-        let newDimensions = {...props.node.dimensions}
-        newDimensions.height = nodeRef.firstChild.getBBox().height
-        newDimensions.width = nodeRef.firstChild.getBBox().width
-        handleChange('dimensions', newDimensions)
-    }, [])
     return (
         <div ref={ref} className={[styles.container, exitAnim].join(' ')}>
 

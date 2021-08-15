@@ -8,28 +8,60 @@
     align-items: center;
     padding: 0 8px 0 0;
 
+    height: 35px;
+}
 
+
+
+.newPageButton{
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    border-radius: 8px 8px 0 0;
+    color: #555555;
+    background-color: #f4f5fa;
+    transition: 150ms linear;
+    cursor: pointer;
 }
-.mainPage{
-    background: white;
+.newPageButton:hover{
+    color: #333333;
 }
+.newPageButton:active{
+    color: #0095ff;
+}
+.newPageButton:disabled{
+    cursor: unset;
+    color: #999999;
+    background-color: white;
+}
+
 .pageButton{
-    width: 10%;
+    width: 100%;
 
     min-width: unset;
     height: 100%;
     outline: none;
     border-radius: 8px 8px 0 0;
+
+    font-family: Roboto;
+    color: #555555;
     font-size: .85rem;
-
     font-weight: bold;
-    padding: 8px;
 
-    text-align: center;
+    padding: 8px;
+    padding-right: 32px;
+    text-align: left;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
     cursor: pointer;
     border: #ecedf2 1px solid;
     border-bottom: none;
-    color: #555555;
     transition: 150ms linear;
     animation: popIn 150ms linear;
 }
@@ -48,30 +80,50 @@
 }
 
 
-.newPageButton{
-    outline: none;
-    border: none;
+.pageButtonsContainer{
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 45px;
-    border-radius: 8px 8px 0 0;
+    width: 10%;
     height: 100%;
-    color: #393C44;
-    background-color: white;
+    position: relative;
+}
+.removePageButton{
+    outline: none;
+    border: none;
+    background: transparent;
     transition: 150ms linear;
+
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    width: 30px;
+    z-index: 999;
     cursor: pointer;
+
+    display: flex;
+    align-items:center ;
+    justify-content: center;
+    color: #555555;
 }
-.newPageButton:hover{
-    color: #0095ff;
-    background-color: #E8F0FE;
+.removePageButton:hover{
+    color: #ff5555;
 }
-.newPageButton:active{
-    color: #0095ff;
-    background-color: #E8F0FE ;
-}
-.newPageButton:disabled{
-    cursor: unset;
-    color: #999999;
-    background-color: white;
+
+.pageInput{
+    border-radius: 8px 8px 0 0;
+    outline:  none;
+    background: white;
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
+    border: #0095ff 1px solid;
+    border-bottom: none;
+    text-align: center;
+    font-family: Roboto;
+    /*color: ;*/
+    font-size: .85rem;
+    font-weight: bold;
 }

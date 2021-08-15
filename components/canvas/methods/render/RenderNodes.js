@@ -1,6 +1,4 @@
 import Node from "../../modules/node/Node";
-import ReactDOM from "react-dom";
-import Move from "../move/MoveNode";
 import React from "react";
 import CanvasTemplate from "../../templates/CanvasPropsTemplate";
 import PropTypes from 'prop-types'
@@ -76,19 +74,7 @@ export default function RenderNodes(props) {
             nodes: newNodes
         })
     }
-    const handleMove = (node, index) => {
-        Move({
-            ...node,
-            ...{
-                root: props.root,
-                setState: props.setData,
-                data: props.data,
-                scale: props.scale,
-                index: index,
-                setSelectedNode: props.setSelectedNode
-            }
-        })
-    }
+
     const handleSizeChange = (index, node, dimensions) => {
         let newNodes = [...props.data.nodes]
         let newNode = {...node}
@@ -99,27 +85,37 @@ export default function RenderNodes(props) {
             nodes: newNodes
         })
     }
+
+
+    const savePlacement = (event, node, index) => {
+        let newNodes = [...props.data.nodes]
+        let newNode = {...node}
+        newNode.placement = event
+        newNodes[index] = newNode
+        console.log('SAVING PLACEMENT')
+        props.setData({
+            ...props.data,
+            nodes: newNodes
+        })
+    }
     return (
-        <g id={'canvas'}>
-            {props.data.nodes.map((node, index) => node.id === undefined ? null : (
-                <g key={`${node.id}-node-${index}`} x={node.placement.x} y={node.placement.y}>
-                    <Node
-                        node={node} index={index} asStep={false}
-                        handleLinkDelete={handleLinkDelete}
-                        handleLink={(node, connection) => handleLink(node, connection, index)}
-                        toBeLinked={props.toBeLinked}
-                        handleSizeChange={dimensions => handleSizeChange(index, node, dimensions)}
-                        selected={props.selectedNode?.id}
-                        links={props.data.links}
-                        openOverview={() => props.setNodeOnOverview(node)}
-                        setSelected={props.setSelectedNode}
-                        handleDelete={handleDelete} scale={props.scale}
-                        move={nodeProps => handleMove(nodeProps, index)}
-                        root={props.root} options={props.options}
-                    />
-                </g>
-            ))}
-        </g>
+        props.data.nodes.map((node, index) => node.id === undefined ? null : (
+            <g key={`${node.id}-node-${index}`}>
+                <Node
+                    node={node} index={index} asStep={false}
+                    handleLinkDelete={handleLinkDelete}
+                    handleLink={(node, connection) => handleLink(node, connection, index)}
+                    toBeLinked={props.toBeLinked}
+                    handleSizeChange={dimensions => handleSizeChange(index, node, dimensions)}
+                    selected={props.selectedNode?.id}
+                    savePlacement={event => savePlacement(event, node, index)}
+                    openOverview={() => props.setNodeOnOverview(node)}
+                    setSelected={props.setSelectedNode}
+                    handleDelete={handleDelete} scale={props.scale}
+                    root={props.root} options={props.options}
+                />
+            </g>
+        ))
     )
 }
 RenderNodes.propTypes = {

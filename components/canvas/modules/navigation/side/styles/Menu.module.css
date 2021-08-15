@@ -23,14 +23,17 @@
 
 .container {
     background: #f4f5fa;
-
-
+    width: 300px;
+    padding: 8px 8px 0 8px;
+    overflow: auto;
     display: grid;
     align-content: flex-start;
     align-self: stretch;
+    scrollbar-color: #e0e0e0 transparent;
 
     gap: 8px;
     transition: 150ms linear;
+    /*padding-bottom: 32px;*/
 }
 
 .buttons {
@@ -123,8 +126,6 @@
 
 
 .header {
-    position: sticky;
-    top: 0;
 
     display: flex;
     justify-content: space-between;
@@ -135,9 +136,6 @@
     font-weight: bold;
     font-family: Roboto;
     color: #393C44;
-
-    background-color: #f4f5fa;
-    z-index: 999;
 }
 
 .extendButton{

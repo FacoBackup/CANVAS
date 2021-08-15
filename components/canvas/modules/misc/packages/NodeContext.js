@@ -2,66 +2,83 @@ import {CropRounded, DeleteRounded, EditRounded, FileCopyRounded} from "@materia
 
 export default [
     {
-        label: 'Editar',
-        icon: <EditRounded/>,
-        onClick: (props,event) => {
-            props.data.nodes.find((node, i) => {
-                if(event.target.id.includes(node.id))
-                    props.setNodeOnOverview(node)
-            })
+        label: 'Manipular',
+        children: [
+            {
+                label: 'Recortar',
+                icon: <CropRounded/>,
+                onClick: (props, event) => {
+                    let index
+                    props.data.nodes.find((node, i) => {
+                        if(event.target.id.includes(node.id)) {
+                            props.setCopiedNode(node)
+                            index = i
+                        }
+                    })
 
-        }
+                    let newNodes = [...props.data.nodes]
+
+                    newNodes.splice(index, 1)
+
+                    props.setData({
+                        ...props.data,
+                        nodes: newNodes
+                    })
+                },
+                shortcutButtons: ['ctrl', 'x'],
+                key: 'node-1'
+            },
+            {
+                label: 'Copiar',
+                icon: <FileCopyRounded/>,
+                onClick: (props, event) => {
+                    props.data.nodes.find(node => {
+                        if(event.target.id.includes(node.id))
+                            props.setCopiedNode(node)
+                    })
+                },
+                shortcutButtons: ['ctrl', 'c'],
+                key: 'node-2'
+            },
+            {
+                label: 'Deletar',
+                icon: <DeleteRounded/>,
+                onClick: (props, event) => {
+                    let index
+                    props.data.nodes.find((node, i) => {
+                        if(event.target.id.includes(node.id))
+                            index = i
+                    })
+
+                    let newNodes = [...props.data.nodes]
+
+                    newNodes[index] = {}
+
+                    props.setData({
+                        ...props.data,
+                        nodes: newNodes
+                    })
+                },
+                shortcutButtons: ['del'],
+                key: 'node-3'
+            },
+        ]
     },
     {
-        label: 'Recortar',
-        icon: <CropRounded/>,
-        onClick: (props, event) => {
-            let index
-            props.data.nodes.find((node, i) => {
-                if(event.target.id.includes(node.id)) {
-                    props.setCopiedNode(node)
-                    index = i
-                }
-            })
+        label: 'Personalizar',
+        children: [
+            {
+                label: 'Editar',
+                icon: <EditRounded/>,
+                onClick: (props,event) => {
+                    props.data.nodes.find((node, i) => {
+                        if(event.target.id.includes(node.id))
+                            props.setNodeOnOverview(node)
+                    })
+                },
+                key: 'node-4'
+            },
+        ]
+    }
 
-            let newNodes = [...props.data.nodes]
-
-            newNodes.splice(index, 1)
-
-            props.setData({
-                ...props.data,
-                nodes: newNodes
-            })
-        }
-    },
-    {
-        label: 'Copiar',
-        icon: <FileCopyRounded/>,
-        onClick: (props, event) => {
-            props.data.nodes.find(node => {
-                if(event.target.id.includes(node.id))
-                    props.setCopiedNode(node)
-            })
-        }
-    },
-    {
-        label: 'Deletar',
-        icon: <DeleteRounded/>,
-        onClick: (props, event) => {
-            let index
-            props.data.nodes.find((node, i) => {
-                if(event.target.id.includes(node.id))
-                    index = i
-            })
-
-            let newNodes = [...props.data.nodes]
-
-            newNodes[index] = {}
-
-            props.setData({
-                ...props.data,
-                nodes: newNodes
-            })
-        }
-    },
 ]

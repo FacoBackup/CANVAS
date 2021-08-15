@@ -61,13 +61,11 @@
     text-overflow: ellipsis;
     overflow: hidden;
     font-weight: bold;
+    font-size: .9rem;
+    text-align: center;
+    word-spacing: 2px;
 
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
-    margin: auto;
 }
-
 
 .headerCircle {
 
@@ -107,6 +105,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    position: relative;
+
+
 }
 
 .indicator {
@@ -128,4 +130,32 @@
     background:transparent;
     color: #555555;
     font-family: Roboto;
+}
+
+
+.nodePosition{
+    color: #253134;
+    font-family: Roboto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: .9rem;
+    text-align: center;
+    word-spacing: 2px;
+
+    transition: opacity 150ms linear, visibility 150ms linear;
+
+    box-shadow: 0 4px 30px rgb(22 33 74 / 5%);
+    position: absolute;
+    top: calc(100% + 16px);
+    left: 50%;
+    height: 20px;
+    width: 100px;
+    transform: translateX(-50%);
+    z-index: 999;
+
+    background: white;
+    border: #ecedf2 1px solid;
+    border-radius: 5px;
 }

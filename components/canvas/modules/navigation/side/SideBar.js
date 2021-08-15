@@ -2,51 +2,36 @@ import styles from './styles/Menu.module.css'
 import PropTypes from "prop-types";
 import {useRef, useState} from "react";
 import Shapes from "./modules/Shapes";
-import NodeTemplate from "../../../templates/NodeTemplate";
+import Lines from "./modules/Lines";
+import {RemoveRounded} from "@material-ui/icons";
 import Connections from "./modules/Connections";
-import {ExpandLessRounded, MenuOpenRounded, RemoveRounded} from "@material-ui/icons";
 
 export default function SideBar(props) {
     const ref = useRef()
-    const [open, setOpen] = useState(false)
     return (
         <div className={styles.container} ref={ref} style={{
-            width: open ? '300px' : '40px',
-            padding: !open ? 'none' : '0 8px 0 8px',
-            justifyContent: !open ? 'center' : undefined,
-            justifyItems: !open ? 'center' : undefined
+
         }}>
-            <div className={styles.header} style={{
-                justifyContent: !open ? 'center' : undefined,
-                justifyItems: !open ? 'center' : undefined,
-                background: !open ? 'transparent' : undefined
-            }}>
-                {open ? 'Formas' : null}
-                <button onClick={() => setOpen(!open)} className={styles.extendButton}
-                        style={{
-                            textOrientation: !open ? 'mixed' : undefined,
-                            writingMode: !open ? ' vertical-rl' : undefined
-                        }}>
-                    {open ? <RemoveRounded/> : 'Formas'}
-                </button>
+            <div className={styles.header}>
+                Formas
             </div>
-            {!open ? null :
-                <Shapes
-                    data={props.data} setData={props.setState}
-                    scale={props.scale}
-                />
-            }
-            {!open ? null :
-                <Connections
-                    data={props.data} setData={props.setState}
-                />
-            }
+
+            <Shapes
+                data={props.data} setData={props.setState}
+                scale={props.scale}
+            />
+
+            <Lines
+                data={props.data} setData={props.setState}
+            />
+
+            <Connections
+                data={props.data} setData={props.setState}
+            />
         </div>
     )
 }
 SideBar.propTypes = {
     data: PropTypes.object,
-    setState: PropTypes.func,
-    selectedNode: NodeTemplate,
-    setSelectedNode: PropTypes.func
+    setState: PropTypes.func
 }

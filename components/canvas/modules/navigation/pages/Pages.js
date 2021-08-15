@@ -1,35 +1,44 @@
 import PropTypes from 'prop-types'
 import styles from "./styles/Pages.module.css";
-import {AddRounded, ListRounded} from "@material-ui/icons";
+import {AddRounded} from "@material-ui/icons";
 import PageField from "./PageField";
 import React from 'react'
+
 export default function Pages(props) {
 
     return (
         <div className={styles.pagesContainer}>
 
             {props.data.pages.map((page, index) => (
-                <React.Fragment key={'page-'+index}>
+                <React.Fragment key={'page-' + index}>
                     <PageField
-                        page={page}
-                        setAsDefault={() => {
+                        page={{...page, ...{default: props.defaultPage === index}}}
+                        renamePage={event => {
                             let newPages = [...props.data.pages]
-                            let defaultIndex = -1
-                            newPages.find((page, i) => {
-                                if(page.default)
-                                    defaultIndex = i
+                            newPages[index].title = event
+                            props.setData({
+                                ...props.data,
+                                pages: newPages
                             })
-
-                            if(defaultIndex !== -1)
-                                newPages[defaultIndex].default = false
-
-                            newPages[index].default = true
-
-                        props.setData({
-                            ...props.data,
-                            pages: newPages
-                        })
-                    }}
+                        }}
+                        length={props.data.pages.length}
+                        removePage={() => {
+                            let newPages = [...props.data.pages]
+                            if (page.default) {
+                                if (index === (props.data.pages.length - 1))
+                                    newPages[index - 1].default = true
+                                else if (index === 0)
+                                    newPages[1].default = true
+                            }
+                            newPages.splice(index, 1)
+                            props.setData({
+                                ...props.data,
+                                pages: newPages
+                            })
+                        }}
+                        setAsDefault={() => {
+                            props.setDefaultPage(index)
+                        }}
                     />
                 </React.Fragment>
             ))}
@@ -58,5 +67,7 @@ export default function Pages(props) {
 Pages.propTypes = {
     data: PropTypes.object,
     setData: PropTypes.func,
-    contextMenuRef: PropTypes.object
+    contextMenuRef: PropTypes.object,
+    setDefaultPage: PropTypes.func,
+    defaultPage: PropTypes.number
 }

@@ -3,8 +3,12 @@ import PropTypes from "prop-types";
 export default PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
-    description: PropTypes.string,
-    file: PropTypes.object,
+    content: PropTypes.arrayOf(PropTypes.shape({
+        label: PropTypes.string,
+        type: PropTypes.oneOf(['string', 'integer', 'number', 'bool', 'date']),
+        variant: PropTypes.oneOf(['pk', 'fk'])
+    })),
+    shapeVariant: PropTypes.oneOf(['rect', 'complex', 'ellipse', 'polygon']),
 
     placement: PropTypes.shape({
         x: PropTypes.number,
@@ -25,6 +29,7 @@ export default PropTypes.shape({
         textOrientation: PropTypes.string
     }),
     styling: PropTypes.shape({
+        shape: PropTypes.oneOf(['rect', 'triangle', 'trapezoid', 'ellipse', 'circle', 'rhombus', 'square']),
         border: PropTypes.any,
         color: PropTypes.any,
         borderWidth: PropTypes.any,

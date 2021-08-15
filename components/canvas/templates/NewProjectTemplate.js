@@ -7,8 +7,7 @@ export default {
         {
             title: 'Página 1',
             nodes: [],
-            links: [],
-            default: true
+            links: []
         }
     ],
 
