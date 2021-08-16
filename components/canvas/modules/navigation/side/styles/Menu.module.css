@@ -22,16 +22,15 @@
 
 
 .container {
-    background: #f4f5fa;
+    background: #FBFBFC;
     width: 300px;
-    padding: 8px 8px 0 8px;
+
     overflow: auto;
     display: grid;
     align-content: flex-start;
     align-self: stretch;
     scrollbar-color: #e0e0e0 transparent;
 
-    gap: 8px;
     transition: 150ms linear;
     /*padding-bottom: 32px;*/
 }
@@ -130,12 +129,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1px;
+
     height: fit-content;
     font-size: 1.05rem;
     font-weight: bold;
     font-family: Roboto;
     color: #393C44;
+    border-bottom: #ecedf2 1px solid;
+    padding: 6px;
 }
 
 .extendButton{

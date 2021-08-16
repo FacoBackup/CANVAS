@@ -12,7 +12,6 @@ export default function ScrollCanvas(props) {
     };
     props.canvas.style.cursor = 'grabbing'
     const handleMouseMove = (event) => {
-
         if (scrolling) {
             const dx = event.clientX - pos.x;
             const dy = event.clientY - pos.y;

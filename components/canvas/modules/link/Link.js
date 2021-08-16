@@ -19,10 +19,10 @@ export default function Link(props) {
 
         AdjustLink({
             pathRef: pathRef.current,
-            source: {reference: s, connectionPoint: props.source.connectionPoint, nodeShape: props.source.nodeShape},
-            target: {reference: t, connectionPoint: props.target.connectionPoint, nodeShape: props.target.nodeShape},
+            source: props.source,
+            target: props.target,
             setColor: setColor,
-            type: props.type, setOnMove: setOnMove
+            connectionType: props.type, setOnMove: setOnMove
         })
     }
 
@@ -77,42 +77,35 @@ export default function Link(props) {
     }
 
     useEffect(() => {
+        const t = document.getElementById(props.target.id + '-node')
+        const s = document.getElementById(props.source.id + '-node')
 
-            const t = document.getElementById(props.target.id + '-node')
-            const s = document.getElementById(props.source.id + '-node')
-            pathRef.current.setAttribute('d', GetCurve({
-                target: {
-                    x: parseInt(t.firstChild.getAttribute('x')),
-                    y: parseInt(t.firstChild.getAttribute('y')),
-                    height: t.firstChild.getBBox().height,
-                    width: t.firstChild.getBBox().width,
-                    connectionPoint: props.target.connectionPoint
-                },
-                source: {
-                    x: parseInt(s.firstChild.getAttribute('x')),
-                    y: parseInt(s.firstChild.getAttribute('y')),
-                    height: s.firstChild.getBBox().height,
-                    width: s.firstChild.getBBox().width,
-                    connectionPoint: props.source.connectionPoint
-                },
-                type: props.type
-            }))
+        pathRef.current.setAttribute('d', GetCurve({
+            target: {
+                id: props.target.id,
+                connectionPoint: props.target.connectionPoint
+            },
+            source: {
+                id: props.source.id,
+                connectionPoint: props.source.connectionPoint
+            },
+            connectionType: props.type
+        }))
 
-            const mouseDown = (event) => {
-                if (event.button === 0) {
-                    setSelected(false)
-                    handleMouseDown(t.firstChild, s.firstChild, true)
-                }
+        const mouseDown = (event) => {
+            if (event.button === 0) {
+                setSelected(false)
+                handleMouseDown(t.firstChild, s.firstChild, true)
             }
+        }
 
-            s.addEventListener('mousedown', mouseDown)
-            t.addEventListener('mousedown', mouseDown)
-            return () => {
-                t.removeEventListener('mousedown', mouseDown)
-                s.removeEventListener('mousedown', mouseDown)
-            }
-        }, []
-    )
+        s.addEventListener('mousedown', mouseDown)
+        t.addEventListener('mousedown', mouseDown)
+        return () => {
+            t.removeEventListener('mousedown', mouseDown)
+            s.removeEventListener('mousedown', mouseDown)
+        }
+    }, [])
 
 
     return (

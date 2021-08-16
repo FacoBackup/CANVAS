@@ -4,6 +4,7 @@
     user-select: none;
     scroll-behavior: auto;
     overflow: hidden;
+    background: white;
 }
 
 .wrapper > * {
@@ -81,7 +82,7 @@
 }
 
 .canvasBackground {
-    background: white radial-gradient(#d5d5d5 1.5px, transparent 0);
+    background: white radial-gradient(#AFBAC5 1px, transparent 0);
     background-size: 20px 20px;
     position: absolute;
     left: 0;
@@ -102,8 +103,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-left: #ecedf2 1px solid;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    border: #ecedf2 1px solid;
 }
 
 
@@ -112,7 +112,8 @@
     display: block;
     width: 100%;
     overflow: hidden;
-    background: #f4f5fa;
+    background: #FBFBFC;
+
 }
 .middleWrapper{
     height: calc(100% - 70px);

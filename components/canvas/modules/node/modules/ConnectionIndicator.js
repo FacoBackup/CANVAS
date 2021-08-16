@@ -12,7 +12,6 @@ export default function ConnectionIndicator(props) {
         <circle
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            onClick={() => alert('teste')}
             onMouseDown={() => props.handleLink(props.node, props.placement)}
             onMouseUp={() => props.handleLink(props.node, props.placement)}
             style={{transition: '150ms linear'}}

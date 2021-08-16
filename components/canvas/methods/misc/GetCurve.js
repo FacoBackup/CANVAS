@@ -4,203 +4,142 @@ import React from "react";
 export default function GetCurve(props) {
     let response
     let pivots = {}
+    let target
+    let sourceRef = document.getElementById(props.source.id + '-' + props.source.connectionPoint + '-*node-selector')
+    let frame = document.getElementById('frame')
 
-    let target = {
-        x: undefined,
-        y: undefined
-    }
-    let source = {
-        x: undefined,
-        y: undefined
-    }
+    if (sourceRef !== null && sourceRef !== undefined) {
+        let source = {
+            x: sourceRef.getBoundingClientRect().x + 10 - frame.offsetLeft + frame.scrollLeft,
+            y: sourceRef.getBoundingClientRect().y + 10 - frame.offsetTop + frame.scrollTop
+        }
 
-    switch (props.target.connectionPoint) {
-        case 'n': {
+        if (props.followMouse)
+            target = props.target
+        else {
+            let targetRef = document.getElementById(props.target.id + '-' + props.target.connectionPoint + '-*node-selector')
             target = {
-                x: props.target.x + props.target.width / 2,
-                y: props.target.y - 12
+                x: targetRef.getBoundingClientRect().x + 10 - frame.offsetLeft + frame.scrollLeft,
+                y: targetRef.getBoundingClientRect().y + 10 - frame.offsetTop + frame.scrollTop
             }
-            break
         }
-        case 'e': {
-            target = {
-                x: props.target.x + props.target.width + 12,
-                y: props.target.y + props.target.height / 2
+
+        if (props.connectionType !== undefined && props.connectionType !== null && props.connectionType.includes('-path')) {
+            if (props.source.connectionPoint === 'n' || props.source.connectionPoint === 's') {
+                switch (true) {
+                    case (source.y > target.y): {
+                        pivots.x1 = source.x
+                        pivots.y1 = source.y - (source.y - target.y) / 2
+
+                        break
+                    }
+                    case (target.y >= source.y): {
+                        pivots.x1 = source.x
+                        pivots.y1 = target.y - (target.y - source.y) / 2
+
+                        break
+                    }
+                    case (target.y === source.y): {
+                        pivots.x1 = source.x
+                        pivots.y1 = source.y
+                        break
+                    }
+                    default:
+                        break
+                }
+            } else {
+                switch (true) {
+                    case (source.x > target.x): {
+                        pivots.x1 = source.x - (source.x - target.x) / 2
+                        pivots.y1 = source.y
+
+                        break
+                    }
+                    case (target.x >= source.x): {
+                        pivots.x1 = target.x - (target.x - source.x) / 2
+                        pivots.y1 = source.y
+
+                        break
+                    }
+                    case (target.x === source.x): {
+
+                        pivots.x1 = source.x
+                        pivots.y1 = source.y
+                        break
+                    }
+                    default:
+                        break
+                }
+
             }
-            break
-        }
-        case 's': {
-            target = {
-                x: props.target.x + props.target.width / 2,
-                y: props.target.y + props.target.height + 12
+            if (props.target.connectionPoint === 'n' || props.target.connectionPoint === 's') {
+                switch (true) {
+                    case (source.y > target.y): {
+                        pivots.x2 = target.x
+                        pivots.y2 = source.y - (source.y - target.y) / 2
+
+                        break
+                    }
+                    case (target.y >= source.y): {
+                        pivots.x2 = target.x
+                        pivots.y2 = target.y - (target.y - source.y) / 2
+
+                        break
+                    }
+                    case (target.y === source.y): {
+
+                        pivots.x2 = target.x
+                        pivots.y2 = target.y
+                        break
+                    }
+                    default:
+                        break
+                }
+            } else {
+                switch (true) {
+                    case (source.x > target.x): {
+                        pivots.x2 = source.x - (source.x - target.x) / 2
+                        pivots.y2 = target.y
+
+                        break
+                    }
+                    case (target.x >= source.x): {
+                        pivots.x2 = target.x - (target.x - source.x) / 2
+                        pivots.y2 = target.y
+
+                        break
+                    }
+                    case (target.x === source.x): {
+
+                        pivots.x2 = target.x
+                        pivots.y2 = target.y
+                        break
+                    }
+                    default:
+                        break
+                }
             }
-            break
-        }
-        case 'w': {
-            target = {
-                x: props.target.x - 12,
-                y: props.target.y + props.target.height / 2
-            }
-            break
-        }
-        default:
-            break
+
+
+            response = `M${source.x},${source.y} C${pivots.x1},${pivots.y1} ${pivots.x2},${pivots.y2} ${target.x},${target.y}`
+        } else
+            response = `M${source.x},${source.y} ${target.x},${target.y}`
     }
-    switch (props.source.connectionPoint) {
-        case 'n': {
-            source = {
-                x: props.source.x + props.source.width / 2,
-                y: props.source.y - 12
-            }
-            break
-        }
-        case 'e': {
-            source = {
-                x: props.source.x + props.source.width + 12,
-                y: props.source.y + props.source.height / 2
-            }
-            break
-        }
-        case 's': {
-            source = {
-                x: props.source.x + props.source.width / 2,
-                y: props.source.y + props.source.height + 12
-            }
-            break
-        }
-        case 'w': {
-            source = {
-                x: props.source.x - 12,
-                y: props.source.y + props.source.height / 2
-            }
-            break
-        }
-        default:
-            break
-    }
-    if (props.source.connectionType.includes('-path')) {
-        if(props.source.connectionPoint === 'n' || props.source.connectionPoint === 's'){
-            switch (true) {
-                case (source.y > target.y): {
-                    pivots.x1 = source.x
-                    pivots.y1 = source.y - (source.y - target.y) / 2
-
-                    break
-                }
-                case (target.y >= source.y): {
-                    pivots.x1 = source.x
-                    pivots.y1 = target.y - (target.y - source.y) / 2
-
-                    break
-                }
-                case (target.y === source.y): {
-
-                            pivots.x1 = source.x
-                            pivots.y1 = source.y
-                            // x2: target.x,
-                            // y2: target.y
-                    break
-                }
-                default:
-                    break
-            }
-        }
-        else{
-            switch (true) {
-                case (source.x > target.x): {
-                    pivots.x1 = source.x  - (source.x - target.x) / 2
-                    pivots.y1 = source.y
-
-                    break
-                }
-                case (target.x >= source.x): {
-                    pivots.x1 = target.x  - (target.x - source.x) / 2
-                    pivots.y1 = source.y
-
-                    break
-                }
-                case (target.x === source.x): {
-
-                    pivots.x1 = source.x
-                    pivots.y1 = source.y
-                    break
-                }
-                default:
-                    break
-            }
-
-        }
-        if(props.target.connectionPoint === 'n' || props.target.connectionPoint === 's'){
-            switch (true) {
-                case (source.y > target.y): {
-                    pivots.x2 = target.x
-                    pivots.y2 = source.y - (source.y - target.y) / 2
-
-                    break
-                }
-                case (target.y >= source.y): {
-                    pivots.x2 = target.x
-                    pivots.y2 = target.y - (target.y - source.y) / 2
-
-                    break
-                }
-                case (target.y === source.y): {
-
-                    pivots.x2 = target.x
-                    pivots.y2 = target.y
-                    break
-                }
-                default:
-                    break
-            }
-        }
-        else{
-            switch (true) {
-                case (source.x > target.x): {
-                    pivots.x2 = source.x  - (source.x - target.x) / 2
-                    pivots.y2 = target.y
-
-                    break
-                }
-                case (target.x >= source.x): {
-                    pivots.x2 = target.x  - (target.x - source.x) / 2
-                    pivots.y2 = target.y
-
-                    break
-                }
-                case (target.x === source.x): {
-
-                    pivots.x2 = target.x
-                    pivots.y2 = target.y
-                    break
-                }
-                default:
-                    break
-            }
-        }
-
-
-
-        response = `M${source.x},${source.y} C${pivots.x1},${pivots.y1} ${pivots.x2},${pivots.y2} ${target.x},${target.y}`
-    } else
-        response = `M${source.x},${source.y} ${target.x},${target.y}`
 
     return response
 }
 GetCurve.propTypes = {
+    connectionType: PropTypes.string,
+
     source: PropTypes.shape({
-        x: PropTypes.number,
-        y: PropTypes.number,
-        height: PropTypes.number,
-        width: PropTypes.number,
+        id: PropTypes.string,
         connectionPoint: PropTypes.string,
-        connectionType: PropTypes.string
     }),
     target: PropTypes.shape({
+        id: PropTypes.string,
+        connectionPoint: PropTypes.string,
         x: PropTypes.number,
-        y: PropTypes.number,
-        height: PropTypes.number,
-        width: PropTypes.number,
-        connectionPoint: PropTypes.string
-    })
+        y: PropTypes.number
+    }),
+    followMouse: PropTypes.bool
 }

@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import styles from "./styles/Pages.module.css";
 import {AddRounded} from "@material-ui/icons";
 import PageField from "./PageField";
-import React from 'react'
+import React, {useState} from 'react'
 
 export default function Pages(props) {
-
+    const [openInput, setOpenInput] = useState(null)
     return (
         <div className={styles.pagesContainer}>
 
@@ -20,8 +20,9 @@ export default function Pages(props) {
                                 ...props.data,
                                 pages: newPages
                             })
-                        }}
+                        }} handleOpen={() => setOpenInput(index)} open={openInput === index} handleClose={() => setOpenInput(null)}
                         length={props.data.pages.length}
+                        index={index}
                         removePage={() => {
                             let newPages = [...props.data.pages]
                             if (page.default) {

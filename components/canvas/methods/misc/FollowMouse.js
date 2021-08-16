@@ -29,32 +29,18 @@ export default function FollowMouse(props) {
     const update = (event) => {
         if (props.pathRef !== null && frame !== null) {
             const nodeRef = document.getElementById(props.source.id + '-node')
-
-            let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
-            parsedPlacement = parsedPlacement.split(', ')
-            const sourcePlacement = {
-                x: parseInt(parsedPlacement[0]),
-                y: parseInt(parsedPlacement[1])
-            }
-
             props.pathRef.setAttribute('d', GetCurve({
+                followMouse:true,
                 target: {
-                    x: event.clientX - frame.offsetLeft + root.scrollLeft,
-                    y: event.clientY - frame.offsetTop - 55 + root.scrollTop,
-                    height: 0,
-                    width: 0,
-                    connectionPoint: 's',
-                    nodeShape: 'circle'
+                    x: event.clientX - frame.offsetLeft + frame.scrollLeft,
+                    y: event.clientY - frame.offsetTop + frame.scrollTop,
+                    connectionPoint: 'n'
                 },
                 source: {
-                    x: sourcePlacement.x,
-                    y: sourcePlacement.y,
-                    height: nodeRef.firstChild.getAttribute('height'),
-                    width: nodeRef.firstChild.getAttribute('width'),
+                    id: props.source.id,
                     connectionPoint: props.source.connectionPoint,
-                    nodeShape: props.source.nodeShape,
-                    connectionType: props.source.connectionType
-                }
+                },
+                connectionType: props.source.connectionType
             }))
         }
     }
@@ -62,7 +48,7 @@ export default function FollowMouse(props) {
 
 FollowMouse.propTypes = {
     source: PropTypes.shape({
-        reference: PropTypes.object,
+        id: PropTypes.string,
         connectionPoint: PropTypes.oneOf(['e', 's', 'w', 'n']),
         nodeShape: PropTypes.string,
         connectionType: PropTypes.string

@@ -102,11 +102,7 @@
     gap: 16px;
     transition: 150ms linear;
     height: fit-content;
-    border-radius: 8px;
-}
-.elementsContainer:hover{
-    background: white;
-    color: #0095ff;
+
 }
 .container {
     width: 100%;
@@ -118,9 +114,4 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.elementsOpen{
-    background: white;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }

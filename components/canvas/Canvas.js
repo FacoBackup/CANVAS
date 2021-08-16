@@ -94,7 +94,6 @@ export default function Canvas(props) {
     return (
         <div
             className={styles.wrapper}
-            id={'frame'}
             onMouseDown={event => {
                 if (selectedNode && event.target.closest('.' + nodeStyles.entityContainer) === null)
                     setSelectedNode(undefined)

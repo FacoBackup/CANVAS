@@ -22,49 +22,29 @@ export default function AdjustLink(props) {
             }
         }, {
             once: true
-        });
+        })
     }
     const update = () => {
         if (props.pathRef !== null)
             props.pathRef.setAttribute('d', GetCurve({
-                target: {
-                    x: parseInt(props.target.reference.getAttribute('x')),
-                    y: parseInt(props.target.reference.getAttribute('y')),
-                    height: props.target.reference.getBBox().height,
-                    width: props.target.reference.getBBox().width,
-                    connectionPoint: props.target.connectionPoint,
-                    nodeShape: props.target.nodeShape
-                },
-                source: {
-                    x: parseInt(props.source.reference.getAttribute('x')),
-                    y: parseInt(props.source.reference.getAttribute('y')),
-                    height: props.source.reference.getBBox().height,
-                    width: props.source.reference.getBBox().width,
-                    connectionPoint: props.source.connectionPoint,
-                    nodeShape: props.source.nodeShape
-                },
-                type: props.type
+                target: props.target,
+                source: props.source,
+                connectionType: props.type
             }))
-    }
-    return () => {
-        document.removeEventListener('mouseup', () => null)
-        document.removeEventListener('mousemove', () => null)
     }
 }
 
 AdjustLink.propTypes = {
     source: PropTypes.shape({
-        reference: PropTypes.object,
-        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd']),
-        nodeShape: PropTypes.string
+        id: PropTypes.string,
+        connectionPoint: PropTypes.oneOf(['e', 'n', 's', 'w'])
     }),
     target: PropTypes.shape({
-        reference: PropTypes.object,
-        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd']),
-        nodeShape: PropTypes.string
+        id: PropTypes.string,
+        connectionPoint: PropTypes.oneOf(['e', 'n', 's', 'w'])
     }),
     pathRef: PropTypes.object,
     setColor: PropTypes.func,
     setOnMove: PropTypes.func,
-    type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
+    connectionType: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
 }

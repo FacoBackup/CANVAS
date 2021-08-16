@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 export default function Elements(props) {
     const [open, setOpen] = useState(false)
     return (
-        <div className={[styles.elementsContainer, open ? styles.elementsOpen : ''].join(' ')}>
+        <div className={styles.elementsContainer} style={{borderBottom: open ? '#ecedf2 1px solid' : 'transparent 1px solid'}}>
             <div className={styles.optionsDivider} onClick={() => setOpen(!open)}>
 
                 {props.label}

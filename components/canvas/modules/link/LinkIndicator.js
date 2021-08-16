@@ -6,7 +6,6 @@ export default function LinkIndicator(props) {
     const pathRef = useRef()
 
     useEffect(() => {
-
         if (props.source !== null && props.source !== undefined) {
             FollowMouse({
                 pathRef: pathRef.current,
@@ -16,7 +15,6 @@ export default function LinkIndicator(props) {
     })
 
     if (props.source !== null && props.source !== undefined) {
-
         return (
             <g>
                 <defs>
