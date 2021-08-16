@@ -8,7 +8,7 @@ export default function RenderNodes(props) {
         if (props.toBeLinked !== null) {
             props.setSelectedNode(undefined)
             let newLink = {
-                type: props.data.connectionType,
+                type: 'dashed-path',
                 parent: {
                     id: props.toBeLinked.id,
                     connectionPoint: props.toBeLinked.connectionPoint,
@@ -23,40 +23,28 @@ export default function RenderNodes(props) {
                 }
             }
             let newLinks = [...props.data.links, ...[newLink]]
-            let newNodes = [...props.data.nodes]
-            newNodes[props.toBeLinked.index].links = [...newNodes[props.toBeLinked.index].links, ...[newLink]]
-            newNodes[index].links = [...newNodes[index].links, ...[newLink]]
 
-            props.setData({...props.data, links: newLinks, nodes: newNodes})
+            props.setData({...props.data, links: newLinks})
             props.setToBeLinked(null)
         } else {
             props.setSelectedNode(undefined)
             props.setToBeLinked({
                 id: node.id,
                 connectionPoint: connection,
-                nodeShape: node.shape,
-                index: index
+                index: index,
+                connectionType: props.styling.connectionType
             })
         }
     }
     const handleLinkDelete = (link) => {
         let newLinks = [...props.data.links]
         const index = newLinks.indexOf(link)
-        let newNodes = [...props.data.nodes]
-        newNodes[link.child.index].links.splice(newNodes[link.child.index].links.find((l, index) => {
-            if (l === link)
-                return index
-        }), 1)
-        newNodes[link.parent.index].links.splice(newNodes[link.parent.index].links.find((l, index) => {
-            if (l === link)
-                return index
-        }), 1)
+
         if (index > -1) {
             newLinks.splice(index, 1)
             props.setData({
                 ...props.data,
-                links: newLinks,
-                nodes: newNodes
+                links: newLinks
             })
         }
     }
@@ -75,11 +63,10 @@ export default function RenderNodes(props) {
         })
     }
 
-    const handleSizeChange = (index, node, dimensions) => {
+    const handleNodeChange = (index, node, data) => {
         let newNodes = [...props.data.nodes]
-        let newNode = {...node}
-        newNode.dimensions = dimensions
-        newNodes[index] = newNode
+        newNodes[index] = data
+
         props.setData({
             ...props.data,
             nodes: newNodes
@@ -92,7 +79,7 @@ export default function RenderNodes(props) {
         let newNode = {...node}
         newNode.placement = event
         newNodes[index] = newNode
-        console.log('SAVING PLACEMENT')
+
         props.setData({
             ...props.data,
             nodes: newNodes
@@ -106,18 +93,18 @@ export default function RenderNodes(props) {
                     handleLinkDelete={handleLinkDelete}
                     handleLink={(node, connection) => handleLink(node, connection, index)}
                     toBeLinked={props.toBeLinked}
-                    handleSizeChange={dimensions => handleSizeChange(index, node, dimensions)}
+                    setNode={event => handleNodeChange(index, node, event)}
                     selected={props.selectedNode?.id}
                     savePlacement={event => savePlacement(event, node, index)}
                     openOverview={() => props.setNodeOnOverview(node)}
                     setSelected={props.setSelectedNode}
                     handleDelete={handleDelete} scale={props.scale}
-                    root={props.root} options={props.options}
                 />
             </g>
         ))
     )
 }
+
 RenderNodes.propTypes = {
     ...CanvasTemplate,
     ...{
@@ -125,6 +112,7 @@ RenderNodes.propTypes = {
         scale: PropTypes.number,
         setData: PropTypes.func,
         data: PropTypes.object,
+        styling: PropTypes.object,
         setSelectedNode: PropTypes.func,
         selectedNode: PropTypes.any,
         setNodeOnOverview: PropTypes.func,

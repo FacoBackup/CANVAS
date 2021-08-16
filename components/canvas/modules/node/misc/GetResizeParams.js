@@ -7,7 +7,7 @@ export default function GetResizeParams(props){
         case 'n': {
 
             res = {
-                cursor: 'col-resize',
+                cursor: 'row-resize',
                 x: props.viewBox.x / 2,
                 y: 0
             }
@@ -15,7 +15,7 @@ export default function GetResizeParams(props){
         }
         case 's': {
             res = {
-                cursor: 'col-resize',
+                cursor: 'row-resize',
                 x: props.viewBox.x / 2,
                 y: props.viewBox.y
             }
@@ -23,7 +23,7 @@ export default function GetResizeParams(props){
         }
         case 'e': {
             res = {
-                cursor: 'row-resize',
+                cursor: 'col-resize',
                 x: props.viewBox.x,
                 y: props.viewBox.y / 2
             }
@@ -32,7 +32,7 @@ export default function GetResizeParams(props){
         }
         case 'w': {
             res = {
-                cursor: 'row-resize',
+                cursor: 'col-resize',
                 x: 0,
                 y: props.viewBox.y / 2
             }

@@ -53,7 +53,7 @@ export default function MoveNode(props) {
                 newTransform.y = 0
 
             nodeRef.setAttribute('transform', `translate(${newTransform.x}, ${newTransform.y})`)
-            props.setSelectedNode(props.node.id)
+            props.setSelectedNode(props.node)
             props.savePlacement(newPlacement)
         }
     }

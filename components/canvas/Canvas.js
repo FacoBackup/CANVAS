@@ -11,7 +11,7 @@ import Pages from "./modules/navigation/pages/Pages";
 import Scale from "./modules/navigation/misc/Scale";
 import TopBar from "./modules/navigation/top/TopBar";
 import Frame from "./modules/frame/Frame";
-
+import nodeStyles from './modules/node/styles/Node.module.css'
 
 export default function Canvas(props) {
     const [data, setData] = useState(NewProjectTemplate)
@@ -72,7 +72,6 @@ export default function Canvas(props) {
                     i = index
             })
 
-        console.log(i)
         let response = null
 
         if (i !== -1 && i !== undefined)
@@ -97,7 +96,7 @@ export default function Canvas(props) {
             className={styles.wrapper}
             id={'frame'}
             onMouseDown={event => {
-                if (selectedNode && (typeof event.target.className !== 'string' || event.target.id === undefined || !event.target.className.includes('Node')))
+                if (selectedNode && event.target.closest('.' + nodeStyles.entityContainer) === null)
                     setSelectedNode(undefined)
                 if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
                     setToBeLinked(null)
@@ -146,9 +145,13 @@ export default function Canvas(props) {
                                 let newPages = [...data.pages]
                                 newPages[defaultPage] = event
                                 setData({...data, pages: newPages})
-                            }}
+                            }} styling={{connectionType: data.connectionType}}
                             setNodeOnOverview={setNodeOnOverview} setToBeLinked={setToBeLinked}
-                            selectedNode={selectedNode} setSelectedNode={setSelectedNode}
+                            selectedNode={selectedNode}
+                            setSelectedNode={data => {
+                                console.log(data)
+                                setSelectedNode(data)
+                            }}
                         />
                     </div>
                     {renderOverview()}

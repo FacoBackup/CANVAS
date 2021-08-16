@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 export default function ScrollCanvas(props) {
     let scrolling = true
-    let pos = { top: 0, left: 0, x: 0, y: 0 };
+    let pos = {top: 0, left: 0, x: 0, y: 0};
 
     pos = {
         left: props.canvas.scrollLeft,
@@ -11,28 +11,22 @@ export default function ScrollCanvas(props) {
         y: props.event.clientY,
     };
     props.canvas.style.cursor = 'grabbing'
-    document.addEventListener('mousemove', event => {
+    const handleMouseMove = (event) => {
+
         if (scrolling) {
             const dx = event.clientX - pos.x;
             const dy = event.clientY - pos.y;
             props.canvas.scrollTop = pos.top - dy;
             props.canvas.scrollLeft = pos.left - dx;
         }
-    })
+
+    }
+    document.addEventListener('mousemove', handleMouseMove)
     document.addEventListener('mouseup', () => {
         props.canvas.style.cursor = 'default'
-        if(frame !== null)
-            frame.style.removeProperty('user-select');
-
-        document.removeEventListener('mousemove', () => null)
+        document.removeEventListener('mousemove', handleMouseMove)
         scrolling = false
-    })
-
-    return () => {
-
-        document.removeEventListener('mouseup', () => null)
-        document.removeEventListener('mousemove', () => null)
-    }
+    }, {once: true})
 }
 ScrollCanvas.propTypes = {
     canvas: PropTypes.object,

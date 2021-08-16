@@ -6,16 +6,11 @@ export default function LinkIndicator(props) {
     const pathRef = useRef()
 
     useEffect(() => {
+
         if (props.source !== null && props.source !== undefined) {
             FollowMouse({
                 pathRef: pathRef.current,
-                source: {
-                    reference: document.getElementById(props.source.id + '-node'),
-                    connectionPoint: props.source.connectionPoint,
-                    nodeShape: props.source.nodeShape
-                },
-                root: props.root,
-                type: props.type
+                source: props.source
             })
         }
     })
@@ -49,7 +44,7 @@ export default function LinkIndicator(props) {
                         '#0095ff'
                     } strokeWidth={'2'} style={{transition: 'stroke 250ms linear', transitionDelay: '250ms'}}
                     fill={'none'} ref={pathRef}
-                    strokeDasharray={props.type.includes('dashed') ? '5,5' : undefined}
+                    strokeDasharray={props.source.connectionType.includes('dashed') ? '5,5' : undefined}
                     d={'M 0,0'}
                     markerStart={`url(#${props.source.id}-end)`}
                     markerEnd={`url(#${props.source.id}-start)`}
@@ -66,8 +61,7 @@ LinkIndicator.propTypes = {
     source: PropTypes.shape({
         id: PropTypes.string,
         nodeShape: PropTypes.string,
-        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd'])
-    }),
-    root: PropTypes.object,
-    type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
+        connectionPoint: PropTypes.oneOf(['e', 'w', 's', 'n']),
+        connectionType: PropTypes.string
+    })
 }

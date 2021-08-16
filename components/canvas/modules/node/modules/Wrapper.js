@@ -17,7 +17,7 @@ export default function Wrapper(props) {
         let res
         switch (props.node.shapeVariant) {
             case 'ellipse': {
-                res =  <EllipseShape {...props} />
+                res = <EllipseShape {...props} />
                 break
             }
             case 'rect': {
@@ -40,15 +40,17 @@ export default function Wrapper(props) {
         <g
             id={props.node.id + '-node'} overflow={'visible'}
             transform={`translate(${props.node.placement.x}, ${props.node.placement.y})`}
-            style={{
-                cursor: !props.linkable && props.toBeLinked !== null ? 'unset' : "pointer"
-            }} ref={ref}
+            ref={ref}
 
             className={styles.entityContainer}
         >
+
+
             <SelectedWrapper {...props}/>
             <ConnectionsWrapper {...props}/>
+
             {getShape()}
+
         </g>
     )
 }
@@ -56,8 +58,6 @@ export default function Wrapper(props) {
 Wrapper.propTypes = {
     ...NodePropsTemplate,
     ...{
-        linkable: PropTypes.bool,
-        setLinkable: PropTypes.func,
         onMove: PropTypes.bool
     }
 }

@@ -29,7 +29,7 @@ export default function Frame(props) {
                 className={styles.canvasBackground}
                 id={'frame-content'}
             >
-                <LinkIndicator source={props.toBeLinked} type={props.data.connectionType} root={root.current}/>
+                <LinkIndicator source={props.toBeLinked}/>
                 <RenderNodes
                     {...props} root={root.current}
                 />

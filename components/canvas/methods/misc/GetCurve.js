@@ -15,28 +15,28 @@ export default function GetCurve(props) {
     }
 
     switch (props.target.connectionPoint) {
-        case 'a': {
+        case 'n': {
             target = {
                 x: props.target.x + props.target.width / 2,
                 y: props.target.y - 12
             }
             break
         }
-        case 'b': {
+        case 'e': {
             target = {
                 x: props.target.x + props.target.width + 12,
                 y: props.target.y + props.target.height / 2
             }
             break
         }
-        case 'c': {
+        case 's': {
             target = {
                 x: props.target.x + props.target.width / 2,
                 y: props.target.y + props.target.height + 12
             }
             break
         }
-        case 'd': {
+        case 'w': {
             target = {
                 x: props.target.x - 12,
                 y: props.target.y + props.target.height / 2
@@ -47,28 +47,28 @@ export default function GetCurve(props) {
             break
     }
     switch (props.source.connectionPoint) {
-        case 'a': {
+        case 'n': {
             source = {
                 x: props.source.x + props.source.width / 2,
                 y: props.source.y - 12
             }
             break
         }
-        case 'b': {
+        case 'e': {
             source = {
                 x: props.source.x + props.source.width + 12,
                 y: props.source.y + props.source.height / 2
             }
             break
         }
-        case 'c': {
+        case 's': {
             source = {
                 x: props.source.x + props.source.width / 2,
                 y: props.source.y + props.source.height + 12
             }
             break
         }
-        case 'd': {
+        case 'w': {
             source = {
                 x: props.source.x - 12,
                 y: props.source.y + props.source.height / 2
@@ -78,8 +78,8 @@ export default function GetCurve(props) {
         default:
             break
     }
-    if (props.type.includes('-path')) {
-        if(props.source.connectionPoint === 'a' || props.source.connectionPoint === 'c'){
+    if (props.source.connectionType.includes('-path')) {
+        if(props.source.connectionPoint === 'n' || props.source.connectionPoint === 's'){
             switch (true) {
                 case (source.y > target.y): {
                     pivots.x1 = source.x
@@ -130,7 +130,7 @@ export default function GetCurve(props) {
             }
 
         }
-        if(props.target.connectionPoint === 'a' || props.target.connectionPoint === 'c'){
+        if(props.target.connectionPoint === 'n' || props.target.connectionPoint === 's'){
             switch (true) {
                 case (source.y > target.y): {
                     pivots.x2 = target.x
@@ -193,16 +193,14 @@ GetCurve.propTypes = {
         y: PropTypes.number,
         height: PropTypes.number,
         width: PropTypes.number,
-        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd']),
-        nodeShape: PropTypes.string
+        connectionPoint: PropTypes.string,
+        connectionType: PropTypes.string
     }),
     target: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number,
         height: PropTypes.number,
         width: PropTypes.number,
-        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd']),
-        nodeShape: PropTypes.string
-    }),
-    type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
+        connectionPoint: PropTypes.string
+    })
 }

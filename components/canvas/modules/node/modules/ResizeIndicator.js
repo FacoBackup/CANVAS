@@ -2,33 +2,170 @@ import PropTypes from 'prop-types'
 import NodeTemplate from "../../../templates/NodeTemplate";
 import ResizeNode from "../../../methods/misc/ResizeNode";
 import styles from '../styles/Node.module.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import GetResizeParams from "../misc/GetResizeParams";
 
 export default function ResizeIndicator(props) {
     const params = GetResizeParams(props)
+
+    const handleTranslateY = (px) => {
+        const nodeRef = document.getElementById(props.node.id + '-node')
+        let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
+        parsedPlacement = parsedPlacement.split(', ')
+
+        return props.placement.includes('s') ? parseInt(parsedPlacement[1]) + px : parseInt(parsedPlacement[1]) - px
+    }
+    const handleTranslateX = (px) => {
+        const nodeRef = document.getElementById(props.node.id + '-node')
+        let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
+        parsedPlacement = parsedPlacement.split(', ')
+
+        return parseInt(parsedPlacement[0]) - px
+    }
+    let lastMousePlacement
+    let dimensions = props.node.dimensions
+    const handleResize = (event) => {
+        if (!lastMousePlacement)
+            lastMousePlacement = {
+                x: event.clientX,
+                y: event.clientY
+            }
+
+        const newMousePlacement = {
+            x: event.clientX / props.scale,
+            y: event.clientY / props.scale
+        }
+
+        let newHeight
+        let newWidth
+
+
+        let newNodePlacement = props.node.placement
+        //
+        switch (props.placement) {
+            case 's': {
+                newHeight = (props.node.dimensions.height + (newMousePlacement.y - lastMousePlacement.y))
+                newWidth = props.node.dimensions.width
+                break
+            }
+            case 'e': {
+                newHeight = props.node.dimensions.height
+                newWidth = (props.node.dimensions.width + (newMousePlacement.x - lastMousePlacement.x))
+                break
+            }
+            case 'nw': {
+
+                newHeight = (props.node.dimensions.height + (lastMousePlacement.y - newMousePlacement.y))
+                newWidth = (props.node.dimensions.width + (lastMousePlacement.x - newMousePlacement.x))
+                newNodePlacement = {
+                    y: handleTranslateY(newHeight - dimensions.height),
+                    x: handleTranslateX(newWidth - dimensions.width)
+                }
+                dimensions = {
+                    width: newWidth,
+                    height: newHeight
+                }
+                break
+            }
+            case 'se': {
+                newHeight = (props.node.dimensions.height + (newMousePlacement.y - lastMousePlacement.y))
+                newWidth = (props.node.dimensions.width + (newMousePlacement.x - lastMousePlacement.x))
+
+                break
+            }
+            case 'sw': {
+
+                newHeight = (props.node.dimensions.height + (newMousePlacement.y - lastMousePlacement.y))
+                newWidth = (props.node.dimensions.width + (lastMousePlacement.x - newMousePlacement.x))
+                newNodePlacement = {
+                    y: props.node.placement.y,
+                    x: handleTranslateX(newWidth - dimensions.width)
+                }
+                dimensions = {
+                    width: newWidth,
+                    height: newHeight
+                }
+                break
+            }
+            case 'w': {
+                newHeight = props.node.dimensions.height
+                newWidth = (props.node.dimensions.width + (lastMousePlacement.x - newMousePlacement.x))
+                newNodePlacement = {
+                    y: props.node.placement.y,
+                    x: handleTranslateX(newWidth - dimensions.width)
+                }
+                dimensions = {
+                    width: newWidth,
+                    height: newHeight
+                }
+                break
+            }
+            case 'n': {
+                newWidth = props.node.dimensions.width
+                newHeight = (props.node.dimensions.height + (lastMousePlacement.y - newMousePlacement.y))
+                newNodePlacement = {
+                    x: props.node.placement.x,
+                    y: handleTranslateY(newHeight - dimensions.height)
+                }
+                dimensions = {
+                    width: newWidth,
+                    height: newHeight
+                }
+                break
+            }
+            case 'ne': {
+                newHeight = (props.node.dimensions.height + (lastMousePlacement.y - newMousePlacement.y))
+                newWidth = (props.node.dimensions.width + (newMousePlacement.x - lastMousePlacement.x))
+                newNodePlacement = {
+                    y: handleTranslateY(newHeight - dimensions.height),
+                    x: props.node.placement.x
+                }
+                dimensions = {
+                    width: newWidth,
+                    height: newHeight
+                }
+                break
+            }
+
+            default:
+                break
+        }
+        // console.log(newNodePlacement)
+        // console.log(props.node.placement)
+        // console.log(newHeight)
+        props.setNode({
+            ...props.node,
+            dimensions: {
+                width: newWidth,
+                height: newHeight
+            },
+            placement: newNodePlacement
+        })
+    }
+    const handleMouseUp = () => {
+        lastMousePlacement = undefined
+        document.removeEventListener('mousemove', handleResize)
+    }
+
 
     return (
         <circle
             r={'4'} fill={'blue'} cx={params.x} cy={params.y}
             cursor={params.cursor}
             stroke={'transparent'} strokeWidth={'10'}
-            onMouseDown={event => {
-                ResizeNode({
-                    node: props.node,
-                    event: event,
-                    scale: props.scale,
-                    nodeShape: props.node.shape,
-                    setSelected: props.setSelected,
-                    nodeColor: props.node.color,
-                    handleSizeChange: props.handleSizeChange
-
-                })
+            onMouseDown={() => {
+                console.log(props.placement)
+                document.addEventListener('mousemove', handleResize)
+                document.addEventListener('mouseup', handleMouseUp, {once: true})
             }}
         />
     )
 }
 ResizeIndicator.propTypes = {
     placement: PropTypes.oneOf(['nw', 'w', 'e', 'n', 's', 'ne', 'se', 'sw']),
-    viewBox: PropTypes.object
+    viewBox: PropTypes.object,
+    node: NodeTemplate,
+    setNode: PropTypes.func,
+    scale: PropTypes.number
+
 }

@@ -6,35 +6,32 @@ import React, {useEffect, useState} from "react";
 export default function EllipseShape(props) {
     const [viewBox, setViewBox] = useState({})
     useEffect(() => {
-        const x = (props.node.dimensions.width / props.node.dimensions.height) * 100
-        const y = (props.node.dimensions.height / props.node.dimensions.width) * 100
-        if (x > y)
+        if (props.node.dimensions.width > props.node.dimensions.height)
             setViewBox({
-                x: x,
-                y: x / 2
+                x: 100,
+                y: (props.node.dimensions.height / props.node.dimensions.width) * 100,
             })
-        else if (x < y)
+        else if (props.node.dimensions.width < props.node.dimensions.height)
             setViewBox({
-                x: y / 2,
-                y: y
+                x: (props.node.dimensions.width / props.node.dimensions.height) * 100,
+                y: 100
             })
-        else if (x === y)
+        else
             setViewBox({
-                x: x,
-                y: y
+                x: 100,
+                y: 100
             })
-    }, [props.node.styling])
+    }, [props.node.dimensions])
     return (
         <svg
-            onMouseDown={event => {
-                if (typeof event === 'object' && event.button === 0 && typeof event.target.className !== 'object' && (props.toBeLinked === null || props.node.id !== props.toBeLinked.id)) {
-                    props.setSelected(props.node)
-                    props.move(event)
-                }
-            }} onDoubleClick={() => {
-            props.openOverview()
-        }}
             width={props.node.dimensions.width} height={props.node.dimensions.height}
+            onMouseDown={event => {
+                props.move(event)
+                props.setSelected(props.node)
+            }}
+            onDoubleClick={() => {
+                props.openOverview()
+            }}
             viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.node.id + '-*svg'} overflow={'visible'}>
             <ellipse
                 fill={'white'}
@@ -48,7 +45,7 @@ export default function EllipseShape(props) {
                 x={0} y={0}
                 width={'100%'} overflow={'visible'}
                 height={'100%'}
-                className={props.linkable ? styles.pulse : undefined}
+                className={props.toBeLinked !== undefined ? styles.pulse : undefined}
             >
                 <div className={styles.nodeShapeContainer} id={props.node.id + '-*wrapper'}
                      onClick={() => {

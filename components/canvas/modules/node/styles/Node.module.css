@@ -1,6 +1,7 @@
 .entityContainer {
     animation: popIn 150ms linear;
     transition: opacity 150ms linear;
+    cursor: pointer;
 }
 
 @keyframes popIn {

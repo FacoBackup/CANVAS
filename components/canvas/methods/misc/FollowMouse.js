@@ -6,64 +6,66 @@ export default function FollowMouse(props) {
     const frame = document.getElementById('frame')
     const root = document.getElementById('frame-content')
     const markerEnd = document.getElementById(props.pathRef.getAttribute('marker-end').replace('url(#', '').replace(')', ''))
-    if(markerEnd !== null)
+    if (markerEnd !== null)
         markerEnd.setAttribute('visibility', 'hidden')
+
     if (moving) {
 
         document.addEventListener('mousemove', function move(event) {
             if (moving) {
-                if(markerEnd !== null)
+                if (markerEnd !== null)
                     markerEnd.setAttribute('visibility', 'visible')
                 update(event)
-            }
-            else
+            } else
                 event.currentTarget.removeEventListener('mousemove', move);
         })
 
-        document.addEventListener("mouseup", function up(event) {
-            if (moving) {
-                moving = false
-                document.removeEventListener('mousemove', () => null)
-                event.currentTarget.removeEventListener('mousemove', up);
-            }
+        document.addEventListener("mouseup", () => {
+            moving = false
         }, {
             once: true
         });
     }
     const update = (event) => {
-        if (props.pathRef !== null && frame !== null)
+        if (props.pathRef !== null && frame !== null) {
+            const nodeRef = document.getElementById(props.source.id + '-node')
+
+            let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
+            parsedPlacement = parsedPlacement.split(', ')
+            const sourcePlacement = {
+                x: parseInt(parsedPlacement[0]),
+                y: parseInt(parsedPlacement[1])
+            }
+
             props.pathRef.setAttribute('d', GetCurve({
                 target: {
-                    x: event.clientX - root.offsetLeft + root.scrollLeft,
+                    x: event.clientX - frame.offsetLeft + root.scrollLeft,
                     y: event.clientY - frame.offsetTop - 55 + root.scrollTop,
                     height: 0,
                     width: 0,
-                    connectionPoint: 'c',
+                    connectionPoint: 's',
                     nodeShape: 'circle'
                 },
                 source: {
-                    x: props.source.reference.getBBox().x,
-                    y: props.source.reference.getBBox().y,
-                    height: props.source.reference.getBBox().height,
-                    width: props.source.reference.getBBox().width,
+                    x: sourcePlacement.x,
+                    y: sourcePlacement.y,
+                    height: nodeRef.firstChild.getAttribute('height'),
+                    width: nodeRef.firstChild.getAttribute('width'),
                     connectionPoint: props.source.connectionPoint,
-                    nodeShape: props.source.nodeShape
-                },
-                type: props.type
+                    nodeShape: props.source.nodeShape,
+                    connectionType: props.source.connectionType
+                }
             }))
-    }
-    return () => {
-        document.removeEventListener('mouseup', () => null)
-        document.removeEventListener('mousemove', () => null)
+        }
     }
 }
 
 FollowMouse.propTypes = {
     source: PropTypes.shape({
         reference: PropTypes.object,
-        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd']),
-        nodeShape: PropTypes.string
+        connectionPoint: PropTypes.oneOf(['e', 's', 'w', 'n']),
+        nodeShape: PropTypes.string,
+        connectionType: PropTypes.string
     }),
     pathRef: PropTypes.object,
-    type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
 }

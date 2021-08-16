@@ -55,14 +55,30 @@ export default function ConnectionsWrapper(props) {
         <svg width={props.node.dimensions.width + 20} height={props.node.dimensions.height + 20} x={-10} y={-10}
              visibility={props.selected !== props.node.id && canRender ? 'visible' : 'hidden'}
              opacity={props.selected !== props.node.id && canRender ? '1' : '0'}
-             style={{transition: 'opacity 150ms ease-in-out, visibility 150ms ease-in-out'}}
-             overflow={'visible'} viewBox={`0 0 ${viewBox.x} ${viewBox.y}`}>
+             style={{transition: 'opacity 150ms linear, visibility 150ms linear'}}
+             overflow={'visible'}>
 
-            <ConnectionIndicator node={props.node} viewBox={viewBox} placement={'w'}/>
-            <ConnectionIndicator node={props.node} viewBox={viewBox} placement={'e'}/>
+            <ConnectionIndicator
+                node={props.node}
+                viewBox={{x: props.node.dimensions.width + 20, y: props.node.dimensions.height + 20}}
+                placement={'w'} handleLink={props.handleLink}
+            />
+            <ConnectionIndicator
+                node={props.node}
+                viewBox={{x: props.node.dimensions.width + 20, y: props.node.dimensions.height + 20}}
+                placement={'e'} handleLink={props.handleLink}
+            />
 
-            <ConnectionIndicator node={props.node} viewBox={viewBox} placement={'s'}/>
-            <ConnectionIndicator node={props.node} viewBox={viewBox} placement={'n'}/>
+            <ConnectionIndicator
+                node={props.node}
+                viewBox={{x: props.node.dimensions.width + 20, y: props.node.dimensions.height + 20}}
+                placement={'s'} handleLink={props.handleLink}
+            />
+            <ConnectionIndicator
+                node={props.node} handleLink={props.handleLink}
+                viewBox={{x: props.node.dimensions.width + 20, y: props.node.dimensions.height + 20}}
+                placement={'n'}
+            />
 
         </svg>
     )

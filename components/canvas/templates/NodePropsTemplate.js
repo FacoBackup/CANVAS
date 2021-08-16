@@ -7,5 +7,6 @@ export default {
     toBeLinked: PropTypes.object,
     scale: PropTypes.number,
     setSelected: PropTypes.func,
-    savePlacement: PropTypes.func
+    savePlacement: PropTypes.func,
+    setNode: PropTypes.func
 }
