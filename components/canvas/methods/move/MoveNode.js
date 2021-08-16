@@ -12,13 +12,14 @@ export default function MoveNode(props) {
     nodeRef.style.cursor = 'move'
     let onMove = false
 
-    props.setSelectedNode(undefined)
+
 
 
     const handlePlacement = (event, save) => {
         if (!onMove) {
             props.setOnMove(true)
             onMove = true
+            props.setSelectedNode(undefined)
         }
 
         const currentPlacement = {
@@ -53,7 +54,7 @@ export default function MoveNode(props) {
                 newTransform.y = 0
 
             nodeRef.setAttribute('transform', `translate(${newTransform.x}, ${newTransform.y})`)
-            props.setSelectedNode(props.node)
+
             props.savePlacement(newPlacement)
         }
     }
@@ -70,6 +71,8 @@ export default function MoveNode(props) {
         nodeRef.style.cursor = 'pointer'
         handlePlacement(event, true)
         props.setOnMove(false)
+
+        props.setSelectedNode(props.node)
     }, {once: true});
 
 }

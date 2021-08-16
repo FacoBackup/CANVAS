@@ -22,7 +22,8 @@ export default function Link(props) {
             source: props.source,
             target: props.target,
             setColor: setColor,
-            connectionType: props.type, setOnMove: setOnMove
+            connectionType: props.type,
+            setOnMove: setOnMove
         })
     }
 

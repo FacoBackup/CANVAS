@@ -25,11 +25,13 @@ export default function AdjustLink(props) {
         })
     }
     const update = () => {
+
+
         if (props.pathRef !== null)
             props.pathRef.setAttribute('d', GetCurve({
                 target: props.target,
                 source: props.source,
-                connectionType: props.type
+                connectionType: props.connectionType
             }))
     }
 }

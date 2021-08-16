@@ -160,3 +160,14 @@
     border: #ecedf2 1px solid;
     border-radius: 5px;
 }
+
+.nodeInput{
+    outline: none;
+    box-shadow: none;
+    border: none;
+    width: 100%;
+    height: auto;
+
+    background: transparent;
+    text-align: center;
+}
