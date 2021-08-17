@@ -9,9 +9,7 @@ import Connections from "./modules/Connections";
 export default function SideBar(props) {
     const ref = useRef()
     return (
-        <div className={styles.container} ref={ref} style={{
-
-        }}>
+        <div className={styles.container} ref={ref}>
             <div className={styles.header}>
                 Formas
             </div>

@@ -1,13 +1,9 @@
 .scaleContainer{
-    margin-left: auto;
     display: flex;
     align-items: center;
-    background: white;
+
     border-radius: 32px;
-    height: 15px;
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
+    height: 100%;
 }
 
 .scaleButton{
@@ -18,9 +14,9 @@
     justify-content: center;
     height: 30px;
     width: 30px;
-    border-radius: 50%;
-    color: #777777;
-    background-color: white;
+    border-radius: 5px;
+    color: #555555;
+    background: transparent;
     transition: 150ms linear;
     cursor: pointer;
 }

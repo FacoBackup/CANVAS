@@ -19,14 +19,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 45px;
-    border-radius: 8px 8px 0 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
     color: #555555;
-    background-color: #f4f5fa;
+    background-color: transparent;
     transition: 150ms linear;
     cursor: pointer;
+    margin-left: 8px;
 }
 .newPageButton:hover{
+    background-color: #E8F0FE;
     color: #333333;
 }
 .newPageButton:active{

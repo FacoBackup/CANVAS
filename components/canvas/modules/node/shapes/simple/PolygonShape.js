@@ -8,6 +8,51 @@ export default function PolygonShape(props) {
     const [open, setOpen] = useState(false)
     const ref = useRef()
     let openRef = false
+
+    const handleViewBox = () => {
+        if (props.node.dimensions.width > props.node.dimensions.height)
+            setViewBox({
+                x: 100,
+                y: (props.node.dimensions.height / props.node.dimensions.width) * 100,
+            })
+        else if (props.node.dimensions.width < props.node.dimensions.height)
+            setViewBox({
+                x: (props.node.dimensions.width / props.node.dimensions.height) * 100,
+                y: 100
+            })
+        else
+            setViewBox({
+                x: 100,
+                y: 100
+            })
+    }
+    const handleMouseDown = (event) => {
+        let closest
+        try {
+            closest = event.target?.closest('.' + styles.entityContainer)
+        } catch (e) {
+        }
+
+        if (openRef && closest === null) {
+            setOpen(false)
+            openRef = false
+        }
+    }
+    const handleDoubleClick = () => {
+        setOpen(true)
+        openRef = true
+    }
+
+    useEffect(() => {
+        handleViewBox()
+        document.addEventListener('mousedown', handleMouseDown)
+        ref.current?.addEventListener('dblclick', handleDoubleClick)
+        return () => {
+            ref.current?.removeEventListener('dblclick', handleDoubleClick)
+            document.removeEventListener('mousedown', handleMouseDown)
+        }
+    }, [props.node.dimensions])
+
     const getPolygonPoints = () => {
         let res
         switch (props.node.styling.shape) {
@@ -32,51 +77,6 @@ export default function PolygonShape(props) {
         }
         return res
     }
-    const handleViewBox = () => {
-        if (props.node.dimensions.width > props.node.dimensions.height)
-            setViewBox({
-                x: 100,
-                y: (props.node.dimensions.height / props.node.dimensions.width) * 100,
-            })
-        else if (props.node.dimensions.width < props.node.dimensions.height)
-            setViewBox({
-                x: (props.node.dimensions.width / props.node.dimensions.height) * 100,
-                y: 100
-            })
-        else
-            setViewBox({
-                x: 100,
-                y: 100
-            })
-    }
-    const handleMouseDown = (event) => {
-        let closest
-        try {
-            closest = event.target?.closest('.' + styles.entityContainer)
-        } catch (e) {
-        }
-        console.log(openRef)
-        console.log(closest)
-        if (openRef && closest === null) {
-            setOpen(false)
-            openRef = false
-        }
-    }
-    const handleDoubleClick = () => {
-        setOpen(true)
-        openRef = true
-    }
-
-    useEffect(() => {
-        handleViewBox()
-        document.addEventListener('mousedown', handleMouseDown)
-        ref.current.addEventListener('dblclick', handleDoubleClick)
-        return () => {
-            ref.current.removeEventListener('dblclick', handleDoubleClick)
-            document.removeEventListener('mousedown', handleMouseDown)
-        }
-    }, [props.node.dimensions])
-
     return (
         <g
             ref={ref}

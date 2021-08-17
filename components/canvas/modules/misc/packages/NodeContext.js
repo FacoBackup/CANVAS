@@ -7,10 +7,11 @@ export default [
             {
                 label: 'Recortar',
                 icon: <CropRounded/>,
-                onClick: (props, event) => {
+                onClick: (props, event, nodeID) => {
+
                     let index
                     props.data.nodes.find((node, i) => {
-                        if(event.target.id.includes(node.id)) {
+                        if(nodeID === node.id) {
                             props.setCopiedNode(node)
                             index = i
                         }
@@ -31,9 +32,9 @@ export default [
             {
                 label: 'Copiar',
                 icon: <FileCopyRounded/>,
-                onClick: (props, event) => {
+                onClick: (props, event, nodeID) => {
                     props.data.nodes.find(node => {
-                        if(event.target.id.includes(node.id))
+                        if(nodeID === node.id)
                             props.setCopiedNode(node)
                     })
                 },
@@ -43,10 +44,10 @@ export default [
             {
                 label: 'Deletar',
                 icon: <DeleteRounded/>,
-                onClick: (props, event) => {
+                onClick: (props, event, nodeID) => {
                     let index
                     props.data.nodes.find((node, i) => {
-                        if(event.target.id.includes(node.id))
+                        if(nodeID === node.id)
                             index = i
                     })
 
@@ -70,9 +71,9 @@ export default [
             {
                 label: 'Editar',
                 icon: <EditRounded/>,
-                onClick: (props,event) => {
+                onClick: (props,event, nodeID) => {
                     props.data.nodes.find((node, i) => {
-                        if(event.target.id.includes(node.id))
+                        if(nodeID === node.id)
                             props.setNodeOnOverview(node)
                     })
                 },

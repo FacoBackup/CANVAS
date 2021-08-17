@@ -62,7 +62,8 @@ export default function Canvas(props) {
             document.removeEventListener('mouseup', () => null)
             document.removeEventListener('keydown', () => null)
         }
-    }, [toBeLinked, selectedNode])
+
+    }, [])
 
     const renderOverview = () => {
         let i = -1
@@ -111,13 +112,14 @@ export default function Canvas(props) {
                 setCopiedNode={setCopiedNode} setNodeOnOverview={setNodeOnOverview}/>
             <div className={styles.content}>
                 <Header
-
+                    scale={scale}
+                    setScale={setScale}
                     data={data}
                     setData={setData}
                     onSave={props.onSave}
                     handlePrint={handlePrint}
                 />
-                <TopBar/>
+                <TopBar scale={scale} setScale={setScale} data={data} setData={setData}/>
                 <div className={styles.middleWrapper}>
                     <SideBar
                         data={data.pages[defaultPage]}
@@ -156,7 +158,7 @@ export default function Canvas(props) {
                     {renderOverview()}
                 </div>
             </div>
-            <Scale scale={scale} setScale={setScale}/>
+
         </div>
     )
 }

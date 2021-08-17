@@ -3,41 +3,43 @@
 
 
     position: absolute;
-    right:0;
-    top: 40px;
+    right: 16px;
+    bottom: 16px;
     z-index: 999;
+    border-radius: 10px;
+
     overflow-x: hidden;
     width: 400px;
-    border-left: #ecedf2 1px solid;
-    /*box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;*/
-    height: calc(100% - 75px);
+
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    height: calc(100vh - 32px);
 
     padding: 16px;
 
-    animation: slideIn 300ms ease;
+    animation: fadeIn 300ms ease;
 
     overflow-y: auto;
     display: block;
     user-select: none;
 }
 
-@keyframes slideIn {
+@keyframes fadeIn {
     0% {
-        transform: translateX(100%);
+        opacity: 0;
     }
     100% {
-        transform: translateX(0);
+        opacity: 1;
     }
 }
 .exitAnimation{
-    animation: slideOut 300ms ease;
+    animation: fadeOut 300ms ease;
 }
-@keyframes slideOut {
+@keyframes fadeOut {
     0% {
-        transform: translateX(0);
+        opacity: 1;
     }
     100% {
-        transform: translateX(100%);
+        opacity: 0;
     }
 }
 .header {

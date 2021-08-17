@@ -4,12 +4,14 @@ import {useEffect, useRef, useState} from "react";
 import CanvasContext from "./packages/CanvasContext";
 import NodeContext from "./packages/NodeContext";
 import NodeTemplate from "../../templates/NodeTemplate";
+import nodeStyles from '../node/styles/Node.module.css'
 
 export default function Context(props) {
     const ref = useRef()
     const [onRender, setOnRender] = useState(false)
     const [buttons, setButtons] = useState([])
     const [e, setE] = useState({})
+    const [nodeID, setNodeID] = useState(undefined)
     let originalPlacement = {
         x: -1,
         y: -1
@@ -31,30 +33,43 @@ export default function Context(props) {
     }
     const handleMouseUp = (event) => {
         event.preventDefault()
+
+        const node = event.target.closest('.' + nodeStyles.entityContainer)
+        const canvas = event.target.closest('#frame-content')
+        let newButtons
+
+
         if (event.button === 2) {
-            setE(event)
-            const el = document.elementFromPoint(event.clientX, event.clientY)
-            let newButtons = []
-            setOnRender(true)
-            onRenderListener = true
-            if (el !== null && el.id.includes('frame'))
+            if (canvas !== null && node === null)
                 newButtons = CanvasContext
-            else if (el.id.includes('node') || (typeof el.className === 'string' && el.className.includes('Node')))
+            else if (node !== null) {
                 newButtons = NodeContext
-            setButtons(newButtons)
-            const marginTop = newButtons.length * 40
-            if (event.clientY > marginTop)
-                ref.current.style.top = (event.clientY - marginTop) + 'px'
-            else
-                ref.current.style.top = event.clientY + 'px'
-
-            if ((document.documentElement.offsetWidth - event.clientX) > 250)
-                ref.current.style.left = event.clientX + 'px'
-            else
-                ref.current.style.left = (event.clientX - 250) + 'px'
+                setNodeID(node.id.replace('-node', ''))
+            }
+            if (newButtons !== undefined)
+                handleContext(newButtons, event)
         }
-
     }
+
+    const handleContext = (newButtons, event) => {
+        setE(event)
+        setOnRender(true)
+        onRenderListener = true
+
+        setButtons(newButtons)
+        const marginTop = newButtons.length * 40
+
+        if (event.clientY > marginTop)
+            ref.current.style.top = (event.clientY - marginTop) + 'px'
+        else
+            ref.current.style.top = event.clientY + 'px'
+
+        if ((document.documentElement.offsetWidth - event.clientX) > 250)
+            ref.current.style.left = event.clientX + 'px'
+        else
+            ref.current.style.left = (event.clientX - 250) + 'px'
+    }
+
     const handleExit = (event) => {
 
         if (event && ((event.button === 0 && !document.elementsFromPoint(event.clientX, event.clientY).includes(ref.current)) || (event.button === 2 && onRenderListener)))
@@ -88,7 +103,7 @@ export default function Context(props) {
                     {button.children.map(c => (
                         <button
                             onClick={() => {
-                                c.onClick(props, e)
+                                c.onClick(props, e, nodeID)
                                 remove()
                             }} key={c.key}
                             disabled={c.getDisabled !== undefined ? c.getDisabled(props) : false}
@@ -99,9 +114,10 @@ export default function Context(props) {
                             {c.shortcutButtons ?
                                 <div className={styles.shortcuts}>
                                     {c.shortcutButtons.map((s, index) => (
-                                        <div className={index === 0 ? styles.mainButton : styles.secondaryButton} key={c.key+'-shortcut'}>
+                                        <div className={index === 0 ? styles.mainButton : styles.secondaryButton}
+                                             key={c.key + '-shortcut'}>
 
-                                            {index > 0 ?     <div> + </div> : null}
+                                            {index > 0 ? <div> + </div> : null}
                                             {s}
                                         </div>
                                     ))}

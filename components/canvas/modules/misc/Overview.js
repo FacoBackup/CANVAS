@@ -35,58 +35,9 @@ export default function Overview(props) {
                 <CloseRounded style={{fontSize: '1.3rem'}}/>
             </button>
             <Tabs buttons={[
+
                 {
                     key: 0,
-                    value: 'Conteúdo',
-                    content: (
-                        <div className={styles.header}>
-                            <input className={[styles.input, styles.inputTitle].join(' ')} value={props.node.title}
-                                   placeholder={'Título'}
-                                   onChange={event => handleChange('title', event.target.value)}/>
-
-                            <textarea className={[styles.input, styles.inputBody].join(' ')} maxLength={'300'}
-                                      value={props.node.description}
-                                      placeholder={'Descrição'}
-                                      onChange={event => handleChange('description', event.target.value)}/>
-
-                            <input type="file" id="upload_node_file" style={{display: 'none'}} multiple={false}
-                                   onChange={event =>
-                                       handleChange('file', event.target.files[0])
-                                   }/>
-
-
-                            <button
-                                className={[styles.uploadButton, props.node.file !== undefined && props.node.file !== null ? styles.uploadButtonWFile : styles.uploadButtonNoFile].join(' ')}
-                                onClick={() => {
-                                    if (props.node.file !== undefined && props.node.file !== null)
-                                        handleChange('file', undefined)
-                                    else {
-                                        const input = document.getElementById('upload_node_file')
-                                        if (input !== null)
-                                            input.click()
-                                    }
-                                }} id="upload_node_file">
-                                {props.node.file !== undefined && props.node.file !== null ?
-                                    <>
-                                        <DeleteForeverRounded/>
-                                        <div style={{color: '#333333'}}>
-                                            {props.node.file.name}
-                                        </div>
-                                    </>
-                                    :
-                                    <>
-                                        <AttachFileRounded/>
-                                        <div style={{color: '#333333'}}>
-                                            Anexar arquivo
-                                        </div>
-                                    </>
-                                }
-                            </button>
-                        </div>
-                    )
-                },
-                {
-                    key: 1,
                     value: 'Estilo',
                     content: (
                         <div style={{display: "grid", gap: '16px'}}>
@@ -208,7 +159,7 @@ export default function Overview(props) {
                     )
                 },
                 {
-                    key: 2,
+                    key: 1,
                     value: 'Ajustes',
                     content: (
                         <div style={{display: "grid", gap: '16px'}}>
@@ -221,7 +172,7 @@ export default function Overview(props) {
                                            style={{fontSize: '.9rem'}}
                                            onChange={event => {
                                                let newPlacement = {...props.node.placement}
-                                               newPlacement.y = nodeRef.getBBox().y
+                                               newPlacement.y = props.node.placement.y
                                                newPlacement.x = event.target.value
                                                handleChange('placement', newPlacement)
                                            }}
@@ -236,7 +187,7 @@ export default function Overview(props) {
                                         style={{fontSize: '.9rem'}}
                                         onChange={event => {
                                             let newPlacement = {...props.node.placement}
-                                            newPlacement.x = nodeRef.getBBox().x
+                                            newPlacement.x = props.node.placement.x
                                             newPlacement.y = event.target.value
                                             handleChange('placement', newPlacement)
                                         }}

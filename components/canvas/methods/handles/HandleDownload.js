@@ -24,9 +24,6 @@ export default function HandleDownload(props){
         }
     })
 
-    newData.dimensions.width = props.root.offsetWidth
-    newData.dimensions.height = props.root.offsetHeight
-
     newData.nodes = newNodes
 
     if(!props.asJson){
@@ -37,18 +34,13 @@ export default function HandleDownload(props){
         dataStr =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(newData))
     console.log(dataStr)
     downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", `${props.data.subject}.json`);
+    downloadAnchorNode.setAttribute("download", `${props.data.subject}.${props.asJson ? 'json' : 'canvas'}`);
     document.body.appendChild(downloadAnchorNode)
     downloadAnchorNode.click()
     downloadAnchorNode.remove()
-
-    // props.handleDownload(dataStr)
-
 }
 HandleDownload.propTypes={
     data: PropTypes.object,
-    handleDownload: PropTypes.func,
-    root: PropTypes.object,
     asJson: PropTypes.bool
 }
 

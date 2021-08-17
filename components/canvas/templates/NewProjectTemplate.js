@@ -10,15 +10,13 @@ export default {
             links: []
         }
     ],
-
-    // PLACEHOLDER
-    nodes: [],
-    links: [],
-    // PLACEHOLDER
-
     dimensions: {
         width: 10000,
         height: 10000
+    },
+    styling: {
+        textAlign: 'center',
+        fontSize: 16
     },
     connectionType: 'strong-path'
 }

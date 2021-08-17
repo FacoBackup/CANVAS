@@ -6,14 +6,14 @@ export default [
         label: 'Zoom',
         children: [
             {
-                label: 'Zoom out',
+                label: 'Aumentar',
                 icon: <ZoomOutRounded/>,
                 onClick: (props) => props.setScale(props.scale - .25),
                 getDisabled: (props) => props.scale === .5,
                 key: 'canvas-1'
             },
             {
-                label: 'Zoom in',
+                label: 'Reduzir',
                 icon: <ZoomInRounded/>,
                 onClick: (props) => props.setScale(props.scale + .25),
                 getDisabled: (props) => props.scale === 2,

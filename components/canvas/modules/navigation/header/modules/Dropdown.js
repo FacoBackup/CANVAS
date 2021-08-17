@@ -9,7 +9,8 @@ export default function Dropdown(props) {
     const dropdownRef = useRef()
 
     const handleClose = (event) => {
-        props.handleClose(null)
+        if (event.target.closest('.' + styles.dropdownButton) === null)
+            props.handleClose(null)
     }
 
 
@@ -35,9 +36,12 @@ export default function Dropdown(props) {
                     <div style={{width: '100%', borderTop: i > 0 ? '#e0e0e0 1px solid' : "unset"}}>
                         {b.children.map(c => (
                             <button
-                                className={styles.dropdownButton}
-                                style={{paddingLeft: c.icon === undefined ? '32px' : "4px"}}
-                                onClick={() => b.onClick()}
+                                className={[styles.dropdownButton, c.active ? styles.activeButton : undefined].join(' ')} disabled={c.disabled}
+                                style={{...{paddingLeft: c.icon === undefined ? '32px' : "4px"}, ...c.styles}}
+                                onClick={() => {
+                                    c.onClick()
+                                    props.handleClose(null)
+                                }}
                             >
                                 <div style={{
                                     display: c.icon === undefined ? 'none' : 'flex',
@@ -62,9 +66,13 @@ Dropdown.propTypes = {
             {
                 label: PropTypes.string,
                 onClick: PropTypes.func,
-                icon: PropTypes.object
+                icon: PropTypes.object,
+                active: PropTypes.bool,
+                disabled: PropTypes.bool,
+                styles: PropTypes.object
             }
         ))
+
     })),
     label: PropTypes.string,
     open: PropTypes.bool,

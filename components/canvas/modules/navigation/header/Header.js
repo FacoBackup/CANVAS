@@ -3,24 +3,30 @@ import styles from './styles/Header.module.css'
 
 import HandleUpload from "../../../methods/handles/HandleUpload";
 import {
+    DescriptionRounded,
     GetAppRounded,
     ImageRounded,
     PictureAsPdfRounded,
     SaveRounded,
     ShareRounded,
-    StorageRounded
+    StorageRounded, ZoomInRounded, ZoomOutRounded
 } from "@material-ui/icons";
 import Dropdown from "./modules/Dropdown";
-import {useState} from "react";
+import {useRef, useState} from "react";
+import HandleDownload from "../../../methods/handles/HandleDownload";
 
 export default function Header(props) {
     const [openMenu, setOpenMenu] = useState(null)
+    const inputRef = useRef()
+    const uploadRef = useRef()
+
     return (
         <div className={styles.navigation}>
             <div className={styles.column}>
-                <input className={styles.textField}
-                       value={props.data.subject}
-                       onChange={event => props.setData({...props.data, subject: event.target.value})}/>
+                <input
+                    className={styles.textField}
+                    value={props.data.subject} ref={inputRef}
+                    onChange={event => props.setData({...props.data, subject: event.target.value})}/>
                 {/*<button*/}
                 {/*    className={styles.buttonContainer}*/}
                 {/*    onClick={() => {*/}
@@ -35,23 +41,23 @@ export default function Header(props) {
                 {/*    Baixar modelo*/}
 
                 {/*</button>*/}
-                <input type="file" id="upload_file_input" style={{display: 'none'}} multiple={false}
+                <input type="file" ref={uploadRef} style={{display: 'none'}} multiple={false}
                        onChange={event => HandleUpload({
                            file: event,
                            setData: props.setData,
                        })}
-                       accept={'.json'}/>
+                       accept={'.canvas'}/>
 
 
                 <Dropdown
                     handleClose={() => setOpenMenu(null)}
-                    open={openMenu === 1} handleOpen={ () => setOpenMenu(1)}
+                    open={openMenu === 1} handleOpen={() => setOpenMenu(1)}
                     buttons={[
                         {
                             children: [
                                 {
                                     label: 'Renomear projeto',
-                                    onClick: () => null
+                                    onClick: () => inputRef.current.focus()
                                 },
                             ]
                         },
@@ -60,12 +66,15 @@ export default function Header(props) {
                                 {
                                     label: 'Salvar',
                                     icon: <SaveRounded style={{fontSize: '1.3rem'}}/>,
-                                    onClick: () => null
+                                    onClick: () => HandleDownload({data: props.data, asJson: false})
                                 },
                                 {
                                     label: 'Importar projeto',
                                     icon: <StorageRounded style={{fontSize: '1.3rem'}}/>,
-                                    onClick: () => null
+                                    onClick: () => {
+
+                                        uploadRef.current.click()
+                                    }
                                 }
                             ]
                         }
@@ -75,14 +84,14 @@ export default function Header(props) {
 
                 <Dropdown
                     handleClose={() => setOpenMenu(null)}
-                    open={openMenu === 2} handleOpen={ () => setOpenMenu(2)}
+                    open={openMenu === 2} handleOpen={() => setOpenMenu(2)}
                     buttons={[
                         {
                             children: [
                                 {
-                                    label: 'Projeto',
-                                    icon: <GetAppRounded style={{fontSize: '1.3rem'}}/>,
-                                    onClick: () => null
+                                    label: 'JSON',
+                                    icon: <DescriptionRounded style={{fontSize: '1.3rem'}}/>,
+                                    onClick: () => HandleDownload({data: props.data, asJson: true})
                                 }
                             ]
                         },
@@ -91,12 +100,13 @@ export default function Header(props) {
                                 {
                                     label: 'PDF',
                                     icon: <PictureAsPdfRounded style={{fontSize: '1.3rem'}}/>,
-                                    onClick: () => null
+                                    onClick: () => props.handlePrint()
                                 },
                                 {
                                     label: 'PNG',
                                     icon: <ImageRounded style={{fontSize: '1.3rem'}}/>,
-                                    onClick: () => null
+                                    onClick: () => null,
+                                    disabled: true
                                 }
                             ]
                         }
@@ -106,18 +116,22 @@ export default function Header(props) {
 
                 <Dropdown
                     handleClose={() => setOpenMenu(null)}
-                    open={openMenu === 3} handleOpen={ () => setOpenMenu(3)}
+                    open={openMenu === 3} handleOpen={() => setOpenMenu(3)}
                     buttons={[
                         {
 
                             children: [
                                 {
                                     label: 'Aumentar',
-                                    onClick: () => null
+                                    onClick: () => props.setScale(props.scale + .25),
+                                    icon: <ZoomInRounded style={{fontSize: '1.3rem'}}/>,
+                                    disabled: props.scale === 2
                                 },
                                 {
                                     label: 'Reduzir',
-                                    onClick: () => null
+                                    onClick: () => props.setScale(props.scale - .25),
+                                    icon: <ZoomOutRounded style={{fontSize: '1.3rem'}}/>,
+                                disabled: props.scale === .5
                                 }
                             ]
                         }
@@ -135,6 +149,7 @@ Header.propTypes = {
     root: PropTypes.object,
     onSave: PropTypes.func,
     handlePrint: PropTypes.func,
-    reduced: PropTypes.bool,
-    setReduced: PropTypes.func
+
+    setScale: PropTypes.func,
+    scale: PropTypes.number
 }
