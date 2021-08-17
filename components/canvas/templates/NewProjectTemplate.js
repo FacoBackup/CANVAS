@@ -16,7 +16,8 @@ export default {
     },
     styling: {
         textAlign: 'center',
-        fontSize: 16
+        fontSize: 16,
+        fontFamily: 'Roboto'
     },
     connectionType: 'strong-path'
 }

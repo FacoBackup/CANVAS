@@ -11,9 +11,11 @@ import {
 import Scale from "../misc/Scale";
 import React, {useState} from "react";
 import Dropdown from "../header/modules/Dropdown";
+import FontTemplates from "./modules/FontTemplates";
+import FontFamilyTemplates from "./modules/FontFamilyTemplates";
 
 export default function TopBar(props) {
-    const [openDropdown, setOpenDropdown] = useState(false)
+    const [openDropdown, setOpenDropdown] = useState(null)
 
     return (
         <div className={styles.container}>
@@ -60,113 +62,16 @@ export default function TopBar(props) {
             </button>
             <div className={styles.divider}/>
             <Dropdown
-                handleClose={() => setOpenDropdown(false)}
-                open={openDropdown} handleOpen={() => setOpenDropdown(true)}
-                buttons={[
-                    {
-
-                        children: [
-                            {
-                                label: 'Normal',
-                                onClick: () => {
-                                    let newStyling = {...props.data.styling}
-                                    newStyling.fontSize = 'center'
-
-                                    props.setData({
-                                        ...props.data,
-                                        styling: newStyling
-                                    })
-                                },
-                                styles: {
-                                    fontSize: '16px',
-                                    fontWeight: undefined,
-                                    color: '#333333'
-                                }
-                            },
-                            {
-                                label: 'Título',
-                                onClick: () => {
-                                    let newStyling = {...props.data.styling}
-                                    newStyling.textAlign = 'left'
-
-                                    props.setData({
-                                        ...props.data,
-                                        styling: newStyling
-                                    })
-                                },
-                                styles: {
-                                    fontSize: '27px',
-                                    color: 'black'
-                                }
-                            },
-                            {
-                                label: 'Subtítulo',
-                                onClick: () => {
-                                    let newStyling = {...props.data.styling}
-                                    newStyling.textAlign = 'right'
-
-                                    props.setData({
-                                        ...props.data,
-                                        styling: newStyling
-                                    })
-                                },
-                                styles: {
-                                    fontSize: '15px',
-                                    color: '#555555'
-                                }
-                            },
-                            {
-                                label: 'Cabeçalho 1',
-                                onClick: () => {
-                                    let newStyling = {...props.data.styling}
-                                    newStyling.textAlign = 'right'
-
-                                    props.setData({
-                                        ...props.data,
-                                        styling: newStyling
-                                    })
-                                },
-                                styles: {
-                                    fontSize: '20px',
-                                    color: '#333333'
-                                }
-                            },
-                            {
-                                label: 'Cabeçalho 2',
-                                onClick: () => {
-                                    let newStyling = {...props.data.styling}
-                                    newStyling.textAlign = 'right'
-
-                                    props.setData({
-                                        ...props.data,
-                                        styling: newStyling
-                                    })
-                                },
-                                styles: {
-                                    fontSize: '16px',
-                                    color: '#333333'
-                                }
-                            },
-                            {
-                                label: 'Cabeçalho 3',
-                                onClick: () => {
-                                    let newStyling = {...props.data.styling}
-                                    newStyling.textAlign = 'right'
-
-                                    props.setData({
-                                        ...props.data,
-                                        styling: newStyling
-                                    })
-                                },
-                                styles: {
-                                    fontSize: '14px',
-                                    color: '#333333'
-                                }
-                            }
-                        ]
-                    }
-                ]}
+                handleClose={() => setOpenDropdown(null)}
+                open={openDropdown === 0} handleOpen={() => setOpenDropdown(0)}
+                buttons={FontTemplates(props)}
                 label={'Fontsize'}
+            />
+            <Dropdown
+                handleClose={() => setOpenDropdown(null)}
+                open={openDropdown === 1} handleOpen={() => setOpenDropdown(1)}
+                buttons={FontFamilyTemplates(props)}
+                label={props.data.styling.fontFamily}
             />
             <button
                 className={[styles.button, props.data.styling.textAlign === 'left' ? styles.activeButton : undefined].join(' ')}
