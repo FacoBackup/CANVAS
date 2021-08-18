@@ -85,7 +85,7 @@ export default function RenderNodes(props) {
             nodes: newNodes
         })
     }
-    return (
+    return props.data !== undefined ? (
         props.data.nodes.map((node, index) => node.id === undefined ? null : (
             <g key={`${node.id}-node-${index}`}>
                 <Node
@@ -102,7 +102,7 @@ export default function RenderNodes(props) {
                 />
             </g>
         ))
-    )
+    ) : null
 }
 
 RenderNodes.propTypes = {

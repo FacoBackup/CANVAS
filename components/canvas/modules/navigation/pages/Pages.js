@@ -20,17 +20,26 @@ export default function Pages(props) {
                                 ...props.data,
                                 pages: newPages
                             })
-                        }} handleOpen={() => setOpenInput(index)} open={openInput === index} handleClose={() => setOpenInput(null)}
+                        }} handleOpen={() => setOpenInput(index)} open={openInput === index}
+                        handleClose={() => setOpenInput(null)}
                         length={props.data.pages.length}
                         index={index}
                         removePage={() => {
                             let newPages = [...props.data.pages]
-                            if (page.default) {
-                                if (index === (props.data.pages.length - 1))
-                                    newPages[index - 1].default = true
-                                else if (index === 0)
-                                    newPages[1].default = true
+                            console.log(props.defaultPage)
+                            console.log(index)
+
+                            console.log((props.data.pages.length - 1))
+                            if (index !== props.defaultPage && props.defaultPage !== 0 && props.defaultPage > index)
+                                props.setDefaultPage(props.defaultPage - 1)
+
+                            if (index === props.defaultPage) {
+                                if (index > 1)
+                                    props.setDefaultPage(props.defaultPage - 1)
+                                else
+                                    props.setDefaultPage(0)
                             }
+
                             newPages.splice(index, 1)
                             props.setData({
                                 ...props.data,

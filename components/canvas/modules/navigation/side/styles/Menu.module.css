@@ -130,13 +130,13 @@
     justify-content: space-between;
     align-items: center;
 
-    height: fit-content;
+    height: 35px;
     font-size: 1.05rem;
     font-weight: bold;
     font-family: Roboto;
     color: #393C44;
     border-bottom: #ecedf2 1px solid;
-    padding: 7.5px;
+    padding-left: 8px;
 }
 
 .extendButton{

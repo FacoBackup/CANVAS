@@ -26,7 +26,7 @@ export default function RenderLinks(props) {
         })
     }
 
-    return (
+    return props.data !== undefined ? (
         props.data.links.map((link, index) => (
             <g key={`${link.child.id}-link-${link.parent.id}`}>
                 <Link
@@ -80,7 +80,7 @@ export default function RenderLinks(props) {
                 />
             </g>
         ))
-    )
+    ) : null
 }
 RenderLinks.propTypes = {
     ...CanvasTemplate,

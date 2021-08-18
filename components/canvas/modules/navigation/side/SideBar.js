@@ -13,19 +13,24 @@ export default function SideBar(props) {
             <div className={styles.header}>
                 Formas
             </div>
+            {props.data === undefined ?
+                null
+                :
+                <>
+                    <Shapes
+                        data={props.data} setData={props.setState}
+                        scale={props.scale}
+                    />
 
-            <Shapes
-                data={props.data} setData={props.setState}
-                scale={props.scale}
-            />
+                    <Lines
+                        data={props.data} setData={props.setState}
+                    />
 
-            <Lines
-                data={props.data} setData={props.setState}
-            />
-
-            <Connections
-                data={props.data} setData={props.setState}
-            />
+                    <Connections
+                        data={props.data} setData={props.setState}
+                    />
+                </>
+            }
         </div>
     )
 }
