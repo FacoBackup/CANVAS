@@ -5,6 +5,8 @@
     scroll-behavior: auto;
     overflow: hidden;
     background: white;
+
+    display: flex;
 }
 
 .wrapper > * {

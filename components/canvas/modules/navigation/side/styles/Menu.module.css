@@ -21,19 +21,19 @@
 }
 
 
-.container {
-    background: #FBFBFC;
-    width: 300px;
+/*.container {*/
+/*    background: #FBFBFC;*/
+/*    !*width: 300px;*!*/
 
-    overflow: auto;
-    display: grid;
-    align-content: flex-start;
-    align-self: stretch;
-    scrollbar-color: #e0e0e0 transparent;
+/*    overflow: auto;*/
+/*    display: grid;*/
+/*    align-content: flex-start;*/
+/*    align-self: stretch;*/
+/*    scrollbar-color: #e0e0e0 transparent;*/
 
-    transition: 150ms linear;
-    /*padding-bottom: 32px;*/
-}
+/*    transition: 150ms linear;*/
+/*    !*padding-bottom: 32px;*!*/
+/*}*/
 
 .buttons {
     align-self: stretch;

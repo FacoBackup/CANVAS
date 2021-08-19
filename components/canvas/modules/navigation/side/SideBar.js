@@ -3,35 +3,55 @@ import PropTypes from "prop-types";
 import {useRef, useState} from "react";
 import Shapes from "./modules/Shapes";
 import Lines from "./modules/Lines";
-import {RemoveRounded} from "@material-ui/icons";
+import {EditRounded, FileCopyRounded, InsertDriveFileRounded, RemoveRounded, SettingsRounded} from "@material-ui/icons";
 import Connections from "./modules/Connections";
+import Tabs from "./modules/Tabs";
 
 export default function SideBar(props) {
-    const ref = useRef()
+    const [openButton, setOpenButton] = useState(undefined)
     return (
-        <div className={styles.container} ref={ref}>
-            <div className={styles.header}>
-                Formas
-            </div>
-            {props.data === undefined ?
-                null
-                :
-                <>
+        <Tabs buttons={[
+            {
+                icon: <InsertDriveFileRounded/>,
+                disabled: false,
+                content: (
                     <Shapes
                         data={props.data} setData={props.setState}
                         scale={props.scale}
                     />
-
-                    <Lines
-                        data={props.data} setData={props.setState}
-                    />
-
-                    <Connections
-                        data={props.data} setData={props.setState}
-                    />
-                </>
+                )
+            },
+            {
+                icon: <EditRounded/>,
+                disabled: true,
+                content: null
+            },
+            {
+                icon: <SettingsRounded/>,
+                disabled: true,
+                content: null
             }
-        </div>
+        ]} openButton={openButton} setOpenButton={setOpenButton}/>
+        // <div className={styles.container} ref={ref}>
+        //     <div className={styles.header}>
+        //         Formas
+        //     </div>
+        //     {props.data === undefined ?
+        //         null
+        //         :
+        //         <>
+
+        //
+        //             <Lines
+        //                 data={props.data} setData={props.setState}
+        //             />
+        //
+        //             <Connections
+        //                 data={props.data} setData={props.setState}
+        //             />
+        //         </>
+        //     }
+        // </div>
     )
 }
 SideBar.propTypes = {

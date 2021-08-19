@@ -110,7 +110,17 @@ export default function Canvas(props) {
                 }}
                 scale={scale} setScale={setScale} copiedNode={copiedNode}
                 setCopiedNode={setCopiedNode} setNodeOnOverview={setNodeOnOverview}/>
+            <SideBar
+                data={data.pages[defaultPage]}
+                scale={scale}
+                setState={(event) => {
+                    let newPages = [...data.pages]
+                    newPages[defaultPage] = event
+                    setData({...data, pages: newPages})
+                }}
+            />
             <div className={styles.content}>
+
                 <Header
                     scale={scale}
                     setScale={setScale}
@@ -121,15 +131,7 @@ export default function Canvas(props) {
                 />
                 <TopBar scale={scale} setScale={setScale} data={data} setData={setData}/>
                 <div className={styles.middleWrapper}>
-                    <SideBar
-                        data={data.pages[defaultPage]}
-                        scale={scale}
-                        setState={(event) => {
-                            let newPages = [...data.pages]
-                            newPages[defaultPage] = event
-                            setData({...data, pages: newPages})
-                        }}
-                    />
+
                     <div className={styles.contentWrapper}>
                         <Pages
                             scale={scale} setScale={setScale}

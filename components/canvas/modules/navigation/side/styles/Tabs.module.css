@@ -1,0 +1,18 @@
+.container {
+    height: 100%;
+    width: fit-content;
+}
+
+.buttons {
+    width: 50px;
+    height: 100%;
+    background: white;
+}
+
+.button {
+
+}
+
+.content {
+    width: 300px;
+}
