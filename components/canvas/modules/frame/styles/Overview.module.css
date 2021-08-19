@@ -1,0 +1,12 @@
+.frameOverview{
+    position: fixed;
+    z-index: 999;
+    bottom: 16px;
+    right: 16px;
+    border-radius: 5px;
+    border: #ecedf2 1px solid;
+
+    width: 10%;
+    height: 10%;
+    resize: both;
+}

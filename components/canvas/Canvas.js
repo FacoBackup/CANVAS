@@ -12,6 +12,8 @@ import Scale from "./modules/navigation/misc/Scale";
 import TopBar from "./modules/navigation/top/TopBar";
 import Frame from "./modules/frame/Frame";
 import nodeStyles from './modules/node/styles/Node.module.css'
+import FrameOverview from "./modules/frame/FrameOverview";
+import tabsStyles from './modules/navigation/side/styles/Tabs.module.css'
 
 export default function Canvas(props) {
     const [data, setData] = useState(NewProjectTemplate)
@@ -65,42 +67,16 @@ export default function Canvas(props) {
 
     }, [])
 
-    const renderOverview = () => {
-        let i = -1
-        if (nodeOnOverview !== undefined)
-            data.pages[defaultPage].nodes.find((node, index) => {
-                if (node.id === nodeOnOverview.id)
-                    i = index
-            })
-
-        let response = null
-
-        if (i !== -1 && i !== undefined)
-            response = (
-                <Overview
-                    data={data.pages[defaultPage]}
-                    node={data.pages[defaultPage].nodes[i]}
-                    setState={(event) => {
-                        let newPages = [...data.pages]
-                        newPages[defaultPage] = event
-                        setData({...data, pages: newPages})
-                    }}
-                    nodeIndex={i}
-                    handleClose={() => setNodeOnOverview(undefined)}/>
-            )
-
-        return response
-    }
-
     return (
         <div
             className={styles.wrapper}
             onMouseDown={event => {
-                if (selectedNode && event.target.closest('.' + nodeStyles.entityContainer) === null)
+                if (selectedNode && event.target.closest('.' + nodeStyles.entityContainer) === null && event.target.closest('.' + tabsStyles.container) === null)
                     setSelectedNode(undefined)
                 if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
                     setToBeLinked(null)
             }}>
+            <FrameOverview/>
             <Context
                 data={data.pages[defaultPage]}
                 setData={(event) => {
@@ -112,7 +88,7 @@ export default function Canvas(props) {
                 setCopiedNode={setCopiedNode} setNodeOnOverview={setNodeOnOverview}/>
             <SideBar
                 data={data.pages[defaultPage]}
-                scale={scale}
+                scale={scale} selectedNode={selectedNode}
                 setState={(event) => {
                     let newPages = [...data.pages]
                     newPages[defaultPage] = event
@@ -157,7 +133,6 @@ export default function Canvas(props) {
                             }}
                         />
                     </div>
-                    {renderOverview()}
                 </div>
             </div>
 

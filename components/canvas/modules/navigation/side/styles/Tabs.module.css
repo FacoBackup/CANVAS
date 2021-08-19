@@ -47,7 +47,7 @@
 }
 .activeButton {
     background: #0095ff;
-    color: white;
+    color: #f4f5fa;
 }
 .activeButton:hover {
     background: #0095ff;
@@ -56,4 +56,7 @@
 
 .content {
     width: 250px;
+    padding: 4px;
+    scroll-behavior: smooth;
+    overflow-y: auto;
 }

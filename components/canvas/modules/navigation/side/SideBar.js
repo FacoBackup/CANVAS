@@ -1,6 +1,6 @@
 import styles from './styles/Menu.module.css'
 import PropTypes from "prop-types";
-import {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Shapes from "./modules/Shapes";
 import Lines from "./modules/Lines";
 import {
@@ -13,76 +13,82 @@ import {
 } from "@material-ui/icons";
 import Connections from "./modules/Connections";
 import Tabs from "./modules/Tabs";
+import Overview from "../../misc/Overview";
 
 export default function SideBar(props) {
     const [openButton, setOpenButton] = useState(0)
+    const [nodeIndex, setNodeIndex] = useState(null)
+
+    useEffect(() => {
+        if (props.selectedNode !== undefined && props.selectedNode !== null) {
+            setOpenButton(2)
+            props.data.nodes.find((node, i) => {
+                if (node.id === props.selectedNode.id)
+                    setNodeIndex(i)
+            })
+
+        } else
+            setOpenButton(1)
+    }, [props.selectedNode])
     return (
         <Tabs
             buttons={[
                 {
                     icon: <InsertDriveFileRounded/>,
-                    disabled: false,
-                    content: (
-                        <Shapes
-                            data={props.data} setData={props.setState}
-                            scale={props.scale}
-                        />
-                    ),
+                    content: null,
                     toolTip: 'Arquivo'
                 },
                 {
                     icon: <ExtensionRounded/>,
-                    disabled: false,
                     content: (
-                        null
+                        <>
+                            <Shapes
+                                data={props.data} setData={props.setState}
+                                scale={props.scale}
+                            />
+                            <Lines
+                                data={props.data} setData={props.setState}
+                            />
+
+                            <Connections
+                                data={props.data} setData={props.setState}
+                            />
+                        </>
                     ),
                     toolTip: 'Módulos e opções'
                 },
-                {
+                props.selectedNode !== undefined && props.selectedNode !== null && nodeIndex !== null ? {
                     icon: <EditRounded/>,
-                    disabled: true,
-                    content: null,
+                    content: (
+                        <Overview
+                            data={props.data}
+                            node={props.data.nodes[nodeIndex]}
+                            setState={props.setState}
+                            nodeIndex={nodeIndex}
+                        />
+                    ),
                     toolTip: 'Editar módulo'
-                },
-                {
-                    icon: <FolderRounded/>,
-                    disabled: true,
-                    content: null,
-                    toolTip: 'Estrutura'
-                },
-                {
-                    icon: <SettingsRounded/>,
-                    disabled: true,
-                    content: null,
-                    toolTip: 'Configurações do canvas'
-                },
+                } : null,
+                // {
+                //     icon: <FolderRounded/>,
+                //     disabled: true,
+                //     content: null,
+                //     toolTip: 'Estrutura'
+                // },
+                // {
+                //     icon: <SettingsRounded/>,
+                //     disabled: true,
+                //     content: null,
+                //     toolTip: 'Configurações do canvas'
+                // },
             ]}
             openButton={openButton}
             setOpenButton={setOpenButton}
         />
-        // <div className={styles.container} ref={ref}>
-        //     <div className={styles.header}>
-        //         Formas
-        //     </div>
-        //     {props.data === undefined ?
-        //         null
-        //         :
-        //         <>
-
-        //
-        //             <Lines
-        //                 data={props.data} setData={props.setState}
-        //             />
-        //
-        //             <Connections
-        //                 data={props.data} setData={props.setState}
-        //             />
-        //         </>
-        //     }
-        // </div>
     )
 }
 SideBar.propTypes = {
     data: PropTypes.object,
-    setState: PropTypes.func
+    setState: PropTypes.func,
+    selectedNode: PropTypes.object
 }
