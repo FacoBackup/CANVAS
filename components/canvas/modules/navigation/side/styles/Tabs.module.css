@@ -1,18 +1,59 @@
 .container {
     height: 100%;
     width: fit-content;
+    display: flex;
 }
 
 .buttons {
-    width: 50px;
+    width: 55px;
     height: 100%;
-    background: white;
+    background: #f4f5fa;
+    display: grid;
+    align-content: flex-start;
+    gap: 12px;
+    padding: 4px;
+    border: #ecedf2 1px solid;
 }
 
 .button {
+    outline: none;
+    border: none;
+    background: transparent;
+    color: #555555;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 150ms linear;
+
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.button:hover {
+    background: #f4f5fa;
+    color: #333333;
+}
+
+.button:active {
+    background: #E8F0FE;
+    color: #0095ff;
+}
+.button:disabled {
+    background: transparent;
+    color: #999999;
+    cursor: unset;
+}
+.activeButton {
+    background: #0095ff;
+    color: white;
+}
+.activeButton:hover {
+    background: #0095ff;
+    color: white;
 }
 
 .content {
-    width: 300px;
+    width: 250px;
 }

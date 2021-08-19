@@ -6,7 +6,9 @@ export default function Tabs(props) {
         <div className={styles.container}>
             <div className={styles.buttons}>
                 {props.buttons.map((button, i) => (
-                    <button className={styles.button} onClick={() => props.setOpenButton(i === props.openButton ? undefined : i)}>
+                    <button
+                        className={[styles.button, props.openButton === i ? styles.activeButton : ''].join(' ')}
+                        onClick={() => props.setOpenButton(i)} disabled={button.disabled}>
                         {button.icon}
                     </button>
                 ))}
