@@ -4,6 +4,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Shapes from "./modules/Shapes";
 import Lines from "./modules/Lines";
 import {
+    CategoryRounded,
     EditRounded, ExtensionRounded,
     FileCopyRounded,
     FolderRounded,
@@ -39,7 +40,7 @@ export default function SideBar(props) {
                     toolTip: 'Arquivo'
                 },
                 {
-                    icon: <ExtensionRounded/>,
+                    icon: <CategoryRounded/>,
                     content: (
                         <>
                             <Shapes
