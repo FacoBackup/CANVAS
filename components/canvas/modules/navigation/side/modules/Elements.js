@@ -9,7 +9,6 @@ export default function Elements(props) {
     const ref = useRef()
 
     useEffect(() => {
-        console.log(contentRef.current.offsetHeight)
         if (open) {
             ref.current.style.height = (contentRef.current.offsetHeight + 50) + 'px'
         } else
@@ -18,8 +17,10 @@ export default function Elements(props) {
     }, [open])
 
     return (
-        <div className={styles.elementsContainer} ref={ref}>
-            <div className={styles.optionsDivider} onClick={() => setOpen(!open)}>
+        <div className={styles.elementsContainer} ref={ref}
+             style={{border: open ? '#0095ff 1px solid' : undefined, background: open ? 'white' : undefined}}>
+            <div className={styles.optionsDivider} onClick={() => setOpen(!open)}
+                 style={{background: open ? 'white' : undefined}}>
                 <ArrowDropDownRounded style={{
                     transform: open ? `rotate(180deg)` : undefined,
                     fontSize: '1.3rem',
@@ -31,7 +32,7 @@ export default function Elements(props) {
             <div style={{
                 visibility: !open ? 'hidden' : 'visible',
                 opacity: !open ? '0' : '1',
-                transform: !open ? 'translateY(calc(-100% - 20px))' : 'translateY(-20px)',
+                transform: !open ? 'translateY(calc(-100% - 18px))' : 'translateY(-18px)',
                 transition: '150ms linear',
                 position: 'relative',
                 zIndex: 0

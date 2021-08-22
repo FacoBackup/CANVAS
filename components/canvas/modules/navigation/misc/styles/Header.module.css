@@ -15,33 +15,6 @@
 }
 
 
-.textField {
-    box-sizing: border-box;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1.1rem;
-
-    font-family: Roboto;
-    color: #393C44;
-    border: none;
-    width: fit-content;
-    padding: 4px;
-    background: white;
-    outline: none;
-    height: 100%;
-
-    transition: 150ms linear;
-    display: flex;
-    align-items: center;
-
-}
-.textField:hover {
-    background: #f4f5fa;
-}
-.textField:focus, .textField:focus-within {
-    background: #E8F0FE;
-}
-
 .buttonContainer {
     height: 100%;
     outline: none;

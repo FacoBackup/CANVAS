@@ -3,36 +3,15 @@ import PropTypes from "prop-types"
 
 var CryptoJS = require("crypto-js");
 export default function HandleDownload(props){
-    let newData = {...props.data}
-    let newNodes = []
     let dataStr
     let downloadAnchorNode = document.createElement('a');
-
-    newData.nodes.map(node => {
-        const element = document.getElementById(node.id+'-node')
-        let newNode = {...node}
-
-        if(element !== null) {
-            const bBox = element.getBBox()
-
-            newNode.dimensions.width = bBox.width
-            newNode.dimensions.height = bBox.height
-            newNode.placement.x = bBox.x
-            newNode.placement.y = bBox.y
-
-            newNodes.push(newNode)
-        }
-    })
-
-    newData.nodes = newNodes
-
     if(!props.asJson){
-        const ciphertext =  CryptoJS.AES.encrypt(JSON.stringify(newData), 'sdaoi213@*#78&*&*Edsah&(821j3kbkdas*((').toString();
+        const ciphertext =  CryptoJS.AES.encrypt(JSON.stringify(props.data), 'sdaoi213@*#78&*&*Edsah&(821j3kbkdas*((').toString();
         dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(ciphertext)
     }
     else
-        dataStr =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(newData))
-    console.log(dataStr)
+        dataStr =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(props.data))
+
     downloadAnchorNode.setAttribute("href", dataStr);
     downloadAnchorNode.setAttribute("download", `${props.data.subject}.${props.asJson ? 'json' : 'canvas'}`);
     document.body.appendChild(downloadAnchorNode)

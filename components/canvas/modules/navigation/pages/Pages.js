@@ -26,10 +26,6 @@ export default function Pages(props) {
                         index={index}
                         removePage={() => {
                             let newPages = [...props.data.pages]
-                            console.log(props.defaultPage)
-                            console.log(index)
-
-                            console.log((props.data.pages.length - 1))
                             if (index !== props.defaultPage && props.defaultPage !== 0 && props.defaultPage > index)
                                 props.setDefaultPage(props.defaultPage - 1)
 

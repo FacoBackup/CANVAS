@@ -74,7 +74,7 @@ export default [
                 onClick: (props,event, nodeID) => {
                     props.data.nodes.find((node, i) => {
                         if(nodeID === node.id)
-                            props.setNodeOnOverview(node)
+                            props.setSelectedNode(node)
                     })
                 },
                 key: 'node-4'

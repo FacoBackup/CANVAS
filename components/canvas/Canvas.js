@@ -85,56 +85,39 @@ export default function Canvas(props) {
                     setData({...data, pages: newPages})
                 }}
                 scale={scale} setScale={setScale} copiedNode={copiedNode}
-                setCopiedNode={setCopiedNode} setNodeOnOverview={setNodeOnOverview}/>
+                setCopiedNode={setCopiedNode} setSelectedNode={setSelectedNode}/>
             <SideBar
-                data={data.pages[defaultPage]}
+                data={data}
+                defaultPage={defaultPage} handlePrint={handlePrint}
                 scale={scale} selectedNode={selectedNode}
-                setState={(event) => {
-                    let newPages = [...data.pages]
-                    newPages[defaultPage] = event
-                    setData({...data, pages: newPages})
-                }}
+                setData={setData}
             />
             <div className={styles.content}>
-
-                <Header
-                    scale={scale}
-                    setScale={setScale}
-                    data={data}
-                    setData={setData}
-                    onSave={props.onSave}
-                    handlePrint={handlePrint}
-                />
                 <TopBar scale={scale} setScale={setScale} data={data} setData={setData}/>
-                <div className={styles.middleWrapper}>
-
-                    <div className={styles.contentWrapper}>
-                        <Pages
-                            scale={scale} setScale={setScale}
-                            data={data} setData={setData}
-                            setDefaultPage={setDefaultPage}
-                            defaultPage={defaultPage}
-                        />
-                        <Frame
-                            {...props} toBeLinked={toBeLinked} scale={scale}
-                            data={data.pages[defaultPage]}
-                            dimensions={data.dimensions}
-                            nodeOnOverview={nodeOnOverview}
-                            setData={(event) => {
-                                let newPages = [...data.pages]
-                                newPages[defaultPage] = event
-                                setData({...data, pages: newPages})
-                            }} styling={{connectionType: data.connectionType}}
-                            setNodeOnOverview={setNodeOnOverview} setToBeLinked={setToBeLinked}
-                            selectedNode={selectedNode}
-                            setSelectedNode={data => {
-                                console.log(data)
-                                setSelectedNode(data)
-                            }}
-                        />
-                    </div>
+                <div className={styles.contentWrapper}>
+                    <Pages
+                        scale={scale} setScale={setScale}
+                        data={data} setData={setData}
+                        setDefaultPage={setDefaultPage}
+                        defaultPage={defaultPage}
+                    />
+                    <Frame
+                        {...props} toBeLinked={toBeLinked} scale={scale}
+                        data={data.pages[defaultPage]}
+                        dimensions={data.dimensions}
+                        nodeOnOverview={nodeOnOverview}
+                        setData={(event) => {
+                            let newPages = [...data.pages]
+                            newPages[defaultPage] = event
+                            setData({...data, pages: newPages})
+                        }} styling={{connectionType: data.connectionType}}
+                        setNodeOnOverview={setNodeOnOverview} setToBeLinked={setToBeLinked}
+                        selectedNode={selectedNode}
+                        setSelectedNode={setSelectedNode}
+                    />
                 </div>
             </div>
+
 
         </div>
     )

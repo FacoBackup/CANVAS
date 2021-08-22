@@ -16,6 +16,7 @@
 .content {
     height: 100%;
     width: 100%;
+    background: #f4f5fa;
     overflow: hidden;
     position: relative;
 }
@@ -95,17 +96,16 @@
 }
 
 .canvasContainer {
-    /*transition: 150ms linear;*/
+    border-top: #ecedf2 1px solid;
     overflow: auto;
     position: relative;
     width: 100%;
-    height: calc(100% - 35px);
+    height: calc(100% - 75px);
     cursor: default;
     scroll-behavior: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: #ecedf2 1px solid;
 }
 
 
@@ -114,11 +114,7 @@
     display: block;
     width: 100%;
     overflow: hidden;
-    background: #FBFBFC;
+    background: transparent;
+    height: 100%;
 
-}
-.middleWrapper{
-    height: calc(100% - 70px);
-    display: flex;
-    width: 100%;
 }

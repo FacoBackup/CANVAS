@@ -3,12 +3,12 @@ import {v4 as uuid4} from "uuid";
 
 export default function DragNew(props) {
     let moving = true
-    const root = document.getElementById('frame-content')
+    const root = document.getElementById('frame')
     const getDimensions = () => {
         let res = {}
         switch (true) {
 
-            case props.type.includes('rect') || props.type.includes('parallelogram') || props.type.includes('trapezoid') ||  props.type.includes('ellipse') || props.type.includes('relationship'): {
+            case props.type.includes('rect') || props.type.includes('parallelogram') || props.type.includes('trapezoid') || props.type.includes('ellipse') || props.type.includes('relationship'): {
                 res = {
                     width: 160,
                     height: 80
@@ -75,7 +75,7 @@ export default function DragNew(props) {
 
     document.addEventListener('mousemove', function movingNew(event) {
         if (moving)
-            move(event, false)
+            move(event)
         else
             event.currentTarget.removeEventListener('mousemove', movingNew);
     })
@@ -83,9 +83,6 @@ export default function DragNew(props) {
 
         if (moving) {
             const elements = document.elementsFromPoint(event.clientX, event.clientY)
-            console.log(elements[2])
-            console.log(elements[3])
-            console.log(elements[4])
             document.body.removeChild(newWrapper)
             if (elements.length >= 2 && elements[3].id === 'frame-content' && root !== undefined) {
 
@@ -102,8 +99,8 @@ export default function DragNew(props) {
                         title: '',
                         description: null,
                         placement: {
-                            x: (event.clientX - rootBounding.x + root.scrollLeft - 40),
-                            y: (event.clientY - rootBounding.y + root.scrollTop - 40)
+                            x: (event.clientX - rootBounding.x + root.scrollLeft -dimensions.width/2) / props.scale,
+                            y: (event.clientY - rootBounding.y + root.scrollTop -dimensions.height/2) / props.scale
                         },
                         shapeVariant: variant,
                         creationDate: (new Date()).getTime(),
@@ -113,8 +110,7 @@ export default function DragNew(props) {
                             shape: props.type,
                             border: 0,
                             color: '#0095ff',
-                            borderWidth: 2,
-                            skew: props.type === 'parallelogram' ? -25 : 0
+                            borderWidth: 2
                         }
                     }]]
                 }))
@@ -136,8 +132,9 @@ export default function DragNew(props) {
             y: event.clientY
         }
 
-        let placementX = newWrapper.offsetLeft - newPlacement.x / props.scale
-        let placementY = newWrapper.offsetTop - newPlacement.y / props.scale
+        let placementX = newWrapper.offsetLeft - newPlacement.x
+        let placementY = newWrapper.offsetTop - newPlacement.y
+
 
         newWrapper.style.top = placementY + 'px'
         newWrapper.style.left = placementX + 'px'

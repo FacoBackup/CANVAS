@@ -1,0 +1,88 @@
+.primaryButton {
+    font-family: Roboto;
+    outline: none;
+    border-radius: 5px;
+    background: white;
+    border: #ecedf2 1px solid;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    color: #555555;
+    transition: 150ms linear;
+    cursor: pointer;
+}
+
+.primaryButton:hover {
+    background: #f4f5fa;
+}
+
+.secondaryButton {
+    outline: none;
+    border-radius: 5px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    font-size: .75rem;
+    font-family: Roboto;
+    background: white;
+    border: none;
+    color: #555555;
+    transition: 150ms linear;
+    cursor: pointer;
+    width: 100%;
+    border: #ecedf2 1px solid;
+}
+
+.secondaryButton:hover {
+    color: #333333;
+    background: #f4f5fa;
+}
+
+.primaryButton:active, .secondaryButton:active {
+    background: #E8F0FE;
+    border: #0095ff 1px solid;
+}
+
+.buttons {
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+
+    align-content: flex-start;
+
+
+}
+
+
+.textField {
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+
+    font-family: Roboto;
+    color: #393C44;
+    border: none;
+    width: 100%;
+    padding: 4px;
+    background: white;
+    outline: none;
+    height: 100%;
+
+    transition: 150ms linear;
+    display: flex;
+    align-items: center;
+
+}
+
+.textField:hover {
+    background: #f4f5fa;
+}
+
+.textField:focus, .textField:focus-within {
+    background: #E8F0FE;
+}

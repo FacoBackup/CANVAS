@@ -43,13 +43,12 @@ export default function Overview(props) {
                     }/>
             </Elements>
             <Elements label={'Borda'}>
-                <>
+                <div style={{display: 'grid', gap: '4px', paddingBottom: '4px'}}>
                     <div className={styles.fieldContainer}
-                         style={{display: props.node.shape === 'triangle' ? 'none' : undefined}}>
+                         style={{display: props.node.shapeVariant === 'polygon' ? 'none' : undefined}}>
                         <label htmlFor={'border-radius'}>Raio borda (px):</label>
                         <input id={'border-radius'}
-                               className={[styles.input, styles.inputBody].join(' ')}
-                               style={{fontSize: '.9rem', width: 'auto', marginLeft: 'auto'}}
+                               className={styles.input}
                                onChange={event => {
 
                                    handleChange('styling',
@@ -64,100 +63,50 @@ export default function Overview(props) {
                         />
                     </div>
                     <div className={styles.fieldContainer}>
-                        <label htmlFor={'stroke-width'}>Largura borda (px):</label>
-                        <input id={'stroke-width'}
-                               className={[styles.input, styles.inputBody].join(' ')}
-                               style={{fontSize: '.9rem', width: 'auto', marginLeft: 'auto'}}
-                               onChange={event => {
-                                   handleChange('styling',
-                                       {
-                                           ...props.node.styling, ...{
-                                               borderWidth: event.target.value
-                                           }
-                                       })
-                               }}
-                               value={props.node.styling.borderWidth}
-                               placeholder={'Largura'} type={'number'}
+                        <div>width</div>
+                        <input
+                            className={styles.input}
+                            style={{transition: 'none', cursor: "pointer"}}
+                            onChange={event => {
+                                handleChange('styling',
+                                    {
+                                        ...props.node.styling, ...{
+                                            strokeWidth:event.target.value
+                                        }
+                                    })
+                            }}
+                            value={props.node.styling.strokeWidth}
+                            type={'range'}
+                            max={10} min={0}
                         />
                     </div>
-                    <fieldset className={styles.fieldSetContainer}>
-                        <legend>Tipo borda:</legend>
-                        <form id={'stroke-type'} style={{display: 'flex', flexFlow: 'wrap', gap: '16px'}}>
-                            <div style={{display: 'flex', alignItems: 'center', gap: '4px'}}>
-
-                                <input id={'dashed'}
-                                       className={[styles.input, styles.inputBody].join(' ')}
-                                       onChange={event => {
-                                           // handleChange('styling', {
-                                           //     color: node.styling.color,
-                                           //     border: event.target.value
-                                           // })
-                                       }} style={{width: 'fit-content'}}
-                                       value={props.node.styling.border}
-                                       placeholder={'Largura'} type={'checkbox'}
-                                />
-                                <label
-                                    style={{
-                                        fontSize: '.85rem',
-                                        color: '#333333'
-                                    }}
-                                    htmlFor={'dashed'}>Dashed</label>
-                            </div>
-                            <div style={{display: 'flex', alignItems: 'center', gap: '4px'}}>
-
-                                <input id={'dashed'}
-                                       className={[styles.input, styles.inputBody].join(' ')}
-                                       onChange={event => {
-                                           // handleChange('styling', {
-                                           //     color: node.styling.color,
-                                           //     border: event.target.value
-                                           // })
-                                       }} style={{width: 'fit-content'}}
-                                       value={props.node.styling.border}
-                                       placeholder={'Largura'} type={'checkbox'}
-                                />
-                                <label
-                                    style={{
-                                        fontSize: '.85rem',
-                                        color: '#333333'
-                                    }}
-                                    htmlFor={'dashed'}>Solid</label>
-                            </div>
-                        </form>
-
-                    </fieldset>
-                </>
-            </Elements>
-            {/*<Elements label={'Cor de destaque'}>*/}
-
-            {/*</Elements>*/}
-
-            <Elements label={'Forma'}>
-                <div className={styles.fieldContainer}>
-                    <label htmlFor={'skew'}>Ângulo de enviesamento:</label>
-                    <input id={'skew'}
-                           className={[styles.input, styles.inputBody].join(' ')}
-                           style={{fontSize: '.9rem', width: 'auto', marginLeft: 'auto'}}
-                           onChange={event => {
-                               handleChange('styling', {
-                                   ...props.node.styling, ...{
-                                       skew: event.target.value,
-                                   }
-                               })
-                           }}
-                           value={props.node.styling.skew}
-                           placeholder={'skew'} type={'number'}
-                    />
+                    <div className={styles.fieldContainer}>
+                        <div>Dasharray</div>
+                        <input
+                            className={styles.input}
+                            style={{transition: 'none', cursor: "pointer"}}
+                            onChange={event => {
+                                handleChange('styling',
+                                    {
+                                        ...props.node.styling, ...{
+                                            strokeDasharray: `${event.target.value}, ${event.target.value}`
+                                        }
+                                    })
+                            }}
+                            value={props.node.styling.strokeDasharray === undefined ? 0 : props.node.styling.strokeDasharray.split(',')[0]}
+                            type={'range'}
+                            max={10} min={0}
+                        />
+                    </div>
                 </div>
             </Elements>
             <Elements label={'Posição'}>
-                <fieldset className={styles.fieldSetContainer}>
-                    <legend>Posição</legend>
+                <div style={{display: 'grid', gap: '4px', paddingBottom: '4px'}}>
+
                     <div className={styles.fieldContainer}>
                         <label htmlFor={'x-placement'}>X</label>
                         <input id={'x-placement'}
-                               className={[styles.input, styles.inputBody].join(' ')}
-                               style={{fontSize: '.9rem'}}
+                               className={styles.input}
                                onChange={event => {
                                    let newPlacement = {...props.node.placement}
                                    newPlacement.y = props.node.placement.y
@@ -171,8 +120,7 @@ export default function Overview(props) {
                         <label htmlFor={'y-placement'}>Y</label>
                         <input
                             id={'y-placement'}
-                            className={[styles.input, styles.inputBody].join(' ')}
-                            style={{fontSize: '.9rem'}}
+                            className={styles.input}
                             onChange={event => {
                                 let newPlacement = {...props.node.placement}
                                 newPlacement.x = props.node.placement.x
@@ -182,44 +130,42 @@ export default function Overview(props) {
                             value={props.node.placement.y} placeholder={'Y'} type={'number'}
                         />
                     </div>
-                </fieldset>
+                </div>
             </Elements>
             <Elements label={'Tamanho'}>
-                <fieldset className={styles.fieldSetContainer}>
-                    <legend>Tamanho</legend>
+                <div style={{display: 'grid', gap: '4px', paddingBottom: '4px'}}>
                     <div className={styles.fieldContainer}>
                         <label htmlFor={'width-placement'}>Largura</label>
-                        <input id={'width-placement'}
-                               className={[styles.input, styles.inputBody].join(' ')}
-                               style={{fontSize: '.9rem'}} min={'50'} max={'999'}
-                               onChange={event => {
-
-                                   let newDimensions = {...props.node.dimensions}
-                                   newDimensions.width = event.target.value
-                                   newDimensions.height = nodeRef.getBBox().height
-                                   if (event.target.value !== '0' && event.target.value.toString().length > 0)
-                                       handleChange('dimensions', newDimensions)
-                               }}
-                               value={props.node.dimensions.width} placeholder={'Largura'} type={'number'}
+                        <input
+                            id={'width-placement'}
+                            className={styles.input}
+                            min={'50'} max={'999'}
+                            onChange={event => {
+                                let newDimensions = {...props.node.dimensions}
+                                newDimensions.width = parseInt(event.target.value)
+                                if (event.target.value !== '0' && event.target.value.toString().length > 0)
+                                    handleChange('dimensions', newDimensions)
+                            }}
+                            value={props.node.dimensions.width} placeholder={'Largura'} type={'number'}
                         />
                     </div>
                     <div className={styles.fieldContainer}>
                         <label htmlFor={'height-placement'}>Altura</label>
-                        <input id={'height-placement'}
-                               className={[styles.input, styles.inputBody].join(' ')}
-                               style={{fontSize: '.9rem'}} min={'50'} max={'999'}
-                               onChange={event => {
-                                   let newDimensions = {...props.node.dimensions}
-                                   newDimensions.height = event.target.value
-                                   newDimensions.width = nodeRef.getBBox().width
-                                   if (event.target.value !== '0' && event.target.value.toString().length > 0)
-                                       handleChange('dimensions', newDimensions)
-                               }}
-                               value={props.node.dimensions.height} placeholder={'Altura'} type={'number'}
+                        <input
+                            id={'height-placement'}
+                            className={styles.input}
+                            min={'50'} max={'999'}
+                            onChange={event => {
+                                let newDimensions = {...props.node.dimensions}
+                                newDimensions.height = parseInt(event.target.value)
+                                if (event.target.value !== '0' && event.target.value.toString().length > 0)
+                                    handleChange('dimensions', newDimensions)
+                            }}
+                            value={props.node.dimensions.height} placeholder={'Altura'} type={'number'}
                         />
 
                     </div>
-                </fieldset>
+                </div>
             </Elements>
         </>
     )

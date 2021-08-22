@@ -10,7 +10,7 @@ import {
 } from "@material-ui/icons";
 import Scale from "../misc/Scale";
 import React, {useState} from "react";
-import Dropdown from "../header/modules/Dropdown";
+import Dropdown from "../misc/Dropdown";
 import FontTemplates from "./modules/FontTemplates";
 import FontFamilyTemplates from "./modules/FontFamilyTemplates";
 

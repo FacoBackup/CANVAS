@@ -10,8 +10,8 @@ export default function GetCurve(props) {
 
     if (sourceRef !== null && sourceRef !== undefined) {
         let source = {
-            x: sourceRef.getBoundingClientRect().x + 10 - frame.offsetLeft + frame.scrollLeft,
-            y: sourceRef.getBoundingClientRect().y + 10 - frame.offsetTop + frame.scrollTop
+            x: sourceRef.getBoundingClientRect().x + 5 - frame.getBoundingClientRect().left + frame.scrollLeft,
+            y: sourceRef.getBoundingClientRect().y + 5 - frame.getBoundingClientRect().top + frame.scrollTop
         }
 
         if (props.followMouse)
@@ -19,8 +19,8 @@ export default function GetCurve(props) {
         else {
             let targetRef = document.getElementById(props.target.id + '-' + props.target.connectionPoint + '-*node-selector')
             target = {
-                x: targetRef.getBoundingClientRect().x + 10 - frame.offsetLeft + frame.scrollLeft,
-                y: targetRef.getBoundingClientRect().y + 10 - frame.offsetTop + frame.scrollTop
+                x: targetRef.getBoundingClientRect().x - frame.getBoundingClientRect().left + frame.scrollLeft,
+                y: targetRef.getBoundingClientRect().y  - frame.getBoundingClientRect().top + frame.scrollTop
             }
         }
 

@@ -15,15 +15,16 @@ import {
 import Connections from "./modules/Connections";
 import Tabs from "./modules/Tabs";
 import Overview from "../../misc/Overview";
+import FileOptions from "./modules/FileOptions";
 
 export default function SideBar(props) {
     const [openButton, setOpenButton] = useState(0)
     const [nodeIndex, setNodeIndex] = useState(null)
-
+    const [toBePushedTab,setToBePushedTab] = useState(null)
     useEffect(() => {
         if (props.selectedNode !== undefined && props.selectedNode !== null) {
-            setOpenButton(2)
-            props.data.nodes.find((node, i) => {
+            setToBePushedTab(2)
+            props.data.pages[props.defaultPage].nodes.find((node, i) => {
                 if (node.id === props.selectedNode.id)
                     setNodeIndex(i)
             })
@@ -31,28 +32,36 @@ export default function SideBar(props) {
         } else
             setOpenButton(1)
     }, [props.selectedNode])
+
+    const setData = (event) => {
+        let newPages = [...props.data.pages]
+        newPages[props.defaultPage] = event
+        props.setData({...props.data, pages: newPages})
+    }
     return (
         <Tabs
             buttons={[
                 {
                     icon: <InsertDriveFileRounded/>,
-                    content: null,
-                    toolTip: 'Arquivo'
+                    content: <FileOptions setData={props.setData} data={props.data} handlePrint={props.handlePrint}/>,
+                    label: 'Arquivo'
                 },
                 {
                     icon: <CategoryRounded/>,
+                    label: 'Dados e configurações',
                     content: (
                         <>
                             <Shapes
-                                data={props.data} setData={props.setState}
+                                data={props.data.pages[props.defaultPage]} setData={setData}
                                 scale={props.scale}
                             />
                             <Lines
-                                data={props.data} setData={props.setState}
+                                data={props.data}
+                                setData={props.setData}
                             />
 
                             <Connections
-                                data={props.data} setData={props.setState}
+                                data={props.data} setData={props.setData}
                             />
                         </>
                     ),
@@ -60,11 +69,12 @@ export default function SideBar(props) {
                 },
                 props.selectedNode !== undefined && props.selectedNode !== null && nodeIndex !== null ? {
                     icon: <EditRounded/>,
+                    label: 'Editar módulo',
                     content: (
                         <Overview
-                            data={props.data}
-                            node={props.data.nodes[nodeIndex]}
-                            setState={props.setState}
+                            data={props.data.pages[props.defaultPage]}
+                            node={props.data.pages[props.defaultPage].nodes[nodeIndex]}
+                            setState={setData}
                             nodeIndex={nodeIndex}
                         />
                     ),
@@ -85,11 +95,15 @@ export default function SideBar(props) {
             ]}
             openButton={openButton}
             setOpenButton={setOpenButton}
+            toBePushedTab={toBePushedTab}
+            setToBePushedTab={setToBePushedTab}
         />
     )
 }
 SideBar.propTypes = {
     data: PropTypes.object,
-    setState: PropTypes.func,
-    selectedNode: PropTypes.object
+    setData: PropTypes.func,
+    defaultPage: PropTypes.number,
+    selectedNode: PropTypes.object,
+    handlePrint: PropTypes.func
 }

@@ -57,9 +57,11 @@ export default function EllipseShape(props) {
         <g
             ref={ref}
             onMouseDown={event => {
-                if (!open)
-                    props.move(event)
-                props.setSelected(props.node)
+                if(event.button === 0){
+                    if (!open)
+                        props.move(event)
+                    props.setSelected(props.node)
+                }
             }}
         >
             <svg
@@ -73,12 +75,12 @@ export default function EllipseShape(props) {
                 }}
                 viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.node.id + '-*svg'} overflow={'visible'}>
                 <ellipse
-                    fill={'white'}
+                    fill={'white'} strokeDasharray={props.node.styling.strokeDasharray}
                     rx={viewBox.x / 2}
                     ry={viewBox.y / 2}
                     vectorEffect={"non-scaling-stroke"}
                     cx={'50%'} cy={'50%'} filter={'drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.08))'}
-                    stroke={props.node.styling.color} strokeWidth={props.node.styling.borderWidth}
+                    stroke={props.node.styling.color} strokeWidth={props.node.styling.strokeWidth}
                 />
             </svg>
             <foreignObject

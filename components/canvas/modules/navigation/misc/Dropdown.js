@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import {useEffect, useRef, useState} from "react";
-import styles from '../styles/Header.module.css'
-import CanvasContext from "../../../misc/packages/CanvasContext";
-import NodeContext from "../../../misc/packages/NodeContext";
+import styles from './styles/Header.module.css'
 
 export default function Dropdown(props) {
     const ref = useRef()

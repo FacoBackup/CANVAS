@@ -10,16 +10,14 @@ export default function PageField(props) {
             <input value={props.page.title} onChange={event => props.renamePage(event.target.value)}
                    onBlur={() => props.handleClose()} className={styles.pageInput}
                    style={{
-                       display: !props.open ? 'none' : undefined,
-                       borderLeft: props.index === 0 ? '#ecedf2 1px solid' : undefined
+                       display: !props.open ? 'none' : undefined
                    }}/>
             <button
                 className={styles.pageButton}
                 style={{
                     background: props.page.default ? 'white' : '#FBFBFC',
                     display: props.open ? 'none' : undefined,
-                    borderBottom: props.page.default ? '#0095ff 2px solid' : 'transparent 2px solid',
-                    borderLeft: props.index === 0 ? '#ecedf2 1px solid' : undefined
+                    borderBottom: props.page.default ? '#0095ff 2px solid' : 'transparent 2px solid'
                 }}
                 onClick={() => {
                     props.handleClose()

@@ -58,9 +58,11 @@ export default function RectShape(props) {
         <g
             ref={ref}
             onMouseDown={event => {
-                if (!open)
-                    props.move(event)
-                props.setSelected(props.node)
+                if(event.button === 0){
+                    if (!open)
+                        props.move(event)
+                    props.setSelected(props.node)
+                }
             }}
         >
             <svg
@@ -74,7 +76,7 @@ export default function RectShape(props) {
                 width={props.node.dimensions.width} height={props.node.dimensions.height}
                 viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.node.id + '-*svg'} overflow={'visible'}>
                 <rect
-                    fill={'white'}
+                    fill={'white'} strokeDasharray={props.node.styling.strokeDasharray}
                     rx={props.node.styling.border}
                     ry={props.node.styling.border}
                     x={0} width={viewBox.x}
@@ -82,7 +84,7 @@ export default function RectShape(props) {
                     vectorEffect={"non-scaling-stroke"}
                     filter={'drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.08))'}
                     stroke={props.node.styling.color}
-                    strokeWidth={props.node.styling.borderWidth}
+                    strokeWidth={props.node.styling.strokeWidth}
                 />
 
             </svg>

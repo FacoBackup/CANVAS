@@ -1,22 +1,46 @@
 import styles from '../styles/Tabs.module.css'
 import PropTypes from 'prop-types'
+import {useEffect, useRef} from "react";
 
 export default function Tabs(props) {
+    const contentRef = useRef()
+    useEffect(() => {
+        if(props.toBePushedTab !== undefined && props.toBePushedTab !== null)
+            handleTabChange(props.toBePushedTab)
+    }, [props.toBePushedTab])
+    const handleTabChange = (newTab) => {
+        contentRef.current.firstChild.classList.add(styles.exitAnimation)
+        contentRef.current.firstChild.addEventListener('animationend', () => {
+            props.setOpenButton(newTab)
+            if(props.toBePushedTab !== undefined && props.toBePushedTab !== null)
+                props.setToBePushedTab(null)
+        }, {once: true})
+    }
     return (
         <div className={styles.container}>
             <div className={styles.buttons}>
                 {props.buttons.map((button, i) => button !== null ? (
                     <button
                         className={[styles.button, props.openButton === i ? styles.activeButton : ''].join(' ')}
-                        onClick={() => props.setOpenButton(i)} disabled={button.disabled}>
+                        onClick={() => handleTabChange(i)} disabled={button.disabled}>
                         {button.icon}
                     </button>
                 ) : null)}
             </div>
-            <div className={styles.content}
+            <div className={styles.content} ref={contentRef}
                  style={{display: props.openButton === undefined || props.openButton === null ? 'none' : null}}>
+
                 {props.buttons.map((button, i) => i === props.openButton && button !== null ? (
-                    button.content
+                    <span className={styles.enterAnimation} style={{
+                        display: 'grid',
+                        gap: '4px'
+                    }}>
+                        <div className={styles.header}>
+                            {button.label}
+                        </div>
+                        {button.content}
+                    </span>
+
                 ) : null)}
             </div>
         </div>
@@ -29,5 +53,7 @@ Tabs.propTypes = {
         disabled: PropTypes.bool,
         content: PropTypes.node
     })),
-    openButton: PropTypes.number, setOpenButton: PropTypes.func
+    openButton: PropTypes.number, setOpenButton: PropTypes.func,
+    toBePushedTab: PropTypes.number,
+    setToBePushedTab: PropTypes.func
 }

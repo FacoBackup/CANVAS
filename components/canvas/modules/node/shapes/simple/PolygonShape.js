@@ -81,21 +81,23 @@ export default function PolygonShape(props) {
         <g
             ref={ref}
             onMouseDown={event => {
-                if (!open)
-                    props.move(event)
-                props.setSelected(props.node)
+                if(event.button === 0){
+                    if (!open)
+                        props.move(event)
+                    props.setSelected(props.node)
+                }
             }}
         >
             <svg
                 width={props.node.dimensions.width} height={props.node.dimensions.height}
                 viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.node.id + '-*svg'} overflow={'visible'}>
                 <polygon
-                    fill={'white'}
+                    fill={'white'} strokeDasharray={props.node.styling.strokeDasharray}
                     vectorEffect={"non-scaling-stroke"}
                     points={getPolygonPoints()}
                     x={0} y={0}
                     filter={'drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.08))'}
-                    stroke={props.node.styling.color} strokeWidth={props.node.styling.borderWidth}
+                    stroke={props.node.styling.color} strokeWidth={props.node.styling.strokeWidth}
                 />
 
             </svg>
