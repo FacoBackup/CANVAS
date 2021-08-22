@@ -176,6 +176,11 @@
     width: 1px;
     background: #393C44;
     animation: blink 550ms infinite linear;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: calc(100% + 2px);   
 }
 
 @keyframes blink {

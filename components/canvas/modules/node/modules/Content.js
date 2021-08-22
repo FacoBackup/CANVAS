@@ -70,7 +70,7 @@ export default function Content(props) {
                 }}
             >
                 {props.node.richTitle.map((data, index) => (
-                    <span style={data.styles}>
+                    <span style={{...data.styles, ...{position: 'relative'}}}>
                         {data.value}
                         <div
                             className={styles.blinker}
