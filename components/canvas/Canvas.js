@@ -3,7 +3,6 @@ import styles from './styles/Canvas.module.css'
 import React, {useEffect, useState} from "react";
 import {useReactToPrint} from "react-to-print";
 import NewProjectTemplate from "./templates/NewProjectTemplate";
-import Header from "./modules/navigation/header/Header";
 import SideBar from "./modules/navigation/side/SideBar";
 import Overview from "./modules/misc/Overview";
 import Context from "./modules/misc/Context";
@@ -103,7 +102,7 @@ export default function Canvas(props) {
                     />
                     <Frame
                         {...props} toBeLinked={toBeLinked} scale={scale}
-                        data={data.pages[defaultPage]}
+                        data={data.pages[defaultPage]} textStyling={data.styling}
                         dimensions={data.dimensions}
                         nodeOnOverview={nodeOnOverview}
                         setData={(event) => {

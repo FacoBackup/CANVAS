@@ -3,6 +3,13 @@ import PropTypes from "prop-types";
 export default PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
+    richTitle: PropTypes.arrayOf(
+        PropTypes.shape({
+            value: PropTypes.string,
+            styles: PropTypes.object // STYLES TO BE APPLIED
+        })
+    ),
+
     content: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,
         type: PropTypes.oneOf(['string', 'integer', 'number', 'bool', 'date']),

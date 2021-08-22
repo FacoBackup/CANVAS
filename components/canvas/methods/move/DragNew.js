@@ -97,6 +97,7 @@ export default function DragNew(props) {
                     nodes: [...props.data.nodes, ...[{
                         id: uuid4().toString(),
                         title: '',
+                        richTitle: [],
                         description: null,
                         placement: {
                             x: (event.clientX - rootBounding.x + root.scrollLeft -dimensions.width/2) / props.scale,

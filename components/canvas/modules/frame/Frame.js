@@ -32,6 +32,7 @@ export default function Frame(props) {
                 <LinkIndicator source={props.toBeLinked}/>
                 <RenderNodes
                     {...props} root={root.current}
+                    currentTextStyles={props.textStyling}
                 />
                 <RenderLinks
                     {...props}
@@ -55,5 +56,7 @@ Frame.propTypes = {
     dimensions: PropTypes.shape({
         width: PropTypes.number,
         height: PropTypes.number
-    })
+    }),
+    styling: PropTypes.object,
+    textStyling: PropTypes.object
 }

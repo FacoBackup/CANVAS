@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import styles from "../../styles/Node.module.css";
 import NodePropsTemplate from "../../../../templates/NodePropsTemplate";
 import React, {useEffect, useRef, useState} from "react";
+import Content from "../../modules/Content";
 
 export default function EllipseShape(props) {
     const [viewBox, setViewBox] = useState({})
@@ -70,9 +71,6 @@ export default function EllipseShape(props) {
                     props.move(event)
                     props.setSelected(props.node)
                 }}
-                onDoubleClick={() => {
-                    props.openOverview()
-                }}
                 viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.node.id + '-*svg'} overflow={'visible'}>
                 <ellipse
                     fill={'white'} strokeDasharray={props.node.styling.strokeDasharray}
@@ -94,21 +92,7 @@ export default function EllipseShape(props) {
                          props.setSelected(props.node)
                      }}
                 >
-                    <input
-                        style={{display: open ? undefined : 'none'}}
-                        value={props.node.title}
-                        className={styles.nodeInput}
-                        onChange={event => props.setNode({
-                            ...props.node,
-                            title: event.target.value
-                        })}
-                    />
-                    <div
-                        style={{display: !open ? undefined : 'none'}}
-                        className={styles.header} id={props.node.id + '-*header'}
-                    >
-                        {props.node.title}
-                    </div>
+                    <Content open={open} node={props.node} setNode={props.setNode} currentTextStyles={props.currentTextStyles}/>
                 </div>
                 <div className={styles.nodePosition} id={props.node.id + '-placement'} style={{
                     opacity: props.onMove ? '1' : '0',

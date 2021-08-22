@@ -89,14 +89,13 @@ export default function RenderNodes(props) {
         props.data.nodes.map((node, index) => node.id === undefined ? null : (
             <g key={`${node.id}-node-${index}`}>
                 <Node
-                    node={node} index={index} asStep={false}
+                    node={node} index={index}
                     handleLinkDelete={handleLinkDelete}
                     handleLink={(node, connection) => handleLink(node, connection, index)}
-                    toBeLinked={props.toBeLinked}
+                    toBeLinked={props.toBeLinked} currentTextStyles={props.currentTextStyles}
                     setNode={event => handleNodeChange(index, node, event)}
                     selected={props.selectedNode?.id}
                     savePlacement={event => savePlacement(event, node, index)}
-                    openOverview={() => props.setNodeOnOverview(node)}
                     setSelected={props.setSelectedNode}
                     handleDelete={handleDelete} scale={props.scale}
                 />
@@ -115,7 +114,6 @@ RenderNodes.propTypes = {
         styling: PropTypes.object,
         setSelectedNode: PropTypes.func,
         selectedNode: PropTypes.any,
-        setNodeOnOverview: PropTypes.func,
         toBeLinked: PropTypes.object,
         setToBeLinked: PropTypes.func
     }

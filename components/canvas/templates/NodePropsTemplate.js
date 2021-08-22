@@ -8,5 +8,6 @@ export default {
     scale: PropTypes.number,
     setSelected: PropTypes.func,
     savePlacement: PropTypes.func,
-    setNode: PropTypes.func
+    setNode: PropTypes.func,
+    currentTextStyles: PropTypes.object
 }
