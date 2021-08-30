@@ -16,46 +16,48 @@ import FontFamilyTemplates from "./modules/FontFamilyTemplates";
 
 export default function TopBar(props) {
     const [openDropdown, setOpenDropdown] = useState(null)
-
+    const [currentStyles, setCurrentStyles] = useState({
+        fontSize: 16,
+        fontFamily: 'Roboto',
+        bold: false,
+        underline: false,
+        italic: false,
+        textAlign: 'center'
+    })
     return (
         <div className={styles.container}>
             <Scale scale={props.scale} setScale={props.setScale}/>
             <div className={styles.divider}/>
             <button
-                className={[styles.button, props.data.styling.fontWeight ? styles.activeButton : undefined].join(' ')}
-                onClick={() => {
-                    let newStyling = {...props.data.styling}
-                    newStyling.fontWeight = props.data.styling.fontWeight ? undefined : 'bold'
-
-                    props.setData({
-                        ...props.data,
-                        styling: newStyling
+                className={[styles.button, currentStyles.bold ? styles.activeButton : undefined].join(' ')}
+                onClick={e => {
+                    document.execCommand('bold', false, null);
+                    setCurrentStyles({
+                        ...currentStyles,
+                        bold: !currentStyles.bold
                     })
                 }}>
                 <FormatBoldRounded style={{fontSize: '1.3rem'}}/>
             </button>
             <button
-                className={[styles.button, props.data.styling.fontStyle ? styles.activeButton : undefined].join(' ')}
+                className={[styles.button, currentStyles.italic ? styles.activeButton : undefined].join(' ')}
                 onClick={() => {
-                    let newStyling = {...props.data.styling}
-                    newStyling.fontStyle = props.data.styling.fontStyle ? undefined : 'italic'
-
-                    props.setData({
-                        ...props.data,
-                        styling: newStyling
+                    document.execCommand('italic', false, null);
+                    setCurrentStyles({
+                        ...currentStyles,
+                        italic: !currentStyles.italic
                     })
+
                 }}>
                 <FormatItalicRounded style={{fontSize: '1.3rem'}}/>
             </button>
             <button
-                className={[styles.button, props.data.styling.textDecoration ? styles.activeButton : undefined].join(' ')}
+                className={[styles.button, currentStyles.underline ? styles.activeButton : undefined].join(' ')}
                 onClick={() => {
-                    let newStyling = {...props.data.styling}
-                    newStyling.textDecoration = props.data.styling.textDecoration ? undefined : 'underline'
-
-                    props.setData({
-                        ...props.data,
-                        styling: newStyling
+                    document.execCommand('underline', false, null);
+                    setCurrentStyles({
+                        ...currentStyles,
+                        underline: !currentStyles.underline
                     })
                 }}>
                 <FormatUnderlinedRounded style={{fontSize: '1.3rem'}}/>
@@ -71,45 +73,39 @@ export default function TopBar(props) {
                 handleClose={() => setOpenDropdown(null)}
                 open={openDropdown === 1} handleOpen={() => setOpenDropdown(1)}
                 buttons={FontFamilyTemplates(props)}
-                label={props.data.styling.fontFamily}
+                label={currentStyles.fontFamily}
             />
             <button
-                className={[styles.button, props.data.styling.textAlign === 'left' ? styles.activeButton : undefined].join(' ')}
+                className={[styles.button, currentStyles.textAlign === 'left' ? styles.activeButton : undefined].join(' ')}
                 onClick={() => {
-                    let newStyling = {...props.data.styling}
-                    newStyling.textAlign = 'left'
-
-                    props.setData({
-                        ...props.data,
-                        styling: newStyling
+                    document.execCommand('justifyLeft', false, null);
+                    setCurrentStyles({
+                        ...currentStyles,
+                        textAlign: 'left'
                     })
                 }}>
                 <FormatAlignLeftRounded style={{fontSize: '1.3rem'}}/>
             </button>
 
             <button
-                className={[styles.button, props.data.styling.textAlign === 'center' ? styles.activeButton : undefined].join(' ')}
+                className={[styles.button, currentStyles.textAlign === 'center' ? styles.activeButton : undefined].join(' ')}
                 onClick={() => {
-                    let newStyling = {...props.data.styling}
-                    newStyling.textAlign = 'center'
-
-                    props.setData({
-                        ...props.data,
-                        styling: newStyling
+                    document.execCommand('justifyCenter', false, null);
+                    setCurrentStyles({
+                        ...currentStyles,
+                        textAlign: 'center'
                     })
                 }}>
                 <FormatAlignCenterRounded style={{fontSize: '1.3rem'}}/>
             </button>
 
             <button
-                className={[styles.button, props.data.styling.textAlign === 'right' ? styles.activeButton : undefined].join(' ')}
+                className={[styles.button, currentStyles.textAlign === 'right' ? styles.activeButton : undefined].join(' ')}
                 onClick={() => {
-                    let newStyling = {...props.data.styling}
-                    newStyling.textAlign = 'right'
-
-                    props.setData({
-                        ...props.data,
-                        styling: newStyling
+                    document.execCommand('justifyRight', false, null);
+                    setCurrentStyles({
+                        ...currentStyles,
+                        textAlign: 'right'
                     })
                 }}>
                 <FormatAlignRightRounded style={{fontSize: '1.3rem'}}/>
@@ -117,18 +113,16 @@ export default function TopBar(props) {
             <div className={styles.divider}/>
             <div className={styles.fontSize}>
                 <button
-                    className={styles.button} disabled={props.data.styling.fontSize === 50}
+                    className={styles.button} disabled={currentStyles.fontSize === 50}
                     style={{
                         borderRadius: '5px  0  0  5px',
                         borderRight: '#ecedf2 1px solid'
                     }}
                     onClick={() => {
-                        let newStyling = {...props.data.styling}
-                        newStyling.fontSize = props.data.styling.fontSize + 1
-
-                        props.setData({
-                            ...props.data,
-                            styling: newStyling
+                        document.execCommand('fontSize', false, currentStyles.fontSize);
+                        setCurrentStyles({
+                            ...currentStyles,
+                            fontSize: currentStyles.fontSize + 1
                         })
                     }}
                 >
@@ -137,27 +131,23 @@ export default function TopBar(props) {
                 <input
                     className={styles.fontInput} type={'number'}
                     onChange={event => {
-                        let newStyling = {...props.data.styling}
-                        newStyling.fontSize = event.target.value
-
-                        props.setData({
-                            ...props.data,
-                            styling: newStyling
+                        document.execCommand('fontSize', false, currentStyles.fontSize);
+                        setCurrentStyles({
+                            ...currentStyles,
+                            fontSize: parseInt(event.target.value)
                         })
-                    }} value={props.data.styling.fontSize}/>
+                    }} value={currentStyles.fontSize}/>
                 <button
                     style={{
                         borderRadius: '0 5px 5px 0 ',
                         borderLeft: '#ecedf2 1px solid'
                     }}
-                    className={styles.button} disabled={props.data.styling.fontSize === 10}
+                    className={styles.button} disabled={currentStyles.fontSize === 10}
                     onClick={() => {
-                        let newStyling = {...props.data.styling}
-                        newStyling.fontSize = props.data.styling.fontSize - 1
-
-                        props.setData({
-                            ...props.data,
-                            styling: newStyling
+                        document.execCommand('fontSize', false, currentStyles.fontSize);
+                        setCurrentStyles({
+                            ...currentStyles,
+                            fontSize: currentStyles.fontSize - 1
                         })
                     }}
                 >

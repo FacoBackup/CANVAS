@@ -92,7 +92,7 @@ export default function RenderNodes(props) {
                     node={node} index={index}
                     handleLinkDelete={handleLinkDelete}
                     handleLink={(node, connection) => handleLink(node, connection, index)}
-                    toBeLinked={props.toBeLinked} currentTextStyles={props.currentTextStyles}
+                    toBeLinked={props.toBeLinked}
                     setNode={event => handleNodeChange(index, node, event)}
                     selected={props.selectedNode?.id}
                     savePlacement={event => savePlacement(event, node, index)}
@@ -107,7 +107,6 @@ export default function RenderNodes(props) {
 RenderNodes.propTypes = {
     ...CanvasTemplate,
     ...{
-        root: PropTypes.object,
         scale: PropTypes.number,
         setData: PropTypes.func,
         data: PropTypes.object,

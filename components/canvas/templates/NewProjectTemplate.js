@@ -14,10 +14,5 @@ export default {
         width: 10000,
         height: 10000
     },
-    styling: {
-        textAlign: 'center',
-        fontSize: 16,
-        fontFamily: 'Roboto'
-    },
     connectionType: 'strong-path'
 }

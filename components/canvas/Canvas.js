@@ -102,7 +102,7 @@ export default function Canvas(props) {
                     />
                     <Frame
                         {...props} toBeLinked={toBeLinked} scale={scale}
-                        data={data.pages[defaultPage]} textStyling={data.styling}
+                        data={data.pages[defaultPage]}
                         dimensions={data.dimensions}
                         nodeOnOverview={nodeOnOverview}
                         setData={(event) => {

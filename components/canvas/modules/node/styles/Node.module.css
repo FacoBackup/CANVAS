@@ -56,7 +56,8 @@
 }
 
 .header {
-    word-spacing: 2px;
+    cursor: text;
+    position: relative;
     display: flex;
     /*flex-wrap: wrap;*/
     word-break: break-all;
@@ -172,15 +173,10 @@
 }
 
 .blinker {
-    height: 16px;
-    width: 1px;
-    background: #393C44;
+    font-size: 1rem;
+    color: #393C44;
     animation: blink 550ms infinite linear;
-
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: calc(100% + 2px);   
+    float: right;
 }
 
 @keyframes blink {

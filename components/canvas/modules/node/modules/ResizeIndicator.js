@@ -130,14 +130,12 @@ export default function ResizeIndicator(props) {
             default:
                 break
         }
-        // console.log(newNodePlacement)
-        // console.log(props.node.placement)
-        // console.log(newHeight)
+
         props.setNode({
             ...props.node,
             dimensions: {
-                width: newWidth,
-                height: newHeight
+                width: newWidth > 20 ? newWidth : props.node.dimensions.width,
+                height: newHeight > 20 ? newHeight : props.node.dimensions.height,
             },
             placement: newNodePlacement
         })

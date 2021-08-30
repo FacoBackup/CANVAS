@@ -32,7 +32,7 @@
     color: #333333;
 }
 .button:active{
-    background: #E8F0FE;
+    background: #f4f5fa;
     color: #0095ff;
 }
 .fontSize{
@@ -66,4 +66,12 @@
 .activeButton{
     background: #E8F0FE;
     color: #0095ff;
+}
+.activeButton:hover{
+    background: #f4f5fa;
+    color: #0095ff;
+}
+.activeButton:active{
+    background: #f4f5fa;
+    color: #333333;
 }

@@ -1,84 +1,54 @@
 import styles from "../styles/Node.module.css";
-import React, {useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import PropTypes from 'prop-types'
 import NodeTemplate from "../../../templates/NodeTemplate";
+import {FormatBoldRounded, FormatItalicRounded, LinkRounded} from "@material-ui/icons";
+import topBarStyles from '../../navigation/top/styles/Top.module.css'
 
 export default function Content(props) {
     const ref = useRef()
-    const handleInsert = (event) => {
+    const [mounted, setMounted] = useState(false)
+    const [focused, setFocused] = useState(false)
+    const handleChange = (e) => {
+        console.log(e.target.closest('.' + topBarStyles.button))
 
-        let newData = [...props.node.richTitle]
-        if (newData.length > 0) {
-            const last = newData[newData.length - 1]
-
-            if (last.styles !== props.currentTextStyles)
-                newData.push({
-                    value: event.nativeEvent.data,
-                    styles: props.currentTextStyles
-                })
-            else {
-                newData[newData.length - 1].value = last.value + event.nativeEvent.data
-            }
-        } else
-            newData.push({
-                value: event.target.value,
-                styles: props.currentTextStyles
-            })
-
-        return newData
-    }
-    const handleDelete = () => {
-
-        let newData = [...props.node.richTitle]
-        if (newData.length > 0) {
-            const last = newData[newData.length - 1]
-
-            if ((last.value.length - 1) > 0)
-                newData[newData.length - 1].value = last.value.slice(0, -1)
-            else
-                newData.pop()
+        if (e.target.closest('.' + topBarStyles.button) === null && e.target.closest('#' + (props.node.id + '-node')) === null) {
+            setFocused(false)
+            console.log(e.target.closest('.' + topBarStyles.button) === null && e.target.closest('#' + (props.node.id + '-node')) === null)
         }
-
-        return newData
+        if (props.node.richTitle !== ref.current.innerHTML)
+            props.setNode({
+                ...props.node,
+                richTitle: ref.current.innerHTML
+            })
     }
+
+    useEffect(() => {
+        if (!mounted) {
+            ref.current.innerHTML = props.node.richTitle
+            setMounted(true)
+        }
+        ref.current?.addEventListener('keyup', handleChange)
+        document.addEventListener('click', handleChange)
+
+        return () => {
+            ref.current?.removeEventListener('keyup', handleChange)
+            document.removeEventListener('click', handleChange)
+        }
+    }, [focused])
+
     return (
         <>
-            <input
-                style={{display: props.open ? undefined : 'none', position: 'absolute', opacity: 0}}
-                value={props.node.title}
-                className={styles.nodeInput}
-                onChange={event => {
-                    console.log()
-                    const richTitle = event.target.value.length > props.node.title.length ? handleInsert(event) : handleDelete()
-                    props.setNode({
-                        ...props.node,
-                        title: event.target.value,
-                        richTitle: richTitle
-                    })
-                }}
-            />
             <div
+                contentEditable={focused} style={{cursor: focused ? 'text' : 'pointer'}}
                 ref={ref}
-                className={styles.header} id={props.node.id + '-*header'}
-                onChange={event => {
-                    const richTitle = event.target.value.length > props.node.title.length ? handleInsert(event) : handleDelete()
-                    props.setNode({
-                        ...props.node,
-                        title: event.target.value,
-                        richTitle: richTitle
-                    })
+                onBlur={event => {
+                    event.preventDefault()
                 }}
+                onDoubleClick={() => setFocused(true)}
+                className={styles.header}
+                id={props.node.id + '-*header'}
             >
-                {props.node.richTitle.map((data, index) => (
-                    <span style={{...data.styles, ...{position: 'relative'}}}>
-                        {data.value}
-                        <div
-                            className={styles.blinker}
-                            style={{display: props.open && index === (props.node.richTitle.length - 1) ? undefined : 'none'}}
-                        />
-                    </span>
-                ))}
-
             </div>
         </>
     )
