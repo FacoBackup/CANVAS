@@ -1,0 +1,6 @@
+system/.next
+
+system/.idea
+#/system/.idea
+system/node_modules
+#/system/node_modules
