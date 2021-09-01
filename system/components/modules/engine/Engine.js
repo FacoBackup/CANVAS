@@ -1,13 +1,9 @@
 import PropTypes from 'prop-types'
 import styles from "../../styles/Canvas.module.css";
 import PlaceCanvasScroll from "../../utils/placement/PlaceCanvasScroll";
-import LinkIndicator from "../../templates/flowchart/link/LinkIndicator";
-
-import RenderLinks from "../../templates/renderers/RenderLinks";
 import React, {useRef} from "react";
-import FlowchartNodes from "../../templates/renderers/FlowchartNodes";
 
-export default function Frame(props) {
+export default function Engine(props) {
     const root = useRef()
 
     return (
@@ -28,22 +24,14 @@ export default function Frame(props) {
                     transformOrigin: props.scale !== 1 ? 'top left' : undefined,
                 }}
                 className={styles.canvasBackground}
-                id={'frame-content'}
+                id={'engine-content'}
             >
-                <LinkIndicator source={props.toBeLinked}/>
-                <FlowchartNodes
-                    {...props} root={root.current}
-                />
-                <RenderLinks
-                    {...props}
-                    root={root.current}
-                />
-
+                {props.children}
             </svg>
         </div>
     )
 }
-Frame.propTypes = {
+Engine.propTypes = {
     data: PropTypes.object,
     setData: PropTypes.func,
     scale: PropTypes.number,
@@ -57,4 +45,5 @@ Frame.propTypes = {
         width: PropTypes.number,
         height: PropTypes.number
     }),
+    children: PropTypes.node
 }

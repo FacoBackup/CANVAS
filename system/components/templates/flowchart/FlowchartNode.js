@@ -1,5 +1,4 @@
 import React, {useRef, useState} from "react";
-import PropTypes from "prop-types";
 import NodePropsTemplate from "../props/NodePropsTemplate";
 import SelectedWrapper from "./modules/SelectedWrapper";
 import ConnectionsWrapper from "./modules/ConnectionsWrapper";

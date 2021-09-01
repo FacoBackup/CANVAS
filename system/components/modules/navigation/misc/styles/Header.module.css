@@ -97,6 +97,7 @@
     display: flex;
     justify-items: flex-start;
     align-items: center;
+    align-content: center;
     gap: 4px;
 }
 

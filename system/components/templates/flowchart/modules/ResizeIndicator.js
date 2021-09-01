@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types'
 import NodeTemplate from "../../props/NodeTemplate";
-import ResizeNode from "../../../utils/misc/ResizeNode";
-import styles from '../../../styles/Node.module.css'
-import {useEffect, useState} from "react";
 import GetNodeResizeParams from "../../../utils/misc/GetNodeResizeParams";
 
 export default function ResizeIndicator(props) {

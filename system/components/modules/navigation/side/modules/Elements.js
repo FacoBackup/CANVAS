@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import styles from "../styles/Shapes.module.css";
-import {ArrowDownwardRounded, ArrowDropDownRounded, ExpandLessRounded} from "@material-ui/icons";
+import {ArrowDropDownRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 
 export default function Elements(props) {

@@ -1,15 +1,29 @@
-import Elements from "./Elements";
 import styles from "../styles/Options.module.css";
-import {DescriptionRounded, PictureAsPdfRounded, PrintRounded, PublishRounded, SaveRounded} from "@material-ui/icons";
+import {
+    HelpRounded,
+    InfoRounded,
+    PictureAsPdfRounded,
+    PrintRounded,
+    PublishRounded,
+    SaveRounded
+} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import HandleUpload from "../../../../utils/io/HandleUpload";
-import {useRef} from "react";
+import React, {useRef, useState} from "react";
 import HandleDownload from "../../../../utils/io/HandleDownload";
+import Dropdown from "../../misc/Dropdown";
+import Link from 'next/link'
 
 export default function FileOptions(props) {
     const uploadRef = useRef()
+    const [open, setOpen] = useState(null)
     return (
-        <>
+        <div className={styles.fileOptionsWrapper}>
+         <Link href={'/'}>
+             <button className={styles.homeButton}>
+                 <img rel='icon' src={'/flow.svg'} style={{width: '27px', height: '30px', overflow: 'visible'}} alt={'logo'}/>
+             </button>
+         </Link>
             <input type="file" ref={uploadRef} style={{display: 'none'}} multiple={false}
                    onChange={event => HandleUpload({
                        file: event,
@@ -21,41 +35,84 @@ export default function FileOptions(props) {
                 value={props.data.subject}
                 onChange={event => props.setData({...props.data, subject: event.target.value})}/>
 
-            <button className={styles.primaryButton} onClick={() => uploadRef.current.click()}>
-                <PublishRounded style={{fontSize: '1.2rem'}}/>
-                Importar arquivo
-            </button>
+            <Dropdown
+                label={'Arquivo'} open={open === 0}
+                buttons={[
+                    {
+                        children: [
+                            {
+                                label: 'Importar arquivo',
+                                icon: <PublishRounded style={{fontSize: '1.2rem'}}/>,
+                                onClick: () => uploadRef.current.click(),
+                                disabled: false
+                            },
+                            {
+                                label: 'Baixar cópia',
+                                icon: <SaveRounded style={{fontSize: '1.2rem'}}/>,
+                                onClick: () => HandleDownload({data: props.data, asJson: false}),
+                                disabled: false
+                            }
+                        ],
+                    }
+                ]}
+                handleOpen={() => setOpen(0)}
+                handleClose={() => setOpen(null)}
+            />
 
-            <Elements {...props} label={'Salvar como'}>
-                <div className={styles.buttons}>
-                    <button className={styles.secondaryButton}
-                            onClick={() => HandleDownload({data: props.data, asJson: false})}>
-                        <SaveRounded style={{fontSize: '1.2rem'}}/>
-                        Baixar cópia
-                    </button>
-                    <button className={styles.secondaryButton} onClick={() => props.handlePrint()}>
-                        <PictureAsPdfRounded style={{fontSize: '1.2rem'}}/>
-                        Baixar como PDF
-                    </button>
-                </div>
-            </Elements>
-            <Elements {...props} label={'Exportar'}>
-                <div className={styles.buttons}>
-                    <button className={styles.secondaryButton}
-                            onClick={() => HandleDownload({data: props.data, asJson: true})}>
-                        <DescriptionRounded style={{fontSize: '1.2rem'}}/>
-                        Dados como JSON
-                    </button>
-                    <button className={styles.secondaryButton} onClick={() => props.handlePrint()}>
-                        <PrintRounded style={{fontSize: '1.2rem'}}/>
-                        Imprimir
-                    </button>
-                </div>
-            </Elements>
-            <Elements {...props} label={'Sobre'}>
-            </Elements>
 
-        </>
+            <Dropdown
+                label={'Exportar'} open={open === 1}
+                buttons={[
+                    {
+                        children: [
+                            {
+                                label: 'Exportar como PDF',
+                                icon: <PictureAsPdfRounded style={{fontSize: '1.2rem'}}/>,
+                                onClick: () => uploadRef.current.click(),
+                                disabled: false
+                            },
+                            {
+                                label: 'Imprimir',
+                                icon: <PrintRounded style={{fontSize: '1.2rem'}}/>,
+                                onClick: () => props.handlePrint(),
+                                disabled: false
+                            }
+                        ],
+                    }
+                ]}
+                handleOpen={() => setOpen(1)}
+                handleClose={() => setOpen(null)}
+            />
+            <Dropdown
+                label={'Sobre'} open={open === 2}
+                buttons={[
+                    {
+                        children: [
+                            {
+                                label: 'Ajuda',
+                                icon: <HelpRounded style={{fontSize: '1.2rem'}}/>,
+                                onClick: () => null,
+                                disabled: true
+                            },
+                            {
+                                label: 'Informações adicionais',
+                                icon: <InfoRounded  style={{fontSize: '1.2rem'}}/>,
+                                onClick: () => null,
+                                disabled: true
+                            }
+                        ],
+                    }
+                ]}
+                handleOpen={() => setOpen(2)}
+                handleClose={() => setOpen(null)}
+            />
+
+            {/*<button className={styles.secondaryButton}*/}
+            {/*        onClick={() => HandleDownload({data: props.data, asJson: true})}>*/}
+            {/*    <DescriptionRounded style={{fontSize: '1.2rem'}}/>*/}
+            {/*    Dados como JSON*/}
+            {/*</button>*/}
+        </div>
     )
 }
 

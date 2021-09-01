@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import {useEffect, useState} from "react";
-import ResizeIndicator from "./ResizeIndicator";
 import NodePropsTemplate from "../../props/NodePropsTemplate";
 import ConnectionIndicator from "./ConnectionIndicator";
 import styles from '../../../styles/Node.module.css'

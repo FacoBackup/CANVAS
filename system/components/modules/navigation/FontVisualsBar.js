@@ -1,64 +1,49 @@
 import PropTypes from 'prop-types'
-import styles from './styles/Top.module.css'
+import styles from '../../styles/Top.module.css'
 import {
     AddRounded,
-    FormatAlignCenterRounded, FormatAlignLeftRounded, FormatAlignRightRounded,
+    FormatAlignCenterRounded,
+    FormatAlignLeftRounded,
+    FormatAlignRightRounded,
     FormatBoldRounded,
     FormatItalicRounded,
     FormatUnderlinedRounded,
-    RemoveRounded, ZoomInRounded, ZoomOutRounded
+    RemoveRounded
 } from "@material-ui/icons";
-import Scale from "../misc/Scale";
+import Scale from "./misc/Scale";
 import React, {useState} from "react";
-import Dropdown from "../misc/Dropdown";
-import FontTemplates from "./modules/FontTemplates";
-import FontFamilyTemplates from "./modules/FontFamilyTemplates";
+import Dropdown from "./misc/Dropdown";
+import FontTemplates from "../../templates/font/FontTemplates";
+import FontFamilyTemplates from "../../templates/font/FontFamilyTemplates";
 
-export default function TopBar(props) {
+export default function FontVisualsBar(props) {
     const [openDropdown, setOpenDropdown] = useState(null)
-    const [currentStyles, setCurrentStyles] = useState({
-        fontSize: 16,
-        fontFamily: 'Roboto',
-        bold: false,
-        underline: false,
-        italic: false,
-        textAlign: 'center'
-    })
     return (
         <div className={styles.container}>
             <Scale scale={props.scale} setScale={props.setScale}/>
             <div className={styles.divider}/>
             <button
-                className={[styles.button, currentStyles.bold ? styles.activeButton : undefined].join(' ')}
+                className={styles.button}
                 onClick={e => {
                     document.execCommand('bold', false, null);
-                    setCurrentStyles({
-                        ...currentStyles,
-                        bold: !currentStyles.bold
-                    })
+
                 }}>
                 <FormatBoldRounded style={{fontSize: '1.3rem'}}/>
             </button>
             <button
-                className={[styles.button, currentStyles.italic ? styles.activeButton : undefined].join(' ')}
+                className={styles.button}
                 onClick={() => {
                     document.execCommand('italic', false, null);
-                    setCurrentStyles({
-                        ...currentStyles,
-                        italic: !currentStyles.italic
-                    })
+
 
                 }}>
                 <FormatItalicRounded style={{fontSize: '1.3rem'}}/>
             </button>
             <button
-                className={[styles.button, currentStyles.underline ? styles.activeButton : undefined].join(' ')}
+                className={styles.button}
                 onClick={() => {
                     document.execCommand('underline', false, null);
-                    setCurrentStyles({
-                        ...currentStyles,
-                        underline: !currentStyles.underline
-                    })
+
                 }}>
                 <FormatUnderlinedRounded style={{fontSize: '1.3rem'}}/>
             </button>
@@ -76,37 +61,28 @@ export default function TopBar(props) {
                 label={currentStyles.fontFamily}
             />
             <button
-                className={[styles.button, currentStyles.textAlign === 'left' ? styles.activeButton : undefined].join(' ')}
+                className={styles.button}
                 onClick={() => {
                     document.execCommand('justifyLeft', false, null);
-                    setCurrentStyles({
-                        ...currentStyles,
-                        textAlign: 'left'
-                    })
+
                 }}>
                 <FormatAlignLeftRounded style={{fontSize: '1.3rem'}}/>
             </button>
 
             <button
-                className={[styles.button, currentStyles.textAlign === 'center' ? styles.activeButton : undefined].join(' ')}
+                className={styles.button}
                 onClick={() => {
                     document.execCommand('justifyCenter', false, null);
-                    setCurrentStyles({
-                        ...currentStyles,
-                        textAlign: 'center'
-                    })
+
                 }}>
                 <FormatAlignCenterRounded style={{fontSize: '1.3rem'}}/>
             </button>
 
             <button
-                className={[styles.button, currentStyles.textAlign === 'right' ? styles.activeButton : undefined].join(' ')}
+                className={styles.button}
                 onClick={() => {
                     document.execCommand('justifyRight', false, null);
-                    setCurrentStyles({
-                        ...currentStyles,
-                        textAlign: 'right'
-                    })
+
                 }}>
                 <FormatAlignRightRounded style={{fontSize: '1.3rem'}}/>
             </button>
@@ -120,10 +96,7 @@ export default function TopBar(props) {
                     }}
                     onClick={() => {
                         document.execCommand('fontSize', false, currentStyles.fontSize);
-                        setCurrentStyles({
-                            ...currentStyles,
-                            fontSize: currentStyles.fontSize + 1
-                        })
+
                     }}
                 >
                     <AddRounded style={{fontSize: '1.1rem'}}/>
@@ -132,10 +105,7 @@ export default function TopBar(props) {
                     className={styles.fontInput} type={'number'}
                     onChange={event => {
                         document.execCommand('fontSize', false, currentStyles.fontSize);
-                        setCurrentStyles({
-                            ...currentStyles,
-                            fontSize: parseInt(event.target.value)
-                        })
+
                     }} value={currentStyles.fontSize}/>
                 <button
                     style={{
@@ -145,10 +115,7 @@ export default function TopBar(props) {
                     className={styles.button} disabled={currentStyles.fontSize === 10}
                     onClick={() => {
                         document.execCommand('fontSize', false, currentStyles.fontSize);
-                        setCurrentStyles({
-                            ...currentStyles,
-                            fontSize: currentStyles.fontSize - 1
-                        })
+
                     }}
                 >
                     <RemoveRounded style={{fontSize: '1.1rem'}}/>
@@ -158,7 +125,7 @@ export default function TopBar(props) {
     )
 }
 
-TopBar.propTypes = {
+FontVisualsBar.propTypes = {
     data: PropTypes.object,
     setData: PropTypes.func,
     scale: PropTypes.number,

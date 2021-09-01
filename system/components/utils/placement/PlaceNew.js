@@ -84,7 +84,7 @@ export default function PlaceNew(props) {
         if (moving) {
             const elements = document.elementsFromPoint(event.clientX, event.clientY)
             document.body.removeChild(newWrapper)
-            if (elements.length >= 2 && elements[3].id === 'frame-content' && root !== undefined) {
+            if (elements.length >= 2 && elements[3].id === 'engine-content' && root !== undefined) {
 
                 event.target.style.background = "";
                 const rootBounding = {

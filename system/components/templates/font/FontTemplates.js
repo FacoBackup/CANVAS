@@ -1,5 +1,5 @@
-export default function  FontTemplates(props){
-    return[
+export default function FontTemplates(props) {
+    return [
         {
 
             children: [

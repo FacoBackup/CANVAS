@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import styles from "../../styles/Node.module.css";
-import NodePropsTemplate from "../props/NodePropsTemplate";
 import React, {useEffect, useRef, useState} from "react";
 import Ellipse from "./Ellipse";
 import Rect from "./Rect";

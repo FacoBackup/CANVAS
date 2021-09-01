@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import {useEffect, useState} from "react";
 import NodePropsTemplate from "../../props/NodePropsTemplate";
 import ResizeIndicator from "./ResizeIndicator";
 

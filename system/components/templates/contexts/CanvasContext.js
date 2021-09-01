@@ -36,8 +36,8 @@ export default [
                 icon: <FileCopyRounded/>,
                 onClick: (props, event) => {
                     let newNode = {...props.copiedNode}
-                    const frameContent = document.getElementById('frame-content')
-                    const frame = document.getElementById('frame')
+                    const frameContent = document.getElementById('engine-content')
+                    const frame = document.getElementById('engine')
                     newNode.id = uuid4().toString()
                     newNode.placement = {
                         x: event.clientX - frameContent.getBoundingClientRect().left + frame.scrollLeft - newNode.dimensions.width/2,

@@ -1,7 +1,6 @@
 import styles from "./styles/Pages.module.css";
 import PropTypes from "prop-types";
 import {CloseRounded} from "@material-ui/icons";
-import {useState} from "react";
 
 export default function PageField(props) {
 

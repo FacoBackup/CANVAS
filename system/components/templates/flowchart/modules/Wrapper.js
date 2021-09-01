@@ -2,11 +2,7 @@ import React, {useRef} from "react";
 import styles from '../../../styles/Node.module.css'
 import NodePropsTemplate from "../../props/NodePropsTemplate";
 import PropTypes from "prop-types";
-import ResizeIndicator from "./ResizeIndicator";
-import ConnectionIndicator from "./ConnectionIndicator";
 import Shape from "../../shapes/Shape";
-import PolygonShape from "../../../canvas/modules/node/shapes/simple/PolygonShape";
-import RectShape from "../../../canvas/modules/node/shapes/simple/RectShape";
 import SelectedWrapper from "./SelectedWrapper";
 import ConnectionsWrapper from "./ConnectionsWrapper";
 import Content from "./Content";

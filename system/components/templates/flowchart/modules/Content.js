@@ -2,8 +2,7 @@ import styles from "../../../styles/Node.module.css";
 import React, {useEffect, useRef, useState} from "react";
 import PropTypes from 'prop-types'
 import NodeTemplate from "../../props/NodeTemplate";
-import {FormatBoldRounded, FormatItalicRounded, LinkRounded} from "@material-ui/icons";
-import topBarStyles from '../../../modules/navigation/top/styles/Top.module.css'
+import topBarStyles from '../../../styles/Top.module.css'
 
 export default function Content(props) {
     const ref = useRef()

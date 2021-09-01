@@ -3,7 +3,7 @@ import GetCurve from "./GetCurve";
 
 export default function FollowMouse(props) {
     let moving = true
-    const frame = document.getElementById('frame')
+    const frame = document.getElementById('engine')
     const markerEnd = document.getElementById(props.pathRef.getAttribute('marker-end').replace('url(#', '').replace(')', ''))
     if (markerEnd !== null)
         markerEnd.setAttribute('visibility', 'hidden')

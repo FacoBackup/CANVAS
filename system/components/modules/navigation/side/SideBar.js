@@ -1,21 +1,11 @@
-import styles from './styles/Menu.module.css'
 import PropTypes from "prop-types";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Shapes from "./modules/Shapes";
 import Lines from "./modules/Lines";
-import {
-    CategoryRounded,
-    EditRounded, ExtensionRounded,
-    FileCopyRounded,
-    FolderRounded,
-    InsertDriveFileRounded,
-    RemoveRounded,
-    SettingsRounded
-} from "@material-ui/icons";
+import {CategoryRounded, EditRounded} from "@material-ui/icons";
 import Connections from "./modules/Connections";
 import Tabs from "./modules/Tabs";
-import Overview from "../../../canvas/modules/misc/Overview";
-import FileOptions from "./modules/FileOptions";
+import Overview from "../../../templates/misc/Overview";
 
 export default function SideBar(props) {
     const [openButton, setOpenButton] = useState(0)
@@ -23,14 +13,14 @@ export default function SideBar(props) {
     const [toBePushedTab,setToBePushedTab] = useState(null)
     useEffect(() => {
         if (props.selectedNode !== undefined && props.selectedNode !== null) {
-            setToBePushedTab(2)
+            setToBePushedTab(1)
             props.data.pages[props.defaultPage].nodes.find((node, i) => {
                 if (node.id === props.selectedNode.id)
                     setNodeIndex(i)
             })
 
         } else
-            setOpenButton(1)
+            setOpenButton(0)
     }, [props.selectedNode])
 
     const setData = (event) => {
@@ -41,11 +31,6 @@ export default function SideBar(props) {
     return (
         <Tabs
             buttons={[
-                {
-                    icon: <InsertDriveFileRounded/>,
-                    content: <FileOptions setData={props.setData} data={props.data} handlePrint={props.handlePrint}/>,
-                    label: 'Arquivo'
-                },
                 {
                     icon: <CategoryRounded/>,
                     label: 'Dados e configurações',
@@ -67,31 +52,21 @@ export default function SideBar(props) {
                     ),
                     toolTip: 'Módulos e opções'
                 },
-                props.selectedNode !== undefined && props.selectedNode !== null && nodeIndex !== null ? {
+
+                {
                     icon: <EditRounded/>,
                     label: 'Editar módulo',
                     content: (
-                        <Overview
+                        props.selectedNode !== undefined && props.selectedNode !== null && nodeIndex !== null ? <Overview
                             data={props.data.pages[props.defaultPage]}
                             node={props.data.pages[props.defaultPage].nodes[nodeIndex]}
                             setState={setData}
                             nodeIndex={nodeIndex}
-                        />
+                        /> : null
                     ),
-                    toolTip: 'Editar módulo'
-                } : null,
-                // {
-                //     icon: <FolderRounded/>,
-                //     disabled: true,
-                //     content: null,
-                //     toolTip: 'Estrutura'
-                // },
-                // {
-                //     icon: <SettingsRounded/>,
-                //     disabled: true,
-                //     content: null,
-                //     toolTip: 'Configurações do canvas'
-                // },
+                    toolTip: 'Editar módulo',
+                    disabled: !(props.selectedNode !== undefined && props.selectedNode !== null && nodeIndex !== null)
+                }
             ]}
             openButton={openButton}
             setOpenButton={setOpenButton}
@@ -105,5 +80,4 @@ SideBar.propTypes = {
     setData: PropTypes.func,
     defaultPage: PropTypes.number,
     selectedNode: PropTypes.object,
-    handlePrint: PropTypes.func
 }

@@ -35,7 +35,7 @@ export default function ContextMenu(props) {
         event.preventDefault()
 
         const node = event.target.closest('.' + nodeStyles.entityContainer)
-        const canvas = event.target.closest('#frame-content')
+        const canvas = event.target.closest('#engine-content')
         let newButtons
 
 

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import NodeTemplate from "../../props/NodeTemplate";
-import styles from '../../../styles/Node.module.css'
 import GetNodeResizeParams from "../../../utils/misc/GetNodeResizeParams";
 
 export default function ConnectionIndicator(props) {

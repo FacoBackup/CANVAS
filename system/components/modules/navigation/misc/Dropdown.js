@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 import styles from './styles/Header.module.css'
 
 export default function Dropdown(props) {

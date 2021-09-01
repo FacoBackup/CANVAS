@@ -23,6 +23,7 @@
     "react-to-print": "^2.12.6",
     "typeface-roboto": "^1.1.13",
     "uuid": "^8.3.2"
+
   },
   "devDependencies": {
     "@material-ui/pickers": "^3.3.10",
@@ -30,3 +31,5 @@
     "universal-cookie": "^4.0.4"
   }
 }
+
+

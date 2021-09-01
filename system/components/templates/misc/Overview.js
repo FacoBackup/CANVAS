@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types'
-import NodeTemplate from "../../../templates/props/NodeTemplate";
-import styles from '../../../styles/NodeOverview.module.css'
-import {AttachFileRounded, CloseRounded, DeleteForeverRounded} from "@material-ui/icons";
-import {useEffect, useRef, useState} from "react";
-import Tabs from "../../../modules/navigation/misc/Tabs";
+import NodeTemplate from "../props/NodeTemplate";
+import styles from '../../styles/NodeOverview.module.css'
+import {useRef, useState} from "react";
 import {CirclePicker} from "react-color";
-import Elements from "../../../modules/navigation/side/modules/Elements";
+import Elements from "../../modules/navigation/side/modules/Elements";
 
 export default function Overview(props) {
     const [openTab, setOpenTab] = useState(0)
