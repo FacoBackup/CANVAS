@@ -9,21 +9,24 @@ export default function Content(props) {
     const [mounted, setMounted] = useState(false)
     const [focused, setFocused] = useState(false)
     const handleChange = (e) => {
-        console.log(e.target.closest('.' + topBarStyles.button))
+        console.log()
+        try {
+            if (e.type === 'click' && e.target.closest('.' + topBarStyles.button) === null && !document.elementsFromPoint(e.clientX, e.clientY).includes(ref.current))
+                setFocused(false)
 
-        if (e.target !== null && e.target !== undefined && e.target.closest('.' + topBarStyles.button) === null && e.target.closest('#' + (props.node.id + '-node')) === null) {
-            setFocused(false)
-            console.log(e.target.closest('.' + topBarStyles.button) === null && e.target.closest('#' + (props.node.id + '-node')) === null)
+                props.setNode({
+                    ...props.node,
+                    richTitle: ref.current !== undefined && ref.current !== null && ref.current?.innerHTML !== undefined? ref.current.innerHTML : null
+                })
+        } catch (e) {
+            console.log(e)
         }
-        if (props.node.richTitle !== ref.current.innerHTML)
-            props.setNode({
-                ...props.node,
-                richTitle: ref.current.innerHTML
-            })
+
     }
 
     useEffect(() => {
-        if (!mounted) {
+        if (!mounted && ref.current !== null) {
+            if(props.node.richTitle !== undefined && props.node.richTitle !== null)
             ref.current.innerHTML = props.node.richTitle
             setMounted(true)
         }
@@ -34,7 +37,7 @@ export default function Content(props) {
             ref.current?.removeEventListener('keyup', handleChange)
             document.removeEventListener('click', handleChange)
         }
-    }, [focused])
+    }, [focused, props.node.placement])
 
     return (
         <>

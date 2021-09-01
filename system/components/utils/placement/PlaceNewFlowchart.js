@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {v4 as uuid4} from "uuid";
 
-export default function PlaceNew(props) {
+export default function PlaceNewFlowchart(props) {
     let moving = true
     const root = document.getElementById('frame')
     const getDimensions = () => {
@@ -143,7 +143,7 @@ export default function PlaceNew(props) {
     }
 }
 
-PlaceNew.propTypes = {
+PlaceNewFlowchart.propTypes = {
     element: PropTypes.object,
     scale: PropTypes.number,
     event: PropTypes.object,

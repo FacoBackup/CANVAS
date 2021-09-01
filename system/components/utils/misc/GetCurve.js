@@ -6,7 +6,7 @@ export default function GetCurve(props) {
     let pivots = {}
     let target
     let sourceRef = document.getElementById(props.source.id + '-' + props.source.connectionPoint + '-*node-selector')
-    let frame = document.getElementById('engine')
+    let frame = document.getElementById('frame')
 
     if (sourceRef !== null && sourceRef !== undefined) {
         let source = {

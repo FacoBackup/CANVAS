@@ -1,11 +1,11 @@
 import styles from '../styles/Shapes.module.css'
 import PropTypes from 'prop-types'
 import Elements from "./Elements";
-import PlaceNew from "../../../../utils/placement/PlaceNew";
+import PlaceNewFlowchart from "../../../../utils/placement/PlaceNewFlowchart";
 
-export default function Shapes(props) {
+export default function FlowchartShapes(props) {
     const drag = (event, shape) => {
-        PlaceNew({
+        PlaceNewFlowchart({
             event: event,
             scale: props.scale,
             element: document.getElementById(shape + '-draggable'),
@@ -137,7 +137,7 @@ export default function Shapes(props) {
 
 }
 
-Shapes.propTypes = {
+FlowchartShapes.propTypes = {
     setData: PropTypes.func,
     data: PropTypes.object,
     scale: PropTypes.number

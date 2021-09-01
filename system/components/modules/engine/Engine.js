@@ -8,7 +8,8 @@ export default function Engine(props) {
 
     return (
         <div
-            ref={root} className={styles.canvasContainer} id={'frame'}
+            ref={root} className={styles.canvasContainer} style={{height: 'calc(100% - ' + props.offsetTop + 'px)'}}
+            id={'frame'}
             onMouseDown={event => {
                 if (typeof event.target.className === 'object' && event.button === 2)
                     PlaceCanvasScroll({canvas: root.current, event: event})

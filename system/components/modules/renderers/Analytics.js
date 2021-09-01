@@ -6,18 +6,19 @@ import NewProjectTemplate from "../../templates/props/NewProjectTemplate";
 import SideBar from "../navigation/side/SideBar";
 import ContextMenu from "../ContextMenu";
 import Pages from "../navigation/pages/Pages";
-import FontVisualsBar from "../navigation/FontVisualsBar";
 import nodeStyles from '../../styles/Node.module.css'
 import FrameView from "../engine/FrameView";
 import tabsStyles from '../navigation/side/styles/Tabs.module.css'
 import keyboardControl from "../../utils/control/KeyboardControl";
+import {CategoryRounded} from "@material-ui/icons";
+import AnalyticsShapes from "../navigation/side/modules/AnalyticsShapes";
 
-export default function Flowchart(props) {
+export default function Analytics(props) {
     const [data, setData] = useState(NewProjectTemplate)
     const [defaultPage, setDefaultPage] = useState(0)
-    const [toBeLinked, setToBeLinked] = useState(null)
+
     const [selectedNode, setSelectedNode] = useState(undefined)
-    const [scale, setScale] = useState(1)
+
     const [copiedNode, setCopiedNode] = useState(null)
     const handlePrint = useReactToPrint({
         content: () => document.getElementById('engine-content')
@@ -29,7 +30,7 @@ export default function Flowchart(props) {
     }
 
     useEffect(() => {
-        document.addEventListener('keydown',handleKeyDown )
+        document.addEventListener('keydown', handleKeyDown)
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
@@ -37,12 +38,13 @@ export default function Flowchart(props) {
 
     return (
         <div
-            className={styles.wrapper}
+            className={styles.wrapper} style={{display: 'flex'}}
             onMouseDown={event => {
-                if (selectedNode && event.target.closest('.' + nodeStyles.entityContainer) === null && event.target.closest('.' + tabsStyles.container) === null)
+
+                if (selectedNode !== undefined && !document.elementsFromPoint(event.clientX, event.clientY).includes(document.getElementById(selectedNode.id + '-node-foreign-object'))) {
+                    console.log(document.elementsFromPoint(event.clientX, event.clientY).includes(document.getElementById(selectedNode.id + '-node-foreign-object')))
                     setSelectedNode(undefined)
-                if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
-                    setToBeLinked(null)
+                }
             }}>
             <FrameView/>
             <ContextMenu
@@ -52,43 +54,56 @@ export default function Flowchart(props) {
                     newPages[defaultPage] = event
                     setData({...data, pages: newPages})
                 }}
-                scale={scale} setScale={setScale} copiedNode={copiedNode}
+                copiedNode={copiedNode}
                 setCopiedNode={setCopiedNode} setSelectedNode={setSelectedNode}/>
             <SideBar
                 data={data}
                 defaultPage={defaultPage} handlePrint={handlePrint}
-                scale={scale} selectedNode={selectedNode}
+                selectedNode={selectedNode}
                 setData={setData}
+                options={[
+                    {
+                        icon: <CategoryRounded/>,
+                        label: 'Dados e configurações',
+                        content: (
+                            <>
+                                <AnalyticsShapes
+                                    data={data.pages[defaultPage]}
+                                    setData={(e) => {
+                                        let newPages = [...data.pages]
+                                        newPages[defaultPage] = e
+                                        setData({...data, pages: newPages})
+                                    }}
+                                />
+                            </>
+                        )
+                    },
+                ]}
             />
-            <div className={styles.content}>
-                <FontVisualsBar scale={scale} setScale={setScale} data={data} setData={setData}/>
-                <div className={styles.contentWrapper}>
-                    <Pages
-                        scale={scale} setScale={setScale}
-                        data={data} setData={setData}
-                        setDefaultPage={setDefaultPage}
-                        defaultPage={defaultPage}
-                    />
-                    {/*<Engine*/}
-                    {/*    {...props} toBeLinked={toBeLinked} scale={scale}*/}
-                    {/*    data={data.pages[defaultPage]}*/}
-                    {/*    dimensions={data.dimensions}*/}
-                    {/*    nodeOnOverview={nodeOnOverview}*/}
-                    {/*    setData={(event) => {*/}
-                    {/*        let newPages = [...data.pages]*/}
-                    {/*        newPages[defaultPage] = event*/}
-                    {/*        setData({...data, pages: newPages})*/}
-                    {/*    }} styling={{connectionType: data.connectionType}}*/}
-                    {/*    setNodeOnOverview={setNodeOnOverview} setToBeLinked={setToBeLinked}*/}
-                    {/*    selectedNode={selectedNode}*/}
-                    {/*    setSelectedNode={setSelectedNode}*/}
-                    {/*/>*/}
-                    {props.children}
-                </div>
+
+            <div className={styles.contentWrapper}>
+                <Pages
+                    data={data} setData={setData}
+                    setDefaultPage={setDefaultPage}
+                    defaultPage={defaultPage}
+                />
+                {props.children({
+                    data: data.pages[defaultPage],
+                    setData: (event) => {
+                        let newPages = [...data.pages]
+                        newPages[defaultPage] = event
+                        console.log(newPages[defaultPage])
+                        setData({...data, pages: newPages})
+                    },
+                    dimensions: data.dimensions,
+                    selectedNode: selectedNode,
+                    setSelectedNode: setSelectedNode,
+
+                })}
             </div>
 
 
         </div>
     )
 }
-Flowchart.propTypes = CanvasTemplate
+Analytics.propTypes = CanvasTemplate

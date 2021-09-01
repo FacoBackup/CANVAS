@@ -1,6 +1,6 @@
-import Link from "../flowchart/link/Link";
+import Link from "../link/Link";
 import React from "react";
-import CanvasTemplate from "../props/CanvasPropsTemplate";
+import CanvasTemplate from "../../props/CanvasPropsTemplate";
 import PropTypes from "prop-types";
 import {v4 as uuid4} from 'uuid';
 
@@ -52,8 +52,7 @@ export default function RenderLinks(props) {
                         newLinks[index] = newLink
                         props.setData({...props.data, links: newLinks})
                     }}
-                    canEdit={props.options.edit}
-                    rootOffset={props.root} handleStepCreation={event => handleStepCreation(event, link)}
+                    handleStepCreation={event => handleStepCreation(event, link)}
                     deleteLink={() => {
                         let newLinks = [...props.data.links]
                         const index = newLinks.indexOf(link)

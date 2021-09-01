@@ -175,12 +175,12 @@ Link.propTypes = {
     source: PropTypes.shape({
         id: PropTypes.string,
         nodeShape: PropTypes.string,
-        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd'])
+        connectionPoint: PropTypes.oneOf(['s', 'w', 'n', 'e'])
     }),
     target: PropTypes.shape({
         id: PropTypes.string,
         nodeShape: PropTypes.string,
-        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd'])
+        connectionPoint: PropTypes.oneOf(['s', 'w', 'n', 'e'])
     }),
     description: PropTypes.string,
     type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line']),

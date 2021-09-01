@@ -1,13 +1,10 @@
 
 
 .pagesContainer {
-    background: transparent;
+    background: #f4f5fa;
     width: 100%;
     display: flex;
-
     align-items: center;
-
-
     height: 35px;
 }
 

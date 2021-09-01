@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from './styles/Horizontal.module.css'
 import {useEffect, useRef, useState} from "react";
-import ToolTip from "../chart/tooltip/ToolTip";
 
 export default function HorizontalChart(props) {
     const [biggest, setBiggest] = useState(null)
@@ -77,28 +76,28 @@ export default function HorizontalChart(props) {
                                     background: `rgba(0, 149, 255, ${1.5 / (index + 1)}`,
                                     color: (1.5 / (index + 1)) < .5 ? '#333333' : undefined
                                 }} className={styles.data}>
-                                    <ToolTip color={'#f4f5fa'}>
-                                        <div className={styles.overview}>
+                                    {/*<ToolTip color={'#f4f5fa'}>*/}
+                                    {/*    <div className={styles.overview}>*/}
 
-                                            <div style={{
-                                                color: '#555555',
-                                                fontSize: '.9rem',
-                                                fontWeight: 'bold',
-                                                textAlign: 'left',
-                                                width: '100%'
-                                            }}>
-                                                {props.axisLabel}: {d[props.axisField]}
-                                            </div>
-                                            <div style={{
-                                                color: '#666666',
-                                                fontSize: '.9rem',
-                                                textAlign: 'left',
-                                                width: '100%'
-                                            }}>
-                                                {props.valueLabel}: {d[props.valueField]}
-                                            </div>
-                                        </div>
-                                    </ToolTip>
+                                    {/*        <div style={{*/}
+                                    {/*            color: '#555555',*/}
+                                    {/*            fontSize: '.9rem',*/}
+                                    {/*            fontWeight: 'bold',*/}
+                                    {/*            textAlign: 'left',*/}
+                                    {/*            width: '100%'*/}
+                                    {/*        }}>*/}
+                                    {/*            {props.axisLabel}: {d[props.axisField]}*/}
+                                    {/*        </div>*/}
+                                    {/*        <div style={{*/}
+                                    {/*            color: '#666666',*/}
+                                    {/*            fontSize: '.9rem',*/}
+                                    {/*            textAlign: 'left',*/}
+                                    {/*            width: '100%'*/}
+                                    {/*        }}>*/}
+                                    {/*            {props.valueLabel}: {d[props.valueField]}*/}
+                                    {/*        </div>*/}
+                                    {/*    </div>*/}
+                                    {/*</ToolTip>*/}
                                 </div>
                             </div>
                         ))}

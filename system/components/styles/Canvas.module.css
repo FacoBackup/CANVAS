@@ -6,7 +6,7 @@
     overflow: hidden;
     background: white;
 
-    display: block;
+
 }
 
 .wrapper > * {
@@ -100,7 +100,7 @@
     overflow: auto;
     position: relative;
     width: 100%;
-    height: calc(100% - 75px);
+
     cursor: default;
     scroll-behavior: auto;
     display: flex;

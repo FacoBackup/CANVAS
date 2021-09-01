@@ -6,13 +6,12 @@ export default function PlaceNode(props) {
         x: props.event.clientX,
         y: props.event.clientY
     }
+
     let placementRef = document.getElementById(props.node.id + '-placement')
     let nodeRef = document.getElementById(props.node.id + '-node')
     nodeRef.style.transition = 'box-shadow 250ms ease';
     nodeRef.style.cursor = 'move'
     let onMove = false
-
-
 
 
     const handlePlacement = (event, save) => {
@@ -34,7 +33,8 @@ export default function PlaceNode(props) {
         let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
         parsedPlacement = parsedPlacement.split(', ')
 
-        placementRef.innerText = `${Math.ceil(parseInt(parsedPlacement[0]))}, ${Math.ceil(parseInt(parsedPlacement[1]))}`
+        if(placementRef !== null && !props.noPlacementIndicator)
+            placementRef.innerText = `${Math.ceil(parseInt(parsedPlacement[0]))}, ${Math.ceil(parseInt(parsedPlacement[1]))}`
 
         const newPlacement = {
             x: parseInt(parsedPlacement[0]) - currentPlacement.x / props.scale,
@@ -52,10 +52,10 @@ export default function PlaceNode(props) {
                 newTransform.x = 0
             if (newPlacement.y < 0)
                 newTransform.y = 0
-
+            props.savePlacement(newTransform)
             nodeRef.setAttribute('transform', `translate(${newTransform.x}, ${newTransform.y})`)
 
-            props.savePlacement(newPlacement)
+
         }
     }
 
@@ -69,10 +69,9 @@ export default function PlaceNode(props) {
     document.addEventListener("mouseup", event => {
         moving = false
         nodeRef.style.cursor = 'pointer'
-        handlePlacement(event, true)
         props.setOnMove(false)
-
         props.setSelectedNode(props.node)
+        handlePlacement(event, true)
     }, {once: true});
 
 }
@@ -83,5 +82,6 @@ PlaceNode.propTypes = {
     event: PropTypes.object,
     setSelectedNode: PropTypes.func,
     setOnMove: PropTypes.func,
-    savePlacement: PropTypes.func
+    savePlacement: PropTypes.func,
+    noPlacementIndicator: PropTypes.bool
 }

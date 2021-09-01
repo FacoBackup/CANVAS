@@ -58,7 +58,7 @@ export default function FontVisualsBar(props) {
                 handleClose={() => setOpenDropdown(null)}
                 open={openDropdown === 1} handleOpen={() => setOpenDropdown(1)}
                 buttons={FontFamilyTemplates(props)}
-                label={currentStyles.fontFamily}
+                label={'Fonte'}
             />
             <button
                 className={styles.button}
@@ -89,32 +89,32 @@ export default function FontVisualsBar(props) {
             <div className={styles.divider}/>
             <div className={styles.fontSize}>
                 <button
-                    className={styles.button} disabled={currentStyles.fontSize === 50}
+                    className={styles.button} disabled={true}
                     style={{
                         borderRadius: '5px  0  0  5px',
                         borderRight: '#ecedf2 1px solid'
                     }}
                     onClick={() => {
-                        document.execCommand('fontSize', false, currentStyles.fontSize);
+                        document.execCommand('fontSize', false, 16);
 
                     }}
                 >
                     <AddRounded style={{fontSize: '1.1rem'}}/>
                 </button>
                 <input
-                    className={styles.fontInput} type={'number'}
+                    className={styles.fontInput} type={'number'} disabled={true}
                     onChange={event => {
-                        document.execCommand('fontSize', false, currentStyles.fontSize);
+                        document.execCommand('fontSize', false, 16);
 
-                    }} value={currentStyles.fontSize}/>
+                    }} value={10}/>
                 <button
                     style={{
                         borderRadius: '0 5px 5px 0 ',
                         borderLeft: '#ecedf2 1px solid'
                     }}
-                    className={styles.button} disabled={currentStyles.fontSize === 10}
+                    className={styles.button} disabled={true}
                     onClick={() => {
-                        document.execCommand('fontSize', false, currentStyles.fontSize);
+                        document.execCommand('fontSize', false, 12);
 
                     }}
                 >

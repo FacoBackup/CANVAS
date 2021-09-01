@@ -1,10 +1,9 @@
 import Flowchart from "../components/modules/renderers/Flowchart";
 import Engine from "../components/modules/engine/Engine";
 import LinkIndicator from "../components/templates/flowchart/link/LinkIndicator";
-import FlowchartNodes from "../components/templates/renderers/FlowchartNodes";
-import RenderLinks from "../components/templates/renderers/RenderLinks";
+import FlowchartNodes from "../components/templates/flowchart/renderers/FlowchartNodes";
+import RenderLinks from "../components/templates/flowchart/renderers/RenderLinks";
 import React from "react";
-import Head from "next/head";
 
 export default function flowchart() {
     return (
@@ -12,7 +11,7 @@ export default function flowchart() {
 
      <Flowchart>
          {props => (
-             <Engine {...props}>
+             <Engine {...props} offsetTop={75}>
                  <LinkIndicator source={props.toBeLinked}/>
                  <FlowchartNodes {...props}/>
                  <RenderLinks
