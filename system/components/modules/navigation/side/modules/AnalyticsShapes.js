@@ -17,7 +17,7 @@ export default function AnalyticsShapes(props) {
     }
     return (
 
-        <Elements {...props} label={'Módulos'}>
+        <Elements {...props} label={'Módulos'} >
             <div className={styles.shapes}>
                 <div
                     className={styles.shapeContainer}

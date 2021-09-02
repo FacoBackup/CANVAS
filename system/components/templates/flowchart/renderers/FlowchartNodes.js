@@ -38,6 +38,7 @@ export default function FlowchartNodes(props) {
             })
         }
     }
+
     const handleLinkDelete = (link) => {
         let newLinks = [...props.data.links]
         const index = newLinks.indexOf(link)
@@ -50,25 +51,11 @@ export default function FlowchartNodes(props) {
             })
         }
     }
-    const handleDelete = (index, id) => {
-        let newNodes = [...props.data.nodes]
-        newNodes.splice(index, 1)
-
-        props.data.links.map(link => {
-            if (link.parent.id === id || link.child.id === id)
-                handleLinkDelete(link)
-        })
-
-        props.setData({
-            ...props.data,
-            nodes: newNodes
-        })
-    }
 
     const handleNodeChange = (index, node, data) => {
         let newNodes = [...props.data.nodes]
         newNodes[index] = data
-
+        console.log('CAFE')
         props.setData({
             ...props.data,
             nodes: newNodes
@@ -83,7 +70,7 @@ export default function FlowchartNodes(props) {
         newNode.placement = event
 
         newNodes[index] = newNode
-
+        console.log('SAVING PLACEMENT')
         props.setData({
             ...props.data,
             nodes: newNodes
@@ -101,7 +88,6 @@ export default function FlowchartNodes(props) {
             selected: props.selectedNode?.id,
             savePlacement: event => savePlacement(event, node, index),
             setSelected: props.setSelectedNode,
-            handleDelete: handleDelete,
             scale: props.scale,
         }
         return (

@@ -9,15 +9,17 @@ export default function Content(props) {
     const [mounted, setMounted] = useState(false)
     const [focused, setFocused] = useState(false)
     const handleChange = (e) => {
-        console.log()
+        const elements = e.type === 'click' ? document.elementsFromPoint(e.clientX, e.clientY) : []
         try {
-            if (e.type === 'click' && e.target.closest('.' + topBarStyles.button) === null && !document.elementsFromPoint(e.clientX, e.clientY).includes(ref.current))
+            if (e.type === 'click' && e.target.closest('.' + topBarStyles.button) === null && !elements.includes(ref.current) && !elements.includes(document.getElementById('context-menu'))) {
                 setFocused(false)
-
                 props.setNode({
                     ...props.node,
-                    richTitle: ref.current !== undefined && ref.current !== null && ref.current?.innerHTML !== undefined? ref.current.innerHTML : null
+                    richTitle: ref.current !== undefined && ref.current !== null && ref.current?.innerHTML !== undefined ? ref.current.innerHTML : null
                 })
+            }
+
+
         } catch (e) {
             console.log(e)
         }
@@ -26,8 +28,8 @@ export default function Content(props) {
 
     useEffect(() => {
         if (!mounted && ref.current !== null) {
-            if(props.node.richTitle !== undefined && props.node.richTitle !== null)
-            ref.current.innerHTML = props.node.richTitle
+            if (props.node.richTitle !== undefined && props.node.richTitle !== null)
+                ref.current.innerHTML = props.node.richTitle
             setMounted(true)
         }
         ref.current?.addEventListener('keyup', handleChange)
@@ -37,7 +39,7 @@ export default function Content(props) {
             ref.current?.removeEventListener('keyup', handleChange)
             document.removeEventListener('click', handleChange)
         }
-    }, [focused, props.node.placement])
+    })
 
     return (
         <>

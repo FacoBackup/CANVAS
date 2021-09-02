@@ -1,0 +1,50 @@
+.container {
+    border-radius: 5px;
+    padding: 8px;
+    user-select: none;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-rows: 30px calc(100% - 50px) 20px;
+}
+
+.valuesLabel {
+
+    grid-row: 3;
+    text-align: center;
+    display: grid;
+    align-content: space-between;
+}
+
+.axisLabel {
+    text-orientation: sideways;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    text-align: center;
+}
+
+
+.legendsContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    height: auto;
+
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.valueDivider {
+    position: absolute;
+    width: 1px;
+    background: #e0e0e0;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+}

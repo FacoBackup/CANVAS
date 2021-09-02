@@ -18,6 +18,7 @@ import FontFamilyTemplates from "../../templates/font/FontFamilyTemplates";
 
 export default function FontVisualsBar(props) {
     const [openDropdown, setOpenDropdown] = useState(null)
+
     return (
         <div className={styles.container}>
             <Scale scale={props.scale} setScale={props.setScale}/>

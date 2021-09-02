@@ -1,74 +1,27 @@
-.container {
-    background: white;
-    border-radius: 5px;
-    padding: 8px;
-    user-select: none;
-}
-
-.valuesLabel {
-    height: 10%;
-    text-align: center;
-    display: grid;
-    align-content: space-between;
-}
-
-.axisLabel {
-    text-orientation: sideways;
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
-    text-align: center;
-}
-
-
-.legendsContainer {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    width: 100%;
-    height: auto;
-
-}
-
-.legend {
-    display: flex;
-    align-items: center;
-}
-
-.content {
-    display: flex;
-    height: 80%;
-    width: 100%;
-}
-
-.header {
-    font-family: Roboto;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #393C44;
-    text-align: left;
-    width: 100%;
-    height: 10%;
-}
 
 .graphs {
     position: relative;
     padding: 16px;
-    padding-right: calc(5% - 8px);
+
     display: grid;
     height: 100%;
 
-    border-radius: 8px;
     width: 100%;
     align-content: flex-start;
     gap: 8px;
-    overflow-y: auto;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+
 }
+
+
 
 .data {
     border-radius: 3px;
     height: 40px;
-    min-width: 17px;
-
+    /*min-width: 17px;*/
+background: #0095ff;
     animation: extend 750ms ease-in-out;
 
     transition: 250ms ease;
@@ -88,11 +41,9 @@
 
 }
 
-.row{
-    display: flex;
-    width: 100%;
 
-}
+
+
 .label{
     width: 40px;
 
@@ -121,31 +72,62 @@
 
 }
 
-.values{
-    display: flex;
-    height: 40px;
-    position: sticky;
-    bottom: 0;
+.toolTipValue{
+
+    color: #666666;
+    font-size: .9rem;
+    text-align: left;
     width: 100%;
-    background: white;
+}
+.toolTipAxis{
+
+    color: #555555;
+    font-size: .9rem;
+    font-weight: bold;
+    text-align: left;
+    width: 100%
+}
+
+
+.values {
+    height: calc(100% - 80px);
+
+    /*padding: 0 50px;*/
+    display: flex;
+    /*height: 40px;*/
+    position: fixed;
+    bottom: 40px;
+    width: calc(100% - 67.5px);
+    z-index: 0;
+    overflow: visible;
+    align-content: flex-end;
     /*padding-left: calc(5% + 10px);*/
 }
-.value{
+
+.value {
+    width: 100%;
     font-family: Roboto;
     color: #555555;
 
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+
+    justify-content: flex-start;
+    overflow-x: hidden;
     font-size: .85rem;
     position: relative;
+
 }
-.valueDivider{
+
+.divider{
     position: absolute;
     width: 1px;
-    background: #e0e0e0;
-    height: 100%;
-    z-index: 1;
-    top: 0;
+    border-left: #393C44 1px dashed;
+    height: calc(100% - 32px);
+    margin-bottom: 16px;
+    margin-top: 16px;
+    display: grid;
+    align-content: flex-end;
+    justify-content: center;
+    justify-items: center;
 }

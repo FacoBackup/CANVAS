@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import NodeWrapper from "../../NodeWrapper";
-import HorizontalChart from "../../../../chart/HorizontalChart";
+import HorizontalChart from "../../../../chart/horizontal/HorizontalChart";
 
 export default function Charts(props) {
 
@@ -64,6 +64,14 @@ export default function Charts(props) {
                             width={nodeProps.node.dimensions.width} height={nodeProps.node.dimensions.height}
                         >
                             <HorizontalChart
+                                value={{
+                                    label: 'Cafe',
+                                    field: 'x'
+                                }}
+                                axis={{
+                                    label: 'Eixo',
+                                    field: 'y'
+                                }}
                                 styles={{width: '100%', height: '100%'}}
                                 title={'Teste para Teste'}
                                 axisField={'y'}

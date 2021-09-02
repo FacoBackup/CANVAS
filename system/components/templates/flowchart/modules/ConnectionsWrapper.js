@@ -29,7 +29,7 @@ export default function ConnectionsWrapper(props) {
             nodeRef?.removeEventListener('mouseenter', handleMouseEnter)
             nodeRef?.removeEventListener('mouseleave', handleMouseLeave)
         }
-    }, [props.node.styling])
+    }, [])
 
     return (
         <svg width={props.node.dimensions.width + 20} height={props.node.dimensions.height + 20} x={-10} y={-10}

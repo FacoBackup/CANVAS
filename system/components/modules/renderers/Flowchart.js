@@ -18,7 +18,7 @@ import FlowchartShapes from "../navigation/side/modules/FlowchartShapes";
 import {CategoryRounded} from "@material-ui/icons";
 
 export default function Flowchart(props) {
-    const [data, setData] = useState(NewProjectTemplate)
+    const [data, setDataD] = useState(NewProjectTemplate)
     const [defaultPage, setDefaultPage] = useState(0)
     const [toBeLinked, setToBeLinked] = useState(null)
     const [selectedNode, setSelectedNode] = useState(undefined)
@@ -32,13 +32,17 @@ export default function Flowchart(props) {
             event: e
         })
     }
-
+    const setData= (e) => {
+        console.log(e)
+        setDataD(e)
+    }
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown)
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
-    })
+    }, [data])
+
     return (
         <>
             <Head>
@@ -60,19 +64,29 @@ export default function Flowchart(props) {
                 <ContextMenu
                     data={data.pages[defaultPage]}
                     setData={(event) => {
+                        console.log('SETTING FUCKING DATA')
+                        console.log(event)
                         let newPages = [...data.pages]
                         newPages[defaultPage] = event
                         setData({...data, pages: newPages})
+
                     }}
                     scale={scale} setScale={setScale} copiedNode={copiedNode}
-                    setCopiedNode={setCopiedNode} setSelectedNode={setSelectedNode}/>
-                <FileOptions setData={setData} data={data} handlePrint={handlePrint}/>
+                    setCopiedNode={setCopiedNode} setSelectedNode={setSelectedNode}
+                />
+                <FileOptions setData={e => {
+                    console.log('FILE IS SETTING DATA')
+                    setData(e)
+                }} data={data} handlePrint={handlePrint}/>
                 <div style={{width: '100%', height: 'calc(100% - 40px)', display: 'flex'}}>
                     <SideBar
                         data={data}
                         defaultPage={defaultPage}
                         selectedNode={selectedNode}
-                        setData={setData}
+                        setData={e => {
+                            console.log('SIDEBAR IS SETTING DATA')
+                            setData(e)
+                        }}
                         options={[
                             {
                                 icon: <CategoryRounded/>,
@@ -90,11 +104,17 @@ export default function Flowchart(props) {
                                         />
                                         <Lines
                                             data={data}
-                                            setData={setData}
+                                            setData={e => {
+                                                console.log('LINES IS SETTING DATA')
+                                                setData(e)
+                                            }}
                                         />
 
                                         <Connections
-                                            data={data} setData={setData}
+                                            data={data} setData={e => {
+                                            console.log('CONNECTIONS IS SETTING DATA')
+                                            setData(e)
+                                        }}
                                         />
                                     </>
                                 ),
@@ -103,21 +123,26 @@ export default function Flowchart(props) {
                         ]}
                     />
                     <div className={styles.content}>
-                        <FontVisualsBar scale={scale} setScale={setScale} data={data} setData={setData}/>
+                        <FontVisualsBar scale={scale} setScale={setScale} data={data} setData={e => {
+                            console.log('FONT IS SETTING DATA')
+                            setData(e)
+                        }}/>
                         <div className={styles.contentWrapper}>
                             <Pages
                                 scale={scale} setScale={setScale}
-                                data={data} setData={setData}
+                                data={data} setData={e => {
+                                console.log('PAGE IS SETTING DATA')
+                                setData(e)
+                            }}
                                 setDefaultPage={setDefaultPage}
                                 defaultPage={defaultPage}
                             />
                             {props.children({
                                 data: data.pages[defaultPage],
                                 setData: (event) => {
-                                    console.log(event)
+                                    console.log('CHILDREN IS SETTING DATA')
                                     let newPages = [...data.pages]
                                     newPages[defaultPage] = event
-                                    console.log(newPages[defaultPage])
                                     setData({...data, pages: newPages})
                                 },
                                 styling: {connectionType: data.connectionType},

@@ -13,15 +13,15 @@ export default function PlaceNewAnalyticChart(props) {
     newWrapper.appendChild(element)
     newWrapper.style.position = 'fixed'
     newWrapper.style.zIndex = '999'
-    newWrapper.style.top = (props.event.clientY - 80) + 'px'
-    newWrapper.style.left = (props.event.clientX - 80) + 'px'
-    newWrapper.firstChild.style.width = '160px'
+    newWrapper.style.top = (props.event.clientY - 125) + 'px'
+    newWrapper.style.left = (props.event.clientX - 250) + 'px'
+    newWrapper.firstChild.style.width = '500px'
     newWrapper.firstChild.style.display = 'flex'
     newWrapper.firstChild.style.alignItems = 'center'
-    newWrapper.firstChild.style.height = '160px'
+    newWrapper.firstChild.style.height = '250px'
     newWrapper.firstChild.style.border = '#0095ff 2px dashed'
     console.log(newWrapper.firstChild.firstChild.firstChild.style)
-    newWrapper.firstChild.firstChild.firstChild.style.fontSize = '80px'
+    newWrapper.firstChild.firstChild.firstChild.style.fontSize = '100px'
     newWrapper.firstChild.style.cursor = 'grabbing'
 
     let lastPlacement = {
@@ -54,15 +54,16 @@ export default function PlaceNewAnalyticChart(props) {
                         richTitle: [],
                         description: null,
                         placement: {
-                            x: (event.clientX - rootBounding.x + root.scrollLeft - 80),
-                            y: (event.clientY - rootBounding.y + root.scrollTop - 80)
+                            x: (event.clientX - rootBounding.x + root.scrollLeft - 250),
+                            y: (event.clientY - rootBounding.y + root.scrollTop - 125)
                         },
                         variant: props.variant,
                         creationDate: (new Date()).getTime(),
                         links: [],
+                        shapeVariant: 'rect',
                         dimensions: {
-                            width: 160,
-                            height: 160
+                            width: 500,
+                            height: 250
                         },
                         styling: {
                             shape: 'rect',

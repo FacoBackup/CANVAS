@@ -43,5 +43,5 @@ export default function Elements(props) {
     )
 }
 Elements.propTypes = {
-    label: PropTypes.string
+    label: PropTypes.string,
 }

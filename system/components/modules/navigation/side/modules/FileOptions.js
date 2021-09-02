@@ -1,5 +1,6 @@
 import styles from "../styles/Options.module.css";
 import {
+    FileCopyRounded,
     HelpRounded,
     InfoRounded,
     PictureAsPdfRounded,
@@ -19,21 +20,25 @@ export default function FileOptions(props) {
     const [open, setOpen] = useState(null)
     return (
         <div className={styles.fileOptionsWrapper}>
-         <Link href={'/'}>
-             <button className={styles.homeButton}>
-                 <img rel='icon' src={'/flow.svg'} style={{width: '27px', height: '30px', overflow: 'visible'}} alt={'logo'}/>
-             </button>
-         </Link>
-            <input type="file" ref={uploadRef} style={{display: 'none'}} multiple={false}
-                   onChange={event => HandleUpload({
-                       file: event,
-                       setData: props.setData,
-                   })}
-                   accept={'.canvas'}/>
+            <Link href={'/'}>
+                <button className={styles.homeButton}>
+                    <img rel='icon' src={'/flow.svg'} style={{width: '27px', height: '30px', overflow: 'visible'}}
+                         alt={'logo'}/>
+                </button>
+            </Link>
+            <input
+                type="file" ref={uploadRef} style={{display: 'none'}} multiple={false}
+                onChange={event => HandleUpload({
+                    file: event,
+                    setData: props.setData,
+                })}
+                accept={'.canvas'}
+            />
             <input
                 className={styles.textField}
                 value={props.data.subject}
-                onChange={event => props.setData({...props.data, subject: event.target.value})}/>
+                onChange={event => props.setData({...props.data, subject: event.target.value})}
+            />
 
             <Dropdown
                 label={'Arquivo'} open={open === 0}
@@ -66,6 +71,12 @@ export default function FileOptions(props) {
                     {
                         children: [
                             {
+                                label: 'Exportar como JSON',
+                                icon: <FileCopyRounded style={{fontSize: '1.2rem'}}/>,
+                                onClick: () => HandleDownload({data: props.data, asJson: true}),
+                                disabled: false
+                            },
+                            {
                                 label: 'Exportar como PDF',
                                 icon: <PictureAsPdfRounded style={{fontSize: '1.2rem'}}/>,
                                 onClick: () => uploadRef.current.click(),
@@ -96,7 +107,7 @@ export default function FileOptions(props) {
                             },
                             {
                                 label: 'Informações adicionais',
-                                icon: <InfoRounded  style={{fontSize: '1.2rem'}}/>,
+                                icon: <InfoRounded style={{fontSize: '1.2rem'}}/>,
                                 onClick: () => null,
                                 disabled: true
                             }

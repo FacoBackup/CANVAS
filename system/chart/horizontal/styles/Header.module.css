@@ -1,0 +1,14 @@
+
+.header {
+    grid-row: 1;
+    position: relative;
+    z-index: 999;
+    background: white;
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #393C44;
+    text-align: left;
+    width: 100%;
+    min-height: 10%;
+}

@@ -37,7 +37,7 @@ export default [
                 onClick: (props, event) => {
                     let newNode = {...props.copiedNode}
                     const frameContent = document.getElementById('engine-content')
-                    const frame = document.getElementById('engine')
+                    const frame = document.getElementById('frame')
                     newNode.id = uuid4().toString()
                     newNode.placement = {
                         x: event.clientX - frameContent.getBoundingClientRect().left + frame.scrollLeft - newNode.dimensions.width/2,
@@ -45,12 +45,14 @@ export default [
                     }
                     let newNodes = [...props.data.nodes]
 
+                    console.log(newNode)
                     newNodes.push(newNode)
 
                     props.setData({
                         ...props.data,
                         nodes: newNodes
                     })
+
                     props.setCopiedNode(null)
                 },
                 getDisabled: (props) => props.copiedNode === null,

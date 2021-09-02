@@ -59,9 +59,14 @@ export default [
                         ...props.data,
                         nodes: newNodes
                     })
+                    console.log({
+                        ...props.data,
+                        nodes: newNodes
+                    })
                 },
                 shortcutButtons: ['del'],
-                key: 'node-3'
+                key: 'node-3',
+
             },
         ]
     },

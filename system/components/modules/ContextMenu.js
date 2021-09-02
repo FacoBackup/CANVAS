@@ -28,6 +28,7 @@ export default function ContextMenu(props) {
             }
         }, {once: true})
     }
+
     const preventContext = (event) => {
         event.preventDefault()
     }
@@ -91,10 +92,10 @@ export default function ContextMenu(props) {
             document.removeEventListener('mousedown', handleExit)
             document.removeEventListener('mouseup', handleMouseUp)
         }
-    }, [])
+    }, [props.data])
     return (
         <div ref={ref} style={{display: onRender ? undefined : 'none'}}
-             className={onRender ? styles.context : undefined}>
+             className={onRender ? styles.context : undefined} id={'context-menu'}>
             {buttons.map((button, i) => (
                 <div>
                     <div className={styles.header}>
