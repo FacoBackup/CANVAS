@@ -1,9 +1,9 @@
 import React, {useRef, useState} from "react";
-import NodePropsTemplate from "./props/NodePropsTemplate";
-import SelectedWrapper from "./flowchart/modules/SelectedWrapper";
-import Shape from "./shapes/Shape";
-import styles from '../styles/Node.module.css'
-import PlaceNode from "../utils/placement/PlaceNode";
+import NodePropsTemplate from "../props/NodePropsTemplate";
+import SelectedWrapper from "./SelectedWrapper";
+import Shape from "../shapes/Shape";
+import styles from '../../styles/Node.module.css'
+import PlaceNode from "../../utils/placement/PlaceNode";
 
 
 export default function NodeWrapper(props) {
@@ -27,11 +27,9 @@ export default function NodeWrapper(props) {
             id={props.node.id + '-node'} overflow={'visible'}
             transform={`translate(${props.node.placement.x}, ${props.node.placement.y})`}
             ref={ref}
-
+            fill={'transparent'}
             className={styles.entityContainer}
         >
-
-
             <SelectedWrapper {...props}/>
 
             {props.controlComponents.map(element => element)}
@@ -56,7 +54,9 @@ export default function NodeWrapper(props) {
                 }}
             >
 
-                {props.children({...props, onMove: onMove, setOnMove: setOnMove, moveNode: moveNode})}
+                {props.children({
+                    ...props, onMove: onMove, setOnMove: setOnMove, moveNode: moveNode
+                })}
             </Shape>
 
         </g>

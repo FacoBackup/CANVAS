@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import NodeTemplate from "../../props/NodeTemplate";
-import GetNodeResizeParams from "../../../utils/misc/GetNodeResizeParams";
+import NodeTemplate from "../props/NodeTemplate";
+import GetNodeResizeParams from "../../utils/misc/GetNodeResizeParams";
 
 export default function ResizeIndicator(props) {
     const params = GetNodeResizeParams(props)

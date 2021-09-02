@@ -15,11 +15,6 @@ export default function PlaceNode(props) {
 
 
     const handlePlacement = (event, save) => {
-        if (!onMove) {
-            props.setOnMove(true)
-            onMove = true
-            props.setSelectedNode(undefined)
-        }
 
         const currentPlacement = {
             x: lastPlacement.x - event.clientX,
@@ -61,8 +56,15 @@ export default function PlaceNode(props) {
 
 
     document.addEventListener('mousemove', function movingEl(event) {
-        if (moving)
+        if (moving) {
+            if (!onMove) {
+                props.setOnMove(true)
+                onMove = true
+                props.setSelectedNode(undefined)
+            }
+
             handlePlacement(event, false)
+        }
         else
             event.currentTarget.removeEventListener('mousemove', movingEl)
     })

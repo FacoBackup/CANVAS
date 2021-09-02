@@ -67,7 +67,7 @@
     justify-content: flex-start;
     padding: 4px;
     transition: 150ms linear;
-    background: white;
+    background: transparent;
 }
 .optionsDivider:hover{
     background: #f4f5fa;
@@ -109,8 +109,8 @@
     gap: 16px;
     transition: 150ms linear;
 
-    background: white;
-    border: #ecedf2 1px solid;
+    background: transparent;
+    border: #e0e0e0 1px solid;
     border-radius: 5px;
     overflow: hidden;
 }

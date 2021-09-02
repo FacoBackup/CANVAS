@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import NodeWrapper from "../../NodeWrapper";
+import NodeWrapper from "../../wrappers/NodeWrapper";
 import styles from "../../../styles/Node.module.css";
 import Content from "../modules/Content";
 import ConnectionsWrapper from "../modules/ConnectionsWrapper";

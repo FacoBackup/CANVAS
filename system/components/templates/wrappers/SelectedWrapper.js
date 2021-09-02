@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
-import NodePropsTemplate from "../../props/NodePropsTemplate";
+import NodePropsTemplate from "../props/NodePropsTemplate";
 import ResizeIndicator from "./ResizeIndicator";
-
+import styles from '../../styles/Node.module.css'
+import {EditRounded} from "@material-ui/icons";
 export default function SelectedWrapper(props) {
 
     return (
@@ -14,6 +15,11 @@ export default function SelectedWrapper(props) {
             <rect stroke={'green'} x={0} y={0} width={props.node.dimensions.width + 20} height={props.node.dimensions.height + 20} fill={'none'}
                   strokeDasharray={'3,3'}/>
 
+            <foreignObject overflow={'visible'} style={{width: '40px', height: '40px'}}>
+                <button className={styles.editButton} onClick={() => props.setSelected(props.node, true)}>
+                    <EditRounded style={{fontSize: '1.3rem'}}/>
+                </button>
+            </foreignObject>
             <ResizeIndicator viewBox={{x: props.node.dimensions.width + 20, y: props.node.dimensions.height + 20}}
                              placement={'nw'} node={props.node} setNode={props.setNode} scale={props.scale}/>
             <ResizeIndicator viewBox={{x: props.node.dimensions.width + 20, y: props.node.dimensions.height + 20}}

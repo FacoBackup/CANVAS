@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from './styles/Horizontal.module.css'
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import Header from "./templates/Header";
-import ToolTip from "../tooltip/ToolTip";
 import Content from "./templates/Content";
 import Value from "./templates/Value";
 import Axis from "./templates/Axis";

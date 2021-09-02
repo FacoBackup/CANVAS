@@ -1,3 +1,27 @@
+.editButton{
+    position: absolute;
+    z-index:  999;
+
+    top: -100%;
+    left: -100%;
+    background: white;
+    border: #e0e0e0 1px solid;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    outline: none;
+    color: #555555;
+    cursor: pointer;
+    transition: 150ms linear;
+}
+.editButton:hover{
+    background: #f4f5fa;
+    color: #0095ff;
+}
+.editButton:active{
+    color: #0095ff;
+    background: #E8F0FE;
+}
 .entityContainer {
     animation: popIn 150ms linear;
     transition: opacity 150ms linear;

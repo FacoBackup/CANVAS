@@ -1,25 +1,27 @@
 .container {
-    background: white;
+    background: rgb(248, 248, 252);
 
 
     position: absolute;
-    right: 16px;
-    bottom: 16px;
+    right: 0;
+    bottom: 0;
     z-index: 999;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
 
     overflow-x: hidden;
     width: 400px;
 
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    height: calc(100vh - 32px);
+    height: 100vh;
 
     padding: 16px;
 
     animation: fadeIn 300ms ease;
 
     overflow-y: auto;
-    display: block;
+    display: grid;
+    gap: 8px;
+    align-content: flex-start;
     user-select: none;
 }
 

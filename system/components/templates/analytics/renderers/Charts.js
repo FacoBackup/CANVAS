@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import NodeWrapper from "../../NodeWrapper";
+import NodeWrapper from "../../wrappers/NodeWrapper";
 import HorizontalChart from "../../../../chart/horizontal/HorizontalChart";
 
 export default function Charts(props) {
@@ -55,7 +55,8 @@ export default function Charts(props) {
         return (
             <g key={`${node.id}-node-${index}`}>
                 <NodeWrapper
-                    {...wrapperProps} controlComponents={[]} noPlacementIndicator={true}
+                    {...wrapperProps} controlComponents={[]}
+                    noPlacementIndicator={true}
                 >
                     {nodeProps => (
                         <foreignObject

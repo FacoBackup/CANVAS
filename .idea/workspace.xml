@@ -1,20 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="063cb9af-f03d-420c-affc-3b1041605637" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/modules/navigation/FontVisualsBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/navigation/FontVisualsBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/styles/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/HorizontalChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/HorizontalChart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/modules/navigation/side/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/navigation/side/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/modules/navigation/side/modules/FileOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/navigation/side/modules/FileOptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/modules/navigation/side/styles/Shapes.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/navigation/side/styles/Shapes.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/modules/renderers/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/renderers/Analytics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/modules/renderers/Flowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/renderers/Flowchart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/styles/Node.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/styles/Node.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/styles/NodeOverview.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/styles/NodeOverview.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/NodeWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/wrappers/NodeWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/analytics/renderers/Charts.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/analytics/renderers/Charts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/flowchart/modules/ResizeIndicator.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/wrappers/ResizeIndicator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/flowchart/modules/SelectedWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/wrappers/SelectedWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/flowchart/modules/Wrapper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/flowchart/renderers/FlowchartNodes.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/flowchart/renderers/FlowchartNodes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/misc/Overview.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/editors/FlowchartNodeEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/utils/io/HandleUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/utils/io/HandleUpload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/utils/placement/PlaceNode.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/utils/placement/PlaceNode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/pages/analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/pages/analytics.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1xXS4LZdb4yanQIxQeXlcOCGbsk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -23,8 +52,19 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/system" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/system/components/templates/wrappers" />
+      <recent name="$PROJECT_DIR$/system/components/templates" />
+      <recent name="$PROJECT_DIR$/system/components/templates/editors" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -36,10 +76,33 @@
       <updated>1630499749579</updated>
       <workItem from="1630499751861" duration="10000" />
       <workItem from="1630499934728" duration="10000" />
+      <workItem from="1630607237927" duration="9503000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/system/pages/analytics.js</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
