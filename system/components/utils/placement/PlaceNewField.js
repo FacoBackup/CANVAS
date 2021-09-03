@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import {v4 as uuid4} from "uuid";
 
 export default function PlaceNewField(props) {
     let moving = true

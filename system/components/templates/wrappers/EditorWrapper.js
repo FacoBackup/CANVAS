@@ -7,14 +7,19 @@ export default function EditorWrapper(props) {
     const mount = useRef()
     const [mounted, setMounted] = useState(false)
     const handleExit = (force) => {
-        if(!props.open || force) {
-            setMounted(false)
-            try{
-                ReactDOM.unmountComponentAtNode(mount.current)
-                document.body.removeChild(mount.current)
-            }catch (e){
-                console.log(e)
-            }
+        if (!props.open || force) {
+            mount.current?.classList.add(styles.exitAnimation)
+            mount.current?.addEventListener('animationend', () => {
+
+                setMounted(false)
+                try {
+                    ReactDOM.unmountComponentAtNode(mount.current)
+                    document.body.removeChild(mount.current)
+                } catch (e) {
+                    console.log(e)
+                }
+
+            }, {once: true})
         }
     }
     useEffect(() => {
@@ -22,7 +27,7 @@ export default function EditorWrapper(props) {
             mount.current = document.createElement('div')
             document.body.appendChild(mount.current)
             setMounted(true)
-            mount.current.classList.add(styles.container)
+            mount.current?.classList.add(styles.container)
         }
 
         if (props.open)

@@ -43,7 +43,8 @@ export default function NodeWrapper(props) {
                     fill: props.node.styling.fill,
                     stroke: props.node.styling.color,
                     strokeDasharray: props.node.styling.strokeDasharray,
-                    strokeWidth: props.node.styling.strokeWidth
+                    strokeWidth: props.node.styling.strokeWidth,
+                    borderRadius: props.node.styling.borderRadius
                 }}
                 onMouseDown={(event, open) => {
                     if (event.button === 0) {

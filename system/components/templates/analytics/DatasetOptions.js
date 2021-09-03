@@ -1,6 +1,6 @@
 import Elements from "../../modules/navigation/side/modules/Elements";
 import styles from "../../styles/Dataset.module.css";
-import {BarChartRounded, DragIndicatorRounded, PieChartRounded, ShowChartRounded} from "@material-ui/icons";
+import {DragIndicatorRounded} from "@material-ui/icons";
 import PlaceNewField from "../../utils/placement/PlaceNewField";
 import PropTypes from "prop-types";
 

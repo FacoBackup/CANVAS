@@ -6,7 +6,7 @@ export default function DimensionPositionEditor(props){
     return(
         <>
             <Elements label={'Posição'}>
-                <div style={{display: 'grid', gap: '4px', paddingBottom: '4px'}}>
+                <div style={{display: 'grid', gap: '4px', padding: '2%'}}>
 
                     <div className={styles.fieldContainer}>
                         <label htmlFor={'x-placement'}>X</label>
@@ -38,7 +38,7 @@ export default function DimensionPositionEditor(props){
                 </div>
             </Elements>
             <Elements label={'Tamanho'}>
-                <div style={{display: 'grid', gap: '4px', paddingBottom: '4px'}}>
+                <div style={{display: 'grid', gap: '4px', padding: '2%'}}>
                     <div className={styles.fieldContainer}>
                         <label htmlFor={'width-placement'}>Largura</label>
                         <input

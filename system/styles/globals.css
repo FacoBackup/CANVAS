@@ -7,6 +7,7 @@ body {
     font-family: Roboto !important;
     width: 100vw;
     image-rendering: optimizeQuality ;
+    overflow: hidden;
 }
 
 a {

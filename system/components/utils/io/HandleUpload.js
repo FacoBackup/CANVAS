@@ -19,7 +19,8 @@ function handleJson(up, data, setData) {
 }
 
 function handleCsv(up, data, setData) {
-    const uploaded = Papa.parse(up.target.result, {header: true}).data
+    const uploaded = Papa.parse(up.target.result, {header: true, encoding: 'ISO-8859-1'}).data
+    console.log(Papa.parse(up.target.result, {header: true, encoding: 'ISO-8859-1'}).data)
     setData({
         ...data,
         dataset: uploaded
@@ -29,6 +30,7 @@ function handleCsv(up, data, setData) {
 export default function HandleUpload(props) {
     try {
         let reader = new FileReader()
+
         reader.onload = newData => {
             switch (props.type) {
                 case '.canvas': {
@@ -40,10 +42,8 @@ export default function HandleUpload(props) {
                     break
                 }
                 case '.csv': {
+
                     handleCsv(newData, props.data, props.setData)
-                    break
-                }
-                case '.excel': {
                     break
                 }
                 default:

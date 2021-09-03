@@ -81,7 +81,8 @@ Shape.propTypes = {
         strokeDasharray: PropTypes.string,
         strokeWidth: PropTypes.any,
         stroke: PropTypes.string,
-        fill: PropTypes.string
+        fill: PropTypes.string,
+        borderRadius: PropTypes.any
     }),
     onMouseDown: PropTypes.func,
     id: PropTypes.string,

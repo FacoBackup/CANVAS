@@ -6,7 +6,6 @@ import NewProjectTemplate from "../../templates/props/NewProjectTemplate";
 import SideBar from "../navigation/side/SideBar";
 import ContextMenu from "../ContextMenu";
 import Pages from "../navigation/pages/Pages";
-import FrameView from "../engine/FrameView";
 import keyboardControl from "../../utils/control/KeyboardControl";
 import {
     CategoryRounded,
@@ -25,6 +24,8 @@ import HandleUpload from "../../utils/io/HandleUpload";
 import Dropdown from "../navigation/misc/Dropdown";
 import HandleDownload from "../../utils/io/HandleDownload";
 import DatasetOptions from "../../templates/analytics/DatasetOptions";
+import DatasetManagement from "../dataset/DatasetManagement";
+import DataManagementBar from "../dataset/DataManagementBar";
 
 export default function Analytics(props) {
     const [data, setData] = useState(NewProjectTemplate)
@@ -79,7 +80,7 @@ export default function Analytics(props) {
             }}>
             <ChartNodeEditor
                 data={data.pages[defaultPage]}
-                node={selectedNode !== undefined ? data.pages[defaultPage].nodes[ selectedNode.index] : null}
+                node={selectedNode !== undefined ? data.pages[defaultPage].nodes[selectedNode.index] : null}
                 setData={(event) => {
                     let newPages = [...data.pages]
                     newPages[defaultPage] = event
@@ -100,7 +101,7 @@ export default function Analytics(props) {
                 })}
                 accept={'.canvas'}
             />
-            <FrameView/>
+            {/*<FrameView/>*/}
 
             <ContextMenu
                 data={data.pages[defaultPage]}
@@ -184,15 +185,6 @@ export default function Analytics(props) {
                                         uploadRef.current.click()
                                     },
                                     disabled: false
-                                },
-                                {
-                                    label: 'Importar Excel',
-                                    icon: <DescriptionRounded style={{fontSize: '1.2rem'}}/>,
-                                    onClick: () => {
-                                        uploadRef.current.setAttribute('accept', '.excel')
-                                        uploadRef.current.click()
-                                    },
-                                    disabled: false
                                 }
                             ],
                         }
@@ -201,6 +193,7 @@ export default function Analytics(props) {
                     handleClose={() => setOpenOptions(null)}
                 />
             </FileOptions>
+            <DataManagementBar setOpenDataset={setOpenDataset} openDataset={openDataset}/>
             <div style={{width: '100%', height: 'calc(100% - 40px)', display: 'flex'}}>
 
                 <SideBar
@@ -235,15 +228,19 @@ export default function Analytics(props) {
                                     setData={setData}
                                     defaultPage={defaultPage}
                                     selectedNode={selectedNode}
-
                                 />
                             ),
                             disabled: data.dataset === undefined || data.dataset === null
                         },
                     ]}
                 />
-
+                {openDataset ?
+                    <DatasetManagement data={data}/>
+                    :
+                    null
+                }
                 <div className={styles.contentWrapper} style={{display: openDataset ? 'none' : undefined}}>
+
                     <Pages
                         data={data} setData={setData}
                         setDefaultPage={setDefaultPage}

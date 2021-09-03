@@ -3,7 +3,6 @@ import EditorWrapper from "../wrappers/EditorWrapper";
 import DimensionPositionEditor from "./DimensionPositionEditor";
 import BorderEditor from "./BorderEditor";
 import NodeDatasetEditor from "./NodeDatasetEditor";
-import {useEffect, useState} from "react";
 
 export default function ChartNodeEditor(props) {
     const handleChange = (name, value) => {
