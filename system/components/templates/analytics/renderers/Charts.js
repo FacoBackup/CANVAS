@@ -67,40 +67,18 @@ export default function Charts(props) {
                             <HorizontalChart
                                 value={{
                                     label: 'Cafe',
-                                    field: 'x'
+                                    field: nodeProps.node.dataset?.value
                                 }}
                                 axis={{
                                     label: 'Eixo',
-                                    field: 'y'
+                                    field: nodeProps.node.dataset?.axis
                                 }}
                                 styles={{width: '100%', height: '100%'}}
                                 title={'Teste para Teste'}
-                                axisField={'y'}
-                                axisLabel={'Eixo teste'}
-                                valueField={'x'}
-                                data={[
-                                    {
-                                        x: 1000,
-                                        y: 'cafe',
-                                        z: 'cafe222'
-                                    },
-                                    {
-                                        x: 5,
-                                        y: 'cafe',
-                                        z: 'cafe222'
-                                    },
-                                    {
-                                        x: 2,
-                                        y: 'ca123213fe',
-                                        z: 'cafe222'
-                                    }, {
-                                        x: 3, y: '2323',
-                                        z: '2135'
-                                    },
-                                ]}
+
+                                data={props.dataset}
                                 legendLabel={'Legendas'}
                                 legendsField={'z'}
-                                valueLabel={'ValorLabel'}
                             />
                         </foreignObject>
                     )}
@@ -121,5 +99,6 @@ Charts.propTypes = {
     setSelectedNode: PropTypes.func,
     selectedNode: PropTypes.any,
     toBeLinked: PropTypes.object,
-    setToBeLinked: PropTypes.func
+    setToBeLinked: PropTypes.func,
+    dataset: PropTypes.array
 }

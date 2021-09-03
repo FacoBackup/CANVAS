@@ -10,7 +10,7 @@
     align-content: flex-start;
     gap: 8px;
 
-    overflow-y: hidden;
+    overflow-y: auto;
     overflow-x: hidden;
 
 }

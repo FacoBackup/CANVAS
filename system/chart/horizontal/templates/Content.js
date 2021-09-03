@@ -9,24 +9,23 @@ export default function Content(props) {
         <div className={styles.graphs} ref={ref}>
 
                 {props.data.map((d, index) => (
-                    <>
+
                         <div style={{
                             width: `${((d[props.value.field] / props.iterations.length) / (props.biggest / props.iterations.length)) * 100}%`,
                             color: (1.5 / (index + 1)) < .5 ? '#333333' : undefined
-                        }} className={styles.data}/>
-                        <ToolTip color={'#f4f5fa'}>
-                            <div className={styles.overview}>
-                                <div className={styles.toolTipAxis}>
-                                    {props.axis.label}: {d[props.axis.field]}
+                        }} className={styles.data}>
+                            <ToolTip color={'#f4f5fa'}>
+                                <div className={styles.overview}>
+                                    <div className={styles.toolTipAxis}>
+                                        {props.axis.label}: {d[props.axis.field]}
+                                    </div>
+                                    <div className={styles.toolTipValue}>
+                                        {props.value.label}: {d[props.value.field]}
+                                    </div>
                                 </div>
-                                <div className={styles.toolTipValue}>
-                                    {props.value.label}: {d[props.value.field]}
-                                </div>
-                            </div>
-                        </ToolTip>
-                    </>
+                            </ToolTip>
+                        </div>
                 ))}
-
             <div className={styles.values}>
                 {props.iterations.map((e, i) => (
 

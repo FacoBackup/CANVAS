@@ -24,7 +24,8 @@ import ChartNodeEditor from "../../templates/editors/ChartNodeEditor";
 import HandleUpload from "../../utils/io/HandleUpload";
 import Dropdown from "../navigation/misc/Dropdown";
 import HandleDownload from "../../utils/io/HandleDownload";
-import nodeStyles from '../../styles/Node.module.css'
+import DatasetOptions from "../../templates/analytics/DatasetOptions";
+
 export default function Analytics(props) {
     const [data, setData] = useState(NewProjectTemplate)
     const [defaultPage, setDefaultPage] = useState(0)
@@ -32,6 +33,8 @@ export default function Analytics(props) {
     const [selectedNode, setSelectedData] = useState(undefined)
     const [openOptions, setOpenOptions] = useState(null)
     const [copiedNode, setCopiedNode] = useState(null)
+    const [openDataset, setOpenDataset] = useState(false)
+
     const handlePrint = useReactToPrint({
         content: () => document.getElementById('engine-content')
     });
@@ -76,14 +79,14 @@ export default function Analytics(props) {
             }}>
             <ChartNodeEditor
                 data={data.pages[defaultPage]}
+                node={selectedNode !== undefined ? data.pages[defaultPage].nodes[ selectedNode.index] : null}
                 setData={(event) => {
-                    console.log(event)
                     let newPages = [...data.pages]
                     newPages[defaultPage] = event
-                    console.log({...data, pages: newPages})
                     setData({...data, pages: newPages})
                 }}
                 selectedNode={selectedNode}
+                index={selectedNode !== undefined ? selectedNode.index : selectedNode}
                 setSelectedNode={setSelectedNode}
             />
 
@@ -92,7 +95,7 @@ export default function Analytics(props) {
                 onChange={event => HandleUpload({
                     file: event,
                     data: data,
-                    setData: props.setData,
+                    setData: setData,
                     type: uploadRef.current.getAttribute('accept')
                 })}
                 accept={'.canvas'}
@@ -210,39 +213,37 @@ export default function Analytics(props) {
                             icon: <CategoryRounded/>,
                             label: 'Visuais',
                             content: (
-                                <>
-                                    <AnalyticsShapes
-                                        data={data.pages[defaultPage]}
-                                        setData={(e) => {
-                                            let newPages = [...data.pages]
-                                            newPages[defaultPage] = e
-                                            setData({...data, pages: newPages})
-                                        }}
-                                    />
-                                </>
+
+                                <AnalyticsShapes
+                                    data={data.pages[defaultPage]}
+                                    setData={(e) => {
+                                        let newPages = [...data.pages]
+                                        newPages[defaultPage] = e
+                                        setData({...data, pages: newPages})
+                                    }}
+                                />
+
                             )
                         },
                         {
                             icon: <StorageRounded/>,
                             label: 'Dados',
-                            content: (
-                                <>
-                                    <AnalyticsShapes
-                                        data={data.pages[defaultPage]}
-                                        setData={(e) => {
-                                            let newPages = [...data.pages]
-                                            newPages[defaultPage] = e
-                                            setData({...data, pages: newPages})
-                                        }}
-                                    />
-                                </>
+                            content: data.dataset === undefined || data.dataset === null || data.dataset.length === 0 ? null : (
+
+                                <DatasetOptions
+                                    data={data}
+                                    setData={setData}
+                                    defaultPage={defaultPage}
+                                    selectedNode={selectedNode}
+
+                                />
                             ),
                             disabled: data.dataset === undefined || data.dataset === null
                         },
                     ]}
                 />
 
-                <div className={styles.contentWrapper}>
+                <div className={styles.contentWrapper} style={{display: openDataset ? 'none' : undefined}}>
                     <Pages
                         data={data} setData={setData}
                         setDefaultPage={setDefaultPage}
@@ -255,6 +256,7 @@ export default function Analytics(props) {
                             newPages[defaultPage] = event
                             setData({...data, pages: newPages})
                         },
+                        dataset: data.dataset ? data.dataset : [],
                         dimensions: data.dimensions,
                         selectedNode: selectedNode !== undefined ? selectedNode.node : selectedNode,
                         setSelectedNode: setSelectedNode,

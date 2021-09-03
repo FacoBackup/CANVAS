@@ -1,8 +1,6 @@
 import Elements from "../../modules/navigation/side/modules/Elements";
 import styles from "../../styles/NodeOverview.module.css";
 import PropTypes from "prop-types";
-import ChartNodeEditor from "./ChartNodeEditor";
-import {useEffect} from "react";
 
 export default function DimensionPositionEditor(props){
     return(

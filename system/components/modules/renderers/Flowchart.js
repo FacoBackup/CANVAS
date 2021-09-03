@@ -6,9 +6,7 @@ import SideBar from "../navigation/side/SideBar";
 import ContextMenu from "../ContextMenu";
 import Pages from "../navigation/pages/Pages";
 import FontVisualsBar from "../navigation/FontVisualsBar";
-import nodeStyles from '../../styles/Node.module.css'
 import FrameView from "../engine/FrameView";
-import tabsStyles from '../navigation/side/styles/Tabs.module.css'
 import keyboardControl from "../../utils/control/KeyboardControl";
 import FileOptions from "../navigation/side/modules/FileOptions";
 import Head from "next/head";
@@ -29,7 +27,6 @@ import FlowchartNodeEditor from "../../templates/editors/FlowchartNodeEditor";
 import HandleUpload from "../../utils/io/HandleUpload";
 import Dropdown from "../navigation/misc/Dropdown";
 import HandleDownload from "../../utils/io/HandleDownload";
-import ChartNodeEditor from "../../templates/editors/ChartNodeEditor";
 
 export default function Flowchart(props) {
     const [data, setData] = useState(NewProjectTemplate)
@@ -104,7 +101,7 @@ export default function Flowchart(props) {
                     onChange={event => {
                         HandleUpload({
                             file: event,
-                            setData: props.setData,
+                            setData: setData,
                             type: '.canvas'
                         })
                     }}

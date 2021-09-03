@@ -31,35 +31,37 @@ export default function HorizontalChart(props) {
         let value
         props.data.forEach((e) => {
             if (value === undefined)
-                value = e[props.value.field]
-            else if (e[props.value.field] > value)
-                value = e[props.value.field]
+                value = parseInt(e[props.value.field])
+            else if (parseInt(e[props.value.field]) > value)
+                value = parseInt(e[props.value.field])
         })
+        if (value !== undefined) {
+            let nI = []
+            let m = 1
+            for (let i = 0; i <= (value.toString().length - 1); i++) {
+                m = m * numberOfIterations
+            }
+            if (m / numberOfIterations !== value)
+                value = m
 
-        let nI = []
-        let m = 1
-        for (let i = 0; i <= (value.toString().length - 1); i++) {
-            m = m * numberOfIterations
+            else
+                value = m / numberOfIterations
+            let nB = value
+            for (let i = 0; i <= numberOfIterations; i++) {
+                if (i > 0)
+                    nB = nB - value / numberOfIterations
+                nI.push(nB)
+            }
+            setBiggest(value)
+            nI.reverse()
+            setIterations(nI)
         }
-        if (m / numberOfIterations !== value)
-            value = m
 
-        else
-            value = m / numberOfIterations
-        let nB = value
-        for (let i = 0; i <= numberOfIterations; i++) {
-            if (i > 0)
-                nB = nB - value / numberOfIterations
-            nI.push(nB)
-        }
-        setBiggest(value)
-        nI.reverse()
-        setIterations(nI)
     }, [props.data])
     return (
         <div className={styles.container} style={props.styles}>
             <Header title={props.title} setTitle={props.setTitle} legends={props.legends}/>
-            <div style={{display: 'flex', width: '100%',gridRow: 2}}>
+            <div style={{display: 'flex', width: '100%', gridRow: 2}}>
                 <Axis label={props.axis.label}/>
                 <Content
                     value={props.value} axis={props.axis}

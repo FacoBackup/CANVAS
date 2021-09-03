@@ -16,10 +16,10 @@ export default function ToolTip(props) {
     )
     const ref = useRef()
     const mountingPoint = useRef();
-    let timeout
+
 
     const hover = (event) => {
-        timeout = setTimeout(() => {
+
             mountingPoint.current.classList.remove(styles.exitAnim)
             ReactDOM.unmountComponentAtNode(
                 mountingPoint.current
@@ -31,17 +31,14 @@ export default function ToolTip(props) {
             const rect = ref.current?.parentNode.getBoundingClientRect()
             if (rect !== undefined) {
                 mountingPoint.current.style.position = 'fixed'
-                mountingPoint.current.style.transform = `translate(-50%, 50%)`
+                mountingPoint.current.style.transform = `translate(50%, -50%)`
                 mountingPoint.current.style.zIndex = '999'
-                mountingPoint.current.style.top = (rect.top + rect.height - 16) + 'px'
-                mountingPoint.current.style.left = (event.clientX) + 'px'
+                mountingPoint.current.style.top = (rect.top + rect.height) + 'px'
+                mountingPoint.current.style.left = ((rect.left + rect.width - 16)) + 'px'
 
             }
-        }, 500)
     }
     const hoverEnd = (event) => {
-        if(timeout !== undefined)
-            clearTimeout(timeout)
         if (!document.elementsFromPoint(event.clientX, event.clientY).includes(mountingPoint.current)) {
 
             mountingPoint.current.classList.add(styles.exitAnim)
@@ -64,8 +61,7 @@ export default function ToolTip(props) {
         mountingPoint.current?.addEventListener('mouseleave', hoverEnd)
 
         return () => {
-            if(timeout !== undefined)
-                clearTimeout(timeout)
+
             ref.current?.parentNode.removeEventListener('mouseenter', hover)
             ref.current?.parentNode.removeEventListener('mouseleave', hoverEnd)
             mountingPoint.current?.removeEventListener('mouseleave', hoverEnd)

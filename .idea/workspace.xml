@@ -7,23 +7,25 @@
     <list default="true" id="063cb9af-f03d-420c-affc-3b1041605637" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/chart/horizontal/HorizontalChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/HorizontalChart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/styles/Content.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/styles/Content.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/templates/Content.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/templates/Content.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/tooltip/ToolTip.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/tooltip/ToolTip.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/modules/navigation/side/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/navigation/side/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/modules/navigation/side/modules/FileOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/navigation/side/modules/FileOptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/modules/navigation/side/modules/Elements.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/navigation/side/modules/Elements.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/modules/navigation/side/styles/Shapes.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/navigation/side/styles/Shapes.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/modules/renderers/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/renderers/Analytics.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/modules/renderers/Flowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/modules/renderers/Flowchart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/styles/Node.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/styles/Node.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/styles/NodeOverview.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/styles/NodeOverview.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/templates/NodeWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/wrappers/NodeWrapper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/templates/analytics/renderers/Charts.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/analytics/renderers/Charts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/templates/flowchart/modules/ResizeIndicator.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/wrappers/ResizeIndicator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/templates/flowchart/modules/SelectedWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/wrappers/SelectedWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/templates/flowchart/modules/Wrapper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/templates/flowchart/renderers/FlowchartNodes.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/flowchart/renderers/FlowchartNodes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/templates/misc/Overview.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/editors/FlowchartNodeEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/editors/BorderEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/editors/BorderEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/editors/ChartNodeEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/editors/ChartNodeEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/editors/DimensionPositionEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/editors/DimensionPositionEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/editors/FlowchartNodeEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/editors/FlowchartNodeEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/wrappers/EditorWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/wrappers/EditorWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/templates/wrappers/SelectedWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/templates/wrappers/SelectedWrapper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/utils/io/HandleUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/utils/io/HandleUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/utils/placement/PlaceNode.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/utils/placement/PlaceNode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/pages/analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/pages/analytics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/system/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/system/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +35,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -53,6 +56,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -76,7 +80,8 @@
       <updated>1630499749579</updated>
       <workItem from="1630499751861" duration="10000" />
       <workItem from="1630499934728" duration="10000" />
-      <workItem from="1630607237927" duration="9503000" />
+      <workItem from="1630607237927" duration="9610000" />
+      <workItem from="1630618825074" duration="11437000" />
     </task>
     <servers />
   </component>
@@ -93,13 +98,13 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/system/pages/analytics.js</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

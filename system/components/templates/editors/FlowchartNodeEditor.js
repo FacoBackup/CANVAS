@@ -1,9 +1,4 @@
 import PropTypes from 'prop-types'
-import NodeTemplate from "../props/NodeTemplate";
-import styles from '../../styles/NodeOverview.module.css'
-import {useRef, useState} from "react";
-import {CirclePicker} from "react-color";
-import Elements from "../../modules/navigation/side/modules/Elements";
 import EditorWrapper from "../wrappers/EditorWrapper";
 import BorderEditor from "./BorderEditor";
 import DimensionPositionEditor from "./DimensionPositionEditor";

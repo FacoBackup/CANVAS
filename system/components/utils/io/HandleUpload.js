@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
 // import hmacSHA512  from 'crypto-js/hmac-sha512'
+import * as Papa from 'papaparse';
 
 var CryptoJS = require("crypto-js");
 
@@ -8,6 +9,7 @@ function handleCanvas(up, setData) {
     response = response.toString(CryptoJS.enc.Utf8)
     setData(JSON.parse(response))
 }
+
 function handleJson(up, data, setData) {
     const uploaded = JSON.parse(up.target.result)
     setData({
@@ -15,6 +17,15 @@ function handleJson(up, data, setData) {
         dataset: uploaded
     })
 }
+
+function handleCsv(up, data, setData) {
+    const uploaded = Papa.parse(up.target.result, {header: true}).data
+    setData({
+        ...data,
+        dataset: uploaded
+    })
+}
+
 export default function HandleUpload(props) {
     try {
         let reader = new FileReader()
@@ -25,10 +36,11 @@ export default function HandleUpload(props) {
                     break
                 }
                 case '.json': {
-                    handleJson(newData,props.data, props.setData)
+                    handleJson(newData, props.data, props.setData)
                     break
                 }
                 case '.csv': {
+                    handleCsv(newData, props.data, props.setData)
                     break
                 }
                 case '.excel': {

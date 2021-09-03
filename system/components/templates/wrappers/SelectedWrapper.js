@@ -3,6 +3,7 @@ import NodePropsTemplate from "../props/NodePropsTemplate";
 import ResizeIndicator from "./ResizeIndicator";
 import styles from '../../styles/Node.module.css'
 import {EditRounded} from "@material-ui/icons";
+
 export default function SelectedWrapper(props) {
 
     return (

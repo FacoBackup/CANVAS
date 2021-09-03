@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-import React, {useEffect, useState} from "react";
-import {EditRounded} from "@material-ui/icons";
+import React, {useState} from "react";
 import Tabs from "./modules/Tabs";
 
 export default function SideBar(props) {

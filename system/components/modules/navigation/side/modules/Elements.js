@@ -4,13 +4,13 @@ import {ArrowDropDownRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 
 export default function Elements(props) {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(true)
     const contentRef = useRef()
     const ref = useRef()
 
     useEffect(() => {
         if (open) {
-            ref.current.style.height = (contentRef.current.offsetHeight + 50) + 'px'
+            ref.current.style.height = (contentRef.current.offsetHeight + 75) + 'px'
         } else
             ref.current.style.height = '50px'
 
@@ -18,9 +18,8 @@ export default function Elements(props) {
 
     return (
         <div className={styles.elementsContainer} ref={ref}
-             style={{border: open ? '#0095ff 1px solid' : undefined, background: open ? 'white' : undefined}}>
-            <div className={styles.optionsDivider} onClick={() => setOpen(!open)}
-                 style={{background: open ? 'white' : undefined}}>
+             style={{background: open ? 'white' : undefined}}>
+            <div className={styles.optionsDivider} onClick={() => setOpen(!open)}>
                 <ArrowDropDownRounded style={{
                     transform: open ? `rotate(180deg)` : undefined,
                     fontSize: '1.3rem',
@@ -32,7 +31,7 @@ export default function Elements(props) {
             <div style={{
                 visibility: !open ? 'hidden' : 'visible',
                 opacity: !open ? '0' : '1',
-                transform: !open ? 'translateY(calc(-100% - 18px))' : 'translateY(-18px)',
+                transform: !open ? 'translateY(calc(-100% - 18px))' : 'translateY(0)',
                 transition: '150ms linear',
                 position: 'relative',
                 zIndex: 0

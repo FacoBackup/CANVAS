@@ -31,33 +31,13 @@
     background: #f4f5fa;
 }
 
-.circle {
-    cursor: grab;
-    border: #e0e0e0 1px solid;
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    background: transparent;
-    color: #555555;
-    transition: color 150ms linear, border 150ms linear;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.circle:hover, .rect:hover {
-    border-color: #0095ff;
-}
-
 
 .optionsDivider {
     position: relative;
     z-index: 50;
     cursor: pointer;
     height: 50px;
-
+    background: white;
     color: #555555;
     font-size: .85rem;
     font-family: Roboto;
@@ -67,10 +47,13 @@
     justify-content: flex-start;
     padding: 4px;
     transition: 150ms linear;
-    background: transparent;
+    font-weight: bold;
+
 }
-.optionsDivider:hover{
-    background: #f4f5fa;
+
+.optionsDivider:hover {
+    color: #0095ff;
+
 }
 
 .divider {
@@ -95,28 +78,22 @@
     border: #e0e0e0 1px solid;
 }
 
-.circle:active, .rect:active, .stepRect:active, .stepRounded:active {
-    color: #0095ff;
-    border-color: #0095ff;
-    background: #fbfbfb;
-    border-style: dashed;
-    cursor: grabbing;
-}
-
-
 .elementsContainer {
     display: grid;
-    gap: 16px;
+    gap: 4px;
     transition: 150ms linear;
 
     background: transparent;
-    border: #e0e0e0 1px solid;
-    border-radius: 5px;
+    border-bottom: #e0e0e0 1px solid;
+    border-top: #e0e0e0 1px solid;
+
     overflow: hidden;
 }
-.elementsContainer:hover{
+
+.elementsContainer:hover {
     background: #f4f5fa;
 }
+
 .container {
     width: 100%;
     align-self: stretch;

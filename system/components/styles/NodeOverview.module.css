@@ -14,7 +14,7 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     height: 100vh;
 
-    padding: 16px;
+    padding: 16px 0;
 
     animation: fadeIn 300ms ease;
 
