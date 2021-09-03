@@ -35,11 +35,20 @@
 .table{
     padding: 16px;
 }
-.column{
-    resize: horizontal;
-    min-width: 10%;
+.cell{
+    border: #e0e0e0 1px solid;
+    border-collapse: collapse;
+
+    padding: 4px;
 }
 
+.cellContent{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
 .tableWrapper{
     width: 100%;
     overflow-y: auto;
