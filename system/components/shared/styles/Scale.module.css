@@ -1,0 +1,43 @@
+.scaleContainer{
+    display: flex;
+    align-items: center;
+
+    border-radius: 32px;
+    height: 100%;
+}
+
+.scaleButton{
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    color: #555555;
+    background: transparent;
+    transition: 150ms linear;
+    cursor: pointer;
+}
+.scaleButton:hover{
+    color: #393C44;
+    background-color: #f4f5fa;
+}
+.scaleButton:active{
+    color: #0095ff;
+    background-color: #E8F0FE;
+}
+.scaleButton:disabled{
+    cursor: unset;
+    color: #999999;
+    background-color: white;
+}
+.scaleInfo{
+    width: 50px;
+    font-size: .9rem;
+    color: #393C44;
+    font-weight: bold;
+    text-align: center;
+}
+

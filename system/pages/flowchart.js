@@ -1,8 +1,8 @@
-import Flowchart from "../components/modules/renderers/Flowchart";
-import Engine from "../components/modules/engine/Engine";
-import LinkIndicator from "../components/templates/flowchart/link/LinkIndicator";
-import FlowchartNodes from "../components/templates/flowchart/renderers/FlowchartNodes";
-import RenderLinks from "../components/templates/flowchart/renderers/RenderLinks";
+import Flowchart from "../components/flowchart/modules/Flowchart";
+import Engine from "../components/shared/modules/engine/Engine";
+import LinkIndicator from "../components/flowchart/modules/link/LinkIndicator";
+import FlowchartNodes from "../components/flowchart/modules/FlowchartNodes";
+import RenderLinks from "../components/flowchart/modules/RenderLinks";
 import React from "react";
 import 'typeface-roboto'
 

@@ -5,6 +5,7 @@ import Header from "./templates/Header";
 import Content from "./templates/Content";
 import Value from "./templates/Value";
 import Axis from "./templates/Axis";
+import {BarChartRounded} from "@material-ui/icons";
 
 export default function HorizontalChart(props) {
 
@@ -60,16 +61,32 @@ export default function HorizontalChart(props) {
     }, [props.data])
     return (
         <div className={styles.container} style={props.styles}>
-            <Header title={props.title} setTitle={props.setTitle} legends={props.legends}/>
-            <div style={{display: 'flex', width: '100%', gridRow: 2}}>
-                <Axis label={props.axis.label}/>
-                <Content
-                    value={props.value} axis={props.axis}
-                    data={sortedData} iterations={iterations}
-                    biggest={biggest}
+
+            {props.value === undefined || props.axis === undefined || !props.value.field || !props.axis.field ?
+                <BarChartRounded
+                    style={{
+                        transform: 'translate(-50%, -50%) rotate(90deg)',
+                        top: '50%',
+                        left: '50%',
+                        fontSize: '140px',
+                        color: '#0095ff',
+                        position: "absolute"
+                    }}
                 />
-            </div>
-            <Value label={props.value.label} iterations={iterations}/>
+                :
+                <>
+                    <Header title={props.title} setTitle={props.setTitle} legends={props.legends}/>
+                    <div style={{display: 'flex', width: '100%', gridRow: 2}}>
+                        <Axis label={props.axis.label}/>
+                        <Content
+                            value={props.value} axis={props.axis}
+                            data={sortedData} iterations={iterations}
+                            biggest={biggest}
+                        />
+                    </div>
+                    <Value label={props.value.label} iterations={iterations}/>
+                </>
+            }
         </div>
     )
 }
