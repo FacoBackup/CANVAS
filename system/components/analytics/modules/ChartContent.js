@@ -43,7 +43,7 @@ export default function ChartContent(props) {
                                 selectedNode={props.selectedNode}
                             />
                         ),
-                        disabled: props.data.dataset === undefined || props.data.dataset === null
+                        disabled: props.data.dataset === undefined || props.data.dataset === null || props.data.dataset.length === 0
                     },
                 ]}
             />

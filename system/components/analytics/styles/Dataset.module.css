@@ -68,9 +68,10 @@
 
     position: relative;
     width: 100%;
-    overflow-y: auto;
+    overflow: hidden;
+    max-height: calc(100vh - 110px);
     background: #f9fafb;
-    height: 100%;
+
 }
 
 .cellInput {
@@ -174,6 +175,7 @@
     width: 100%;
     height: 60px;
     background: white;
+    z-index: 999;
     position: sticky;
     display: flex;
     padding: 16px;

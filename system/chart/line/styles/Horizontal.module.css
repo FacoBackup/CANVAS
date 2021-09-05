@@ -60,7 +60,7 @@
     fill: #555555;
     font-family: Roboto;
     /*font-weight: bold;*/
-    font-size: .8rem;
+
     max-width: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -78,6 +78,17 @@
     stroke-dasharray: 0;
     stroke-width: 1;
 }
+
+.labels {
+    font-size: .8rem;
+}
+
+
+.data {
+    fill: red;
+    stroke-width: 1;
+}
+
 
 .overview{
     background: #f4f5fa;

@@ -1,43 +1,45 @@
 import PropTypes from 'prop-types'
-import styles from "../styles/Content.module.css";
 import ToolTip from "../../tooltip/ToolTip";
-import {useRef} from "react";
+import {useEffect, useRef, useState} from "react";
+import styles from '../styles/Horizontal.module.css'
+import getPercentage from "../../shared/getPercentage";
+import Row from "./Row";
 
 export default function Content(props) {
     const ref = useRef()
+    const random_hex_color_code = () => {
+        let n = (Math.random() * 0xfffff * 1000000).toString(16);
+        return '#' + n.slice(0, 6);
+    };
+    const [color, setColor] = useState()
+    useEffect(() => {
+        setColor(random_hex_color_code())
+    }, [])
+
     return (
-        <div className={styles.graphs} ref={ref}>
+        <svg ref={ref}>
+            <g className={styles.labels}>
+                {props.data.map((e, i) => (
 
-                {props.data.map((d, index) => (
-
-                        <div style={{
-                            width: `${((d[props.value.field] / props.iterations.length) / (props.biggest / props.iterations.length)) * 100}%`,
-                            color: (1.5 / (index + 1)) < .5 ? '#333333' : undefined
-                        }} className={styles.data}>
-                            <ToolTip color={'#f4f5fa'}>
-                                <div className={styles.overview}>
-                                    <div className={styles.toolTipAxis}>
-                                        {props.axis.label}: {d[props.axis.field]}
-                                    </div>
-                                    <div className={styles.toolTipValue}>
-                                        {props.value.label}: {d[props.value.field]}
-                                    </div>
-                                </div>
-                            </ToolTip>
-                        </div>
-                ))}
-            <div className={styles.values}>
-                {props.iterations.map((e, i) => (
-
-                    <div className={styles.divider} style={{left: (i * 10) + '%'}}>
-                        <div style={{transform: 'translateY(100%)'}}>
-                            {e}
-                        </div>
-                    </div>
+                    <text
+                        y={20 * (i) + ((i + 1) * 20 / 2) + 20 / 2}
+                        x={props.offset - 10} className={styles.labels}>{e[props.axis.field]}</text>
 
                 ))}
-            </div>
-        </div>
+
+                <text x={-props.height / 2} y={12}
+                    // y={props.height/2}
+                      className={[styles.axisLabel, styles.valuesLabel].join(' ')}>{props.axis.label}</text>
+            </g>
+            {props.data.map((e, i) => (
+                <Row
+                    biggest={props.biggest} axis={e[props.axis.field]}
+                    value={e[props.value.field]} color={color} axisLabel={props.axis.label}
+                    index={i} valueLabel={props.value.label}
+                    offset={props.offset}
+                    width={(props.width - props.offset - 5)}/>
+            ))}
+        </svg>
     )
 }
 Content.propTypes = {
@@ -50,6 +52,7 @@ Content.propTypes = {
         label: PropTypes.string,
         field: PropTypes.string
     }),
+    offset: PropTypes.number,
     iterations: PropTypes.number,
     biggest: PropTypes.number
 }

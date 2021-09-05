@@ -131,8 +131,8 @@ export default function ResizeIndicator(props) {
         props.setNode({
             ...props.node,
             dimensions: {
-                width: newWidth > 20 ? newWidth : props.node.dimensions.width,
-                height: newHeight > 20 ? newHeight : props.node.dimensions.height,
+                width: newWidth > 50 ? newWidth : 50,
+                height: newHeight > 50 ? newHeight : 50,
             },
             placement: newNodePlacement
         })

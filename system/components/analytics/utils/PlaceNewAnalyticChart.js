@@ -67,9 +67,9 @@ export default function PlaceNewAnalyticChart(props) {
                         },
                         styling: {
                             shape: 'rect',
-                            border: 0,
                             color: '#0095ff',
-                            borderWidth: 2
+                            borderRadius: 0,
+                            strokeWidth: 2
                         }
                     }]]
                 }))

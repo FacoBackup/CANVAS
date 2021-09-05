@@ -35,12 +35,15 @@ export default function DatasetManagement(props) {
                 {props.fileName}
                 <button
                     onClick={() => props.setData({...props.data, dataset: [], fileName: undefined})}
-                        className={[styles.button, styles.removeButton].join(' ')}>
+                    className={[styles.button, styles.removeButton].join(' ')}>
                     <CloseRounded style={{fontSize: '1.3rem'}}/>
                     Remover dados
                 </button>
             </div>
-            <div style={{padding: '16px'}}>
+            <div style={{
+                padding: '16px', overflow: 'auto',
+                maxHeight: 'calc(100vh - 170px)'
+            }}>
 
 
                 {props.data.dataset !== undefined && props.data.dataset.length > 0 ?

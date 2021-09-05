@@ -209,7 +209,8 @@ export default function Analytics(props) {
                     />,
                     <ChartContent
                         data={data} setData={setData} setSelectedNode={setSelectedNode}
-                        setDefaultPage={setDefaultPage} defaultPage={defaultPage} children={props.children}
+                        setDefaultPage={setDefaultPage} defaultPage={defaultPage}
+                        children={props.children}
                         selectedNode={selectedNode}
                     />
                 ]} openChild={openDataset ? 0 : 1}

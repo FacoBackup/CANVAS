@@ -109,9 +109,10 @@ export default function PlaceNewFlowchart(props) {
                         dimensions: dimensions,
                         styling: {
                             shape: props.type,
-                            border: 0,
+                            borderRadius: 0,
+                            strokeWidth: 2,
                             color: '#0095ff',
-                            borderWidth: 2
+
                         }
                     }]]
                 }))

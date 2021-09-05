@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types'
 import NodeWrapper from "../../shared/templates/wrappers/NodeWrapper";
 import HorizontalChart from "../../../chart/horizontal/HorizontalChart";
+import LineChart from "../../../chart/line/LineChart";
 
 export default function Charts(props) {
 
@@ -64,6 +65,7 @@ export default function Charts(props) {
                             overflow={'visible'} id={`${node.id}-node-foreign-object`}
                             width={nodeProps.node.dimensions.width} height={nodeProps.node.dimensions.height}
                         >
+                            {nodeProps.node.variant === 'bar-vertical' ?
                             <HorizontalChart
                                 value={{
                                     label: 'Cafe',
@@ -73,13 +75,33 @@ export default function Charts(props) {
                                     label: 'Eixo',
                                     field: nodeProps.node.dataset?.axis
                                 }}
-                                styles={{width: '100%', height: '100%'}}
+                                width={nodeProps.node.dimensions.width}
+                                height={nodeProps.node.dimensions.height}
                                 title={'Teste para Teste'}
 
                                 data={props.dataset}
                                 legendLabel={'Legendas'}
                                 legendsField={'z'}
                             />
+                                :
+                                <LineChart
+                                    value={{
+                                        label: 'Cafe',
+                                        field: nodeProps.node.dataset?.value
+                                    }}
+                                    axis={{
+                                        label: 'Eixo',
+                                        field: nodeProps.node.dataset?.axis
+                                    }}
+                                    width={nodeProps.node.dimensions.width}
+                                    height={nodeProps.node.dimensions.height}
+                                    title={'Teste para Teste'}
+
+                                    data={props.dataset}
+                                    legendLabel={'Legendas'}
+                                    legendsField={'z'}
+                                />
+                            }
                         </foreignObject>
                     )}
                 </NodeWrapper>

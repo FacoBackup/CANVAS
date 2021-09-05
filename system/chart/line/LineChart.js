@@ -1,22 +1,18 @@
 import PropTypes from 'prop-types'
 import styles from './styles/Horizontal.module.css'
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import Content from "./templates/Content";
 import {BarChartRounded} from "@material-ui/icons";
 import ToolTip from "../tooltip/ToolTip";
-import Wrapper from "../shared/Wrapper";
 import getPercentage from "../shared/getPercentage";
 
-
-export default function HorizontalChart(props) {
+export default function LineChart(props) {
 
     const [sortedData, setSortedData] = useState([])
-    const [iterations, setIterations] = useState([])
     const [biggest, setBiggest] = useState(null)
-    const offset = 35
-
+    const offset = 26
+    const columnWidth = (props.width - offset / 2) / ((props.data.length - 1) / 2 + (props.data.length - 1)) -5
     useEffect(() => {
-
         if (!(props.value === undefined || props.axis === undefined || !props.value.field || !props.axis.field)) {
             const nData = [...props.data]
 
@@ -31,7 +27,7 @@ export default function HorizontalChart(props) {
             }
             nData.sort(compare);
 
-            setSortedData(nData)
+            setSortedData(props.data)
             let value
             props.data.forEach((e) => {
                 if (value === undefined)
@@ -40,25 +36,7 @@ export default function HorizontalChart(props) {
                     value = parseInt(e[props.value.field])
             })
             if (value !== undefined) {
-                let nI = []
-                // let m = 1
-                // for (let i = 0; i <= (value.toString().length - 1); i++) {
-                //     m = m * numberOfIterations
-                // }
-                // if (m / numberOfIterations !== value)
-                //     value = m
-                //
-                // else
-                //     value = m / numberOfIterations
-                // let nB = value
-                // for (let i = 0; i <= numberOfIterations; i++) {
-                //     if (i > 0)
-                //         nB = nB - value / numberOfIterations
-                //     nI.push(nB)
-                // }
                 setBiggest(value)
-                nI.reverse()
-                setIterations(nI)
             }
         }
     }, [props.data, props.value, props.axis])
@@ -81,7 +59,7 @@ export default function HorizontalChart(props) {
                      width={props.width}
                      height={props.height}
                 >
-                    <title id="title">A line chart showing some information</title>
+                    {/*<title id="title">A line chart showing some information</title>*/}
                     <g className={styles.grid}>
                         <line x1={offset} x2={offset} y1={5} y2={props.height - offset}/>
                     </g>
@@ -89,8 +67,17 @@ export default function HorizontalChart(props) {
                         <line x1={offset} x2={props.width - 5} y1={props.height - offset} y2={props.height - offset}/>
                     </g>
                     <g className={styles.labels}>
+                        {props.data.map((e, i) => (
+                            <g>
 
-
+                                {/*<line x1={(props.width - offset) * 0.1 * i + (offset-5)} y1={props.height - offset}*/}
+                                {/*      x2={(props.width - offset) * 0.1 * i + (offset-5)} y2={5} strokeWidth={1}*/}
+                                {/*      stroke={'red'} visibility={i > 0 ? 'visible' : 'hidden'}/>*/}
+                                <text x={(props.width * i) / 11 + offset} y={props.height - offset + 15}
+                                      className={styles.labels}
+                                >{e[props.axis.field]}</text>
+                            </g>
+                        ))}
                         <text x={(props.width) / 2} y={props.height - 5}
                               className={styles.valuesLabel}>{props.value.label}</text>
                     </g>
@@ -99,23 +86,24 @@ export default function HorizontalChart(props) {
                                    height={props.height}
                     >
                         <div style={{
-                            overflowY: 'auto',
-                            maxHeight: 'calc(100% - ' + offset + 'px)',
-                            height: '100%',
+                            overflowX: 'auto',
+                            maxWidth: 'calc(100% - ' + offset + 'px)',
+                            width: '100%',
                         }}>
-                            <svg width={props.width - offset} height={props.data.length * 20}>
-                                <Content {...props} data={sortedData} biggest={biggest} iterations={iterations}
-                                         offset={offset}/>
+                            <svg width={props.data.length * 20} height={props.height - offset}>
+                                {/*<Content {...props} data={sortedData} biggest={biggest} iterations={iterations}*/}
+                                {/*         offset={offset}/>*/}
+                                <Content {...props} data={sortedData} biggest={biggest} offset={offset}/>
                             </svg>
                         </div>
                     </foreignObject>
-                </svg>
 
+                </svg>
             }
         </div>
     )
 }
-HorizontalChart.propTypes = {
+LineChart.propTypes = {
     value: PropTypes.shape({
         label: PropTypes.string,
         field: PropTypes.string
