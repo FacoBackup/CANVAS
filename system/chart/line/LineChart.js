@@ -1,43 +1,50 @@
 import PropTypes from 'prop-types'
 import styles from './styles/Horizontal.module.css'
 import {useEffect, useState} from "react";
-import Content from "./templates/Content";
 import {BarChartRounded} from "@material-ui/icons";
+import GetPoints from "./templates/getPoints";
 import ToolTip from "../tooltip/ToolTip";
-import getPercentage from "../shared/getPercentage";
+import Line from "./templates/Line";
 
 export default function LineChart(props) {
 
-    const [sortedData, setSortedData] = useState([])
-    const [biggest, setBiggest] = useState(null)
+    const [points, setPoints] = useState([])
     const offset = 26
-    const columnWidth = (props.width - offset / 2) / ((props.data.length - 1) / 2 + (props.data.length - 1)) -5
+    const [dimensions, setDimensions] = useState({
+        width: undefined,
+        height: undefined
+    })
+
     useEffect(() => {
-        if (!(props.value === undefined || props.axis === undefined || !props.value.field || !props.axis.field)) {
-            const nData = [...props.data]
-
-            const compare = (a, b) => {
-                let fA = parseInt(a[props.value.field])
-                let fB = parseInt(b[props.value.field])
-                if (fA < fB)
-                    return 1;
-                if (fA > fB)
-                    return -1;
-                return 0;
-            }
-            nData.sort(compare);
-
-            setSortedData(props.data)
-            let value
+        if (props.value && props.axis && props.value.field && props.axis.field) {
+            let {b, s} = {}
             props.data.forEach((e) => {
-                if (value === undefined)
-                    value = parseInt(e[props.value.field])
-                else if (parseInt(e[props.value.field]) > value)
-                    value = parseInt(e[props.value.field])
+                if (b === undefined && s === undefined) {
+                    b = parseInt(e[props.value.field])
+                    s = parseInt(e[props.value.field])
+                }
+                if (parseInt(e[props.value.field]) > b)
+                    b = parseInt(e[props.value.field])
+
+                if (parseInt(e[props.value.field]) < s)
+                    s = parseInt(e[props.value.field])
             })
-            if (value !== undefined) {
-                setBiggest(value)
-            }
+
+            setPoints(GetPoints({
+                valueKey: props.value.field,
+                data: props.data,
+                width: props.width,
+                offset: offset,
+                biggest: b,
+                height: props.height,
+                smallest: s,
+                noScroll: ((props.width - offset) / props.data.length) + props.data.length - 1 <= props.width
+            }))
+
+            setDimensions({
+                width: props.width - 40,
+                height: props.height - 40
+            })
         }
     }, [props.data, props.value, props.axis])
 
@@ -55,55 +62,67 @@ export default function LineChart(props) {
                     }}
                 />
                 :
-                <svg className={styles.graph}
-                     width={props.width}
-                     height={props.height}
-                >
-                    {/*<title id="title">A line chart showing some information</title>*/}
-                    <g className={styles.grid}>
-                        <line x1={offset} x2={offset} y1={5} y2={props.height - offset}/>
-                    </g>
-                    <g className={styles.grid}>
-                        <line x1={offset} x2={props.width - 5} y1={props.height - offset} y2={props.height - offset}/>
-                    </g>
-                    <g className={styles.labels}>
-                        {props.data.map((e, i) => (
-                            <g>
-
-                                {/*<line x1={(props.width - offset) * 0.1 * i + (offset-5)} y1={props.height - offset}*/}
-                                {/*      x2={(props.width - offset) * 0.1 * i + (offset-5)} y2={5} strokeWidth={1}*/}
-                                {/*      stroke={'red'} visibility={i > 0 ? 'visible' : 'hidden'}/>*/}
-                                <text x={(props.width * i) / 11 + offset} y={props.height - offset + 15}
-                                      className={styles.labels}
-                                >{e[props.axis.field]}</text>
-                            </g>
-                        ))}
-                        <text x={(props.width) / 2} y={props.height - 5}
-                              className={styles.valuesLabel}>{props.value.label}</text>
-                    </g>
-                    <foreignObject overflow={'visible'}
-                                   width={props.width}
-                                   height={props.height}
-                    >
-                        <div style={{
-                            overflowX: 'auto',
-                            maxWidth: 'calc(100% - ' + offset + 'px)',
-                            width: '100%',
-                        }}>
-                            <svg width={props.data.length * 20} height={props.height - offset}>
-                                {/*<Content {...props} data={sortedData} biggest={biggest} iterations={iterations}*/}
-                                {/*         offset={offset}/>*/}
-                                <Content {...props} data={sortedData} biggest={biggest} offset={offset}/>
-                            </svg>
+                <>
+                    <div style={{display: 'flex', height: dimensions.height, width: '100%'}}>
+                        <div className={styles.axisLabel}>
+                            {props.axis.label}
+                            {/*cafe*/}
                         </div>
-                    </foreignObject>
+                        <svg className={styles.graph}
+                             width={dimensions.width}
+                             height={dimensions.height}
+                             x={40}
+                             y={0}
+                             stroke={'#e0e0e0'} strokeWidth={1}
+                             overflow={'visible'}
+                        >
+                            <foreignObject
+                                width={dimensions.width}
+                                height={dimensions.height}
+                                y={0}
 
-                </svg>
+                                overflow={'auto'}
+                            >
+                                <div style={{
+                                    overflowX: 'auto',
+                                    height: '100%',
+                                    width: '100%',
+                                    overflowY: 'hidden',
+                                    padding: '16px 8px 8px 8px'
+                                }}>
+                                    <svg
+                                        overflow={'visible'}
+                                        width={(((dimensions.width) / props.data.length) + props.data.length - 1) * props.data.length}
+                                        height={'100%'}
+
+                                    >
+                                        {points.map((p, i) => (
+                                            <g key={props.id + '-point-' + i}>
+                                                <Line
+                                                    value={props.value} axis={props.axis}
+                                                    dimensions={dimensions} last={i > 0 ? points[i - 1] : undefined}
+                                                    point={p} data={props.data[i]}
+                                                    id={props.id + '-marker-' + i}
+                                                />
+                                            </g>
+                                        ))}
+                                    </svg>
+                                </div>
+                            </foreignObject>
+
+                        </svg>
+                    </div>
+                    <div className={styles.valuesLabel}>
+                        {props.value.label}
+                    </div>
+                </>
             }
+
         </div>
     )
 }
 LineChart.propTypes = {
+    id: PropTypes.string,
     value: PropTypes.shape({
         label: PropTypes.string,
         field: PropTypes.string

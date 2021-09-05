@@ -9,28 +9,38 @@
 }
 
 .valuesLabel {
-
-    text-anchor: middle;
-    fill: #393C44;
     font-family: Roboto;
 
     font-weight: bold;
-
+    width: calc(100% - 39px);
+    margin-left: auto;
+    border-top: #e0e0e0 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 12px;
+    /*fill: black;*/
+    color: #333333;
 
 
 }
 
 .axisLabel {
-    text-anchor: start;
-    /*fill: #555555;*/
+
     font-family: Roboto;
 
     font-weight: bold;
-
+    width: 40px;
+    border-left: #e0e0e0 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 12px;
-    fill: black;
-    transform: rotate(-90deg);
+    /*fill: black;*/
+    color: #333333;
+    writing-mode: tb-rl;
+    transform: rotate(180deg);
+    text-orientation: mixed;
 
 }
 
@@ -56,12 +66,11 @@
 
 
 .labels{
-    text-anchor: end;
+    text-anchor: middle;
     fill: #555555;
     font-family: Roboto;
     /*font-weight: bold;*/
 
-    max-width: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

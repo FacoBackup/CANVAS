@@ -5,26 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="063cb9af-f03d-420c-affc-3b1041605637" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/system/chart/line/templates/getPoints.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/HorizontalChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/HorizontalChart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/styles/Content.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/styles/Header.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/styles/Horizontal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/styles/Horizontal.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/templates/Axis.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/system/chart/horizontal/templates/Content.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/templates/Content.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/templates/Header.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/templates/Value.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/ChartContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/ChartContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/dataset/DatasetManagement.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/dataset/DatasetManagement.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/line/LineChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/LineChart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/line/styles/Horizontal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/styles/Horizontal.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/line/templates/Content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/line/templates/getPath.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/ChildrenSwitcher.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/ChildrenSwitcher.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/styles/Dataset.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/styles/Dataset.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/utils/PlaceNewAnalyticChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/utils/PlaceNewAnalyticChart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/flowchart/utils/PlaceNewFlowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/utils/PlaceNewFlowchart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/wrappers/NodeWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/wrappers/NodeWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/wrappers/ResizeIndicator.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/wrappers/ResizeIndicator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/system/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/system/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +50,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="yarn" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -93,7 +84,8 @@
       <workItem from="1630716491813" duration="889000" />
       <workItem from="1630755783183" duration="16349000" />
       <workItem from="1630792055665" duration="4202000" />
-      <workItem from="1630841585242" duration="13348000" />
+      <workItem from="1630841585242" duration="13388000" />
+      <workItem from="1630863870429" duration="7621000" />
     </task>
     <servers />
   </component>

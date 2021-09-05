@@ -32,12 +32,16 @@ export default function Content(props) {
                       className={[styles.axisLabel, styles.valuesLabel].join(' ')}>{props.axis.label}</text>
             </g>
             {props.data.map((e, i) => (
-                <Row
-                    biggest={props.biggest} axis={e[props.axis.field]}
-                    value={e[props.value.field]} color={color} axisLabel={props.axis.label}
-                    index={i} valueLabel={props.value.label}
-                    offset={props.offset}
-                    width={(props.width - props.offset - 5)}/>
+                e[props.value.field] !== undefined ?
+                    <Row
+                        biggest={props.biggest} axis={e[props.axis.field]}
+                        value={e[props.value.field]} color={color} axisLabel={props.axis.label}
+                        index={i} valueLabel={props.value.label}
+                        offset={props.offset}
+                        width={(props.width - props.offset - 5)}
+                    />
+                    :
+                    null
             ))}
         </svg>
     )

@@ -85,6 +85,7 @@ export default function Charts(props) {
                             />
                                 :
                                 <LineChart
+                                    id={nodeProps.node.id}
                                     value={{
                                         label: 'Cafe',
                                         field: nodeProps.node.dataset?.value

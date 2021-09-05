@@ -24,6 +24,7 @@ export default function ChildrenSwitcher(props) {
     }, [props.openChild])
 
     return (
+
         <div ref={ref} style={{height: '100%', width: '100%'}}>
             {props.children[currentChild]}
         </div>
