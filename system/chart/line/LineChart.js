@@ -10,6 +10,7 @@ export default function LineChart(props) {
 
     const [points, setPoints] = useState([])
     const offset = 26
+    const [xOffset, setXOffset] = useState(40)
     const [dimensions, setDimensions] = useState({
         width: undefined,
         height: undefined
@@ -63,13 +64,33 @@ export default function LineChart(props) {
                 />
                 :
                 <>
+                    <div>
+                        Cafe
+                    </div>
                     <div style={{display: 'flex', height: dimensions.height, width: '100%'}}>
-                        <div className={styles.axisLabel}>
-                            {props.axis.label}
-                            {/*cafe*/}
+                        {/*<div className={styles.axisLabel}>*/}
+                        {/*    {props.axis.label}*/}
+                        {/*    /!*cafe*!/*/}
+                        {/*</div>*/}
+                        <div className={styles.axisLabel} style={{width: '40px'}}>
+                            <svg
+                                overflow={'visible'}
+                                width={'100%'}
+                                height={'100%'}
+
+                            >
+                                {points.map((e, i) => (
+                                    <text x={10} y={e.y + 20} fill={'#555555'} style={{fontSize: '.7rem'}}
+                                          key={i + '-field-' + JSON.stringify(props.data[i][props.axis.field])}>
+                                        {props.data[i][props.axis.field]}
+                                    </text>
+
+                                ))}
+                            </svg>
                         </div>
                         <svg className={styles.graph}
                              width={dimensions.width}
+
                              height={dimensions.height}
                              x={40}
                              y={0}
@@ -77,7 +98,7 @@ export default function LineChart(props) {
                              overflow={'visible'}
                         >
                             <foreignObject
-                                width={dimensions.width}
+                                width={'100%'}
                                 height={dimensions.height}
                                 y={0}
 

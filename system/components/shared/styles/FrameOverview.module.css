@@ -5,8 +5,12 @@
     right: 16px;
     border-radius: 5px;
     border: #ecedf2 1px solid;
-
+    background: white;
     width: 10%;
     height: 10%;
-    resize: both;
+    /*resize: both;*/
+
+    display: flex;
+    align-content: flex-start;
+    justify-content: flex-start;
 }

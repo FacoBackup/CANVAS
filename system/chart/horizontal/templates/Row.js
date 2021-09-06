@@ -10,7 +10,7 @@ export default function Row(props){
         <g>
 
             <text
-                x={getPercentage(props.value, props.biggest, props.width) + 100}
+                x={getPercentage(props.value, props.biggest, props.width) }
                 y={20 * props.index + ((props.index + 1) * 20 / 2) + props.value.toString().length}
                 // style={{textAnchor: 'e'}}
                 className={styles.labels}

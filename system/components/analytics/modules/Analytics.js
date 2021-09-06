@@ -22,6 +22,8 @@ import DatasetManagement from "./dataset/DatasetManagement";
 import DataManagementBar from "./dataset/DataManagementBar";
 import ChartContent from "./ChartContent";
 import ChildrenSwitcher from "./ChildrenSwitcher";
+import Loader from "../../shared/templates/Loader";
+import FrameView from "../../shared/modules/engine/FrameView";
 
 export default function Analytics(props) {
     const [data, setData] = useState(NewProjectTemplate)
@@ -31,7 +33,7 @@ export default function Analytics(props) {
     const [openOptions, setOpenOptions] = useState(null)
     const [copiedNode, setCopiedNode] = useState(null)
     const [openDataset, setOpenDataset] = useState(false)
-
+    const [loading, setLoading] = useState(false)
     const handlePrint = useReactToPrint({
         content: () => document.getElementById('engine-content')
     });
@@ -59,11 +61,12 @@ export default function Analytics(props) {
     }
 
     useEffect(() => {
+        setLoading(false)
         document.addEventListener('keydown', handleKeyDown)
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
-    })
+    }, [data.dataset])
 
     return (
 
@@ -73,6 +76,8 @@ export default function Analytics(props) {
                 if (selectedNode !== undefined && (event.target.id === 'frame' || event.target.id === 'engine-content'))
                     setSelectedNode(undefined)
             }}>
+
+            <Loader loading={loading}/>
             <ChartNodeEditor
                 data={data.pages[defaultPage]}
                 node={selectedNode !== undefined ? data.pages[defaultPage].nodes[selectedNode.index] : null}
@@ -88,18 +93,24 @@ export default function Analytics(props) {
 
             <input
                 type="file" ref={uploadRef} style={{display: 'none'}} multiple={false}
-                onChange={event => {
+                onChange={event =>  {
+                    setLoading(true)
                     HandleUpload({
                         file: event,
                         data: data,
                         setData: setData,
                         type: event.target.files[0].name.split('.').pop()
+                    }).then((e) => {
+                        console.log('LOADED')
+                        console.log(e)
+
                     })
+
                     event.target.value = ''
                 }}
                 accept={'.canvas'}
             />
-            {/*<FrameView/>*/}
+            {/*<FrameView data={data}/>*/}
 
             <ContextMenu
                 data={data.pages[defaultPage]}

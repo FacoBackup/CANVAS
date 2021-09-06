@@ -8,8 +8,8 @@ export default function Line(props) {
     return (
         <g>
             {props.last !== undefined ?
-                <line strokeDasharray={'3,3'} x1={props.last.x} x2={props.point.x} y1={props.last.y} y2={props.point.y}
-                      stroke={'#666666'} strokeWidth={2}/>
+                <line strokeDasharray={'1,1'} x1={props.last.x} x2={props.point.x} y1={props.last.y} y2={props.point.y}
+                      stroke={'#0095ff'} strokeWidth={2}/>
                 :
                 null}
             <defs>

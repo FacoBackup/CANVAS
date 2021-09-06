@@ -24,23 +24,29 @@
 
 
 }
+.header{
+    padding: 8px;
+    font-size: 1.2rem;
+    color: #555555;
+    font-weight: bold;
 
+}
 .axisLabel {
 
     font-family: Roboto;
 
     font-weight: bold;
-    width: 40px;
-    border-left: #e0e0e0 1px solid;
+    border-right: #e0e0e0 1px solid;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     font-size: 12px;
     /*fill: black;*/
-    color: #333333;
-    writing-mode: tb-rl;
-    transform: rotate(180deg);
-    text-orientation: mixed;
+    /*color: #333333;*/
+    /*writing-mode: tb-rl;*/
+    /*transform: rotate(180deg);*/
+    /*text-orientation: mixed;*/
 
 }
 
@@ -79,7 +85,7 @@
 
 .graph {
     height: 100%;
-    width: 100%;
+    /*width: 100%;*/
 }
 
 .graph .grid {

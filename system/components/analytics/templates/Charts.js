@@ -59,24 +59,24 @@ export default function Charts(props) {
                     {...wrapperProps} controlComponents={[]}
                     noPlacementIndicator={true}
                 >
-                    {nodeProps => (
+                    {() => (
                         <foreignObject
                             x={0} y={0}
                             overflow={'visible'} id={`${node.id}-node-foreign-object`}
-                            width={nodeProps.node.dimensions.width} height={nodeProps.node.dimensions.height}
+                            width={node.dimensions.width} height={node.dimensions.height}
                         >
-                            {nodeProps.node.variant === 'bar-vertical' ?
+                            {node.variant === 'bar-vertical' ?
                             <HorizontalChart
                                 value={{
                                     label: 'Cafe',
-                                    field: nodeProps.node.dataset?.value
+                                    field: node.dataset?.value
                                 }}
                                 axis={{
                                     label: 'Eixo',
-                                    field: nodeProps.node.dataset?.axis
+                                    field: node.dataset?.axis
                                 }}
-                                width={nodeProps.node.dimensions.width}
-                                height={nodeProps.node.dimensions.height}
+                                width={node.dimensions.width}
+                                height={node.dimensions.height}
                                 title={'Teste para Teste'}
 
                                 data={props.dataset}
@@ -85,17 +85,17 @@ export default function Charts(props) {
                             />
                                 :
                                 <LineChart
-                                    id={nodeProps.node.id}
+                                    id={node.id}
                                     value={{
                                         label: 'Cafe',
-                                        field: nodeProps.node.dataset?.value
+                                        field: node.dataset?.value
                                     }}
                                     axis={{
                                         label: 'Eixo',
-                                        field: nodeProps.node.dataset?.axis
+                                        field: node.dataset?.axis
                                     }}
-                                    width={nodeProps.node.dimensions.width}
-                                    height={nodeProps.node.dimensions.height}
+                                    width={node.dimensions.width}
+                                    height={node.dimensions.height}
                                     title={'Teste para Teste'}
 
                                     data={props.dataset}

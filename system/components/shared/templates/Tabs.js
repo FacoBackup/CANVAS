@@ -21,6 +21,7 @@ export default function Tabs(props) {
             <div className={styles.buttons}>
                 {props.buttons.map((button, i) => button !== null ? (
                     <button
+                        key={i + '-tab-button'}
                         className={[styles.button, props.openButton === i ? styles.activeButton : ''].join(' ')}
                         onClick={() => handleTabChange(i)} disabled={button.disabled}>
                         {button.icon}

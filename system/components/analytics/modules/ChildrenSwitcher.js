@@ -21,12 +21,17 @@ export default function ChildrenSwitcher(props) {
     useEffect(() => {
         if (props.openChild !== currentChild && props.openChild <= props.children.length)
             handleEnter()
+
     }, [props.openChild])
 
     return (
 
         <div ref={ref} style={{height: '100%', width: '100%'}}>
-            {props.children[currentChild]}
+            {props.children.map((c, i) => (
+                <div key={i+'-child'} id={i+'-child'} style={{display: i !== currentChild ? 'none' : undefined, height: '100%', width: '100%'}}>
+                    {c}
+                </div>
+            ))}
         </div>
     )
 }

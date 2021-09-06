@@ -31,31 +31,34 @@ function handleJson(up, data, setData, fileName) {
     })
 }
 
-function handleCsv(up, data, setData, fileName) {
-    const uploaded = Papa.parse(up.target.result, {header: true, encoding: 'ISO-8859-1'}).data
-    let obj = uploaded.reduce((res, item) => ({...res, ...item}));
-    let keys = Object.keys(obj);
+async function handleCsv(up, data,  fileName) {
+    return new Promise(function (resolve){
+        const uploaded = Papa.parse(up.target.result, {header: true, encoding: 'ISO-8859-1'}).data
+        let obj = uploaded.reduce((res, item) => ({...res, ...item}));
+        let keys = Object.keys(obj);
 
-    let def = keys.reduce((result, key) => {
-        result[key] = undefined
-        return result;
-    }, {});
+        let def = keys.reduce((result, key) => {
+            result[key] = undefined
+            return result;
+        }, {});
 
-    let result = uploaded.map((item) => ({...def, ...item}));
+        let result = uploaded.map((item) => ({...def, ...item}));
 
-    setData({
-        ...data,
-        dataset: result,
-        fileName: fileName
+       resolve({
+           ...data,
+           dataset: result,
+           fileName: fileName
+       })
     })
 }
 
-export default function HandleUpload(props) {
+export default async function HandleUpload(props) {
     let name = props.file.target.files[0].name.split('.')[0]
+    let data
     try {
         let reader = new FileReader()
         console.log(props.type)
-        reader.onload = newData => {
+        reader.onload = async newData => {
             switch (props.type) {
                 case 'canvas': {
                     handleCanvas(newData, props.setData)
@@ -66,7 +69,9 @@ export default function HandleUpload(props) {
                     break
                 }
                 case 'csv': {
-                    handleCsv(newData, props.data, props.setData, name)
+                    data = await handleCsv(newData, props.data,name)
+                    console.log(data)
+                    props.setData(data)
                     break
                 }
                 default:
@@ -78,6 +83,7 @@ export default function HandleUpload(props) {
     } catch (error) {
         console.log(error)
     }
+    return data
 }
 HandleUpload.propTypes = {
     file: PropTypes.object,

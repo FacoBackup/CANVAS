@@ -27,7 +27,9 @@ export default function Engine(props) {
                 className={styles.canvasBackground}
                 id={'engine-content'}
             >
-                {props.children}
+                <g id={'canvas-content'}>
+                    {props.children}
+                </g>
             </svg>
         </div>
     )

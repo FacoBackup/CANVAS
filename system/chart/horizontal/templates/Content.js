@@ -35,7 +35,7 @@ export default function Content(props) {
                 e[props.value.field] !== undefined ?
                     <Row
                         biggest={props.biggest} axis={e[props.axis.field]}
-                        value={e[props.value.field]} color={color} axisLabel={props.axis.label}
+                        value={parseInt(e[props.value.field])} color={color} axisLabel={props.axis.label}
                         index={i} valueLabel={props.value.label}
                         offset={props.offset}
                         width={(props.width - props.offset - 5)}
