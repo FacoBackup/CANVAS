@@ -11,10 +11,9 @@ import getPercentage from "../shared/getPercentage";
 export default function HorizontalChart(props) {
 
     const [sortedData, setSortedData] = useState([])
-    const [iterations, setIterations] = useState([])
     const [biggest, setBiggest] = useState(null)
     const offset = 35
-
+    const graphRef = useRef()
     useEffect(() => {
 
         if (!(props.value === undefined || props.axis === undefined || !props.value.field || !props.axis.field)) {
@@ -39,27 +38,7 @@ export default function HorizontalChart(props) {
                 else if (parseInt(e[props.value.field]) > value)
                     value = parseInt(e[props.value.field])
             })
-            if (value !== undefined) {
-                let nI = []
-                // let m = 1
-                // for (let i = 0; i <= (value.toString().length - 1); i++) {
-                //     m = m * numberOfIterations
-                // }
-                // if (m / numberOfIterations !== value)
-                //     value = m
-                //
-                // else
-                //     value = m / numberOfIterations
-                // let nB = value
-                // for (let i = 0; i <= numberOfIterations; i++) {
-                //     if (i > 0)
-                //         nB = nB - value / numberOfIterations
-                //     nI.push(nB)
-                // }
-                setBiggest(value)
-                nI.reverse()
-                setIterations(nI)
-            }
+            setBiggest(value)
         }
     }, [props.data, props.value, props.axis])
 
@@ -77,40 +56,70 @@ export default function HorizontalChart(props) {
                     }}
                 />
                 :
-                <svg className={styles.graph}
-                     width={props.width}
-                     height={props.height}
-                >
-                    <title id="title">A line chart showing some information</title>
-                    <g className={styles.grid}>
-                        <line x1={offset} x2={offset} y1={5} y2={props.height - offset}/>
-                    </g>
-                    <g className={styles.grid}>
-                        <line x1={offset} x2={props.width - 5} y1={props.height - offset} y2={props.height - offset}/>
-                    </g>
-                    <g className={styles.labels}>
-
-
-                        <text x={(props.width) / 2} y={props.height - 5}
-                              className={styles.valuesLabel}>{props.value.label}</text>
-                    </g>
-                    <foreignObject overflow={'visible'}
-                                   width={props.width}
-                                   height={props.height}
+                <div style={{ height: props.height + 'px', overflow: 'hidden'}}>
+                    <svg
+                        width={'100%'}
+                        overflow={'visible'}
+                        // height={0}
+                        style={{position: 'absolute', zIndex: 0, padding: '0 35px 0 35px'}}
                     >
-                        <div style={{
-                            overflowY: 'auto',
-                            maxHeight: 'calc(100% - ' + offset + 'px)',
-                            height: '100%',
-                        }}>
-                            <svg width={props.width - offset} height={props.data.length * 20}>
-                                <Content {...props} data={sortedData} biggest={biggest} iterations={iterations}
-                                         offset={offset}/>
-                            </svg>
-                        </div>
-                    </foreignObject>
-                </svg>
+                        <g style={{stroke: '#e0e0e0', fill: '#e0e0e0', strokeWidth: '1', fontSize: '10px'}}>
+                            <line x1={0} x2={0} y1={0} y2={props.height - 20}/>
 
+                        </g>
+
+                        <g style={{stroke: '#e0e0e0', fill: '#e0e0e0', strokeWidth: '1', fontSize: '10px'}}>
+                            <line x1={'50%'} x2={'50%'} y1={0} y2={props.height - 20}/>
+
+                        </g>
+                        <g style={{stroke: '#e0e0e0', fill: '#e0e0e0', strokeWidth: '1', fontSize: '10px'}}>
+                            <line x1={'100%'} x2={'100%'} y1={0} y2={props.height - 20}/>
+
+                        </g>
+                    </svg>
+                    <div style={{overflowY: 'auto', height: (props.height - 20) + 'px'}}>
+
+                        <svg
+                            width={props.width - 35}
+                            overflow={'visible'}
+                            style={{position: 'relative', zIndex: 10}}
+                            height={(props.data.length - 1) * 30}
+                        >
+
+                            <Content {...props}
+                                     data={sortedData} biggest={biggest}
+                                     offset={offset}/>
+                        </svg>
+                    </div>
+                    <div
+                        ref={graphRef}
+                        style={{
+                            width: '100%',
+                            height: props.height + 'px',
+                            overflow: 'visible', padding: '0 35px 0 35px',
+
+                        }}>
+                        <svg
+                            width={'100%'}
+                            overflow={'visible'}
+                            height={'20'}
+                            style={{borderTop: '#e0e0e0 1px solid'}}
+                        >
+                            <text x={0} y={14} textAnchor={'middle'} fill={'#555555'} style={{fontSize: '10px'}}>
+                                0
+                            </text>
+                            <text x={'50%'} y={14} textAnchor={'middle'} fill={'#555555'} style={{fontSize: '10px'}}>
+                                {biggest / 2}
+                            </text>
+
+
+                            <text x={'100%'} y={14} textAnchor={'middle'} fill={'#555555'} style={{fontSize: '10px'}}>
+                                {biggest}
+                            </text>
+
+                        </svg>
+                    </div>
+                </div>
             }
         </div>
     )

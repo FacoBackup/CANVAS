@@ -21,7 +21,7 @@ a {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     box-sizing: border-box;
-
+    scrollbar-color: #e0e0e0 transparent;
     scroll-behavior: smooth;
 }
 
@@ -33,19 +33,19 @@ a {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: transparent;
     border-radius: 8px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #e0e0e0;
     border-radius: 8px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+    background-color: #666666;
     border-radius: 8px;
 }
 

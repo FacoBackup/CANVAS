@@ -14,7 +14,7 @@
     font-weight: bold;
     width: calc(100% - 39px);
     margin-left: auto;
-    border-top: #e0e0e0 1px solid;
+    /*border-top: #e0e0e0 1px solid;*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,10 +25,12 @@
 
 }
 .header{
-    padding: 8px;
+    padding: 2px 8px;
+    height: 30px;
     font-size: 1.2rem;
     color: #555555;
     font-weight: bold;
+    font-family: Roboto;
 
 }
 .axisLabel {
@@ -40,14 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
     font-size: 12px;
-    /*fill: black;*/
-    /*color: #333333;*/
-    /*writing-mode: tb-rl;*/
-    /*transform: rotate(180deg);*/
-    /*text-orientation: mixed;*/
-
 }
 
 

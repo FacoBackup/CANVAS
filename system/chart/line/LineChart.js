@@ -1,21 +1,25 @@
 import PropTypes from 'prop-types'
 import styles from './styles/Horizontal.module.css'
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {BarChartRounded} from "@material-ui/icons";
 import GetPoints from "./templates/getPoints";
 import ToolTip from "../tooltip/ToolTip";
 import Line from "./templates/Line";
+import handleScroll from "./templates/handleScroll";
 
 export default function LineChart(props) {
 
     const [points, setPoints] = useState([])
     const offset = 26
-    const [xOffset, setXOffset] = useState(40)
+    const [columnWidth, setColumnWidth] = useState(50)
+    const chartRef = useRef()
+
+
     const [dimensions, setDimensions] = useState({
         width: undefined,
         height: undefined
     })
-
+    const [biggest, setBiggest] = useState(null)
     useEffect(() => {
         if (props.value && props.axis && props.value.field && props.axis.field) {
             let {b, s} = {}
@@ -31,14 +35,20 @@ export default function LineChart(props) {
                     s = parseInt(e[props.value.field])
             })
 
+
+            setBiggest(b)
+
+
             setPoints(GetPoints({
                 valueKey: props.value.field,
                 data: props.data,
                 width: props.width,
                 offset: offset,
+                axisKey: props.axis.field,
                 biggest: b,
                 height: props.height,
                 smallest: s,
+                columnWidth: columnWidth,
                 noScroll: ((props.width - offset) / props.data.length) + props.data.length - 1 <= props.width
             }))
 
@@ -47,6 +57,8 @@ export default function LineChart(props) {
                 height: props.height - 40
             })
         }
+
+        setColumnWidth((.1 * dimensions.width))
     }, [props.data, props.value, props.axis])
 
     return (
@@ -64,81 +76,125 @@ export default function LineChart(props) {
                 />
                 :
                 <>
-                    <div>
+                    <div className={styles.header}>
                         Cafe
                     </div>
                     <div style={{display: 'flex', height: dimensions.height, width: '100%'}}>
-                        {/*<div className={styles.axisLabel}>*/}
-                        {/*    {props.axis.label}*/}
-                        {/*    /!*cafe*!/*/}
-                        {/*</div>*/}
-                        <div className={styles.axisLabel} style={{width: '40px'}}>
+
+                        <div className={styles.axisLabel}
+                             style={{width: '40px', padding: '12px 0px 12px 0'}}>
                             <svg
                                 overflow={'visible'}
+
                                 width={'100%'}
                                 height={'100%'}
-
                             >
-                                {points.map((e, i) => (
-                                    <text x={10} y={e.y + 20} fill={'#555555'} style={{fontSize: '.7rem'}}
-                                          key={i + '-field-' + JSON.stringify(props.data[i][props.axis.field])}>
-                                        {props.data[i][props.axis.field]}
+                                <g>
+                                    <line x1={'100%'} x2={props.width} y2={'0'} y1={'0'}
+                                          stroke={'#e0e0e0'} strokeWidth={1}/>
+                                    <text x={10} y={5} fill={'#555555'} style={{fontSize: '10px'}}>
+                                        {biggest}
                                     </text>
+                                </g>
+                                <g>
+                                    <line x1={'100%'} x2={props.width}
+                                          y2={(dimensions.height - 32) / 2}
+                                          y1={(dimensions.height - 32) / 2}
+                                          stroke={'#e0e0e0'} strokeWidth={1}/>
+                                    <text y={(dimensions.height - 22) / 2} fill={'#555555'}  x={10}
+                                          style={{fontSize: '10px'}}>
+                                        {biggest / 2}
+                                    </text>
+                                </g>
+                                <g>
+                                    <line x1={'100%'} x2={props.width}
+                                          y2={dimensions.height - 24}
+                                          y1={dimensions.height - 24}
+                                          stroke={'#e0e0e0'} strokeWidth={1}/>
+                                    <text x={10} y={'100%'} fill={'#555555'} style={{fontSize: '.7rem'}}>
+                                        {0}
+                                    </text>
+                                </g>
+                            </svg>
+                        </div>
+                        <div ref={chartRef} style={{
+                            width: dimensions.width,
+                            height: dimensions.height,
+                            overflow: 'hidden',
+                            padding: '12px 4px 12px 0' ,
 
+                        }}>
+                            <svg
+                                overflow={'visible'}
+                                width={columnWidth * (props.data.length - 1) + 8}
+                                height={'100%'}
+                            >
+                                {points.map((p, i) => (
+                                    <g key={props.id + '-point-' + i}>
+                                        <Line
+                                            value={props.value} axis={props.axis}
+                                            dimensions={dimensions} last={i > 0 ? points[i - 1] : undefined}
+                                            point={p} data={props.data[i]} index={i}
+                                            id={props.id + '-marker-' + i}
+                                        />
+                                    </g>
                                 ))}
                             </svg>
                         </div>
-                        <svg className={styles.graph}
-                             width={dimensions.width}
 
-                             height={dimensions.height}
-                             x={40}
-                             y={0}
-                             stroke={'#e0e0e0'} strokeWidth={1}
-                             overflow={'visible'}
-                        >
-                            <foreignObject
-                                width={'100%'}
-                                height={dimensions.height}
-                                y={0}
-
-                                overflow={'auto'}
-                            >
-                                <div style={{
-                                    overflowX: 'auto',
-                                    height: '100%',
-                                    width: '100%',
-                                    overflowY: 'hidden',
-                                    padding: '16px 8px 8px 8px'
-                                }}>
-                                    <svg
-                                        overflow={'visible'}
-                                        width={(((dimensions.width) / props.data.length) + props.data.length - 1) * props.data.length}
-                                        height={'100%'}
-
-                                    >
-                                        {points.map((p, i) => (
-                                            <g key={props.id + '-point-' + i}>
-                                                <Line
-                                                    value={props.value} axis={props.axis}
-                                                    dimensions={dimensions} last={i > 0 ? points[i - 1] : undefined}
-                                                    point={p} data={props.data[i]}
-                                                    id={props.id + '-marker-' + i}
-                                                />
-                                            </g>
-                                        ))}
-                                    </svg>
-                                </div>
-                            </foreignObject>
-
-                        </svg>
                     </div>
-                    <div className={styles.valuesLabel}>
-                        {props.value.label}
+                    {/*<div*/}
+                    {/*    id={props.id + '-labels'}*/}
+                    {/*    style={{*/}
+                    {/*        width: dimensions.width + 'px',*/}
+                    {/*        marginLeft: 'auto',*/}
+                    {/*        height: '20px',*/}
+                    {/*        overflowX: 'hidden',*/}
+                    {/*        padding: '0px 4px',*/}
+
+                    {/*    }}>*/}
+                    {/*    <svg*/}
+                    {/*        overflow={'visible'}*/}
+                    {/*        width={columnWidth * (props.data.length - 2)}*/}
+                    {/*        height={'100%'}*/}
+
+                    {/*    >*/}
+                    {/*        {points.map((e, i) => (*/}
+
+
+                    {/*                <text x={e.x} y={'50%'} fill={'#555555'} style={{fontSize: '.7rem'}}*/}
+                    {/*                      textAnchor={'middle'} key={'axis-' + props.id+'-'+i}>*/}
+                    {/*                    {e.axis}*/}
+                    {/*                </text>*/}
+
+
+                    {/*        ))}*/}
+                    {/*    </svg>*/}
+                    {/*</div>*/}
+                    <div
+                        onScroll={e => {
+                            const labels = document.getElementById(props.id + '-labels')
+                            // console.log(labels)
+                            chartRef.current.scrollLeft = e.target.scrollLeft
+                            // console.log(labels.scrollLeft)
+                            // labels.scrollLeft = e.target.scrollLeft
+                        }}
+                        style={{
+                            width: dimensions.width + 'px',
+                            // scrollBehavior: 'smooth',
+                            marginLeft: 'auto',
+                            height: '10px',
+                            overflowX: 'auto',
+                            padding: '0px 4px 0 0',
+                            // overflowY: 'visible',
+                        }}>
+                        <svg
+                            width={columnWidth * (props.data.length - 1) + 8}
+                            height={'100%'}
+                        />
                     </div>
                 </>
             }
-
         </div>
     )
 }

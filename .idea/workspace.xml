@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="063cb9af-f03d-420c-affc-3b1041605637" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/HorizontalChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/HorizontalChart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/chart/horizontal/templates/Content.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/templates/Content.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/chart/horizontal/templates/Row.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/templates/Row.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/chart/line/LineChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/LineChart.js" afterDir="false" />
@@ -13,14 +14,8 @@
       <change beforePath="$PROJECT_DIR$/system/chart/line/templates/Line.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/templates/Line.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/chart/line/templates/getPoints.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/templates/getPoints.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/ChildrenSwitcher.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/ChildrenSwitcher.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/engine/Engine.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/engine/Engine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/engine/FrameView.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/engine/FrameView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/styles/Canvas.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/styles/Canvas.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/styles/FrameOverview.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/styles/FrameOverview.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/Tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/Tabs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/utils/HandleUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/utils/HandleUpload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/styles/globals.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +88,9 @@
       <workItem from="1630841585242" duration="13388000" />
       <workItem from="1630863870429" duration="7621000" />
       <workItem from="1630935255002" duration="7793000" />
+      <workItem from="1630949371638" duration="1613000" />
+      <workItem from="1630959621321" duration="5136000" />
+      <workItem from="1631013263315" duration="9883000" />
     </task>
     <servers />
   </component>
@@ -120,14 +118,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/system/components/analytics/modules/Analytics.js</url>
-          <line>77</line>
+          <line>82</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/system/chart/line/LineChart.js</url>
-          <line>164</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

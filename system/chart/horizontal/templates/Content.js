@@ -27,9 +27,6 @@ export default function Content(props) {
 
                 ))}
 
-                <text x={-props.height / 2} y={12}
-                    // y={props.height/2}
-                      className={[styles.axisLabel, styles.valuesLabel].join(' ')}>{props.axis.label}</text>
             </g>
             {props.data.map((e, i) => (
                 e[props.value.field] !== undefined ?
@@ -38,7 +35,7 @@ export default function Content(props) {
                         value={parseInt(e[props.value.field])} color={color} axisLabel={props.axis.label}
                         index={i} valueLabel={props.value.label}
                         offset={props.offset}
-                        width={(props.width - props.offset - 5)}
+                        width={(props.width - props.offset - 35)}
                     />
                     :
                     null
@@ -57,6 +54,5 @@ Content.propTypes = {
         field: PropTypes.string
     }),
     offset: PropTypes.number,
-    iterations: PropTypes.number,
     biggest: PropTypes.number
 }

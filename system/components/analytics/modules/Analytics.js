@@ -76,7 +76,7 @@ export default function Analytics(props) {
                 if (selectedNode !== undefined && (event.target.id === 'frame' || event.target.id === 'engine-content'))
                     setSelectedNode(undefined)
             }}>
-
+            {/*<FrameView data={data}/>*/}
             <Loader loading={loading}/>
             <ChartNodeEditor
                 data={data.pages[defaultPage]}
@@ -92,25 +92,22 @@ export default function Analytics(props) {
             />
 
             <input
-                type="file" ref={uploadRef} style={{display: 'none'}} multiple={false}
-                onChange={event =>  {
+                type="file" ref={uploadRef}
+                style={{display: 'none'}} multiple={false}
+                onChange={event => {
                     setLoading(true)
                     HandleUpload({
                         file: event,
                         data: data,
                         setData: setData,
                         type: event.target.files[0].name.split('.').pop()
-                    }).then((e) => {
-                        console.log('LOADED')
-                        console.log(e)
-
                     })
 
                     event.target.value = ''
                 }}
                 accept={'.canvas'}
             />
-            {/*<FrameView data={data}/>*/}
+
 
             <ContextMenu
                 data={data.pages[defaultPage]}
@@ -122,9 +119,13 @@ export default function Analytics(props) {
                 copiedNode={copiedNode}
                 setCopiedNode={setCopiedNode}
                 setSelectedNode={setSelectedNode}/>
-            <FileOptions setData={e => {
-                setData(e)
-            }} data={data} handlePrint={handlePrint}>
+            <FileOptions
+                setData={e => {
+                    setData(e)
+                }}
+                data={data}
+                handlePrint={handlePrint}
+            >
                 <Dropdown
                     label={'Arquivo'} open={openOptions === 0}
                     buttons={[

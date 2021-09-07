@@ -45,7 +45,6 @@ export default function Charts(props) {
         const wrapperProps = {
             node: node,
             index: index,
-            toBeLinked: props.toBeLinked,
             setNode: event => handleNodeChange(index, node, event),
             selected: props.selectedNode?.id,
             savePlacement: event => savePlacement(event, node, index),
@@ -115,13 +114,9 @@ export default function Charts(props) {
 }
 
 Charts.propTypes = {
-    scale: PropTypes.number,
     setData: PropTypes.func,
     data: PropTypes.object,
-    styling: PropTypes.object,
     setSelectedNode: PropTypes.func,
     selectedNode: PropTypes.any,
-    toBeLinked: PropTypes.object,
-    setToBeLinked: PropTypes.func,
     dataset: PropTypes.array
 }

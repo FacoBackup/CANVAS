@@ -9,22 +9,19 @@ export default function Row(props){
     return(
         <g>
 
-            <text
-                x={getPercentage(props.value, props.biggest, props.width) }
-                y={20 * props.index + ((props.index + 1) * 20 / 2) + props.value.toString().length}
-                // style={{textAnchor: 'e'}}
-                className={styles.labels}
-                ref={ref}
-            >{props.value}</text>
+
             <rect
                 x={props.offset}
                 width={getPercentage(props.value, props.biggest, props.width) }
                 height={20}
                 y={20 * (props.index) + ((props.index + 1) * 20 / 2)}
                 fill={props.color}
+                stroke={props.color}
+                strokeWidth={2}
+                fillOpacity={props.value/props.biggest}
                 markerEnd={ref.current}
             />
-
+            <title>props.value</title>
             <ToolTip color={'#f4f5fa'}>
                 <div className={styles.overview}>
                     <div className={styles.toolTipAxis}>

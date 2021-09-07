@@ -3,8 +3,8 @@ import getPercentage from "../../shared/getPercentage";
 import React from "react";
 
 export default function GetPoints(props) {
-    const columnWidth = props.noScroll ? ((props.width - 4) / props.data.length) + props.data.length - 1 : 20
-    const height = !props.noScroll ? (props.height - 40) : (props.height - 60)
+
+    const height = (props.height - 70)
     let points = []
     let data = [...props.data]
     if (props.smallest < 0) {
@@ -17,7 +17,7 @@ export default function GetPoints(props) {
         let percent = getPercentage(parseInt(e[props.valueKey]), parseInt(props.biggest), height)
         console.log(percent)
         if (!isNaN(percent)) {
-            points.push({x: (columnWidth * i), y: (height - percent)})
+            points.push({x: (props.columnWidth * i), y: (height - percent ), value: parseInt(e[props.valueKey]), axis: e[props.axisKey]})
         }
     })
 
@@ -25,6 +25,7 @@ export default function GetPoints(props) {
 }
 
 GetPoints.propTypes = {
+    axisKey: PropTypes.string,
     data: PropTypes.arrayOf(PropTypes.object),
     valueKey: PropTypes.string,
     width: PropTypes.number,
