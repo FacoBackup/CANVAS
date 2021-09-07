@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import NodeWrapper from "../../shared/templates/wrappers/NodeWrapper";
 import HorizontalChart from "../../../chart/horizontal/HorizontalChart";
 import LineChart from "../../../chart/line/LineChart";
+import PieChart from "../../../chart/pie/PieChart";
 
 export default function Charts(props) {
 
@@ -40,7 +41,31 @@ export default function Charts(props) {
             nodes: newNodes
         })
     }
+    const getChart = (props, type) => {
+        let res
+        switch (type) {
+            case 'bar-vertical': {
+                res = <HorizontalChart {...props}/>
+                break
+            }
+            case 'bar-horizontal': {
+                res = <HorizontalChart {...props}/>
+                break
+            }
+            case 'pie': {
+                res = <PieChart {...props}/>
+                break
+            }
+            case 'line': {
+                res = <LineChart {...props}/>
+                break
+            }
+            default:
+                break
+        }
 
+        return res
+    }
     const render = (node, index) => {
         const wrapperProps = {
             node: node,
@@ -51,6 +76,21 @@ export default function Charts(props) {
             setSelected: props.setSelectedNode,
             handleDelete: handleDelete,
             scale: 1,
+        }
+
+        const chartProps = {
+            value: {
+                label: 'Cafe',
+                field: node.dataset?.value
+            },
+            axis: {
+                label: 'Eixo',
+                field: node.dataset?.axis
+            },
+            width: node.dimensions.width,
+            height: node.dimensions.height,
+            title: 'Teste para Teste',
+            data: props.dataset
         }
         return (
             <g key={`${node.id}-node-${index}`}>
@@ -64,44 +104,7 @@ export default function Charts(props) {
                             overflow={'visible'} id={`${node.id}-node-foreign-object`}
                             width={node.dimensions.width} height={node.dimensions.height}
                         >
-                            {node.variant === 'bar-vertical' ?
-                            <HorizontalChart
-                                value={{
-                                    label: 'Cafe',
-                                    field: node.dataset?.value
-                                }}
-                                axis={{
-                                    label: 'Eixo',
-                                    field: node.dataset?.axis
-                                }}
-                                width={node.dimensions.width}
-                                height={node.dimensions.height}
-                                title={'Teste para Teste'}
-
-                                data={props.dataset}
-                                legendLabel={'Legendas'}
-                                legendsField={'z'}
-                            />
-                                :
-                                <LineChart
-                                    id={node.id}
-                                    value={{
-                                        label: 'Cafe',
-                                        field: node.dataset?.value
-                                    }}
-                                    axis={{
-                                        label: 'Eixo',
-                                        field: node.dataset?.axis
-                                    }}
-                                    width={node.dimensions.width}
-                                    height={node.dimensions.height}
-                                    title={'Teste para Teste'}
-
-                                    data={props.dataset}
-                                    legendLabel={'Legendas'}
-                                    legendsField={'z'}
-                                />
-                            }
+                            {getChart(chartProps, node.variant)}
                         </foreignObject>
                     )}
                 </NodeWrapper>

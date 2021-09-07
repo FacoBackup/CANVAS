@@ -6,16 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="063cb9af-f03d-420c-affc-3b1041605637" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/HorizontalChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/HorizontalChart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/templates/Content.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/templates/Content.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/PieChart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/VerticalGraph.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/system/chart/horizontal/templates/Row.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/templates/Row.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/chart/line/LineChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/LineChart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/line/styles/Horizontal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/styles/Horizontal.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/line/styles/Horizontal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/styles/LineChart.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/chart/line/templates/Line.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/templates/Line.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/line/templates/getPoints.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/templates/getPoints.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/styles/globals.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +42,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/system/chart" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -91,6 +88,7 @@
       <workItem from="1630949371638" duration="1613000" />
       <workItem from="1630959621321" duration="5136000" />
       <workItem from="1631013263315" duration="9883000" />
+      <workItem from="1631038168665" duration="4321000" />
     </task>
     <servers />
   </component>

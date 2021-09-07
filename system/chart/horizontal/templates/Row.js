@@ -21,7 +21,7 @@ export default function Row(props){
                 fillOpacity={props.value/props.biggest}
                 markerEnd={ref.current}
             />
-            <title>props.value</title>
+            {/*<title>props.value</title>*/}
             <ToolTip color={'#f4f5fa'}>
                 <div className={styles.overview}>
                     <div className={styles.toolTipAxis}>

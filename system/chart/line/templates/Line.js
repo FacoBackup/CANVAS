@@ -1,6 +1,6 @@
 import {useRef} from "react";
 import ToolTip from "../../tooltip/ToolTip";
-import styles from "../styles/Horizontal.module.css";
+import styles from "../styles/LineChart.module.css";
 import PropTypes from 'prop-types'
 
 export default function Line(props) {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import styles from './styles/Horizontal.module.css'
+import styles from './styles/LineChart.module.css'
 import {useEffect, useRef, useState} from "react";
-import {BarChartRounded} from "@material-ui/icons";
+import {BarChartRounded, ShowChartRounded} from "@material-ui/icons";
 import GetPoints from "./templates/getPoints";
 import ToolTip from "../tooltip/ToolTip";
 import Line from "./templates/Line";
@@ -64,9 +64,9 @@ export default function LineChart(props) {
     return (
         <div>
             {props.value === undefined || props.axis === undefined || !props.value.field || !props.axis.field ?
-                <BarChartRounded
+                <ShowChartRounded
                     style={{
-                        transform: 'translate(-50%, -50%) rotate(90deg)',
+                        transform: 'translate(-50%, -50%)',
                         top: '50%',
                         left: '50%',
                         fontSize: (props.height > props.width ? (props.height) / 2 : props.width / 2) + 'px',
@@ -121,8 +121,7 @@ export default function LineChart(props) {
                             width: dimensions.width,
                             height: dimensions.height,
                             overflow: 'hidden',
-                            padding: '12px 4px 12px 0' ,
-
+                            padding: '12px 4px 12px 0',
                         }}>
                             <svg
                                 overflow={'visible'}
