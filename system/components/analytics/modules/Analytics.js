@@ -24,36 +24,43 @@ import ChartContent from "./ChartContent";
 import ChildrenSwitcher from "./ChildrenSwitcher";
 import Loader from "../../shared/templates/Loader";
 import FrameView from "../../shared/modules/engine/FrameView";
+import useAnalytics from "../hooks/useAnalytics";
+import useData from "../hooks/useData";
 
 export default function Analytics(props) {
-    const [data, setData] = useState(NewProjectTemplate)
-    const [defaultPage, setDefaultPage] = useState(0)
+    const {
+        dataset,
+        setDataset,
+        openDataset,
+        setOpenDataset,
+        setDatasetName,
+        datasetName
+    } = useAnalytics([], false, undefined)
+    const {
+        copied,
+        setCopied,
+        pages,
+        setPages,
+        metadata,
+        setMetadata,
+        selected,
+        setSelected,
+        loading,
+        setLoading,
+        openPage,
+        setOpenPage,
+        handlePageChange,
+        handleSelectedNodeChange
+    } = useData()
+
     const uploadRef = useRef()
-    const [selectedNode, setSelectedData] = useState(undefined)
     const [openOptions, setOpenOptions] = useState(null)
-    const [copiedNode, setCopiedNode] = useState(null)
-    const [openDataset, setOpenDataset] = useState(false)
-    const [loading, setLoading] = useState(false)
+
     const handlePrint = useReactToPrint({
         content: () => document.getElementById('engine-content')
     });
 
-    const setSelectedNode = (node, openEdit) => {
-        let index
-        if (node !== undefined && node !== null) {
-            data.pages[defaultPage].nodes.find((e, i) => {
-                if (e.id === node.id)
-                    index = i
-            })
 
-            setSelectedData({
-                node: node,
-                index: index,
-                openEdit: openEdit
-            })
-        } else
-            setSelectedData(undefined)
-    }
     const handleKeyDown = (e) => {
         keyboardControl({
             event: e
@@ -66,29 +73,25 @@ export default function Analytics(props) {
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [data.dataset])
+    }, [dataset])
 
     return (
 
         <div
             className={styles.wrapper}
             onMouseDown={event => {
-                if (selectedNode !== undefined && (event.target.id === 'frame' || event.target.id === 'engine-content'))
-                    setSelectedNode(undefined)
+                if (selected !== undefined && (event.target.id === 'frame' || event.target.id === 'engine-content'))
+                    handleSelectedNodeChange(undefined)
             }}>
             {/*<FrameView data={data}/>*/}
             <Loader loading={loading}/>
             <ChartNodeEditor
-                data={data.pages[defaultPage]}
-                node={selectedNode !== undefined ? data.pages[defaultPage].nodes[selectedNode.index] : null}
-                setData={(event) => {
-                    let newPages = [...data.pages]
-                    newPages[defaultPage] = event
-                    setData({...data, pages: newPages})
-                }}
-                selectedNode={selectedNode}
-                index={selectedNode !== undefined ? selectedNode.index : selectedNode}
-                setSelectedNode={setSelectedNode}
+                data={pages[openPage]}
+                node={selected !== undefined ? pages[openPage].nodes[selected.index] : null}
+                setData={handlePageChange}
+                selectedNode={selected}
+                index={selected !== undefined ? selected.index : selected}
+                setSelectedNode={handleSelectedNodeChange}
             />
 
             <input
@@ -98,8 +101,10 @@ export default function Analytics(props) {
                     setLoading(true)
                     HandleUpload({
                         file: event,
-                        data: data,
-                        setData: setData,
+                        data: metadata,
+                        setData: setMetadata,
+                        setDataset: setDataset,
+                        setDatasetName: setDatasetName,
                         type: event.target.files[0].name.split('.').pop()
                     })
 
@@ -110,20 +115,16 @@ export default function Analytics(props) {
 
 
             <ContextMenu
-                data={data.pages[defaultPage]}
-                setData={(event) => {
-                    let newPages = [...data.pages]
-                    newPages[defaultPage] = event
-                    setData({...data, pages: newPages})
-                }}
-                copiedNode={copiedNode}
-                setCopiedNode={setCopiedNode}
-                setSelectedNode={setSelectedNode}/>
+                data={pages[openPage]}
+                setData={handlePageChange}
+                copiedNode={copied}
+                setCopiedNode={setCopied}
+                setSelectedNode={handleSelectedNodeChange}/>
             <FileOptions
-                setData={e => {
-                    setData(e)
+                setMetadata={e => {
+                    setMetadata(e)
                 }}
-                data={data}
+                metadata={metadata}
                 handlePrint={handlePrint}
             >
                 <Dropdown
@@ -143,7 +144,7 @@ export default function Analytics(props) {
                                 {
                                     label: 'Baixar cópia',
                                     icon: <SaveRounded style={{fontSize: '1.2rem'}}/>,
-                                    onClick: () => HandleDownload({data: data, asJson: false}),
+                                    onClick: () => HandleDownload({data: {}, asJson: false}),
                                     disabled: false
                                 }
                             ],
@@ -153,7 +154,7 @@ export default function Analytics(props) {
                                 {
                                     label: 'Exportar como JSON',
                                     icon: <FileCopyRounded style={{fontSize: '1.2rem'}}/>,
-                                    onClick: () => HandleDownload({data: data, asJson: true}),
+                                    onClick: () => HandleDownload({data: {}, asJson: true}),
                                     disabled: false
                                 },
                                 {
@@ -203,27 +204,31 @@ export default function Analytics(props) {
                     handleClose={() => setOpenOptions(null)}
                 />
             </FileOptions>
-            <DataManagementBar setOpenDataset={e => {
-                setSelectedNode(undefined)
-                setOpenDataset(e)
-            }} openDataset={openDataset}/>
+            <DataManagementBar
+                setOpenDataset={e => {
+                    handleSelectedNodeChange(undefined)
+                    setOpenDataset(e)
+                }}
+                openDataset={openDataset}/>
 
 
             <ChildrenSwitcher
                 children={[
                     <DatasetManagement
-                        data={data} fileName={data.fileName} setData={setData}
+                        dataset={dataset} fileName={datasetName}
+                        setDataset={setDataset} setDatasetName={setDatasetName}
                         handleUpload={() => {
                             uploadRef.current.setAttribute('accept', '.csv, .json')
                             uploadRef.current.click()
                         }}
-                        setSelectedNode={setSelectedNode}
+                        setSelectedNode={handleSelectedNodeChange}
                     />,
                     <ChartContent
-                        data={data} setData={setData} setSelectedNode={setSelectedNode}
-                        setDefaultPage={setDefaultPage} defaultPage={defaultPage}
-                        children={props.children}
-                        selectedNode={selectedNode}
+                        setSelectedNode={handleSelectedNodeChange}
+                        setDefaultPage={setOpenPage} defaultPage={openPage} dataset={dataset}
+                        children={props.children} setPages={setPages} pages={pages}
+                        handlePageChange={handlePageChange} openDataset={openDataset} metadata={metadata}
+                        setMetadata={setMetadata} selectedNode={selected}
                     />
                 ]} openChild={openDataset ? 0 : 1}
             />

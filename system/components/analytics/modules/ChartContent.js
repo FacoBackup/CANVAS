@@ -11,9 +11,6 @@ export default function ChartContent(props) {
     return (
         <div style={{width: '100%', height: 'calc(100% - 70px)', display: 'flex'}}>
             <SideBar
-                data={props.data}
-                defaultPage={props.defaultPage} handlePrint={props.handlePrint}
-                setData={props.setData}
                 options={[
                     {
                         icon: <CategoryRounded/>,
@@ -21,12 +18,8 @@ export default function ChartContent(props) {
                         content: (
 
                             <AnalyticsShapes
-                                data={props.data.pages[props.defaultPage]}
-                                setData={(e) => {
-                                    let newPages = [...props.data.pages]
-                                    newPages[props.defaultPage] = e
-                                    props.setData({...props.data, pages: newPages})
-                                }}
+                                data={props.pages[props.defaultPage]}
+                                setData={(e) => props.handlePageChange(e)}
                             />
 
                         )
@@ -34,34 +27,27 @@ export default function ChartContent(props) {
                     {
                         icon: <StorageRounded/>,
                         label: 'Dados',
-                        content: props.data.dataset === undefined || props.data.dataset === null || props.data.dataset.length === 0 ? null : (
+                        content: props.dataset === undefined || props.dataset === null || props.dataset.length === 0 ? null : (
 
                             <DatasetOptions
-                                data={props.data}
-                                setData={props.setData}
+                                pages={props.pages}
+                                handlePageChange={props.handlePageChange}
                                 defaultPage={props.defaultPage}
                                 selectedNode={props.selectedNode}
+                                dataset={props.dataset}
                             />
                         ),
-                        disabled: props.data.dataset === undefined || props.data.dataset === null || props.data.dataset.length === 0
+                        disabled: props.dataset === undefined || props.dataset === null || props.dataset.length === 0
                     },
                 ]}
             />
             <div className={styles.contentWrapper}>
-                <Pages
-                    data={props.data} setData={props.setData}
-                    setDefaultPage={props.setDefaultPage}
-                    defaultPage={props.defaultPage}
-                />
+                <Pages pages={props.pages} handlePageChange={props.handlePageChange} defaultPage={props.defaultPage} setDefaultPage={props.setDefaultPage} setPages={props.setPages}/>
                 {props.children({
-                    data: props.data.pages[props.defaultPage],
-                    setData: (event) => {
-                        let newPages = [...props.data.pages]
-                        newPages[props.defaultPage] = event
-                        props.setData({...props.data, pages: newPages})
-                    },
-                    dataset: props.data.dataset ? props.data.dataset : [],
-                    dimensions: props.data.dimensions,
+                    data: props.pages[props.defaultPage],
+                    setData: (event) => props.handlePageChange(event),
+                    dataset: props.dataset,
+                    dimensions: props.metadata.dimensions,
                     selectedNode: props.selectedNode !== undefined ? props.selectedNode.node : props.selectedNode,
                     setSelectedNode: props.setSelectedNode,
 
@@ -72,8 +58,12 @@ export default function ChartContent(props) {
 }
 
 ChartContent.propTypes = {
-    data: PropTypes.object,
-    setData: PropTypes.func,
+    dataset: PropTypes.array,
+    pages: PropTypes.array,
+    handlePageChange: PropTypes.func,
+    setPages: PropTypes.func,
+    metadata: PropTypes.object,
+    setMetadata: PropTypes.func,
     selectedNode: PropTypes.object,
     setSelectedNode: PropTypes.func,
     defaultPage: PropTypes.number,

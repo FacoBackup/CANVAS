@@ -18,7 +18,4 @@ export default function SideBar(props) {
 }
 SideBar.propTypes = {
     options: PropTypes.array,
-    data: PropTypes.object,
-    setData: PropTypes.func,
-    defaultPage: PropTypes.number,
 }

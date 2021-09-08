@@ -17,8 +17,8 @@ export default function FileOptions(props) {
 
             <input
                 className={styles.textField}
-                value={props.data.subject}
-                onChange={event => props.setData({...props.data, subject: event.target.value})}
+                value={props.metadata.subject}
+                onChange={event => props.setMetadata({...props.metadata, subject: event.target.value})}
             />
 
             {props.children}
@@ -27,8 +27,7 @@ export default function FileOptions(props) {
 }
 
 FileOptions.propTypes = {
-    data: PropTypes.object,
-    setData: PropTypes.func,
-    handlePrint: PropTypes.func,
+    metadata: PropTypes.object,
+    setMetadata: PropTypes.func,
     children: PropTypes.node
 }

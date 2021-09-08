@@ -6,35 +6,32 @@ import {CloseRounded, FolderRounded} from "@material-ui/icons";
 
 export default function DatasetManagement(props) {
     const handleCellChange = (value, field, data, dataIndex) => {
-        let newData = [...props.data.dataset]
+        let newData = [...props.dataset]
         newData[dataIndex][field] = value
-        props.setData({
-            ...props.data,
-            dataset: newData
-        })
+        props.setDataset( newData)
     }
     const handleHeaderChange = (newLabel, oldLabel) => {
-        let newData = [...props.data.dataset]
+        let newData = [...props.dataset]
         newData.forEach((e, i) => {
             if (newLabel.length > 0 && newLabel !== oldLabel) {
                 e[newLabel] = e[oldLabel]
                 delete e[oldLabel]
             }
         })
-        props.setData({
-            ...props.data,
-            dataset: newData
-        })
+        props.setDataset( newData)
     }
 
 
     return (
         <div className={styles.tableWrapper}>
             <div className={styles.titleContainer}
-                 style={{display: props.data.dataset !== undefined && props.data.dataset.length > 0 ? undefined : 'none'}}>
+                 style={{display: props.dataset !== undefined && props.dataset.length > 0 ? undefined : 'none'}}>
                 {props.fileName}
                 <button
-                    onClick={() => props.setData({...props.data, dataset: [], fileName: undefined})}
+                    onClick={() => {
+                        props.setDatasetName(undefined)
+                        props.setDataset([])
+                    }}
                     className={[styles.button, styles.removeButton].join(' ')}>
                     <CloseRounded style={{fontSize: '1.3rem'}}/>
                     Remover dados
@@ -46,17 +43,17 @@ export default function DatasetManagement(props) {
             }}>
 
 
-                {props.data.dataset !== undefined && props.data.dataset.length > 0 ?
+                {props.dataset !== undefined && props.dataset.length > 0 ?
                     <table className={styles.table}>
                         <tr>
-                            {Object.keys(props.data.dataset[0]).map(k => (
+                            {Object.keys(props.dataset[0]).map(k => (
                                 <React.Fragment key={k + '-key-header'}>
-                                    <Cell sample={props.data.dataset[0][k]} value={k} asHeader={true}
+                                    <Cell sample={props.dataset[0][k]} value={k} asHeader={true}
                                           handleChange={v => handleHeaderChange(v, k)}/>
                                 </React.Fragment>
                             ))}
                         </tr>
-                        {props.data.dataset.map((d, i) => (
+                        {props.dataset.map((d, i) => (
                             <tr key={i + '-row'}>
                                 {Object.keys(d).map(k => (
                                     <React.Fragment key={k + '-key-cell-' + i}>
@@ -83,9 +80,9 @@ export default function DatasetManagement(props) {
 }
 
 DatasetManagement.propTypes = {
-    data: PropTypes.object,
-    setData: PropTypes.func,
-    openDataset: PropTypes.bool,
+    setDatasetName: PropTypes.func,
+    setDataset: PropTypes.func,
+    dataset: PropTypes.object,
     handleUpload: PropTypes.func,
     fileName: PropTypes.string,
     setSelectedNode: PropTypes.func

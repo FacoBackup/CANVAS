@@ -10,7 +10,7 @@ function handleCanvas(up, setData) {
     setData(JSON.parse(response))
 }
 
-function handleJson(up, data, setData, fileName) {
+function handleJson(up, setData) {
     const uploaded = JSON.parse(up.target.result)
 
     let obj = uploaded.reduce((res, item) => ({...res, ...item}));
@@ -23,33 +23,31 @@ function handleJson(up, data, setData, fileName) {
     }, {});
 
     let result = uploaded.map((item) => ({...def, ...item}));
-
-    setData({
-        ...data,
-        dataset: result,
-        fileName: fileName
-    })
+    setData(result)
 }
 
-async function handleCsv(up, data,  fileName) {
-    return new Promise(function (resolve){
-        const uploaded = Papa.parse(up.target.result, {header: true, encoding: 'ISO-8859-1'}).data
-        let obj = uploaded.reduce((res, item) => ({...res, ...item}));
-        let keys = Object.keys(obj);
+async function handleCsv(up, setData) {
+    await Papa.parse(
+        up.target.result,
+        {
+            header: true, encoding: 'ISO-8859-1',
+            worker: true,
+            complete: e => {
+                let obj = e.data.reduce((res, item) => ({...res, ...item}));
+                let keys = Object.keys(obj);
 
-        let def = keys.reduce((result, key) => {
-            result[key] = undefined
-            return result;
-        }, {});
+                let def = keys.reduce((result, key) => {
+                    result[key] = undefined
+                    return result;
+                }, {});
 
-        let result = uploaded.map((item) => ({...def, ...item}));
+                let result = e.data.map((item) => ({...def, ...item}));
 
-       resolve({
-           ...data,
-           dataset: result,
-           fileName: fileName
-       })
-    })
+                setData(result)
+            }
+        })
+
+
 }
 
 export default async function HandleUpload(props) {
@@ -65,20 +63,24 @@ export default async function HandleUpload(props) {
                     break
                 }
                 case 'json': {
-                    handleJson(newData, props.data, props.setData, name)
+                    handleJson(newData, (e) => {
+                        props.setDataset(e)
+                        props.setDatasetName(name)
+                    })
                     break
                 }
                 case 'csv': {
-                    data = await handleCsv(newData, props.data,name)
-                    console.log(data)
-                    props.setData(data)
+                    data = await handleCsv(newData, (e) => {
+                        console.log('THIS IS OBJECT => ' + JSON.stringify(e))
+                        props.setDataset(e)
+                        props.setDatasetName(name)
+                    })
                     break
                 }
                 default:
                     break
             }
-
-        };
+        }
         reader.readAsText(props.file.target.files[0]);
     } catch (error) {
         console.log(error)
@@ -88,6 +90,8 @@ export default async function HandleUpload(props) {
 HandleUpload.propTypes = {
     file: PropTypes.object,
     setData: PropTypes.func,
+    setDataset: PropTypes.func,
+    setDatasetName: PropTypes.func,
     data: PropTypes.object,
     type: PropTypes.oneOf(['.canvas', '.json', '.csv', '.excel'])
 }

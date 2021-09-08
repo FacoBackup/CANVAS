@@ -9,23 +9,20 @@ export default function Pages(props) {
     return (
         <div className={styles.pagesContainer}>
 
-            {props.data.pages.map((page, index) => (
+            {props.pages.map((page, index) => (
                 <React.Fragment key={'page-' + index}>
                     <PageField
                         page={{...page, ...{default: props.defaultPage === index}}}
                         renamePage={event => {
-                            let newPages = [...props.data.pages]
-                            newPages[index].title = event
-                            props.setData({
-                                ...props.data,
-                                pages: newPages
-                            })
+                            let d = {...props.pages[props.defaultPage]}
+                            d.title = event
+                            props.handlePageChange(d)
                         }} handleOpen={() => setOpenInput(index)} open={openInput === index}
                         handleClose={() => setOpenInput(null)}
-                        length={props.data.pages.length}
+                        length={props.pages.length}
                         index={index}
                         removePage={() => {
-                            let newPages = [...props.data.pages]
+                            let newPages = [...props.pages]
                             if (index !== props.defaultPage && props.defaultPage !== 0 && props.defaultPage > index)
                                 props.setDefaultPage(props.defaultPage - 1)
 
@@ -37,10 +34,7 @@ export default function Pages(props) {
                             }
 
                             newPages.splice(index, 1)
-                            props.setData({
-                                ...props.data,
-                                pages: newPages
-                            })
+                            props.setPages(newPages)
                         }}
                         setAsDefault={() => {
                             props.setDefaultPage(index)
@@ -50,19 +44,16 @@ export default function Pages(props) {
             ))}
             <button
                 className={styles.newPageButton}
-                style={{display: props.data.pages.length < 5 ? undefined : 'none'}}
+                style={{display: props.pages.length < 5 ? undefined : 'none'}}
                 onClick={() => {
-                    let newPages = [...props.data.pages]
+                    let newPages = [...props.pages]
                     newPages.push({
-                        title: 'Página ' + (props.data.pages.length + 1),
+                        title: 'Página ' + (props.pages.length + 1),
                         nodes: [],
                         links: [],
                         default: false
                     })
-                    props.setData({
-                        ...props.data,
-                        pages: newPages
-                    })
+                    props.setPages(newPages)
                 }}>
                 <AddRounded style={{fontSize: '1.5rem'}}/>
             </button>
@@ -71,9 +62,9 @@ export default function Pages(props) {
 }
 
 Pages.propTypes = {
-    data: PropTypes.object,
-    setData: PropTypes.func,
-    contextMenuRef: PropTypes.object,
+    setPages: PropTypes.func,
+    pages: PropTypes.array,
+    handlePageChange: PropTypes.func,
     setDefaultPage: PropTypes.func,
     defaultPage: PropTypes.number
 }

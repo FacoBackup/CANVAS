@@ -46,33 +46,36 @@ export default function PlaceNewAnalyticChart(props) {
                     x: root.getBoundingClientRect().left,
                     y: root.getBoundingClientRect().top
                 }
-                props.setData(({
+                props.setData({
                     ...props.data,
-                    nodes: [...props.data.nodes, ...[{
-                        id: uuid4().toString(),
-                        title: '',
-                        richTitle: [],
-                        description: null,
-                        placement: {
-                            x: (event.clientX - rootBounding.x + root.scrollLeft - 250),
-                            y: (event.clientY - rootBounding.y + root.scrollTop - 125)
-                        },
-                        variant: props.variant,
-                        creationDate: (new Date()).getTime(),
-                        links: [],
-                        shapeVariant: 'rect',
-                        dimensions: {
-                            width: 500,
-                            height: 250
-                        },
-                        styling: {
-                            shape: 'rect',
-                            color: '#0095ff',
-                            borderRadius: 0,
-                            strokeWidth: 2
-                        }
-                    }]]
-                }))
+                    nodes: [
+                        ...props.data.nodes,
+                        ...[{
+                            id: uuid4().toString(),
+                            title: '',
+                            richTitle: [],
+                            description: null,
+                            placement: {
+                                x: (event.clientX - rootBounding.x + root.scrollLeft - 250),
+                                y: (event.clientY - rootBounding.y + root.scrollTop - 125)
+                            },
+                            variant: props.variant,
+                            creationDate: (new Date()).getTime(),
+                            links: [],
+                            shapeVariant: 'rect',
+                            dimensions: {
+                                width: 500,
+                                height: 250
+                            },
+                            styling: {
+                                shape: 'rect',
+                                color: '#0095ff',
+                                borderRadius: 0,
+                                strokeWidth: 2
+                            }
+                        }]
+                    ]
+                })
             }
 
             moving = false

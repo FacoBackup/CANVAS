@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 export default function DatasetOptions(props) {
     const handleFieldLink = (field, as) => {
-        let newPage = {...props.data.pages[props.defaultPage]}
+        let newPage = {...props.pages[props.defaultPage]}
         let newNodes = [...newPage.nodes]
         let newNode = {...newPage.nodes[props.selectedNode.index]}
 
@@ -20,18 +20,11 @@ export default function DatasetOptions(props) {
                 axis: newNode.dataset !== undefined ? newNode.dataset.axis : null,
                 value: field
             }
-        console.log(newNode.dataset)
         newNodes[props.selectedNode.index] = newNode
 
         newPage.nodes = newNodes
-        const newPages = [...props.data.pages]
 
-        newPages[props.defaultPage] = newPage
-
-        props.setData({
-          ...props.data,
-          pages: newPages
-        })
+        props.handlePageChange(newPage)
     }
     return (
         <>
@@ -78,7 +71,7 @@ export default function DatasetOptions(props) {
             {/*</Accordion>*/}
             <Accordion {...props} label={'Data'}>
                 <div className={styles.fields}>
-                    {Object.keys(props.data.dataset[0]).map((d, i) => (
+                    {Object.keys(props.dataset[0]).map((d, i) => (
                         <div
                             className={styles.field}
                             key={d + '-field-' + i}
@@ -96,8 +89,8 @@ export default function DatasetOptions(props) {
     )
 }
 DatasetOptions.propTypes = {
-    data: PropTypes.object,
-    setData: PropTypes.func,
+    pages: PropTypes.array,
+    handlePageChange: PropTypes.func,
     defaultPage: PropTypes.number,
     selectedNode: PropTypes.object
 }

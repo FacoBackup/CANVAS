@@ -15,6 +15,7 @@ export default function AnalyticsShapes(props) {
             setData: props.setData
         })
     }
+    console.log(props.data)
     return (
 
         <Accordion {...props} label={'Módulos'} >
