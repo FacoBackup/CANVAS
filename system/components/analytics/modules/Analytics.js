@@ -7,7 +7,7 @@ import ContextMenu from "../../shared/modules/ContextMenu";
 import keyboardControl from "../../shared/utils/KeyboardControl";
 import {
     DescriptionRounded,
-    FileCopyRounded,
+    FileCopyRounded, ImageRounded,
     PictureAsPdfRounded,
     PrintRounded,
     PublishRounded,
@@ -160,7 +160,25 @@ export default function Analytics(props) {
                                 {
                                     label: 'Exportar como PDF',
                                     icon: <PictureAsPdfRounded style={{fontSize: '1.2rem'}}/>,
-                                    onClick: () => uploadRef.current.click(),
+                                    onClick: () => handlePrint(),
+                                    disabled: false
+                                },
+                                {
+                                    label: 'Exportar como PNG',
+                                    icon: <ImageRounded style={{fontSize: '1.2rem'}}/>,
+                                    onClick: () => {
+                                        const el = document.getElementById('frame')
+                                        if (el !== null) {
+                                            const svg =  'data:image/svg+xml,' + encodeURIComponent(el.innerHTML)
+                                            let downloadAnchorNode = document.createElement('a');
+
+                                            downloadAnchorNode.setAttribute("href", svg);
+                                            downloadAnchorNode.setAttribute("download", `${metadata.subject}.svg`);
+                                            document.body.appendChild(downloadAnchorNode)
+                                            downloadAnchorNode.click()
+                                            downloadAnchorNode.remove()
+                                        }
+                                    },
                                     disabled: false
                                 },
                                 {

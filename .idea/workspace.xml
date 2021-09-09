@@ -7,16 +7,6 @@
     <list default="true" id="063cb9af-f03d-420c-affc-3b1041605637" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/ChartContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/ChartContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/dataset/DatasetManagement.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/dataset/DatasetManagement.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/AnalyticsShapes.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/AnalyticsShapes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/DatasetOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/DatasetOptions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/utils/PlaceNewAnalyticChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/utils/PlaceNewAnalyticChart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/Pages.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/Pages.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/FileOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/FileOptions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/NewProjectTemplate.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/NewProjectTemplate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/utils/HandleUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/utils/HandleUpload.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +36,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/system/chart" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -95,6 +85,7 @@
       <workItem from="1631038168665" duration="4321000" />
       <workItem from="1631124886057" duration="168000" />
       <workItem from="1631126992374" duration="6383000" />
+      <workItem from="1631200656196" duration="2268000" />
     </task>
     <servers />
   </component>
@@ -122,7 +113,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/system/components/analytics/modules/Analytics.js</url>
-          <line>89</line>
+          <line>94</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
