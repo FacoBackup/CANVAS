@@ -1,31 +1,30 @@
-.editButton{
-    position: absolute;
-    z-index:  999;
-
-    top: -100%;
-    left: -100%;
+.editButton {
+    border: #e0e0e0 2px solid;
     background: white;
-    border: #e0e0e0 1px solid;
+
     height: 40px;
     width: 40px;
-    border-radius: 5px;
+
     outline: none;
     color: #555555;
+
     cursor: pointer;
     transition: 150ms linear;
 }
-.editButton:hover{
+
+.editButton:hover {
     background: #f4f5fa;
     color: #0095ff;
 }
-.editButton:active{
+
+.editButton:active {
     color: #0095ff;
     background: #E8F0FE;
 }
+
 .entityContainer {
     animation: popIn 150ms linear;
     transition: opacity 150ms linear;
-    cursor: pointer;
 }
 
 @keyframes popIn {
@@ -138,14 +137,21 @@
 }
 
 .indicator {
-
-    stroke: none;
-    transition: 150ms linear;
-    opacity: .5;
+    transition: stroke 150ms linear, opacity 150ms linear;
+    stroke: transparent;
+    stroke-width: 4;
 }
 
 .indicator:hover {
-    opacity: 1;
+    opacity: .9;
+    stroke: #666666;
+
+}
+
+.indicator:active {
+    opacity: .75;
+    stroke: #0095ff;
+    fill: #0095ff;
 }
 
 .stepInput {

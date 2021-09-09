@@ -6,7 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="063cb9af-f03d-420c-affc-3b1041605637" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/analytics/hooks/useAnalytics.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/analytics/hooks/useData.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/hooks/useData.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/Flowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/Flowchart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/FlowchartNodes.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/FlowchartNodes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/styles/Node.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/styles/Node.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/CanvasPropsTemplate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/shapes/Ellipse.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/shapes/Ellipse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/shapes/Polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/shapes/Polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/shapes/Rect.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/shapes/Rect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/shapes/Shape.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/shapes/Shape.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/wrappers/NodeWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/wrappers/NodeWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/wrappers/ResizeIndicator.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/wrappers/ResizeIndicator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/wrappers/SelectedWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/wrappers/SelectedWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/utils/PlaceNode.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/utils/PlaceNode.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,11 +68,11 @@
       <recent name="$PROJECT_DIR$/system/components/shared" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/system/components/shared/hooks" />
       <recent name="$PROJECT_DIR$/system/components/shared/styles" />
       <recent name="$PROJECT_DIR$/system/components/shared/templates" />
       <recent name="$PROJECT_DIR$/system/components/flowchart/templates" />
       <recent name="$PROJECT_DIR$/system/components/shared/modules" />
-      <recent name="$PROJECT_DIR$/system/components/modules/navigation" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -86,6 +101,7 @@
       <workItem from="1631124886057" duration="168000" />
       <workItem from="1631126992374" duration="6383000" />
       <workItem from="1631200656196" duration="2268000" />
+      <workItem from="1631211838567" duration="6138000" />
     </task>
     <servers />
   </component>
@@ -113,8 +129,14 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/system/components/analytics/modules/Analytics.js</url>
-          <line>94</line>
+          <line>74</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/system/components/flowchart/modules/FlowchartNodes.js</url>
+          <line>53</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

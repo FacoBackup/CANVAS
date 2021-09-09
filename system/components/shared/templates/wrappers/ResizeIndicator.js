@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import NodeTemplate from "../NodeTemplate";
 import GetNodeResizeParams from "../../utils/GetNodeResizeParams";
-
+import styles from '../../styles/Node.module.css'
 export default function ResizeIndicator(props) {
     const params = GetNodeResizeParams(props)
 
@@ -145,8 +145,9 @@ export default function ResizeIndicator(props) {
 
     return (
         <circle
-            r={'4'} fill={'blue'} cx={params.x} cy={params.y}
+            r={props.placement.length === 1 ? 4 : 6} fill={'#666666'} cx={params.x} cy={params.y}
             cursor={params.cursor}
+            className={styles.indicator}
             stroke={'transparent'} strokeWidth={'10'}
             onMouseDown={() => {
                 console.log(props.placement)

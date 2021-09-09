@@ -1,4 +1,3 @@
-import CanvasTemplate from "../../shared/templates/CanvasPropsTemplate";
 import styles from '../../shared/styles/Canvas.module.css'
 import React, {useEffect, useRef, useState} from "react";
 import {useReactToPrint} from "react-to-print";
@@ -23,43 +22,24 @@ import DataManagementBar from "./dataset/DataManagementBar";
 import ChartContent from "./ChartContent";
 import ChildrenSwitcher from "./ChildrenSwitcher";
 import Loader from "../../shared/templates/Loader";
-import FrameView from "../../shared/modules/engine/FrameView";
-import useAnalytics from "../hooks/useAnalytics";
-import useData from "../hooks/useData";
+import useData from "../../shared/hooks/useData";
 
 export default function Analytics(props) {
     const {
-        dataset,
-        setDataset,
-        openDataset,
-        setOpenDataset,
-        setDatasetName,
-        datasetName
-    } = useAnalytics([], false, undefined)
-    const {
-        copied,
-        setCopied,
-        pages,
-        setPages,
-        metadata,
-        setMetadata,
-        selected,
-        setSelected,
-        loading,
-        setLoading,
-        openPage,
-        setOpenPage,
-        handlePageChange,
-        handleSelectedNodeChange
+        dataset, setDataset,
+        openDataset, setOpenDataset,
+        setDatasetName, datasetName,
+        copied, setCopied,
+        pages, setPages,
+        metadata, setMetadata,
+        selected, loading,
+        setLoading, openPage,
+        setOpenPage, handlePageChange,
+        handleSelectedNodeChange,
+        uploadRef,
+        handlePrint
     } = useData()
-
-    const uploadRef = useRef()
     const [openOptions, setOpenOptions] = useState(null)
-
-    const handlePrint = useReactToPrint({
-        content: () => document.getElementById('engine-content')
-    });
-
 
     const handleKeyDown = (e) => {
         keyboardControl({
@@ -255,4 +235,3 @@ export default function Analytics(props) {
         </div>
     )
 }
-Analytics.propTypes = CanvasTemplate

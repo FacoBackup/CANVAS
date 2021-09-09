@@ -27,7 +27,8 @@ export default function Ellipse(props) {
     return (
         <svg
             width={props.dimensions.width} height={props.dimensions.height}
-            viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.id + '-*svg'} overflow={'visible'}>
+            viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.id + '-*svg'}
+            overflow={'visible'} cursor={props.cursor}>
             <ellipse
 
                 strokeDasharray={props.styles.strokeDasharray}

@@ -27,6 +27,7 @@ export default function Rect(props) {
     return (
         <svg
             width={props.dimensions.width} height={props.dimensions.height}
+            cursor={props.cursor}
             viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.id + '-*svg'} overflow={'visible'}>
             <rect
                 strokeDasharray={props.styles.strokeDasharray}

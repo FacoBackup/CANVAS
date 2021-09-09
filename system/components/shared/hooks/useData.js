@@ -1,17 +1,21 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {v4 as uuid4} from "uuid";
+import {useReactToPrint} from "react-to-print";
 
-export default function useData(copiedInit, selectedInit, loadingInit, pagesInit, metadataInit, openPageInit) {
-
-    const [copied, setCopied] = useState(copiedInit)
-    const [selected, setSelected] = useState(selectedInit)
-    const [loading, setLoading] = useState(loadingInit !== undefined && loadingInit !== null ? loadingInit : false)
-    const [pages, setPages] = useState(Array.isArray(pagesInit) ? pagesInit : [   {
+export default function useData() {
+    const [openDataset, setOpenDataset] = useState(false)
+    const [dataset, setDataset] = useState([])
+    const [datasetName, setDatasetName] = useState()
+    const uploadRef = useRef()
+    const [copied, setCopied] = useState()
+    const [selected, setSelected] = useState()
+    const [loading, setLoading] = useState(false)
+    const [pages, setPages] = useState([{
         title: 'Página 1',
         nodes: [],
         links: []
     }])
-    const [metadata, setMetadata] = useState(typeof metadataInit === 'object' ? metadataInit : {
+    const [metadata, setMetadata] = useState({
         id: uuid4().toString(),
         subject: 'Sem título',
         dimensions: {
@@ -19,19 +23,17 @@ export default function useData(copiedInit, selectedInit, loadingInit, pagesInit
             height: 10000
         },
     })
-    const [openPage, setOpenPage] = useState(openPageInit !== undefined && openPageInit !== null ? openPageInit : 0)
+    const [openPage, setOpenPage] = useState(0)
 
     const handlePageChange = (e) => {
         let newPages = [...pages]
-        console.log(e)
+
         newPages[openPage] = e
         setPages(newPages)
     }
     const handleSelectedNodeChange = (node, openEdit) => {
         let index
         if (node !== undefined && node !== null) {
-            console.log(pages)
-            console.log(openPage)
             pages[openPage].nodes.find((e, i) => {
                 if (e.id === node.id)
                     index = i
@@ -45,6 +47,11 @@ export default function useData(copiedInit, selectedInit, loadingInit, pagesInit
         } else
             setSelected(undefined)
     }
+
+    const handlePrint = useReactToPrint({
+        content: () => document.getElementById('engine-content')
+    });
+
     return {
         copied,
         setCopied,
@@ -59,6 +66,10 @@ export default function useData(copiedInit, selectedInit, loadingInit, pagesInit
         openPage,
         setOpenPage,
         handlePageChange,
-        handleSelectedNodeChange
+        handleSelectedNodeChange,
+        dataset, setDataset, openDataset,
+        setOpenDataset, setDatasetName,
+        datasetName,
+        uploadRef,handlePrint
     }
 }

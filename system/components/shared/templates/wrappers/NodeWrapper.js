@@ -30,7 +30,7 @@ export default function NodeWrapper(props) {
             fill={'transparent'}
             className={styles.entityContainer}
         >
-            <SelectedWrapper {...props}/>
+
 
             {props.controlComponents.map(element => element)}
 
@@ -39,6 +39,7 @@ export default function NodeWrapper(props) {
                 shapeVariant={props.node.shapeVariant}
                 shape={props.node.styling.shape}
                 dimensions={{...props.node.dimensions}}
+                cursor={props.selected === props.node.id ? 'grab' : undefined}
                 styles={{
                     fill: props.node.styling.fill,
                     stroke: props.node.styling.color,
@@ -60,7 +61,7 @@ export default function NodeWrapper(props) {
                     ...props, onMove: onMove, setOnMove: setOnMove, moveNode: moveNode
                 })}
             </Shape>
-
+            <SelectedWrapper {...props}/>
         </g>
     )
 }

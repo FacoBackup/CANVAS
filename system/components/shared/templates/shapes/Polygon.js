@@ -50,6 +50,7 @@ export default function Polygon(props) {
     return (
         <svg
             width={props.dimensions.width} height={props.dimensions.height}
+            cursor={props.cursor}
             viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.id + '-*svg'} overflow={'visible'}>
             <polygon
                 strokeDasharray={props.styles.strokeDasharray}

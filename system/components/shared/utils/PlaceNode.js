@@ -10,7 +10,7 @@ export default function PlaceNode(props) {
     let placementRef = document.getElementById(props.node.id + '-placement')
     let nodeRef = document.getElementById(props.node.id + '-node')
     nodeRef.style.transition = 'box-shadow 250ms ease';
-    nodeRef.style.cursor = 'move'
+    nodeRef.style.cursor = 'grabbing'
     let onMove = false
 
 
@@ -70,7 +70,7 @@ export default function PlaceNode(props) {
     })
     document.addEventListener("mouseup", event => {
         moving = false
-        nodeRef.style.cursor = 'pointer'
+        nodeRef.style.cursor = 'unset'
         props.setOnMove(false)
         props.setSelectedNode(props.node)
         handlePlacement(event, true)

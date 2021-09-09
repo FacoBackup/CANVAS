@@ -62,7 +62,7 @@ export default function Shape(props) {
 
     return (
         <g
-            ref={ref}
+            ref={ref} cursor={props.cursor}
             onMouseDown={event => props.onMouseDown(event, open)}
         >
             {getShape()}
@@ -86,5 +86,6 @@ Shape.propTypes = {
     }),
     onMouseDown: PropTypes.func,
     id: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    cursor: PropTypes.string
 }

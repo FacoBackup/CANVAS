@@ -257,7 +257,7 @@ export default function Flowchart(props) {
                                     newPages[defaultPage] = event
                                     setData({...data, pages: newPages})
                                 },
-                                styling: {connectionType: data.connectionType},
+                                metadata: data,
                                 toBeLinked: toBeLinked,
                                 setToBeLinked: setToBeLinked,
                                 scale: scale,

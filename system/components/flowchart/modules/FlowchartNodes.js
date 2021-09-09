@@ -4,89 +4,23 @@ import NodeWrapper from "../../shared/templates/wrappers/NodeWrapper";
 import styles from "../../shared/styles/Node.module.css";
 import Content from "./Content";
 import ConnectionsWrapper from "./ConnectionsWrapper";
+import useNode from "../../shared/hooks/useNode";
+import useLink from "../../shared/hooks/useLink";
 
 export default function FlowchartNodes(props) {
-    const handleLink = (node, connection, index) => {
-        if (props.toBeLinked !== null) {
-            props.setSelectedNode(undefined)
-            let newLink = {
-                type: 'dashed-path',
-                parent: {
-                    id: props.toBeLinked.id,
-                    connectionPoint: props.toBeLinked.connectionPoint,
-                    nodeShape: props.toBeLinked.nodeShape,
-                    index: props.toBeLinked.index
-                },
-                child: {
-                    id: node.id,
-                    connectionPoint: connection,
-                    nodeShape: node.shape,
-                    index: index
-                }
-            }
-            let newLinks = [...props.data.links, ...[newLink]]
-
-            props.setData({...props.data, links: newLinks})
-            props.setToBeLinked(null)
-        } else {
-            props.setSelectedNode(undefined)
-            props.setToBeLinked({
-                id: node.id,
-                connectionPoint: connection,
-                index: index,
-                connectionType: props.styling.connectionType
-            })
-        }
-    }
-
-    const handleLinkDelete = (link) => {
-        let newLinks = [...props.data.links]
-        const index = newLinks.indexOf(link)
-
-        if (index > -1) {
-            newLinks.splice(index, 1)
-            props.setData({
-                ...props.data,
-                links: newLinks
-            })
-        }
-    }
-
-    const handleNodeChange = (index, node, data) => {
-        let newNodes = [...props.data.nodes]
-        newNodes[index] = data
-        console.log('CAFE')
-        props.setData({
-            ...props.data,
-            nodes: newNodes
-        })
-    }
-
-
-    const savePlacement = (event, node, index) => {
-
-        let newNodes = [...props.data.nodes]
-        let newNode = {...node}
-        newNode.placement = event
-
-        newNodes[index] = newNode
-        console.log('SAVING PLACEMENT')
-        props.setData({
-            ...props.data,
-            nodes: newNodes
-        })
-    }
+    const nodeHook = useNode(props.data, props.setData)
+    const linkHook = useLink(props.metadata, props.data, props.setData, props.toBeLinked, props.setToBeLinked, props.setSelectedNode)
 
     const render = (node, index) => {
         const wrapperProps = {
             node: node,
             index: index,
-            handleLinkDelete: handleLinkDelete,
-            handleLink: (node, connection) => handleLink(node, connection, index),
+            handleLinkDelete: linkHook.handleLinkDelete,
+            handleLink: (node, connection) => linkHook.handleLink(node, connection, index),
             toBeLinked: props.toBeLinked,
-            setNode: event => handleNodeChange(index, node, event),
+            setNode: event => nodeHook.handleNodeChange(index, node, event),
             selected: props.selectedNode?.id,
-            savePlacement: event => savePlacement(event, node, index),
+            savePlacement: event => nodeHook.savePlacement(event, node, index),
             setSelected: props.setSelectedNode,
             scale: props.scale,
         }
@@ -101,7 +35,6 @@ export default function FlowchartNodes(props) {
                             x={0} y={0}
                             overflow={'visible'}
                             width={nodeProps.node.dimensions.width} height={nodeProps.node.dimensions.height}
-                            // className={props.linkable ? styles.pulse : undefined}
                         >
                             <div className={styles.nodeShapeContainer} id={nodeProps.node.id + '-*wrapper'}
                                  onClick={() => {
@@ -129,10 +62,10 @@ export default function FlowchartNodes(props) {
 }
 
 FlowchartNodes.propTypes = {
+    metadata: PropTypes.object,
     scale: PropTypes.number,
     setData: PropTypes.func,
     data: PropTypes.object,
-    styling: PropTypes.object,
     setSelectedNode: PropTypes.func,
     selectedNode: PropTypes.any,
     toBeLinked: PropTypes.object,
