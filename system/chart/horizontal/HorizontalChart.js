@@ -43,7 +43,8 @@ export default function HorizontalChart(props) {
                                     </g>
                                 ))}
                             </svg>
-                            <div style={{overflowY: 'auto', height: (props.height - offset * 2) + 'px', width: '100%'}}              ref={scrollableRef}>
+                            <div style={{overflowY: 'auto', height: (props.height - offset * 2) + 'px', width: '100%'}}
+                                 ref={scrollableRef}>
                                 <svg
 
                                     width={props.width - props.width * 0.7 - 20}

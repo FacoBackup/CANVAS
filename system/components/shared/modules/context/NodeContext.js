@@ -45,6 +45,8 @@ export default [
                 label: 'Deletar',
                 icon: <DeleteRounded/>,
                 onClick: (props, event, nodeID) => {
+                    props.setSelectedNode(undefined)
+
                     let index
                     props.data.nodes.find((node, i) => {
                         if(nodeID === node.id)

@@ -97,6 +97,7 @@ export default function Analytics(props) {
             <ContextMenu
                 data={pages[openPage]}
                 setData={handlePageChange}
+
                 copiedNode={copied}
                 setCopiedNode={setCopied}
                 setSelectedNode={handleSelectedNodeChange}/>

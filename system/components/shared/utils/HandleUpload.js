@@ -58,7 +58,10 @@ async function handleCsv(up, setData) {
                     return result;
                 }, {});
 
+
+                let result = e.data.map((item) => ({...def, ...item}));
                 let parsedData = []
+
                 result.forEach(e => {
                     const keys = Object.keys(e)
                     let parsedObject = {}
@@ -72,9 +75,7 @@ async function handleCsv(up, setData) {
                     parsedData.push(parsedObject)
                 })
 
-                let result = e.data.map((item) => ({...def, ...item}));
-
-                setData(result)
+                setData(parsedData)
             }
         })
 
