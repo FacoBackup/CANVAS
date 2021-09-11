@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import NodeTemplate from "../templates/NodeTemplate";
+import NodeTemplate from "../templates/presets/NodeTemplate";
 
 export default function ResizeNode(props) {
 

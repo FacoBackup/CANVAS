@@ -1,8 +1,8 @@
 import styles from '../../shared/styles/Canvas.module.css'
 import React, {useEffect, useRef, useState} from "react";
 import {useReactToPrint} from "react-to-print";
-import NewProjectTemplate from "../../shared/templates/NewProjectTemplate";
-import ContextMenu from "../../shared/modules/ContextMenu";
+import NewProjectTemplate from "../../shared/templates/presets/NewProjectTemplate";
+import ContextMenu from "../../shared/modules/context/ContextMenu";
 import keyboardControl from "../../shared/utils/KeyboardControl";
 import {
     DescriptionRounded,
@@ -12,16 +12,16 @@ import {
     PublishRounded,
     SaveRounded
 } from "@material-ui/icons";
-import FileOptions from "../../shared/templates/FileOptions";
+import FileOptions from "../../shared/templates/tools/FileOptions";
 import ChartNodeEditor from "../templates/ChartNodeEditor";
 import HandleUpload from "../../shared/utils/HandleUpload";
-import Dropdown from "../../shared/templates/Dropdown";
+import Dropdown from "../../shared/templates/tools/Dropdown";
 import HandleDownload from "../../shared/utils/HandleDownload";
 import DatasetManagement from "./dataset/DatasetManagement";
 import DataManagementBar from "./dataset/DataManagementBar";
 import ChartContent from "./ChartContent";
 import ChildrenSwitcher from "./ChildrenSwitcher";
-import Loader from "../../shared/templates/Loader";
+import Loader from "../../shared/templates/tools/Loader";
 import useData from "../../shared/hooks/useData";
 
 export default function Analytics(props) {
@@ -214,7 +214,7 @@ export default function Analytics(props) {
                 children={[
                     <DatasetManagement
                         dataset={dataset} fileName={datasetName}
-                        setDataset={setDataset} setDatasetName={setDatasetName}
+                        setDataset={setDataset} setDatasetName={setDatasetName} openDataset={openDataset}
                         handleUpload={() => {
                             uploadRef.current.setAttribute('accept', '.csv, .json')
                             uploadRef.current.click()

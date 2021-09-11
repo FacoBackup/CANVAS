@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import NodePropsTemplate from "../../../flowchart/templates/NodePropsTemplate";
 import SelectedWrapper from "./SelectedWrapper";
 import Shape from "../shapes/Shape";
@@ -24,22 +24,22 @@ export default function NodeWrapper(props) {
 
     return (
         <g
-            id={props.node.id + '-node'} overflow={'visible'}
+            id={props.node.id + '-node'}
             transform={`translate(${props.node.placement.x}, ${props.node.placement.y})`}
             ref={ref}
-            fill={'transparent'}
+
+            overflow={'hidden'}
+            fill={'none'}
             className={styles.entityContainer}
         >
 
-
-            {props.controlComponents.map(element => element)}
 
             <Shape
                 id={props.node.id}
                 shapeVariant={props.node.shapeVariant}
                 shape={props.node.styling.shape}
                 dimensions={{...props.node.dimensions}}
-                cursor={props.selected === props.node.id ? 'grab' : undefined}
+                cursor={props.selected === props.node.id ? 'grab' : props.focusOnDouble ? 'pointer' : undefined}
                 styles={{
                     fill: props.node.styling.fill,
                     stroke: props.node.styling.color,
@@ -48,18 +48,19 @@ export default function NodeWrapper(props) {
                     borderRadius: props.node.styling.borderRadius,
                     dropShadow: props.node.styling.dropShadow
                 }}
-                onMouseDown={(event, open) => {
+                onMouseDown={(event) => {
                     if (event.button === 0) {
-                        if (!open)
+                        if (props.selected === props.node.id)
                             moveNode(event)
-                        props.setSelected(props.node)
                     }
+
+                }}
+                onClick={(event, open) => {
+                    props.setSelected(props.node)
                 }}
             >
 
-                {props.children({
-                    ...props, onMove: onMove, setOnMove: setOnMove, moveNode: moveNode
-                })}
+                {props.children({...props})}
             </Shape>
             <SelectedWrapper {...props}/>
         </g>

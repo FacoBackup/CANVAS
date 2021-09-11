@@ -1,7 +1,7 @@
 import styles from "../../shared/styles/Node.module.css";
 import React, {useEffect, useRef, useState} from "react";
 import PropTypes from 'prop-types'
-import NodeTemplate from "../../shared/templates/NodeTemplate";
+import NodeTemplate from "../../shared/templates/presets/NodeTemplate";
 import topBarStyles from '../../shared/styles/Navigation.module.css'
 
 export default function Content(props) {

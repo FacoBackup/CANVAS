@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
-import styles from '../styles/ContextMenu.module.css'
+import styles from '../../styles/ContextMenu.module.css'
 import {useEffect, useRef, useState} from "react";
-import CanvasContext from "./contexts/CanvasContext";
-import NodeContext from "./contexts/NodeContext";
-import NodeTemplate from "../templates/NodeTemplate";
-import nodeStyles from '../styles/Node.module.css'
+import CanvasContext from "./CanvasContext";
+import NodeContext from "./NodeContext";
+import NodeTemplate from "../../templates/presets/NodeTemplate";
+import nodeStyles from '../../styles/Node.module.css'
 
 export default function ContextMenu(props) {
     const ref = useRef()

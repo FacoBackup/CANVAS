@@ -43,7 +43,7 @@ export default function DatasetManagement(props) {
             }}>
 
 
-                {props.dataset !== undefined && props.dataset.length > 0 ?
+                {props.dataset !== undefined && props.dataset.length > 0 && props.openDataset?
                     <table className={styles.table}>
                         <tr>
                             {Object.keys(props.dataset[0]).map(k => (

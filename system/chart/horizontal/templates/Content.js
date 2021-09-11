@@ -4,9 +4,9 @@ import {useEffect, useRef, useState} from "react";
 import styles from '../styles/Horizontal.module.css'
 import getPercentage from "../../shared/getPercentage";
 import Row from "./Row";
+import LazyLoader from "../../../components/shared/modules/LazyLoader";
 
 export default function Content(props) {
-    const ref = useRef()
     const random_hex_color_code = () => {
         let n = (Math.random() * 0xfffff * 1000000).toString(16);
         return '#' + n.slice(0, 6);
@@ -17,30 +17,27 @@ export default function Content(props) {
     }, [])
 
     return (
-        <svg ref={ref}>
-            <g className={styles.labels}>
-                {props.data.map((e, i) => (
+        <LazyLoader data={props.data} scrollableRef={props.scrollableRef} scrollOrientation={'vertical'}>
+            {canRenderUntil =>
+                props.data.map((e, i) => (
+                    e[props.value.field] !== undefined ?
+                        // (&& canRenderUntil !== undefined && i <= canRenderUntil )?
+                        <g key={i + '-row-content'} style={{display: i > 30 ? 'none' : undefined}}>
+                            <Row
+                                biggest={props.biggest} axisContent={e[props.axis.field]}
+                                value={parseInt(e[props.value.field])} color={color}
+                                axis={props.axis.label}
+                                index={i} valueLabel={props.value.label}
+                                offset={(props.width) * .07}
+                                width={props.width - (props.width) * .13}
+                            />
+                        </g>
+                        :
+                        null
+                ))
+            }
 
-                    <text
-                        y={20 * (i) + ((i + 1) * 20 / 2) + 20 / 2}
-                        x={props.offset - 10} className={styles.labels}>{e[props.axis.field]}</text>
-
-                ))}
-
-            </g>
-            {props.data.map((e, i) => (
-                e[props.value.field] !== undefined ?
-                    <Row
-                        biggest={props.biggest} axis={e[props.axis.field]}
-                        value={parseInt(e[props.value.field])} color={color} axisLabel={props.axis.label}
-                        index={i} valueLabel={props.value.label}
-                        offset={props.offset}
-                        width={(props.width - props.offset - 35)}
-                    />
-                    :
-                    null
-            ))}
-        </svg>
+        </LazyLoader>
     )
 }
 Content.propTypes = {
@@ -53,6 +50,6 @@ Content.propTypes = {
         label: PropTypes.string,
         field: PropTypes.string
     }),
-    offset: PropTypes.number,
-    biggest: PropTypes.number
+    biggest: PropTypes.number,
+    scrollableRef: PropTypes.object
 }

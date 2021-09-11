@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import EditorWrapper from "../../shared/templates/wrappers/EditorWrapper";
-import BorderEditor from "../../shared/templates/BorderEditor";
-import DimensionPositionEditor from "../../shared/templates/DimensionPositionEditor";
+import EditorWrapper from "../../shared/templates/tools/EditorWrapper";
+import BorderEditor from "../../shared/templates/editor/BorderEditor";
+import DimensionPositionEditor from "../../shared/templates/editor/DimensionPositionEditor";
 
 export default function FlowchartNodeEditor(props) {
     const handleChange = (name, value) => {

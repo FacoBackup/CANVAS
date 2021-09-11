@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useRef, useState} from "react";
 import {ArrowDropDownRounded, DeleteRounded} from "@material-ui/icons";
-import Dropdown from "../../../../shared/templates/Dropdown";
+import Dropdown from "../../../../shared/templates/tools/Dropdown";
 import styles from '../../../styles/Dataset.module.css'
 import NumericIcon from "../templates/NumericIcon";
 import StringIcon from "../templates/StringIcon";

@@ -1,4 +1,4 @@
-import styles from '../styles/Tabs.module.css'
+import styles from '../../styles/Tabs.module.css'
 import PropTypes from 'prop-types'
 import {useEffect, useRef} from "react";
 

@@ -1,7 +1,7 @@
 export default function useNode(data, setData){
-    const handleNodeChange = (index, node, data) => {
+    const handleNodeChange = (index, node, newContent) => {
         let newNodes = [...data.nodes]
-        newNodes[index] = data
+        newNodes[index] = newContent
         setData({
             ...data,
             nodes: newNodes

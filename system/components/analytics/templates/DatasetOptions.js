@@ -1,4 +1,4 @@
-import Accordion from "../../shared/templates/Accordion";
+import Accordion from "../../shared/templates/tools/Accordion";
 import styles from "../styles/Dataset.module.css";
 import {DragIndicatorRounded} from "@material-ui/icons";
 import PlaceNewField from "../utils/PlaceNewField";

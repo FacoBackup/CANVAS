@@ -10,20 +10,37 @@ function handleCanvas(up, setData) {
     setData(JSON.parse(response))
 }
 
-function handleJson(up, setData) {
-    const uploaded = JSON.parse(up.target.result)
+function handleJson(up) {
+    return new Promise((resolve) => {
+        const uploaded = JSON.parse(up.target.result)
 
-    let obj = uploaded.reduce((res, item) => ({...res, ...item}));
+        let obj = uploaded.reduce((res, item) => ({...res, ...item}));
 
-    let keys = Object.keys(obj);
+        let keys = Object.keys(obj);
 
-    let def = keys.reduce((result, key) => {
-        result[key] = undefined
-        return result;
-    }, {});
+        let def = keys.reduce((result, key) => {
+            result[key] = undefined
+            return result;
+        }, {});
 
-    let result = uploaded.map((item) => ({...def, ...item}));
-    setData(result)
+        let result = uploaded.map((item) => ({...def, ...item}));
+        let parsedData = []
+        result.forEach(e => {
+            const keys = Object.keys(e)
+            let parsedObject = {}
+            keys.forEach(k => {
+                if (!isNaN(parseInt(e[k])))
+                    parsedObject[k] = parseInt(e[k])
+                else
+                    parsedObject[k] = e[k]
+
+
+            })
+            parsedData.push(parsedObject)
+        })
+        resolve(parsedData)
+
+    })
 }
 
 async function handleCsv(up, setData) {
@@ -41,6 +58,20 @@ async function handleCsv(up, setData) {
                     return result;
                 }, {});
 
+                let parsedData = []
+                result.forEach(e => {
+                    const keys = Object.keys(e)
+                    let parsedObject = {}
+                    keys.forEach(k => {
+                        if (!isNaN(parseInt(e[k])))
+                            parsedObject[k] = parseInt(e[k])
+                        else
+                            parsedObject[k] = e[k]
+                    })
+
+                    parsedData.push(parsedObject)
+                })
+
                 let result = e.data.map((item) => ({...def, ...item}));
 
                 setData(result)
@@ -55,7 +86,6 @@ export default async function HandleUpload(props) {
     let data
     try {
         let reader = new FileReader()
-        console.log(props.type)
         reader.onload = async newData => {
             switch (props.type) {
                 case 'canvas': {
@@ -63,10 +93,9 @@ export default async function HandleUpload(props) {
                     break
                 }
                 case 'json': {
-                    handleJson(newData, (e) => {
-                        props.setDataset(e)
-                        props.setDatasetName(name)
-                    })
+                    data = await handleJson(newData)
+                    props.setDataset(data)
+                    props.setDatasetName(name)
                     break
                 }
                 case 'csv': {
@@ -83,7 +112,6 @@ export default async function HandleUpload(props) {
         }
         reader.readAsText(props.file.target.files[0]);
     } catch (error) {
-        console.log(error)
     }
     return data
 }

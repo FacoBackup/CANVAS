@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import NodeTemplate from "../../shared/templates/NodeTemplate";
+import NodeTemplate from "../../shared/templates/presets/NodeTemplate";
 
 export default {
     node: NodeTemplate,
@@ -11,5 +11,6 @@ export default {
     setNode: PropTypes.func,
     children: PropTypes.node,
     controlComponents: PropTypes.arrayOf(PropTypes.node),
-    noPlacementIndicator: PropTypes.bool
+    noPlacementIndicator: PropTypes.bool,
+    focusOnDouble: PropTypes.bool
 }

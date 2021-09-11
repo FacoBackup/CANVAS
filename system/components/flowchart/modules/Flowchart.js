@@ -1,14 +1,14 @@
 import styles from '../../shared/styles/Canvas.module.css'
 import React, {useEffect, useRef, useState} from "react";
 import {useReactToPrint} from "react-to-print";
-import NewProjectTemplate from "../../shared/templates/NewProjectTemplate";
-import SideBar from "../../shared/templates/SideBar";
-import ContextMenu from "../../shared/modules/ContextMenu";
-import Pages from "../../shared/modules/Pages";
+import NewProjectTemplate from "../../shared/templates/presets/NewProjectTemplate";
+import SideBar from "../../shared/templates/tools/SideBar";
+import ContextMenu from "../../shared/modules/context/ContextMenu";
+import Pages from "../../shared/modules/engine/Pages";
 import FontVisualsBar from "./FontVisualsBar";
 import FrameView from "../../shared/modules/engine/FrameView";
 import keyboardControl from "../../shared/utils/KeyboardControl";
-import FileOptions from "../../shared/templates/FileOptions";
+import FileOptions from "../../shared/templates/tools/FileOptions";
 import Head from "next/head";
 import Connections from "../templates/Connections";
 import Lines from "../templates/Lines";
@@ -25,7 +25,7 @@ import {
 } from "@material-ui/icons";
 import FlowchartNodeEditor from "../templates/FlowchartNodeEditor";
 import HandleUpload from "../../shared/utils/HandleUpload";
-import Dropdown from "../../shared/templates/Dropdown";
+import Dropdown from "../../shared/templates/tools/Dropdown";
 import HandleDownload from "../../shared/utils/HandleDownload";
 
 export default function Flowchart(props) {

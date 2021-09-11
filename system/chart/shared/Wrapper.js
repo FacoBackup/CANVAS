@@ -1,43 +1,54 @@
 import PropTypes from 'prop-types'
 import styles from "../horizontal/styles/Horizontal.module.css";
+import {useEffect, useState} from "react";
 
 export default function Wrapper(props) {
-    const offset = 35
-    return (
-        <svg className={styles.graph}
-             width={props.width}
-             height={props.height}
-        >
-            <title id="title">A line chart showing some information</title>
-            <g className={styles.grid}>
-                <line x1={offset} x2={offset} y1={5} y2={props.height - offset}/>
-            </g>
-            <g className={styles.grid}>
-                <line x1={offset} x2={props.width - 5} y1={props.height - offset} y2={props.height - offset}/>
-            </g>
-            <g className={styles.labels}>
-                {iterations.map((e, i) => (
-                    <g>
-                        <line x1={(props.width * i) / 11 + offset - 8} y1={props.height - offset}
-                              x2={(props.width * i) / 11 + offset - 8} y2={5} strokeWidth={1}
-                              stroke={'#e0e0e0'} visibility={i > 0 ? 'visible' : 'hidden'}/>
-                        <text x={(props.width * i) / 11 + offset} y={props.height - offset + 15}
-                              className={styles.labels}
-                        >{e}</text>
-                    </g>
-                ))}
-                <text x={(props.width) / 2} y={props.height - 5}
-                      className={styles.valuesLabel}>{props.value.label}</text>
-            </g>
+    const [iterations, setIterations] = useState([])
+    const [biggest, setBiggest] = useState(null)
+    useEffect(() => {
+        let b = undefined
+        props.data.forEach((e) => {
+            if (b === undefined)
+                b = parseInt(e[props.value])
+            else if (parseInt(e[props.value]) > b)
+                b = parseInt(e[props.value])
+        })
 
-        </svg>
+        let value = b
+        let percent = Math.ceil(value * .2)
+        let topValue = value - percent * 5
+        if (topValue < 0) {
+            topValue = topValue * (-1)
+            value = value + topValue
+            topValue = value - percent * 5
+        }
+
+
+        let newIterations = []
+        for (let i = 0; i < 6; i++)
+            newIterations.push({
+                value: (topValue > 0 ? topValue : value) - percent * (i),
+                x: (5 - i) * 17.5
+            })
+        setIterations(newIterations)
+        setBiggest(newIterations[0].value)
+
+    }, [props.value, props.data])
+
+    return (
+        <div className={styles.chartWrapper}>
+            <div className={styles.titleInput}>
+                {props.title}
+            </div>
+            {props.children(30, iterations, biggest)}
+        </div>
     )
 }
 
 Wrapper.propTypes = {
+    data: PropTypes.array,
+    value: PropTypes.string,
     children: PropTypes.node,
-    columns: PropTypes.array,
-    rows: PropTypes.array,
-    width: PropTypes.number,
-    height: PropTypes.number
+    title: PropTypes.string,
+
 }

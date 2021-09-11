@@ -1,4 +1,4 @@
-import styles from "../styles/Pages.module.css";
+import styles from "../../styles/Pages.module.css";
 import PropTypes from "prop-types";
 import {CloseRounded} from "@material-ui/icons";
 

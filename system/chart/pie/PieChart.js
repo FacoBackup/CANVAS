@@ -12,7 +12,21 @@ export default function PieChart(props) {
 
     const [sum, setSum] = useState(1)
     const graphRef = useRef()
+    const [circumference, setCircumference] = useState()
     const [filteredData, setFilteredData] = useState([])
+
+    const updateCircumference = () => {
+        let value
+        if (props.height < props.width)
+            value = props.height - 40
+        else
+            value = props.width - 40
+
+        value = value*Math.PI
+
+
+        setCircumference(value)
+    }
     useEffect(() => {
 
         if (!(props.value === undefined || props.axis === undefined || !props.value.field || !props.axis.field)) {
@@ -37,10 +51,11 @@ export default function PieChart(props) {
                 return 0;
             }
             filtered.sort(compare);
-            console.log(filtered)
             setFilteredData(filtered)
             setSum(value)
         }
+
+        updateCircumference()
     }, [props.data, props.value, props.axis])
 
     return (
@@ -69,7 +84,8 @@ export default function PieChart(props) {
                             {filteredData.map((e, i) => (
                                 <Slice index={i} current={e}
                                        valueKey={props.value.field} sum={sum} axisLabel={props.axis.label}
-                                       valueLabel={props.value.label} axisKey={props.axis.field} data={filteredData}/>
+                                       valueLabel={props.value.label} axisKey={props.axis.field}
+                                       data={filteredData} circumference={circumference}/>
                             ))}
                         </svg>
                     </div>

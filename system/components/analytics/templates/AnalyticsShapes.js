@@ -1,6 +1,6 @@
 import styles from '../../shared/styles/Shapes.module.css'
 import PropTypes from 'prop-types'
-import Accordion from "../../shared/templates/Accordion";
+import Accordion from "../../shared/templates/tools/Accordion";
 import {BarChartRounded, PieChartRounded, ShowChartRounded} from "@material-ui/icons";
 import PlaceNewAnalyticChart from "../utils/PlaceNewAnalyticChart";
 

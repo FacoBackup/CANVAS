@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {useEffect, useRef} from "react";
-import styles from '../styles/Dropdown.module.css'
+import styles from '../../styles/Dropdown.module.css'
 
 export default function Dropdown(props) {
     const ref = useRef()

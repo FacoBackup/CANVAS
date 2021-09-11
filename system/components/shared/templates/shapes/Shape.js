@@ -7,10 +7,7 @@ import Polygon from "./Polygon";
 
 
 export default function Shape(props) {
-
-    const [open, setOpen] = useState(false)
     const ref = useRef()
-    let openRef = false
     const getShape = () => {
         let res
         switch (props.shapeVariant) {
@@ -34,36 +31,13 @@ export default function Shape(props) {
         return res
     }
 
-    const handleMouseDown = (event) => {
-        let closest
-        try {
-            closest = event.target?.closest('.' + styles.entityContainer)
-        } catch (e) {
-        }
-
-        if (openRef && closest === null) {
-            setOpen(false)
-            openRef = false
-        }
-    }
-    const handleDoubleClick = () => {
-        setOpen(true)
-        openRef = true
-    }
-
-    useEffect(() => {
-        document.addEventListener('mousedown', handleMouseDown)
-        ref.current?.addEventListener('dblclick', handleDoubleClick)
-        return () => {
-            ref.current?.removeEventListener('dblclick', handleDoubleClick)
-            document.removeEventListener('mousedown', handleMouseDown)
-        }
-    }, [])
-
     return (
         <g
             ref={ref} cursor={props.cursor}
-            onMouseDown={event => props.onMouseDown(event, open)}
+            onClick={(event) => {
+                props.onClick(event)
+            }} overflow={'hidden'}
+            onMouseDown={event => props.onMouseDown(event)}
         >
             {getShape()}
             {props.children}
@@ -87,5 +61,6 @@ Shape.propTypes = {
     onMouseDown: PropTypes.func,
     id: PropTypes.string,
     children: PropTypes.node,
-    cursor: PropTypes.string
+    cursor: PropTypes.string,
+    onClick: PropTypes.func
 }

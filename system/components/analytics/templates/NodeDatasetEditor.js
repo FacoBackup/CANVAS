@@ -1,4 +1,4 @@
-import Accordion from "../../shared/templates/Accordion";
+import Accordion from "../../shared/templates/tools/Accordion";
 import styles from "../styles/Dataset.module.css";
 import PropTypes from "prop-types";
 import {AddRounded} from "@material-ui/icons";

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import EditorWrapper from "../../shared/templates/wrappers/EditorWrapper";
-import DimensionPositionEditor from "../../shared/templates/DimensionPositionEditor";
-import BorderEditor from "../../shared/templates/BorderEditor";
+import EditorWrapper from "../../shared/templates/tools/EditorWrapper";
+import DimensionPositionEditor from "../../shared/templates/editor/DimensionPositionEditor";
+import BorderEditor from "../../shared/templates/editor/BorderEditor";
 import NodeDatasetEditor from "./NodeDatasetEditor";
 
 export default function ChartNodeEditor(props) {

@@ -9,38 +9,8 @@ import getPercentage from "../shared/getPercentage";
 
 
 export default function HorizontalChart(props) {
-
-    const [sortedData, setSortedData] = useState([])
-    const [biggest, setBiggest] = useState(null)
-    const offset = 35
+    const scrollableRef = useRef()
     const graphRef = useRef()
-    useEffect(() => {
-
-        if (!(props.value === undefined || props.axis === undefined || !props.value.field || !props.axis.field)) {
-            const nData = [...props.data]
-
-            const compare = (a, b) => {
-                let fA = parseInt(a[props.value.field])
-                let fB = parseInt(b[props.value.field])
-                if (fA < fB)
-                    return 1;
-                if (fA > fB)
-                    return -1;
-                return 0;
-            }
-            nData.sort(compare);
-
-            setSortedData(nData)
-            let value
-            props.data.forEach((e) => {
-                if (value === undefined)
-                    value = parseInt(e[props.value.field])
-                else if (parseInt(e[props.value.field]) > value)
-                    value = parseInt(e[props.value.field])
-            })
-            setBiggest(value)
-        }
-    }, [props.data, props.value, props.axis])
 
     return (
         <div>
@@ -56,70 +26,66 @@ export default function HorizontalChart(props) {
                     }}
                 />
                 :
-                <div style={{ height: props.height + 'px', overflow: 'hidden'}}>
-                    <svg
-                        width={'100%'}
-                        overflow={'visible'}
-                        // height={0}
-                        style={{position: 'absolute', zIndex: 0, padding: '0 35px 0 35px'}}
-                    >
-                        <g style={{stroke: '#e0e0e0', fill: '#e0e0e0', strokeWidth: '1', fontSize: '10px'}}>
-                            <line x1={0} x2={0} y1={0} y2={props.height - 20}/>
+                <Wrapper title={props.title} setTitle={props.setTitle} value={props.value?.field} data={props.data}>
+                    {(offset, iterations, biggest) => (
+                        <>
+                            <svg
+                                width={'100%'}
+                                overflow={'visible'}
+                                // height={0}
+                                style={{position: 'absolute', zIndex: 0, left: (props.width * .07 + 2) + 'px'}}
+                            >
+                                {iterations.map((i, index) => (
+                                    <g style={{stroke: '#999999', strokeWidth: '.5'}}
+                                       key={index + '-line-iterations-' + i.value}>
+                                        <line x1={i.x + '%'} x2={i.x + '%'} y1={0} y2={props.height - offset * 2}
+                                        />
+                                    </g>
+                                ))}
+                            </svg>
+                            <div style={{overflowY: 'auto', height: (props.height - offset * 2) + 'px', width: '100%'}}              ref={scrollableRef}>
+                                <svg
 
-                        </g>
-
-                        <g style={{stroke: '#e0e0e0', fill: '#e0e0e0', strokeWidth: '1', fontSize: '10px'}}>
-                            <line x1={'50%'} x2={'50%'} y1={0} y2={props.height - 20}/>
-
-                        </g>
-                        <g style={{stroke: '#e0e0e0', fill: '#e0e0e0', strokeWidth: '1', fontSize: '10px'}}>
-                            <line x1={'100%'} x2={'100%'} y1={0} y2={props.height - 20}/>
-
-                        </g>
-                    </svg>
-                    <div style={{overflowY: 'auto', height: (props.height - 20) + 'px'}}>
-
-                        <svg
-                            width={props.width - 35}
-                            overflow={'visible'}
-                            style={{position: 'relative', zIndex: 10}}
-                            height={(props.data.length - 1) * 30}
-                        >
-
-                            <Content {...props}
-                                     data={sortedData} biggest={biggest}
-                                     offset={offset}/>
-                        </svg>
-                    </div>
-                    <div
-                        ref={graphRef}
-                        style={{
-                            width: '100%',
-                            height: props.height + 'px',
-                            overflow: 'visible', padding: '0 35px 0 35px',
-
-                        }}>
-                        <svg
-                            width={'100%'}
-                            overflow={'visible'}
-                            height={'20'}
-                            style={{borderTop: '#e0e0e0 1px solid'}}
-                        >
-                            <text x={0} y={14} textAnchor={'middle'} fill={'#555555'} style={{fontSize: '10px'}}>
-                                0
-                            </text>
-                            <text x={'50%'} y={14} textAnchor={'middle'} fill={'#555555'} style={{fontSize: '10px'}}>
-                                {biggest / 2}
-                            </text>
-
-
-                            <text x={'100%'} y={14} textAnchor={'middle'} fill={'#555555'} style={{fontSize: '10px'}}>
-                                {biggest}
-                            </text>
-
-                        </svg>
-                    </div>
-                </div>
+                                    width={props.width - props.width * 0.7 - 20}
+                                    overflow={'visible'}
+                                    style={{position: 'relative', zIndex: 10}}
+                                    height={(props.data.length - 1) * 30}
+                                >
+                                    <Content
+                                        {...props}
+                                        scrollableRef={scrollableRef.current}
+                                        data={props.data}
+                                        biggest={biggest}
+                                    />
+                                </svg>
+                            </div>
+                            <div
+                                ref={graphRef}
+                                style={{
+                                    width: '100%',
+                                    paddingLeft: (props.width * .07 + 1) + 'px',
+                                    marginLeft: 'auto',
+                                    borderTop: '#e0e0e0 1px solid',
+                                    height: offset + 'px'
+                                }}>
+                                <svg
+                                    width={props.width}
+                                    height={'100%'}
+                                    overflow={'visible'}
+                                >
+                                    {iterations.map((i, index) => (
+                                        <g style={{fill: '#555555', strokeWidth: '1', fontSize: '10px'}}>
+                                            <text x={i.x + '%'} y={offset - 10}
+                                                  textAnchor={'middle'}>
+                                                {i.value}
+                                            </text>
+                                        </g>
+                                    ))}
+                                </svg>
+                            </div>
+                        </>
+                    )}
+                </Wrapper>
             }
         </div>
     )
@@ -138,7 +104,6 @@ HorizontalChart.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     title: PropTypes.string,
-    setTitle: PropTypes.func,
     legends: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,
         field: PropTypes.string

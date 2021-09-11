@@ -1,4 +1,4 @@
-import styles from "../styles/Options.module.css";
+import styles from "../../styles/Options.module.css";
 import PropTypes from "prop-types";
 import React, {useRef, useState} from "react";
 import Link from 'next/link'

@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import styles from "../styles/Shapes.module.css";
+import styles from "../../styles/Shapes.module.css";
 import {ArrowDropDownRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 

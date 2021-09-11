@@ -1,4 +1,4 @@
-import Accordion from "../../shared/templates/Accordion";
+import Accordion from "../../shared/templates/tools/Accordion";
 import styles from "../../shared/styles/Shapes.module.css";
 
 export default function Connections(props) {

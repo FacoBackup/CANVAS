@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import NodeTemplate from "../NodeTemplate";
+import NodeTemplate from "../presets/NodeTemplate";
 import GetNodeResizeParams from "../../utils/GetNodeResizeParams";
 import styles from '../../styles/Node.module.css'
 export default function ResizeIndicator(props) {

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
-import SideBar from "../../shared/templates/SideBar";
+import SideBar from "../../shared/templates/tools/SideBar";
 import {CategoryRounded, StorageRounded} from "@material-ui/icons";
 import AnalyticsShapes from "../templates/AnalyticsShapes";
 import DatasetOptions from "../templates/DatasetOptions";
 import styles from "../../shared/styles/Canvas.module.css";
-import Pages from "../../shared/modules/Pages";
+import Pages from "../../shared/modules/engine/Pages";
 import React from "react";
 
 export default function ChartContent(props) {
