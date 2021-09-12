@@ -17,11 +17,13 @@ export default function Charts(props) {
                         node: node,
                         index: index,
                         setNode: event => nodeHook.handleNodeChange(index, node, event),
-                        selected: props.selectedNode?.id,
-                        savePlacement: event => nodeHook.savePlacement(event, node, index),
-                        setSelected: props.setSelectedNode,
-                        scale: 1,
 
+                        savePlacement: event => nodeHook.savePlacement(event, node, index),
+
+                        scale: 1,
+                        selectNode: props.selectNode,
+                        unselectNode: props.unselectNode,
+                        selectedNodes: props.selectedNodes,
                         controlComponents: [],
                         noPlacementIndicator: true
                     }}
@@ -40,8 +42,9 @@ export default function Charts(props) {
 Charts.propTypes = {
     setData: PropTypes.func,
     data: PropTypes.object,
-    setSelectedNode: PropTypes.func,
-    selectedNode: PropTypes.any,
+    selectNode: PropTypes.func,
+    unselectNode: PropTypes.func,
+    selectedNodes: PropTypes.array,
     dataset: PropTypes.array,
 
 }

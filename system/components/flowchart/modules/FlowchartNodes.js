@@ -3,13 +3,12 @@ import PropTypes from 'prop-types'
 import NodeWrapper from "../../shared/templates/node/NodeWrapper";
 import styles from "../../shared/styles/Node.module.css";
 import Content from "./Content";
-import ConnectionsWrapper from "./ConnectionsWrapper";
 import useNode from "../../shared/hooks/useNode";
 import useLink from "../../shared/hooks/useLink";
 
 export default function FlowchartNodes(props) {
     const nodeHook = useNode(props.data, props.setData)
-    const linkHook = useLink(props.metadata, props.data, props.setData, props.toBeLinked, props.setToBeLinked, props.setSelectedNode)
+    const linkHook = useLink(props.metadata, props.data, props.setData, props.toBeLinked, props.setToBeLinked, props.unselectNode)
 
     const render = (node, index) => {
         const wrapperProps = {
@@ -19,16 +18,18 @@ export default function FlowchartNodes(props) {
             handleLink: (node, connection) => linkHook.handleLink(node, connection, index),
             toBeLinked: props.toBeLinked,
             setNode: event => nodeHook.handleNodeChange(index, node, event),
-            selected: props.selectedNode?.id,
+
             savePlacement: event => nodeHook.savePlacement(event, node, index),
-            setSelected: props.setSelectedNode,
+            selectedNodes: props.selectedNodes,
+            unselectNode: props.unselectNode,
+            selectNode: props.selectNode,
             scale: props.scale,
+            showConnections: true
         }
         return (
             <g key={`${node.id}-node-${index}`}>
                 <NodeWrapper
                     {...wrapperProps}
-                    controlComponents={[<ConnectionsWrapper {...wrapperProps}/>]}
                 >
                     {nodeProps => (
                         <foreignObject
@@ -36,11 +37,7 @@ export default function FlowchartNodes(props) {
                             overflow={'visible'}
                             width={nodeProps.node.dimensions.width} height={nodeProps.node.dimensions.height}
                         >
-                            <div className={styles.nodeShapeContainer} id={nodeProps.node.id + '-*wrapper'}
-                                 onClick={() => {
-                                     nodeProps.setSelected(nodeProps.node)
-                                 }}
-                            >
+                            <div className={styles.nodeShapeContainer} id={nodeProps.node.id + '-*wrapper'}>
                                 <Content
                                     node={nodeProps.node} setNode={nodeProps.setNode}
                                     currentTextStyles={nodeProps.currentTextStyles}
@@ -66,8 +63,9 @@ FlowchartNodes.propTypes = {
     scale: PropTypes.number,
     setData: PropTypes.func,
     data: PropTypes.object,
-    setSelectedNode: PropTypes.func,
-    selectedNode: PropTypes.any,
+    selectedNodes: PropTypes.array,
+    unselectNode: PropTypes.func,
+    selectNode: PropTypes.func,
     toBeLinked: PropTypes.object,
     setToBeLinked: PropTypes.func
 }

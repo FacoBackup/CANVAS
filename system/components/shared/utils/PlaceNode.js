@@ -59,7 +59,7 @@ export default function PlaceNode(props) {
         if (moving) {
             if (!onMove) {
                 onMove = true
-                props.setSelectedNode(undefined)
+                props.unselectNode(props.node.id)
             }
 
             handlePlacement(event, false)
@@ -70,7 +70,7 @@ export default function PlaceNode(props) {
     document.addEventListener("mouseup", event => {
         moving = false
         nodeRef.style.cursor = 'unset'
-        props.setSelectedNode(props.node)
+        props.selectNode(props.node)
         handlePlacement(event, true)
     }, {once: true});
 
@@ -80,7 +80,8 @@ PlaceNode.propTypes = {
     scale: PropTypes.number,
     node: PropTypes.object,
     event: PropTypes.object,
-    setSelectedNode: PropTypes.func,
+    selectNode: PropTypes.func,
+    unselectNode: PropTypes.func,
     savePlacement: PropTypes.func,
     noPlacementIndicator: PropTypes.bool
 }

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
 export default function LazyLoader(props) {
 

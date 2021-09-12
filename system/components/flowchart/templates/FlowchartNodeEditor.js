@@ -1,15 +1,19 @@
 import PropTypes from 'prop-types'
-import EditorWrapper from "../../shared/templates/tools/EditorWrapper";
+import EditorWrapper from "../../shared/templates/node/EditorWrapper";
 import BorderEditor from "../../shared/templates/editor/BorderEditor";
 import DimensionPositionEditor from "../../shared/templates/editor/DimensionPositionEditor";
+import {useMemo} from "react";
 
 export default function FlowchartNodeEditor(props) {
+    const openEdit = useMemo(() => {
+        return props.selectedNodes.find(e => e.openEdit)
+    }, [props.selectedNodes])
     const handleChange = (name, value) => {
         const newNodes = [...props.data.nodes]
-        const newNode = {...props.data.nodes[props.selectedNode.index]}
+        const newNode = {...props.data.nodes[openEdit.index]}
 
         newNode[name] = value
-        newNodes[props.selectedNode.index] = newNode
+        newNodes[openEdit.index] = newNode
         props.setData(({
             ...props.data,
             nodes: newNodes
@@ -17,11 +21,11 @@ export default function FlowchartNodeEditor(props) {
     }
 
     return (
-        <EditorWrapper open={props.selectedNode !== undefined && props.selectedNode.openEdit} handleClose={() => props.setSelectedNode(undefined)}>
-            {props.selectedNode !== undefined ?
+        <EditorWrapper open={openEdit !== undefined && openEdit.openEdit} handleClose={() => props.unselectNode(openEdit.node.id)}>
+            {openEdit !== undefined ?
                 <>
-                    <BorderEditor handleChange={handleChange} node={props.selectedNode.node}/>
-                    <DimensionPositionEditor handleChange={handleChange} node={props.selectedNode.node}/>
+                    <BorderEditor handleChange={handleChange} node={props.data.nodes[openEdit.index]}/>
+                    <DimensionPositionEditor handleChange={handleChange} node={props.data.nodes[openEdit.index]}/>
                 </>
                 : null}
         </EditorWrapper>
@@ -31,5 +35,7 @@ export default function FlowchartNodeEditor(props) {
 FlowchartNodeEditor.propTypes = {
     setData: PropTypes.func,
     data: PropTypes.object,
-    handleClose: PropTypes.func,
+    selectedNodes: PropTypes.array,
+    selectNode: PropTypes.func,
+    unselectNode: PropTypes.func
 }

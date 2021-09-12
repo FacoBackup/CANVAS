@@ -8,7 +8,7 @@ export default function useData() {
     const [datasetName, setDatasetName] = useState()
     const uploadRef = useRef()
     const [copied, setCopied] = useState()
-    const [selected, setSelected] = useState()
+    const [selected, setSelected] = useState([])
     const [loading, setLoading] = useState(false)
     const [pages, setPages] = useState([{
         title: 'Página 1',
@@ -33,23 +33,49 @@ export default function useData() {
         newPages[openPage] = e
         setPages(newPages)
     }
-    const handleSelectedNodeChange = (node, openEdit) => {
+    const selectNode = (node, openEdit, clear) => {
         let index
+        let existingIndex
         if (node !== undefined && node !== null) {
-            pages[openPage].nodes.find((e, i) => {
+
+
+            pages[openPage].nodes.forEach((e, i) => {
                 if (e.id === node.id)
                     index = i
             })
+            let newSelected = clear ? [] : [...selected]
+            newSelected.forEach((e, i) => {
+                if (e.id === node.id)
+                    existingIndex = i
+            })
 
-            setSelected({
+            if(existingIndex)
+                newSelected.splice(existingIndex, 1)
+
+            newSelected.push({
                 node: node,
                 index: index,
                 openEdit: openEdit
             })
-        } else
-            setSelected(undefined)
+            setSelected(newSelected)
+        }
     }
+    const unselectNode = (nodeID, all) => {
+        if (!all) {
+            let index
+            let newSelected = [...selected]
+            pages[openPage].nodes.forEach((e, i) => {
+                if (e.id === nodeID)
+                    index = i
+            })
+            newSelected.splice(index, 1)
+            setSelected(newSelected)
+        } else {
+            console.log('ALL')
+            setSelected([])
+        }
 
+    }
     const handlePrint = useReactToPrint({
         content: () => document.getElementById('engine-content')
     });
@@ -64,13 +90,13 @@ export default function useData() {
         metadata,
         setMetadata,
         selected,
-        setSelected,
         loading,
         setLoading,
         openPage,
         setOpenPage,
         handlePageChange,
-        handleSelectedNodeChange,
+        selectNode,
+        unselectNode,
         dataset, setDataset, openDataset,
         setOpenDataset, setDatasetName,
         datasetName,

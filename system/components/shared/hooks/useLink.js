@@ -1,7 +1,7 @@
-export default function useLink(metadata, data, setData, toBeLinked, setToBeLinked, setSelectedNode){
+export default function useLink(metadata, data, setData, toBeLinked, setToBeLinked, unselectNode){
     const handleLink = (node, connection, index) => {
         if (toBeLinked !== null) {
-            setSelectedNode(undefined)
+            unselectNode(undefined, true)
             let newLink = {
                 type: 'dashed-path',
                 parent: {
@@ -22,7 +22,7 @@ export default function useLink(metadata, data, setData, toBeLinked, setToBeLink
             setData({...data, links: newLinks})
             setToBeLinked(null)
         } else {
-            setSelectedNode(undefined)
+            unselectNode(undefined, true)
             setToBeLinked({
                 id: node.id,
                 connectionPoint: connection,

@@ -34,10 +34,7 @@ export default function RenderLinks(props) {
                     source={link.child}
                     type={link.type}
                     color={() => {
-                        const color = props.data.nodes.find(node => {
-                            if (node.id === link.parent.id)
-                                return node
-                        })
+                        const color = props.data.nodes.find(node => node.id === link.parent.id)
                         if (color !== undefined)
                             return color.styling.color
                         else return 'transparent'
@@ -58,14 +55,8 @@ export default function RenderLinks(props) {
                         const index = newLinks.indexOf(link)
                         let newNodes = [...props.data.nodes]
 
-                        newNodes[link.child.index].links.splice(newNodes[link.child.index].links.find((l, index) => {
-                            if (l === link)
-                                return index
-                        }), 1)
-                        newNodes[link.parent.index].links.splice(newNodes[link.parent.index].links.find((l, index) => {
-                            if (l === link)
-                                return index
-                        }), 1)
+                        newNodes[link.child.index].links.splice(newNodes[link.child.index].links.find((l, index) => l === link), 1)
+                        newNodes[link.parent.index].links.splice(newNodes[link.parent.index].links.find((l, index) => l === link), 1)
                         if (index > -1) {
                             newLinks.splice(index, 1)
                             props.setData({

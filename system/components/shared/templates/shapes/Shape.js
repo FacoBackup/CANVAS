@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from "../../styles/Node.module.css";
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useMemo, useRef} from "react";
 import Ellipse from "./Ellipse";
 import Rect from "./Rect";
 import Polygon from "./Polygon";

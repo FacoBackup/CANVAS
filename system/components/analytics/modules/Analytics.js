@@ -1,12 +1,11 @@
 import styles from '../../shared/styles/Canvas.module.css'
-import React, {useEffect, useRef, useState} from "react";
-import {useReactToPrint} from "react-to-print";
-import NewProjectTemplate from "../../shared/templates/presets/NewProjectTemplate";
+import React, {useEffect, useState} from "react";
 import ContextMenu from "../../shared/modules/context/ContextMenu";
 import keyboardControl from "../../shared/utils/KeyboardControl";
 import {
     DescriptionRounded,
-    FileCopyRounded, ImageRounded,
+    FileCopyRounded,
+    ImageRounded,
     PictureAsPdfRounded,
     PrintRounded,
     PublishRounded,
@@ -35,7 +34,8 @@ export default function Analytics(props) {
         selected, loading,
         setLoading, openPage,
         setOpenPage, handlePageChange,
-        handleSelectedNodeChange,
+        selectNode,
+        unselectNode,
         uploadRef,
         handlePrint
     } = useData()
@@ -60,18 +60,17 @@ export default function Analytics(props) {
         <div
             className={styles.wrapper}
             onMouseDown={event => {
-                if (selected !== undefined && (event.target.id === 'frame' || event.target.id === 'engine-content'))
-                    handleSelectedNodeChange(undefined)
+                if ((event.target.id === 'frame' || event.target.id === 'engine-content'))
+                    unselectNode(undefined, true)
             }}>
             {/*<FrameView data={data}/>*/}
             <Loader loading={loading}/>
+
             <ChartNodeEditor
                 data={pages[openPage]}
-                node={selected !== undefined ? pages[openPage].nodes[selected.index] : null}
                 setData={handlePageChange}
-                selectedNode={selected}
-                index={selected !== undefined ? selected.index : selected}
-                setSelectedNode={handleSelectedNodeChange}
+                selectedNodes={selected}
+                unselectNode={unselectNode}
             />
 
             <input
@@ -97,10 +96,11 @@ export default function Analytics(props) {
             <ContextMenu
                 data={pages[openPage]}
                 setData={handlePageChange}
-
+                selectNode={selectNode}
+                unselectNode={unselectNode}
                 copiedNode={copied}
                 setCopiedNode={setCopied}
-                setSelectedNode={handleSelectedNodeChange}/>
+            />
             <FileOptions
                 setMetadata={e => {
                     setMetadata(e)
@@ -150,9 +150,9 @@ export default function Analytics(props) {
                                     onClick: () => {
                                         const el = document.getElementById('frame')
                                         if (el !== null) {
-                                            const svg =  'data:image/svg+xml,' + encodeURIComponent(el.innerHTML)
+                                            const svg = 'data:image/svg+xml,' + encodeURIComponent(el.innerHTML)
                                             let downloadAnchorNode = document.createElement('a');
-
+            
                                             downloadAnchorNode.setAttribute("href", svg);
                                             downloadAnchorNode.setAttribute("download", `${metadata.subject}.svg`);
                                             document.body.appendChild(downloadAnchorNode)
@@ -205,7 +205,7 @@ export default function Analytics(props) {
             </FileOptions>
             <DataManagementBar
                 setOpenDataset={e => {
-                    handleSelectedNodeChange(undefined)
+                    unselectNode(undefined, true)
                     setOpenDataset(e)
                 }}
                 openDataset={openDataset}/>
@@ -220,14 +220,14 @@ export default function Analytics(props) {
                             uploadRef.current.setAttribute('accept', '.csv, .json')
                             uploadRef.current.click()
                         }}
-                        setSelectedNode={handleSelectedNodeChange}
                     />,
                     <ChartContent
-                        setSelectedNode={handleSelectedNodeChange}
+                        selectNode={selectNode}
+                        unselectNode={unselectNode}
                         setDefaultPage={setOpenPage} defaultPage={openPage} dataset={dataset}
                         children={props.children} setPages={setPages} pages={pages}
                         handlePageChange={handlePageChange} openDataset={openDataset} metadata={metadata}
-                        setMetadata={setMetadata} selectedNode={selected}
+                        setMetadata={setMetadata} selectedNodes={selected}
                     />
                 ]} openChild={openDataset ? 0 : 1}
             />

@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import HorizontalChart from "../../../chart/horizontal/HorizontalChart";
 import PieChart from "../../../chart/pie/PieChart";
 import LineChart from "../../../chart/line/LineChart";

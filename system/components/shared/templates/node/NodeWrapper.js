@@ -1,20 +1,24 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useMemo, useRef} from "react";
 import NodePropsTemplate from "../../../flowchart/templates/NodePropsTemplate";
 import SelectedWrapper from "./SelectedWrapper";
 import Shape from "../shapes/Shape";
 import styles from '../../styles/Node.module.css'
 import PlaceNode from "../../utils/PlaceNode";
+import ConnectionsWrapper from "../../../flowchart/modules/ConnectionsWrapper";
 
 
 export default function NodeWrapper(props) {
     const ref = useRef()
-
+    const selected = useMemo(() => {
+        return props.selectedNodes.find(e => e.node.id === props.node.id)
+    }, [props.selectedNodes])
     const moveNode = (event) => {
         PlaceNode({
             scale: props.scale,
             node: props.node,
             event: event,
-            setSelectedNode: props.setSelected,
+            selectNode: props.selectNode,
+            unselectNode: props.unselectNode,
             savePlacement: props.savePlacement,
             noPlacementIndicator: props.noPlacementIndicator
         })
@@ -29,12 +33,13 @@ export default function NodeWrapper(props) {
             fill={'none'}
             className={styles.entityContainer}
         >
+            {props.showConnections ? <ConnectionsWrapper {...props} selected={selected}/> : undefined}
             <Shape
                 id={props.node.id}
                 shapeVariant={props.node.shapeVariant}
                 shape={props.node.styling.shape}
                 dimensions={{...props.node.dimensions}}
-                cursor={props.selected === props.node.id ? 'grab' : props.focusOnDouble ? 'pointer' : undefined}
+                cursor={selected !== undefined && selected.node.id === props.node.id ? 'grab' : undefined}
                 styles={{
                     fill: props.node.styling.fill,
                     stroke: props.node.styling.color,
@@ -45,19 +50,24 @@ export default function NodeWrapper(props) {
                 }}
                 onMouseDown={(event) => {
                     if (event.button === 0) {
-                        if (props.selected === props.node.id)
+                        if (selected !== undefined && selected.node.id === props.node.id)
                             moveNode(event)
                     }
 
                 }}
-                onClick={(event, open) => {
-                    props.setSelected(props.node)
+                onClick={(event) => {
+                    if(event.ctrlKey)
+                        props.selectNode(props.node)
+                    else{
+                        props.unselectNode(undefined, true)
+                        props.selectNode(props.node, false, true)
+                    }
                 }}
             >
 
                 {props.children({...props})}
             </Shape>
-            <SelectedWrapper {...props}/>
+            <SelectedWrapper {...props} selected={selected}/>
         </g>
     )
 }

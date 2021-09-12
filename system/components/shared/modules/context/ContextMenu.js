@@ -3,7 +3,6 @@ import styles from '../../styles/ContextMenu.module.css'
 import {useEffect, useRef, useState} from "react";
 import CanvasContext from "./CanvasContext";
 import NodeContext from "./NodeContext";
-import NodeTemplate from "../../templates/presets/NodeTemplate";
 import nodeStyles from '../../styles/Node.module.css'
 
 export default function ContextMenu(props) {
@@ -139,6 +138,7 @@ ContextMenu.propTypes = {
     scale: PropTypes.number,
     setScale: PropTypes.func,
 
-    copiedNode: NodeTemplate,
+    copiedNode: PropTypes.object,
     setCopiedNode: PropTypes.func,
+    unselectNode: PropTypes.func, selectNode: PropTypes.func
 }

@@ -2,7 +2,6 @@ import Accordion from "../tools/Accordion";
 import styles from "../../styles/NodeOverview.module.css";
 import PropTypes from "prop-types";
 import {CirclePicker} from "react-color";
-import ToolTip from "../../../../chart/tooltip/ToolTip";
 
 export default function BorderEditor(props) {
 

@@ -19,7 +19,7 @@ export default function AnalyticsShapes(props) {
     console.log(props.data)
     return (
 
-        <Accordion {...props} label={'Módulos'} >
+        <Accordion {...props} label={'Módulos'}>
             <div className={styles.shapes}>
                 <div
                     className={styles.shapeContainer}
@@ -29,11 +29,11 @@ export default function AnalyticsShapes(props) {
                         drag(event, 'bar-vertical')
                     }}
                     onClick={() => {
-                        if(props.selectedNode !== undefined){
-                            let newPage = {...props.data}
-                            newPage.nodes[props.selectedNode.index].variant = 'bar-vertical'
-                            props.setData(newPage)
-                        }
+
+                        let newPage = {...props.data}
+                        props.selectedNodes.forEach(e => newPage.nodes[e.index].variant = 'bar-vertical')
+                        props.setData(newPage)
+
                     }}
                     draggable={true}
                 >
@@ -51,11 +51,11 @@ export default function AnalyticsShapes(props) {
                         drag(event, 'bar-horizontal')
                     }}
                     onClick={() => {
-                        if(props.selectedNode !== undefined){
-                            let newPage = {...props.data}
-                            newPage.nodes[props.selectedNode.index].variant = 'bar-horizontal'
-                            props.setData(newPage)
-                        }
+
+                        let newPage = {...props.data}
+                        props.selectedNodes.forEach(e => newPage.nodes[e.index].variant = 'bar-horizontal')
+                        props.setData(newPage)
+
                     }}
                 >
                     <div>
@@ -71,11 +71,11 @@ export default function AnalyticsShapes(props) {
                         drag(event, 'line')
                     }}
                     onClick={() => {
-                        if(props.selectedNode !== undefined){
-                            let newPage = {...props.data}
-                            newPage.nodes[props.selectedNode.index].variant = 'line'
-                            props.setData(newPage)
-                        }
+
+                        let newPage = {...props.data}
+                        props.selectedNodes.forEach(e => newPage.nodes[e.index].variant = 'line')
+                        props.setData(newPage)
+
                     }}
                     draggable={true}
                 >
@@ -92,11 +92,11 @@ export default function AnalyticsShapes(props) {
                         drag(event, 'pie')
                     }}
                     onClick={() => {
-                        if(props.selectedNode !== undefined){
-                            let newPage = {...props.data}
-                            newPage.nodes[props.selectedNode.index].variant = 'pie'
-                            props.setData(newPage)
-                        }
+
+                        let newPage = {...props.data}
+                        props.selectedNodes.forEach(e => newPage.nodes[e.index].variant = 'pie')
+                        props.setData(newPage)
+
                     }}
                     draggable={true}
                 >
@@ -115,5 +115,5 @@ export default function AnalyticsShapes(props) {
 AnalyticsShapes.propTypes = {
     setData: PropTypes.func,
     data: PropTypes.object,
-    selectedNode: PropTypes.object
+    selectedNodes: PropTypes.array
 }

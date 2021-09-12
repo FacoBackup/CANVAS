@@ -1,8 +1,7 @@
 import Accordion from "../../shared/templates/tools/Accordion";
 import styles from "../styles/Dataset.module.css";
 import PropTypes from "prop-types";
-import {AddRounded, ArrowDropDown, ArrowDropDownRounded, CloseRounded} from "@material-ui/icons";
-import {CirclePicker} from "react-color";
+import {AddRounded, ArrowDropDownRounded, CloseRounded} from "@material-ui/icons";
 import Dropdown from "../../shared/templates/tools/Dropdown";
 import {useState} from "react";
 

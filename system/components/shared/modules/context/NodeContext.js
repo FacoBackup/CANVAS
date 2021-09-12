@@ -10,8 +10,8 @@ export default [
                 onClick: (props, event, nodeID) => {
 
                     let index
-                    props.data.nodes.find((node, i) => {
-                        if(nodeID === node.id) {
+                    props.data.nodes.forEach((node, i) => {
+                        if (nodeID === node.id) {
                             props.setCopiedNode(node)
                             index = i
                         }
@@ -33,10 +33,7 @@ export default [
                 label: 'Copiar',
                 icon: <FileCopyRounded/>,
                 onClick: (props, event, nodeID) => {
-                    props.data.nodes.find(node => {
-                        if(nodeID === node.id)
-                            props.setCopiedNode(node)
-                    })
+                    props.setCopiedNode(props.data.nodes.find(node => nodeID === node.id))
                 },
                 shortcutButtons: ['ctrl', 'c'],
                 key: 'node-2'
@@ -45,11 +42,11 @@ export default [
                 label: 'Deletar',
                 icon: <DeleteRounded/>,
                 onClick: (props, event, nodeID) => {
-                    props.setSelectedNode(undefined)
+                    props.unselectNode(nodeID)
 
                     let index
-                    props.data.nodes.find((node, i) => {
-                        if(nodeID === node.id)
+                    props.data.nodes.forEach((node, i) => {
+                        if (nodeID === node.id)
                             index = i
                     })
 
@@ -78,11 +75,8 @@ export default [
             {
                 label: 'Editar',
                 icon: <EditRounded/>,
-                onClick: (props,event, nodeID) => {
-                    props.data.nodes.find((node, i) => {
-                        if(nodeID === node.id)
-                            props.setSelectedNode(node)
-                    })
+                onClick: (props, event, nodeID) => {
+                    props.selectNode(props.data.nodes.find((node, i) => nodeID === node.id), true)
                 },
                 key: 'node-4'
             },

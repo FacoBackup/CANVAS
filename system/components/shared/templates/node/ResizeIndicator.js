@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import NodeTemplate from "../presets/NodeTemplate";
 import GetNodeResizeParams from "../../utils/GetNodeResizeParams";
 import styles from '../../styles/Node.module.css'
 
@@ -174,7 +173,7 @@ ResizeIndicator.propTypes = {
     save: PropTypes.func,
     placement: PropTypes.oneOf(['nw', 'w', 'e', 'n', 's', 'ne', 'se', 'sw']),
     viewBox: PropTypes.object,
-    node: NodeTemplate,
+    node: PropTypes.object,
     setNode: PropTypes.func,
     scale: PropTypes.number
 

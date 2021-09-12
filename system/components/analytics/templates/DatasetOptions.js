@@ -8,7 +8,9 @@ export default function DatasetOptions(props) {
     const handleFieldLink = (field, as) => {
         let newPage = {...props.pages[props.defaultPage]}
         let newNodes = [...newPage.nodes]
-        let newNode = {...newPage.nodes[props.selectedNode.index]}
+        let openEditor = props.selectedNodes.find(e => e.openEdit)
+
+        let newNode = {...newPage.nodes[openEditor.index]}
 
         if(as === 'axis')
             newNode.dataset = {
@@ -20,7 +22,7 @@ export default function DatasetOptions(props) {
                 axis: newNode.dataset !== undefined ? newNode.dataset.axis : null,
                 value: field
             }
-        newNodes[props.selectedNode.index] = newNode
+        newNodes[openEditor.index] = newNode
 
         newPage.nodes = newNodes
 
@@ -92,5 +94,5 @@ DatasetOptions.propTypes = {
     pages: PropTypes.array,
     handlePageChange: PropTypes.func,
     defaultPage: PropTypes.number,
-    selectedNode: PropTypes.object
+    selectedNodes: PropTypes.array
 }

@@ -1,13 +1,9 @@
 import styles from '../../shared/styles/Canvas.module.css'
-import React, {useEffect, useRef, useState} from "react";
-import {useReactToPrint} from "react-to-print";
-import NewProjectTemplate from "../../shared/templates/presets/NewProjectTemplate";
+import React, {useState} from "react";
 import SideBar from "../../shared/templates/tools/SideBar";
 import ContextMenu from "../../shared/modules/context/ContextMenu";
 import Pages from "../../shared/modules/engine/Pages";
 import FontVisualsBar from "./FontVisualsBar";
-import FrameView from "../../shared/modules/engine/FrameView";
-import keyboardControl from "../../shared/utils/KeyboardControl";
 import FileOptions from "../../shared/templates/tools/FileOptions";
 import Head from "next/head";
 import Connections from "../templates/Connections";
@@ -18,6 +14,7 @@ import {
     FileCopyRounded,
     HelpRounded,
     InfoRounded,
+    LinkRounded,
     PictureAsPdfRounded,
     PrintRounded,
     PublishRounded,
@@ -38,7 +35,8 @@ export default function Flowchart(props) {
         selected, loading,
         setLoading, openPage,
         setOpenPage, handlePageChange,
-        handleSelectedNodeChange,
+        selectNode,
+        unselectNode,
         uploadRef,
         handlePrint,
         scale, setScale
@@ -56,8 +54,8 @@ export default function Flowchart(props) {
             <div
                 className={styles.wrapper}
                 onMouseDown={event => {
-                    if (selected !== undefined && (event.target.id === 'frame' || event.target.id === 'engine-content'))
-                        handleSelectedNodeChange(undefined)
+                    if ((event.target.id === 'frame' || event.target.id === 'engine-content'))
+                        unselectNode(undefined, true)
                     if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
                         setToBeLinked(null)
                 }}
@@ -65,8 +63,9 @@ export default function Flowchart(props) {
                 <FlowchartNodeEditor
                     data={pages[openPage]}
                     setData={handlePageChange}
-                    selectedNode={selected}
-                    setSelectedNode={handleSelectedNodeChange}
+                    selectedNodes={selected}
+                    selectNode={selectNode}
+                    unselectNode={unselectNode}
                 />
                 <input
                     type="file" ref={uploadRef}
@@ -89,7 +88,9 @@ export default function Flowchart(props) {
                     data={pages[openPage]}
                     setData={handlePageChange}
                     scale={scale} setScale={setScale} copiedNode={copied}
-                    setCopiedNode={setCopied} setSelectedNode={handleSelectedNodeChange}
+                    setCopiedNode={setCopied}
+                    selectNode={selected}
+                    unselectNode={unselectNode}
                 />
                 <FileOptions
                 metadata={metadata}
@@ -176,7 +177,7 @@ export default function Flowchart(props) {
                         options={[
                             {
                                 icon: <CategoryRounded/>,
-                                label: 'Dados e configurações',
+                                label: 'Formas',
                                 content: (
                                     <>
                                         <FlowchartShapes
@@ -184,6 +185,15 @@ export default function Flowchart(props) {
                                             setData={handlePageChange}
                                             scale={scale}
                                         />
+
+                                    </>
+                                )
+                            },
+                            {
+                                icon: <LinkRounded/>,
+                                label: 'Conexões',
+                                content: (
+                                    <>
                                         <Lines
                                             data={metadata} setData={setMetadata}
                                         />
@@ -192,9 +202,8 @@ export default function Flowchart(props) {
                                             data={metadata} setData={setMetadata}
                                         />
                                     </>
-                                ),
-                                toolTip: 'Módulos e opções'
-                            },
+                                )
+                            }
                         ]}
                     />
                     <div className={styles.content}>
@@ -213,8 +222,9 @@ export default function Flowchart(props) {
                                 scale: scale,
                                 setScale: setScale,
                                 dimensions: metadata.dimensions,
-                                selectedNode: selected !== undefined ? selected.node : selected,
-                                setSelectedNode: handleSelectedNodeChange
+                                selectedNodes: selected,
+                                selectNode: selectNode,
+                                unselectNode: unselectNode
 
                             })}
                         </div>

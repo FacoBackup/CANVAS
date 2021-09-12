@@ -19,7 +19,7 @@ export default function ChartContent(props) {
 
                             <AnalyticsShapes
                                 data={props.pages[props.defaultPage]}
-                                selectedNode={props.selectedNode}
+                                selectedNodes={props.selectedNodes}
                                 setData={(e) => props.handlePageChange(e)}
                             />
 
@@ -34,7 +34,7 @@ export default function ChartContent(props) {
                                 pages={props.pages}
                                 handlePageChange={props.handlePageChange}
                                 defaultPage={props.defaultPage}
-                                selectedNode={props.selectedNode}
+                                selectedNodes={props.selectedNodes}
                                 dataset={props.dataset}
                             />
                         ),
@@ -43,15 +43,16 @@ export default function ChartContent(props) {
                 ]}
             />
             <div className={styles.contentWrapper}>
-                <Pages pages={props.pages} handlePageChange={props.handlePageChange} defaultPage={props.defaultPage} setDefaultPage={props.setDefaultPage} setPages={props.setPages}/>
+                <Pages pages={props.pages} handlePageChange={props.handlePageChange} defaultPage={props.defaultPage}
+                       setDefaultPage={props.setDefaultPage} setPages={props.setPages}/>
                 {props.children({
                     data: props.pages[props.defaultPage],
                     setData: (event) => props.handlePageChange(event),
                     dataset: props.dataset,
                     dimensions: props.metadata.dimensions,
-                    selectedNode: props.selectedNode !== undefined ? props.selectedNode.node : props.selectedNode,
-                    setSelectedNode: props.setSelectedNode,
-
+                    selectedNodes: props.selectedNodes,
+                    selectNode: props.selectNode,
+                    unselectNode: props.unselectNode
                 })}
             </div>
         </div>
@@ -65,8 +66,9 @@ ChartContent.propTypes = {
     setPages: PropTypes.func,
     metadata: PropTypes.object,
     setMetadata: PropTypes.func,
-    selectedNode: PropTypes.object,
-    setSelectedNode: PropTypes.func,
+    selectedNodes: PropTypes.array,
+    selectNode: PropTypes.func,
+    unselectNode: PropTypes.func,
     defaultPage: PropTypes.number,
     setDefaultPage: PropTypes.func,
     children: PropTypes.node,

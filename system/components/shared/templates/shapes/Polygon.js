@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import PropTypes from "prop-types";
 
 export default function Polygon(props) {

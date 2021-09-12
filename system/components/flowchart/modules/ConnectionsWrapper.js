@@ -33,8 +33,8 @@ export default function ConnectionsWrapper(props) {
 
     return (
         <svg width={props.node.dimensions.width + 20} height={props.node.dimensions.height + 20} x={-10} y={-10}
-             visibility={props.selected !== props.node.id && canRender && !props.onMove? 'visible' : 'hidden'}
-             opacity={props.selected !== props.node.id && canRender && !props.onMove ? '1' : '0'}
+             visibility={props.selected !== undefined && props.selected.node.id !== props.node.id && canRender && !props.onMove? 'visible' : 'hidden'}
+             opacity={props.selected !== undefined && props.selected.node.id !== props.node.id && canRender && !props.onMove ? '1' : '0'}
              style={{transition: 'opacity 150ms linear, visibility 150ms linear'}}
              overflow={'visible'}>
 

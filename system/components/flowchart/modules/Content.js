@@ -1,7 +1,6 @@
 import styles from "../../shared/styles/Node.module.css";
 import React, {useEffect, useRef, useState} from "react";
 import PropTypes from 'prop-types'
-import NodeTemplate from "../../shared/templates/presets/NodeTemplate";
 import topBarStyles from '../../shared/styles/Navigation.module.css'
 
 export default function Content(props) {
@@ -59,7 +58,7 @@ export default function Content(props) {
 }
 
 Content.propTypes = {
-    node: NodeTemplate,
+    node: PropTypes.object,
     setNode: PropTypes.func,
     currentTextStyles: PropTypes.object
 }

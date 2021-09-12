@@ -1,19 +1,22 @@
 import PropTypes from 'prop-types'
-import EditorWrapper from "../../shared/templates/tools/EditorWrapper";
+import EditorWrapper from "../../shared/templates/node/EditorWrapper";
 import DimensionPositionEditor from "../../shared/templates/editor/DimensionPositionEditor";
 import BorderEditor from "../../shared/templates/editor/BorderEditor";
 import NodeDatasetEditor from "./NodeDatasetEditor";
 import HorizontalTabs from "../../shared/templates/tools/HorizontalTabs";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {EditAttributesRounded, FormatPaintRounded, PlaceRounded} from "@material-ui/icons";
 
 export default function ChartNodeEditor(props) {
+    const openEdit = useMemo(() => {
+        return props.selectedNodes.find(e => e.openEdit)
+    }, [props.selectedNodes])
     const handleChange = (name, value) => {
         const newNodes = [...props.data.nodes]
-        const newNode = {...props.node}
+        const newNode = {...openEdit.node}
 
         newNode[name] = value
-        newNodes[props.index] = newNode
+        newNodes[openEdit.index] = newNode
         props.setData(({
             ...props.data,
             nodes: newNodes
@@ -22,16 +25,16 @@ export default function ChartNodeEditor(props) {
 
     const [open, setOpen] = useState(0)
     return (
-        <EditorWrapper open={props.selectedNode !== undefined && props.selectedNode.openEdit }
-                       handleClose={() => props.setSelectedNode(undefined)}>
-            {props.selectedNode !== undefined?
+        <EditorWrapper open={openEdit !== undefined}
+                       handleClose={() => props.unselectNode(openEdit?.node.id)}>
+            {openEdit !== undefined?
                 <HorizontalTabs setOpenButton={setOpen} buttons={[
                     {
                         icon: <EditAttributesRounded/>,
                         label: 'Dados',
                         content: (
                             <>
-                                <NodeDatasetEditor handleChange={handleChange} node={props.node}/>
+                                <NodeDatasetEditor handleChange={handleChange} node={props.data.nodes[openEdit.index]}/>
                             </>
                         )
                     },
@@ -40,7 +43,7 @@ export default function ChartNodeEditor(props) {
                         label: 'Visual',
                         content: (
                             <>
-                                <BorderEditor handleChange={handleChange} node={props.node}/>
+                                <BorderEditor handleChange={handleChange} node={props.data.nodes[openEdit.index]}/>
                             </>
                         )
                     },
@@ -48,7 +51,7 @@ export default function ChartNodeEditor(props) {
                         icon: <PlaceRounded/>,
                         label: 'Posição e dimensões',
                         content: (
-                            <DimensionPositionEditor handleChange={handleChange} node={props.node}/>
+                            <DimensionPositionEditor handleChange={handleChange} node={props.data.nodes[openEdit.index]}/>
                         )
                     }
                 ]} openButton={open}/>
@@ -58,9 +61,11 @@ export default function ChartNodeEditor(props) {
 }
 
 ChartNodeEditor.propTypes = {
+    selectedNodes: PropTypes.array,
+    unselectNode: PropTypes.func,
+
+
     setData: PropTypes.func,
     data: PropTypes.object,
     handleClose: PropTypes.func,
-    index: PropTypes.number,
-    node: PropTypes.object
 }

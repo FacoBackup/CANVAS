@@ -1,6 +1,7 @@
 import styles from '../../styles/Tabs.module.css'
 import PropTypes from 'prop-types'
 import {useEffect, useRef} from "react";
+import ToolTip from "../../../../chart/tooltip/ToolTip";
 
 export default function VerticalTabs(props) {
     const contentRef = useRef()
@@ -25,6 +26,7 @@ export default function VerticalTabs(props) {
                         className={[styles.button, props.openButton === i ? styles.activeButton : ''].join(' ')}
                         onClick={() => handleTabChange(i)} disabled={button.disabled}>
                         {button.icon}
+                        <ToolTip content={button.label}/>
                     </button>
                 ) : null)}
             </div>

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from '../../styles/Dataset.module.css'
 import Cell from "./modules/Cell";
-import React, {useEffect} from 'react'
+import React from 'react'
 import {CloseRounded, FolderRounded} from "@material-ui/icons";
 
 export default function DatasetManagement(props) {
@@ -84,6 +84,5 @@ DatasetManagement.propTypes = {
     setDataset: PropTypes.func,
     dataset: PropTypes.object,
     handleUpload: PropTypes.func,
-    fileName: PropTypes.string,
-    setSelectedNode: PropTypes.func
+    fileName: PropTypes.string
 }

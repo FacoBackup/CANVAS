@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import NodeTemplate from "../templates/presets/NodeTemplate";
 
 export default function ResizeNode(props) {
 
@@ -80,7 +79,7 @@ export default function ResizeNode(props) {
 }
 ResizeNode.propTypes = {
     nodeColor: PropTypes.string,
-    node: NodeTemplate,
+    node: PropTypes.object,
     nodeShape: PropTypes.string,
     event: PropTypes.object,
     scale: PropTypes.number,

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import styles from "../../styles/Canvas.module.css";
 import PlaceCanvasScroll from "../../utils/PlaceCanvasScroll";
 import React, {useRef} from "react";
+import SelectBox from "../SelectBox";
 
 export default function Engine(props) {
     const root = useRef()
@@ -26,6 +27,16 @@ export default function Engine(props) {
                 }}
                 className={styles.canvasBackground}
                 id={'engine-content'}
+                onMouseDown={e => {
+                    if (e.target.id === 'engine-content')
+                        SelectBox({
+                            selectedNodes: props.selectedNodes,
+                            selectNode: props.selectNode,
+                            unselectNode: props.unselectNode,
+                            event: e
+                        })
+
+                }}
             >
                 <g id={'canvas-content'}>
                     {props.children}
@@ -42,8 +53,9 @@ Engine.propTypes = {
     nodeOnOverview: PropTypes.object,
     toBeLinked: PropTypes.object,
     setToBeLinked: PropTypes.func,
-    selectedNode: PropTypes.object,
-    setSelectedNode: PropTypes.func,
+    selectedNodes: PropTypes.object,
+    selectNode: PropTypes.func,
+    unselectNode: PropTypes.func,
     dimensions: PropTypes.shape({
         width: PropTypes.number,
         height: PropTypes.number
