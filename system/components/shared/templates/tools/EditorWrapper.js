@@ -30,7 +30,6 @@ export default function EditorWrapper(props) {
             mount.current?.classList.add(styles.container)
         }
 
-        console.log(props.children)
         if (props.open)
             ReactDOM.render(
                 props.children,

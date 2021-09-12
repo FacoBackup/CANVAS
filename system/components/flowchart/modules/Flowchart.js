@@ -27,101 +27,74 @@ import FlowchartNodeEditor from "../templates/FlowchartNodeEditor";
 import HandleUpload from "../../shared/utils/HandleUpload";
 import Dropdown from "../../shared/templates/tools/Dropdown";
 import HandleDownload from "../../shared/utils/HandleDownload";
+import useData from "../../shared/hooks/useData";
 
 export default function Flowchart(props) {
-    const [data, setData] = useState(NewProjectTemplate)
-    const [defaultPage, setDefaultPage] = useState(0)
-    const [toBeLinked, setToBeLinked] = useState(null)
-    const [selectedNode, setSelectedData] = useState(undefined)
-    const [scale, setScale] = useState(1)
-    const [copiedNode, setCopiedNode] = useState(null)
+    const {
+        copied, setCopied,
+        toBeLinked, setToBeLinked,
+        pages, setPages,
+        metadata, setMetadata,
+        selected, loading,
+        setLoading, openPage,
+        setOpenPage, handlePageChange,
+        handleSelectedNodeChange,
+        uploadRef,
+        handlePrint,
+        scale, setScale
+    } = useData()
     const [openOptions, setOpenOptions] = useState(null)
-    const uploadRef = useRef()
-    const handlePrint = useReactToPrint({
-        content: () => document.getElementById('engine-content')
-    })
-    const setSelectedNode = (node, openEdit) => {
-        let index
-        if(node !== undefined && node !== null) {
-            data.pages[defaultPage].nodes.find((e, i) => {
-                if (e.id === node.id)
-                    index = i
-            })
-
-            setSelectedData({
-                node: node,
-                index: index,
-                openEdit: openEdit
-            })
-        }
-        else
-            setSelectedData(undefined)
-    }
-    const handleKeyDown = (e) => {
-        keyboardControl({
-            event: e
-        })
-    }
-    useEffect(() => {
-        document.addEventListener('keydown', handleKeyDown)
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown)
-        }
-    }, [data])
 
     return (
         <>
 
             <Head>
-                <title>{data.subject} - Flowchart</title>
+                <title>{metadata.subject} - Flowchart</title>
                 <link rel='icon' href={'/flow.svg'} type='image/x-icon'/>
             </Head>
 
             <div
                 className={styles.wrapper}
                 onMouseDown={event => {
-                    if (selectedNode !== undefined && (event.target.id === 'frame' || event.target.id === 'engine-content'))
-                        setSelectedNode(undefined)
+                    if (selected !== undefined && (event.target.id === 'frame' || event.target.id === 'engine-content'))
+                        handleSelectedNodeChange(undefined)
                     if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
                         setToBeLinked(null)
                 }}
             >
                 <FlowchartNodeEditor
-                    data={data.pages[defaultPage]}
-                    setData={(event) => {
-                        let newPages = [...data.pages]
-                        newPages[defaultPage] = event
-                        setData({...data, pages: newPages})
-                    }}
-                    selectedNode={selectedNode}
-                    setSelectedNode={setSelectedNode}
+                    data={pages[openPage]}
+                    setData={handlePageChange}
+                    selectedNode={selected}
+                    setSelectedNode={handleSelectedNodeChange}
                 />
                 <input
-                    type="file" ref={uploadRef} style={{display: 'none'}} multiple={false}
+                    type="file" ref={uploadRef}
+                    style={{display: 'none'}} multiple={false}
                     onChange={event => {
+                        setLoading(true)
                         HandleUpload({
                             file: event,
-                            setData: setData,
-                            type: '.canvas'
+                            data: metadata,
+                            setData: setMetadata
                         })
+
+                        event.target.value = ''
                     }}
                     accept={'.canvas'}
                 />
-                <FrameView/>
-                <ContextMenu
-                    data={data.pages[defaultPage]}
-                    setData={(event) => {
-                        let newPages = [...data.pages]
-                        newPages[defaultPage] = event
-                        setData({...data, pages: newPages})
 
-                    }}
-                    scale={scale} setScale={setScale} copiedNode={copiedNode}
-                    setCopiedNode={setCopiedNode} setSelectedNode={setSelectedNode}
+                {/*<FrameView/>*/}
+                <ContextMenu
+                    data={pages[openPage]}
+                    setData={handlePageChange}
+                    scale={scale} setScale={setScale} copiedNode={copied}
+                    setCopiedNode={setCopied} setSelectedNode={handleSelectedNodeChange}
                 />
-                <FileOptions setData={e => {
-                    setData(e)
-                }} data={data} handlePrint={handlePrint}>
+                <FileOptions
+                metadata={metadata}
+                setMetadata={setMetadata}
+                    handlePrint={handlePrint}>
                     <Dropdown
                         label={'Arquivo'} open={openOptions === 0}
                         buttons={[
@@ -200,10 +173,6 @@ export default function Flowchart(props) {
                 </FileOptions>
                 <div style={{width: '100%', height: 'calc(100% - 40px)', display: 'flex'}}>
                     <SideBar
-                        data={data}
-                        defaultPage={defaultPage}
-                        selectedNode={selectedNode}
-                        setData={setData}
                         options={[
                             {
                                 icon: <CategoryRounded/>,
@@ -211,25 +180,16 @@ export default function Flowchart(props) {
                                 content: (
                                     <>
                                         <FlowchartShapes
-                                            data={data.pages[defaultPage]}
-                                            setData={(e) => {
-                                                let newPages = [...data.pages]
-                                                newPages[defaultPage] = e
-                                                setData({...data, pages: newPages})
-                                            }}
+                                            data={pages[openPage]}
+                                            setData={handlePageChange}
                                             scale={scale}
                                         />
                                         <Lines
-                                            data={data}
-                                            setData={e => {
-                                                setData(e)
-                                            }}
+                                            data={metadata} setData={setMetadata}
                                         />
 
                                         <Connections
-                                            data={data} setData={e => {
-                                            setData(e)
-                                        }}
+                                            data={metadata} setData={setMetadata}
                                         />
                                     </>
                                 ),
@@ -238,33 +198,23 @@ export default function Flowchart(props) {
                         ]}
                     />
                     <div className={styles.content}>
-                        <FontVisualsBar scale={scale} setScale={setScale} data={data} setData={e => {
-                            setData(e)
-                        }}/>
+                        <FontVisualsBar scale={scale} setScale={setScale} data={metadata} setData={setMetadata}/>
                         <div className={styles.contentWrapper}>
                             <Pages
-                                scale={scale} setScale={setScale}
-                                data={data} setData={e => {
-                                setData(e)
-                            }}
-                                setDefaultPage={setDefaultPage}
-                                defaultPage={defaultPage}
+                                defaultPage={openPage} setDefaultPage={setOpenPage} pages={pages} setPages={setPages}
+                                handlePageChange={handlePageChange}
                             />
                             {props.children({
-                                data: data.pages[defaultPage],
-                                setData: (event) => {
-                                    let newPages = [...data.pages]
-                                    newPages[defaultPage] = event
-                                    setData({...data, pages: newPages})
-                                },
-                                metadata: data,
+                                data: pages[openPage],
+                                setData: handlePageChange,
+                                metadata: metadata,
                                 toBeLinked: toBeLinked,
                                 setToBeLinked: setToBeLinked,
                                 scale: scale,
                                 setScale: setScale,
-                                dimensions: data.dimensions,
-                                selectedNode: selectedNode !== undefined ? selectedNode.node : selectedNode,
-                                setSelectedNode: setSelectedNode,
+                                dimensions: metadata.dimensions,
+                                selectedNode: selected !== undefined ? selected.node : selected,
+                                setSelectedNode: handleSelectedNodeChange
 
                             })}
                         </div>

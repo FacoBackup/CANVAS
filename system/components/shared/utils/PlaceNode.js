@@ -58,7 +58,6 @@ export default function PlaceNode(props) {
     document.addEventListener('mousemove', function movingEl(event) {
         if (moving) {
             if (!onMove) {
-                props.setOnMove(true)
                 onMove = true
                 props.setSelectedNode(undefined)
             }
@@ -71,7 +70,6 @@ export default function PlaceNode(props) {
     document.addEventListener("mouseup", event => {
         moving = false
         nodeRef.style.cursor = 'unset'
-        props.setOnMove(false)
         props.setSelectedNode(props.node)
         handlePlacement(event, true)
     }, {once: true});
@@ -83,7 +81,6 @@ PlaceNode.propTypes = {
     node: PropTypes.object,
     event: PropTypes.object,
     setSelectedNode: PropTypes.func,
-    setOnMove: PropTypes.func,
     savePlacement: PropTypes.func,
     noPlacementIndicator: PropTypes.bool
 }

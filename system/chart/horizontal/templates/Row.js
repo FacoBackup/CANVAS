@@ -11,7 +11,7 @@ export default function Row(props){
     return(
         <g ref={ref}>
             <foreignObject
-                style={{fontSize: '13px', width: ((props.width) * .07) + 'px', background: 'red', height: '20px'}}
+                style={{fontSize: '13px', width: (props.offset) + 'px', height: '20px'}}
                 y={20 * (props.index) + ((props.index + 1) * 20 / 2)}
                 x={0} className={styles.labels}>
                 <div className={styles.label}>

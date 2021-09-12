@@ -20,7 +20,8 @@ export default function Content(props) {
         <LazyLoader data={props.data} scrollableRef={props.scrollableRef} scrollOrientation={'vertical'}>
             {canRenderUntil =>
                 props.data.map((e, i) => (
-                    e[props.value.field] !== undefined && canRenderUntil !== undefined && i <= canRenderUntil ?
+                    e[props.value.field] !== undefined?
+                    // && canRenderUntil !== undefined && i <= canRenderUntil ?
                         <g key={i + '-row-content'} style={{display: i > 30 ? 'none' : undefined}}>
                             <Row
                                 biggest={props.biggest} axisContent={e[props.axis.field]}

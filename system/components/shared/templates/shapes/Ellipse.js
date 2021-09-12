@@ -2,45 +2,28 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
 export default function Ellipse(props) {
-    const [viewBox, setViewBox] = useState({})
-    const handleViewBox = () => {
-        if (props.dimensions.width > props.dimensions.height)
-            setViewBox({
-                x: 100,
-                y: (props.dimensions.height / props.dimensions.width) * 100,
-            })
-        else if (props.dimensions.width < props.dimensions.height)
-            setViewBox({
-                x: (props.dimensions.width / props.dimensions.height) * 100,
-                y: 100
-            })
-        else
-            setViewBox({
-                x: 100,
-                y: 100
-            })
-    }
 
-    useEffect(() => {
-        handleViewBox()
-    }, [props.dimensions])
     return (
-        <svg
-            width={props.dimensions.width} height={props.dimensions.height}
-            viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.id + '-*svg'}
-            overflow={'visible'} cursor={props.cursor}>
+        <g
+            cursor={props.cursor}
+            id={props.id + '-*svg'} overflow={'visible'}
+        >
             <ellipse
 
                 strokeDasharray={props.styles.strokeDasharray}
-                rx={viewBox.x / 2}
-                ry={viewBox.y / 2}
+                rx={props.dimensions.width / 2}
+                ry={props.dimensions.height / 2}
+                cx={props.dimensions.width / 2}
+                cy={props.dimensions.height / 2}
+                style={{transition: '150ms linear'}}
+
                 vectorEffect={"non-scaling-stroke"}
-                cx={'50%'} cy={'50%'} filter={'drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.08))'}
+                 filter={'drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.08))'}
                 fill={props.styles.fill !== undefined ? props.styles.fill : 'white'}
                 stroke={props.styles.stroke !== undefined ? props.styles.stroke : '#0095ff'}
                 strokeWidth={props.styles.strokeWidth}
             />
-        </svg>
+        </g>
     )
 }
 

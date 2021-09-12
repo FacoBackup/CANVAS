@@ -19,6 +19,7 @@ export default function ChartContent(props) {
 
                             <AnalyticsShapes
                                 data={props.pages[props.defaultPage]}
+                                selectedNode={props.selectedNode}
                                 setData={(e) => props.handlePageChange(e)}
                             />
 

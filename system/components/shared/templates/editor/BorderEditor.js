@@ -2,53 +2,66 @@ import Accordion from "../tools/Accordion";
 import styles from "../../styles/NodeOverview.module.css";
 import PropTypes from "prop-types";
 import {CirclePicker} from "react-color";
+import ToolTip from "../../../../chart/tooltip/ToolTip";
 
 export default function BorderEditor(props) {
-    console.log(props.node.styling)
+
     return (
         <>
             <Accordion label={'Cor de destaque'}>
-               <div style={{display: 'flex', justifyContent: 'center', justifyItems: 'center', padding: '0 2%'}}>
-                   <CirclePicker
-                       width={'100%'}
-                       color={{hex: props.node.styling.color}}
-                       onChangeComplete={event => {
-                           props.handleChange('styling',
-                               {
-                                   ...props.node.styling, ...{
-                                       color: event.hex
-                                   }
-                               }
-                           )
-                       }
-                       }/>
-               </div>
+                <div style={{display: 'grid', gap: '4px', padding: '0 8px'}}>
+                    <CirclePicker
+                        width={'100%'}
+                        color={{hex: props.node.styling.color}}
+                        onChangeComplete={event => {
+                            props.handleChange('styling',
+                                {
+                                    ...props.node.styling, ...{
+                                        color: event.hex
+                                    }
+                                }
+                            )
+                        }
+                        }/>
+                </div>
             </Accordion>
             <Accordion label={'Borda'}>
-                <div style={{display: 'grid', gap: '4px', padding: '2%'}}>
+                <div style={{display: 'grid', gap: '4px', padding: '8px'}}>
                     <div className={styles.fieldContainer}
                          style={{display: props.node.shapeVariant === 'polygon' ? 'none' : undefined}}>
-                        <label htmlFor={'border-radius'}>Raio borda (px):</label>
-                        <input id={'border-radius'}
-                               className={styles.input}
-                               onChange={event => {
-
-                                   props.handleChange('styling',
-                                       {
-                                           ...props.node.styling, ...{
-                                               borderRadius: event.target.value,
-                                           }
-                                       })
-                               }}
-                               value={props.node.styling.borderRadius}
-                               placeholder={'Borda'} type={'number'}
+                        <div className={styles.fieldTitle}>
+                            Raio borda
+                            <div className={styles.valueContainer}>
+                                {props.node.styling.borderRadius}
+                            </div>
+                        </div>
+                        <input
+                            className={styles.basicInput}
+                            style={{transition: 'none', cursor: "pointer", height: '20px'}}
+                            onChange={event => {
+                                props.handleChange('styling',
+                                    {
+                                        ...props.node.styling, ...{
+                                            borderRadius: event.target.value,
+                                        }
+                                    })
+                            }}
+                            value={props.node.styling.borderRadius}
+                            type={'range'}
+                            max={10} min={0}
                         />
                     </div>
                     <div className={styles.fieldContainer}>
-                        <div>width {props.node.styling.strokeWidth}px</div>
+
+                        <div className={styles.fieldTitle}>
+                            Largura borda
+                            <div className={styles.valueContainer}>
+                                {props.node.styling.strokeWidth}
+                            </div>
+                        </div>
                         <input
-                            className={styles.input}
-                            style={{transition: 'none', cursor: "pointer"}}
+                            className={styles.basicInput}
+                            style={{transition: 'none', cursor: "pointer", height: '20px'}}
                             onChange={event => {
                                 props.handleChange('styling',
                                     {
@@ -62,11 +75,16 @@ export default function BorderEditor(props) {
                             max={10} min={0}
                         />
                     </div>
-                    <div className={styles.fieldContainer}>
-                        <div>Dasharray</div>
+                    <div className={styles.fieldContainer} style={{paddingBottom: 0}}>
+                        <div className={styles.fieldTitle}>
+                            Frequência dos traços
+                            <div className={styles.valueContainer}>
+                                {props.node.styling.strokeDasharray}
+                            </div>
+                        </div>
                         <input
-                            className={styles.input}
-                            style={{transition: 'none', cursor: "pointer"}}
+                            className={styles.basicInput}
+                            style={{transition: 'none', cursor: "pointer", height: '20px'}}
                             onChange={event => {
                                 props.handleChange('styling',
                                     {

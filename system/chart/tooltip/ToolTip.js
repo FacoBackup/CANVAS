@@ -31,10 +31,10 @@ export default function ToolTip(props) {
             const rect = ref.current?.parentNode.getBoundingClientRect()
             if (rect !== undefined) {
                 mountingPoint.current.style.position = 'fixed'
-                mountingPoint.current.style.transform = `translate(50%, -50%)`
+                mountingPoint.current.style.transform = `translate(-50%, -50%)`
                 mountingPoint.current.style.zIndex = '999'
-                mountingPoint.current.style.top = (rect.top + rect.height) + 'px'
-                mountingPoint.current.style.left = ((rect.left + rect.width - 16)) + 'px'
+                mountingPoint.current.style.top = (rect.top + rect.height + 16) + 'px'
+                mountingPoint.current.style.left = ((rect.left + rect.width/2 )) + 'px'
 
             }
     }

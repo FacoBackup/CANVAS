@@ -6,12 +6,12 @@ export default function DimensionPositionEditor(props){
     return(
         <>
             <Accordion label={'Posição'}>
-                <div style={{display: 'grid', gap: '4px', padding: '2%'}}>
+                <div style={{display: 'grid', gap: '4px', padding: '8px'}}>
 
                     <div className={styles.fieldContainer}>
-                        <label htmlFor={'x-placement'}>X</label>
-                        <input id={'x-placement'}
-                               className={styles.input}
+                        <div>Eixo X</div>
+                        <input
+                               className={styles.basicInput}
                                onChange={event => {
                                    let newPlacement = {...props.node.placement}
                                    newPlacement.y = props.node.placement.y
@@ -21,11 +21,11 @@ export default function DimensionPositionEditor(props){
                                value={props.node.placement.x} placeholder={'X'} type={'number'}
                         />
                     </div>
-                    <div className={styles.fieldContainer}>
-                        <label htmlFor={'y-placement'}>Y</label>
+                    <div className={styles.fieldContainer} style={{paddingBottom: 0}}>
+                        <div>Eixo Y</div>
                         <input
-                            id={'y-placement'}
-                            className={styles.input}
+
+                            className={styles.basicInput}
                             onChange={event => {
                                 let newPlacement = {...props.node.placement}
                                 newPlacement.x = props.node.placement.x
@@ -38,12 +38,12 @@ export default function DimensionPositionEditor(props){
                 </div>
             </Accordion>
             <Accordion label={'Tamanho'}>
-                <div style={{display: 'grid', gap: '4px', padding: '2%'}}>
+                <div style={{display: 'grid', gap: '4px', padding: '8px'}}>
                     <div className={styles.fieldContainer}>
-                        <label htmlFor={'width-placement'}>Largura</label>
+                        <div>Largura</div>
                         <input
-                            id={'width-placement'}
-                            className={styles.input}
+
+                            className={styles.basicInput}
                             min={'50'} max={'999'}
                             onChange={event => {
                                 let newDimensions = {...props.node.dimensions}
@@ -54,11 +54,10 @@ export default function DimensionPositionEditor(props){
                             value={props.node.dimensions.width} placeholder={'Largura'} type={'number'}
                         />
                     </div>
-                    <div className={styles.fieldContainer}>
-                        <label htmlFor={'height-placement'}>Altura</label>
+                    <div className={styles.fieldContainer} style={{paddingBottom: 0}}>
+                        <div>Altura</div>
                         <input
-                            id={'height-placement'}
-                            className={styles.input}
+                            className={styles.basicInput}
                             min={'50'} max={'999'}
                             onChange={event => {
 

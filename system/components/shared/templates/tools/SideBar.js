@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import React, {useState} from "react";
-import Tabs from "./Tabs";
+import VerticalTabs from "./VerticalTabs";
 
 export default function SideBar(props) {
     const [openButton, setOpenButton] = useState(0)
     const [toBePushedTab, setToBePushedTab] = useState(null)
 
     return (
-        <Tabs
+        <VerticalTabs
             buttons={props.options}
             openButton={openButton}
             setOpenButton={setOpenButton}

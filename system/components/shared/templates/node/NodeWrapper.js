@@ -8,7 +8,6 @@ import PlaceNode from "../../utils/PlaceNode";
 
 export default function NodeWrapper(props) {
     const ref = useRef()
-    const [onMove, setOnMove] = useState(false)
 
     const moveNode = (event) => {
         PlaceNode({
@@ -16,7 +15,6 @@ export default function NodeWrapper(props) {
             node: props.node,
             event: event,
             setSelectedNode: props.setSelected,
-            setOnMove: setOnMove,
             savePlacement: props.savePlacement,
             noPlacementIndicator: props.noPlacementIndicator
         })
@@ -27,13 +25,10 @@ export default function NodeWrapper(props) {
             id={props.node.id + '-node'}
             transform={`translate(${props.node.placement.x}, ${props.node.placement.y})`}
             ref={ref}
-
             overflow={'hidden'}
             fill={'none'}
             className={styles.entityContainer}
         >
-
-
             <Shape
                 id={props.node.id}
                 shapeVariant={props.node.shapeVariant}

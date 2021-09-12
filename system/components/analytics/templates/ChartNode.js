@@ -1,43 +1,51 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import HorizontalChart from "../../../chart/horizontal/HorizontalChart";
 import PieChart from "../../../chart/pie/PieChart";
 import LineChart from "../../../chart/line/LineChart";
 import PropTypes from 'prop-types'
 
 export default function ChartNode(props) {
-    const [mounted, setMounted] = useState(false)
-    const getChart = (props, type) => {
+
+    const getChart = useMemo(() => {
         let res
-        console.log("RUNNING AGAIN")
-        switch (type) {
+        const p = {
+            value: {
+                label: props.node.dataset?.valueLabel,
+                field: props.node.dataset?.value
+            },
+            axis: {
+                label: props.node.dataset?.axisLabel,
+                field: props.node.dataset?.axis
+            },
+            width: props.node.dimensions.width,
+            height: props.node.dimensions.height,
+            title: props.node.title,
+            data: props.dataset
+        }
+        switch (props.node.variant) {
 
             case 'bar-vertical': {
-                res = <HorizontalChart {...props}/>
+                res = <HorizontalChart {...p}/>
                 break
             }
             case 'bar-horizontal': {
-                res = <HorizontalChart {...props}/>
+                res = <HorizontalChart {...p}/>
                 break
             }
             case 'pie': {
-                res = <PieChart {...props}/>
+                res = <PieChart {...p}/>
                 break
             }
             case 'line': {
-                res = <LineChart {...props}/>
+                res = <LineChart {...p}/>
                 break
             }
             default:
                 break
         }
         return res
-    }
+    }, [props.node.title, props.node.dataset, props.node.variant, props.node.dimensions])
 
-
-    useEffect(() => {
-        console.log("THIS IS MOUnTED " + JSON.stringify(mounted))
-        setMounted(true)
-    }, [])
 
     return (
         <foreignObject
@@ -45,70 +53,7 @@ export default function ChartNode(props) {
             overflow={'hidden'} id={`${props.node.id}-node-foreign-object`}
             width={props.node.dimensions.width} height={props.node.dimensions.height}
         >
-            {props.node.variant === 'bar-vertical' ?
-                <HorizontalChart
-
-                    value={{
-                        label: 'Cafe',
-                        field: props.node.dataset?.value
-                    }}
-                    axis={{
-                        label: 'Eixo',
-                        field: props.node.dataset?.axis
-                    }}
-                    width={props.node.dimensions.width}
-                    height={props.node.dimensions.height}
-                    title={'Teste para Teste'}
-                    data={props.dataset}
-                /> : null}
-            {props.node.variant === 'bar-horizontal' ?
-                <HorizontalChart
-
-                    value={{
-                        label: 'Cafe',
-                        field: props.node.dataset?.value
-                    }}
-                    axis={{
-                        label: 'Eixo',
-                        field: props.node.dataset?.axis
-                    }}
-                    width={props.node.dimensions.width}
-                    height={props.node.dimensions.height}
-                    title={'Teste para Teste'}
-                    data={props.dataset}
-                /> : null}
-            {props.node.variant === 'pie' ?
-                <PieChart
-
-                    value={{
-                        label: 'Cafe',
-                        field: props.node.dataset?.value
-                    }}
-                    axis={{
-                        label: 'Eixo',
-                        field: props.node.dataset?.axis
-                    }}
-                    width={props.node.dimensions.width}
-                    height={props.node.dimensions.height}
-                    title={'Teste para Teste'}
-                    data={props.dataset}
-                /> : null}
-            {props.node.variant === 'line' ?
-                <LineChart
-
-                    value={{
-                        label: 'Cafe',
-                        field: props.node.dataset?.value
-                    }}
-                    axis={{
-                        label: 'Eixo',
-                        field: props.node.dataset?.axis
-                    }}
-                    width={props.node.dimensions.width}
-                    height={props.node.dimensions.height}
-                    title={'Teste para Teste'}
-                    data={props.dataset}
-                /> : null}
+            {getChart}
         </foreignObject>
     )
 

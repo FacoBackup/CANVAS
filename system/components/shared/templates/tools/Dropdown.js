@@ -28,7 +28,9 @@ export default function Dropdown(props) {
                 {props.label}
             </button>
             <div ref={ref} className={styles.dropdownContent} style={{
-                display: props.open ? undefined : 'none'
+                display: props.open ? undefined : 'none',
+                right: props.justify === 'left' ? 0 : undefined,
+                width: props.width
             }}>
                 {props.buttons.map((b, i) => (
                     <div style={{width: '100%', borderTop: i > 0 ? '#e0e0e0 1px solid' : "unset"}}>
@@ -72,8 +74,10 @@ Dropdown.propTypes = {
         ))
 
     })),
+    justify: PropTypes.oneOf(['left', 'right']),
     label: PropTypes.string,
     open: PropTypes.bool,
     handleOpen: PropTypes.func,
-    handleClose: PropTypes.func
+    handleClose: PropTypes.func,
+    width: PropTypes.string
 }

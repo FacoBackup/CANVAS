@@ -2,12 +2,18 @@ import PropTypes from 'prop-types'
 import NodeTemplate from "../presets/NodeTemplate";
 import GetNodeResizeParams from "../../utils/GetNodeResizeParams";
 import styles from '../../styles/Node.module.css'
+
 export default function ResizeIndicator(props) {
     const params = GetNodeResizeParams(props)
+    let lastMousePlacement
+    let dimensions = props.node.dimensions
+    let currentDimensions = props.node.dimensions
+    let currentPlacement = props.node.placement
 
     const handleTranslateY = (px) => {
         const nodeRef = document.getElementById(props.node.id + '-node')
         let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
+        console.log("TRNASLATING Y" + parsedPlacement)
         parsedPlacement = parsedPlacement.split(', ')
 
         return props.placement.includes('s') ? parseInt(parsedPlacement[1]) + px : parseInt(parsedPlacement[1]) - px
@@ -15,12 +21,12 @@ export default function ResizeIndicator(props) {
     const handleTranslateX = (px) => {
         const nodeRef = document.getElementById(props.node.id + '-node')
         let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
+        console.log("TRNASLATING X" + parsedPlacement)
         parsedPlacement = parsedPlacement.split(', ')
 
         return parseInt(parsedPlacement[0]) - px
     }
-    let lastMousePlacement
-    let dimensions = props.node.dimensions
+
     const handleResize = (event) => {
         if (!lastMousePlacement)
             lastMousePlacement = {
@@ -37,8 +43,6 @@ export default function ResizeIndicator(props) {
         let newWidth
 
 
-        let newNodePlacement = props.node.placement
-        //
         switch (props.placement) {
             case 's': {
                 newHeight = (props.node.dimensions.height + (newMousePlacement.y - lastMousePlacement.y))
@@ -54,7 +58,7 @@ export default function ResizeIndicator(props) {
 
                 newHeight = (props.node.dimensions.height + (lastMousePlacement.y - newMousePlacement.y))
                 newWidth = (props.node.dimensions.width + (lastMousePlacement.x - newMousePlacement.x))
-                newNodePlacement = {
+                currentPlacement = {
                     y: handleTranslateY(newHeight - dimensions.height),
                     x: handleTranslateX(newWidth - dimensions.width)
                 }
@@ -74,8 +78,9 @@ export default function ResizeIndicator(props) {
 
                 newHeight = (props.node.dimensions.height + (newMousePlacement.y - lastMousePlacement.y))
                 newWidth = (props.node.dimensions.width + (lastMousePlacement.x - newMousePlacement.x))
-                newNodePlacement = {
-                    y: props.node.placement.y,
+
+                currentPlacement = {
+                    y: currentPlacement.y,
                     x: handleTranslateX(newWidth - dimensions.width)
                 }
                 dimensions = {
@@ -87,7 +92,7 @@ export default function ResizeIndicator(props) {
             case 'w': {
                 newHeight = props.node.dimensions.height
                 newWidth = (props.node.dimensions.width + (lastMousePlacement.x - newMousePlacement.x))
-                newNodePlacement = {
+                currentPlacement = {
                     y: props.node.placement.y,
                     x: handleTranslateX(newWidth - dimensions.width)
                 }
@@ -100,7 +105,7 @@ export default function ResizeIndicator(props) {
             case 'n': {
                 newWidth = props.node.dimensions.width
                 newHeight = (props.node.dimensions.height + (lastMousePlacement.y - newMousePlacement.y))
-                newNodePlacement = {
+                currentPlacement = {
                     x: props.node.placement.x,
                     y: handleTranslateY(newHeight - dimensions.height)
                 }
@@ -113,7 +118,7 @@ export default function ResizeIndicator(props) {
             case 'ne': {
                 newHeight = (props.node.dimensions.height + (lastMousePlacement.y - newMousePlacement.y))
                 newWidth = (props.node.dimensions.width + (newMousePlacement.x - lastMousePlacement.x))
-                newNodePlacement = {
+                currentPlacement = {
                     y: handleTranslateY(newHeight - dimensions.height),
                     x: props.node.placement.x
                 }
@@ -133,13 +138,20 @@ export default function ResizeIndicator(props) {
             dimensions: {
                 width: newWidth > 50 ? newWidth : 50,
                 height: newHeight > 50 ? newHeight : 50,
-            },
-            placement: newNodePlacement
+            }
         })
+        props.savePlacement(currentPlacement)
+        currentDimensions = {
+            width: newWidth > 50 ? newWidth : 50,
+            height: newHeight > 50 ? newHeight : 50,
+        }
     }
     const handleMouseUp = () => {
+
         lastMousePlacement = undefined
         document.removeEventListener('mousemove', handleResize)
+
+        props.save(currentDimensions, currentPlacement)
     }
 
 
@@ -158,6 +170,8 @@ export default function ResizeIndicator(props) {
     )
 }
 ResizeIndicator.propTypes = {
+    savePlacement: PropTypes.func,
+    save: PropTypes.func,
     placement: PropTypes.oneOf(['nw', 'w', 'e', 'n', 's', 'ne', 'se', 'sw']),
     viewBox: PropTypes.object,
     node: NodeTemplate,

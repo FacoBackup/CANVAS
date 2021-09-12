@@ -2,39 +2,20 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
 export default function Rect(props) {
-    const [viewBox, setViewBox] = useState({})
-    const handleViewBox = () => {
-        if (props.dimensions.width > props.dimensions.height)
-            setViewBox({
-                x: 100,
-                y: (props.dimensions.height / props.dimensions.width) * 100,
-            })
-        else if (props.dimensions.width < props.dimensions.height)
-            setViewBox({
-                x: (props.dimensions.width / props.dimensions.height) * 100,
-                y: 100
-            })
-        else
-            setViewBox({
-                x: 100,
-                y: 100
-            })
-    }
-
-    useEffect(() => {
-        handleViewBox()
-    }, [props.dimensions])
     return (
-        <svg
-            width={props.dimensions.width} height={props.dimensions.height}
+        <g
             cursor={props.cursor}
-            viewBox={`0 0 ${viewBox.x} ${viewBox.y}`} id={props.id + '-*svg'} overflow={'visible'}>
+            id={props.id + '-*svg'} overflow={'visible'}
+        >
             <rect
                 strokeDasharray={props.styles.strokeDasharray}
                 rx={props.styles.borderRadius}
                 ry={props.styles.borderRadius}
-                x={0} width={viewBox.x}
-                y={0} height={viewBox.y}
+                x={0}
+                y={0}
+
+                width={props.dimensions.width} height={props.dimensions.height}
+                style={{transition: '150ms linear'}}
                 vectorEffect={"non-scaling-stroke"}
                 filter={'drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.08))'}
                 fill={props.styles.fill !== undefined ? props.styles.fill : 'white'}
@@ -42,7 +23,7 @@ export default function Rect(props) {
                 strokeWidth={props.styles.strokeWidth}
             />
 
-        </svg>
+        </g>
     )
 }
 

@@ -185,3 +185,42 @@
     gap: 16px;
 
 }
+
+.basicInput{
+    outline: none;
+    background: white;
+    border: #ecedf2 1px solid;
+    border-radius: 5px;
+    padding: 8px;
+    height: 40px;
+
+    font-family: Roboto;
+    font-size: .9rem;
+    color: #555555;
+
+    width: 100%;
+
+    transition: 150ms linear;
+}
+.basicInput:hover{
+    background: #f4f5fa;
+}
+.basicInput:focus{
+    background: #E8F0FE;
+    border-color: #0095ff;
+}
+.fieldContainer{
+    /*padding: 0 8px;*/
+    padding-bottom: 16px;
+    width: 100%;
+    font-family: Roboto;
+    font-size: .8rem;
+    gap: 4px;
+    font-weight: bold;
+    color: #555555;
+}
+
+.dropDownWrapper{
+    display: flex;
+    align-items: center;
+}

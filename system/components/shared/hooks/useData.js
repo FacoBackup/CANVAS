@@ -24,6 +24,8 @@ export default function useData() {
         },
     })
     const [openPage, setOpenPage] = useState(0)
+    const [scale, setScale] = useState(1)
+    const [toBeLinked, setToBeLinked] = useState(null)
 
     const handlePageChange = (e) => {
         let newPages = [...pages]
@@ -53,6 +55,8 @@ export default function useData() {
     });
 
     return {
+        scale,
+        setScale,
         copied,
         setCopied,
         pages,
@@ -70,6 +74,7 @@ export default function useData() {
         dataset, setDataset, openDataset,
         setOpenDataset, setDatasetName,
         datasetName,
-        uploadRef,handlePrint
+        toBeLinked, setToBeLinked,
+        uploadRef, handlePrint
     }
 }

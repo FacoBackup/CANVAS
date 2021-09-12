@@ -82,10 +82,10 @@
     display: grid;
     gap: 4px;
     transition: 150ms linear;
-
+    border-radius: 5px;
     background: transparent;
-    border-bottom: #e0e0e0 1px solid;
-    border-top: #e0e0e0 1px solid;
+    /*border-bottom: #e0e0e0 1px solid;*/
+    border: #e0e0e0 1px solid;
 
     overflow: hidden;
 }

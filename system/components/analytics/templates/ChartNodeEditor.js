@@ -3,6 +3,9 @@ import EditorWrapper from "../../shared/templates/tools/EditorWrapper";
 import DimensionPositionEditor from "../../shared/templates/editor/DimensionPositionEditor";
 import BorderEditor from "../../shared/templates/editor/BorderEditor";
 import NodeDatasetEditor from "./NodeDatasetEditor";
+import HorizontalTabs from "../../shared/templates/tools/HorizontalTabs";
+import {useState} from "react";
+import {EditAttributesRounded, FormatPaintRounded, PlaceRounded} from "@material-ui/icons";
 
 export default function ChartNodeEditor(props) {
     const handleChange = (name, value) => {
@@ -16,15 +19,39 @@ export default function ChartNodeEditor(props) {
             nodes: newNodes
         }))
     }
+
+    const [open, setOpen] = useState(0)
     return (
         <EditorWrapper open={props.selectedNode !== undefined && props.selectedNode.openEdit }
                        handleClose={() => props.setSelectedNode(undefined)}>
             {props.selectedNode !== undefined?
-                <>
-                    <BorderEditor handleChange={handleChange} node={props.node}/>
-                    <DimensionPositionEditor handleChange={handleChange} node={props.node}/>
-                    <NodeDatasetEditor handleChange={handleChange} node={props.node}/>
-                </>
+                <HorizontalTabs setOpenButton={setOpen} buttons={[
+                    {
+                        icon: <EditAttributesRounded/>,
+                        label: 'Dados',
+                        content: (
+                            <>
+                                <NodeDatasetEditor handleChange={handleChange} node={props.node}/>
+                            </>
+                        )
+                    },
+                    {
+                        icon: <FormatPaintRounded/>,
+                        label: 'Visual',
+                        content: (
+                            <>
+                                <BorderEditor handleChange={handleChange} node={props.node}/>
+                            </>
+                        )
+                    },
+                    {
+                        icon: <PlaceRounded/>,
+                        label: 'Posição e dimensões',
+                        content: (
+                            <DimensionPositionEditor handleChange={handleChange} node={props.node}/>
+                        )
+                    }
+                ]} openButton={open}/>
                 : null}
         </EditorWrapper>
     )

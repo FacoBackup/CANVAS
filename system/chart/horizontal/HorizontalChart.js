@@ -11,7 +11,7 @@ import getPercentage from "../shared/getPercentage";
 export default function HorizontalChart(props) {
     const scrollableRef = useRef()
     const graphRef = useRef()
-
+    console.log("********************************* RERENDER *********************************")
     return (
         <div>
             {props.value === undefined || props.axis === undefined || !props.value.field || !props.axis.field ?

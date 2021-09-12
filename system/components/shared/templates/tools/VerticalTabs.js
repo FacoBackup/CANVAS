@@ -2,7 +2,7 @@ import styles from '../../styles/Tabs.module.css'
 import PropTypes from 'prop-types'
 import {useEffect, useRef} from "react";
 
-export default function Tabs(props) {
+export default function VerticalTabs(props) {
     const contentRef = useRef()
     useEffect(() => {
         if(props.toBePushedTab !== undefined && props.toBePushedTab !== null)
@@ -48,7 +48,7 @@ export default function Tabs(props) {
     )
 }
 
-Tabs.propTypes = {
+VerticalTabs.propTypes = {
     buttons: PropTypes.arrayOf(PropTypes.shape({
         icon: PropTypes.object,
         disabled: PropTypes.bool,

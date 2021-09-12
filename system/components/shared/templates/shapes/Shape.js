@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types'
 import styles from "../../styles/Node.module.css";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import Ellipse from "./Ellipse";
 import Rect from "./Rect";
 import Polygon from "./Polygon";
 
-
 export default function Shape(props) {
     const ref = useRef()
-    const getShape = () => {
+    const getShape = useMemo(() => {
         let res
         switch (props.shapeVariant) {
             case 'ellipse': {
@@ -29,24 +28,22 @@ export default function Shape(props) {
                 break
         }
         return res
-    }
+    }, [props.shapeVariant, props.styles])
 
     return (
         <g
             ref={ref} cursor={props.cursor}
-            onClick={(event) => {
-                props.onClick(event)
-            }} overflow={'hidden'}
-            onMouseDown={event => props.onMouseDown(event)}
+            onClick={props.onClick} overflow={'hidden'}
+            onMouseDown={props.onMouseDown}
         >
-            {getShape()}
+            {getShape}
             {props.children}
         </g>
     )
 }
+
 Shape.propTypes = {
     shapeVariant: PropTypes.oneOf(['rect', 'polygon', 'ellipse']),
-    shape: PropTypes.oneOf(['triangle', 'parallelogram', 'trapezoid']),
     dimensions: PropTypes.shape({
         width: PropTypes.number,
         height: PropTypes.number

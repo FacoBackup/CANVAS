@@ -3,7 +3,11 @@
     width: fit-content;
     display: flex;
 }
-
+.horizontalContainer {
+    height: 100%;
+    width: 100%;
+    display: grid;
+}
 .buttons {
     width: 55px;
     height: 100%;
@@ -13,7 +17,20 @@
     gap: 12px;
     padding: 4px;
 }
+.horizontalButtons{
+    width: calc(100% - 32px);
+    margin: auto;
 
+    background: #f4f5fa;
+    border: #ecedf2 1px solid;
+    display: flex;
+    align-content: center;
+    align-items: center;
+
+    justify-content: space-between;
+    padding: 8px 4px 0px 4px;
+    border-radius: 5px;
+}
 .button {
     outline: none;
     border: none;
@@ -105,4 +122,23 @@
     font-size: 1.1rem;
     color: #555555;
     padding-bottom: 16px;
+}
+
+.labelContainer{
+    font-family: Roboto;
+    font-size: .7rem;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    gap: 4px;
+    font-weight: bold;
+    color: #555555;
+    width: 55px;
+}
+.overflow{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 50px;
+
 }
