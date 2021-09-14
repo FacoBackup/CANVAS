@@ -9,7 +9,6 @@ export default function Line(props) {
         <g fill={'red'}>
             {props.last !== undefined ?
                 <polyline
-                    // strokeDasharray={'1,1'}
                     points={`${props.last.x}, ${props.last.y} ${props.point.x},${props.point.y}`}
                     fillRule={'nonzero'}
                     stroke={'#0095ff'} strokeWidth={2}/>
@@ -36,8 +35,6 @@ export default function Line(props) {
 
             <line
                 x1={props.point.x} x2={props.point.x}
-                // y1={props.point.y}
-                // y2={props.point.y + 50 > props.dimensions.height ? props.point.y - 20 : props.point.y + 20}
                 y1={0} y2={'100%'}
                 stroke={props.index === 0 ? 'transparent' : '#e0e0e0'} strokeWidth={1}
                 markerEnd={`url(#${props.id})`}
@@ -46,15 +43,8 @@ export default function Line(props) {
             <g>
                 <circle fill={'#0095ff'} cx={props.point.x} cy={props.point.y} r={4}
                         stroke={'transparent'} strokeWidth={'15'}/>
-                <ToolTip color={'#f4f5fa'}>
-                    <div className={styles.overview}>
-                        <div className={styles.toolTipAxis}>
-                            {props.axis.labels}: {props.data[props.axis.field]}
-                        </div>
-                        <div className={styles.toolTipValue}>
-                            Valor: {props.data[props.value.field]}
-                        </div>
-                    </div>
+                <ToolTip justify={'end'} align={'middle'}>
+                    {props.point.value}
                 </ToolTip>
             </g>
         </g>

@@ -53,7 +53,7 @@ export default function Flowchart(props) {
 
             <div
                 className={styles.wrapper}
-                onMouseDown={event => {
+                onClick={event => {
                     if ((event.target.id === 'frame' || event.target.id === 'engine-content'))
                         unselectNode(undefined, true)
                     if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')

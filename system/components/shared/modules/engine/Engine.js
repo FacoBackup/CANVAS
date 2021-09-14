@@ -33,14 +33,13 @@ export default function Engine(props) {
                             selectedNodes: props.selectedNodes,
                             selectNode: props.selectNode,
                             unselectNode: props.unselectNode,
-                            event: e
+                            event: e,
+                            nodes: props.data.nodes
                         })
 
                 }}
             >
-                <g id={'canvas-content'}>
-                    {props.children}
-                </g>
+                {props.children}
             </svg>
         </div>
     )

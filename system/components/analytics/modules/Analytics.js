@@ -59,10 +59,7 @@ export default function Analytics(props) {
 
         <div
             className={styles.wrapper}
-            onMouseDown={event => {
-                if ((event.target.id === 'frame' || event.target.id === 'engine-content'))
-                    unselectNode(undefined, true)
-            }}>
+            >
             {/*<FrameView data={data}/>*/}
             <Loader loading={loading}/>
 
@@ -97,6 +94,7 @@ export default function Analytics(props) {
                 data={pages[openPage]}
                 setData={handlePageChange}
                 selectNode={selectNode}
+                selectedNodes={selected}
                 unselectNode={unselectNode}
                 copiedNode={copied}
                 setCopiedNode={setCopied}

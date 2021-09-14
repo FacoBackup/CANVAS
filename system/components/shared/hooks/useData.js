@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useCallback, useRef, useState} from "react";
 import {v4 as uuid4} from "uuid";
 import {useReactToPrint} from "react-to-print";
 
@@ -33,33 +33,54 @@ export default function useData() {
         newPages[openPage] = e
         setPages(newPages)
     }
-    const selectNode = (node, openEdit, clear) => {
+    const selectNode = useCallback((node, openEdit, clear, nodes) => {
         let index
         let existingIndex
+        console.log(nodes)
         if (node !== undefined && node !== null) {
-
-
             pages[openPage].nodes.forEach((e, i) => {
                 if (e.id === node.id)
                     index = i
             })
+
             let newSelected = clear ? [] : [...selected]
             newSelected.forEach((e, i) => {
                 if (e.id === node.id)
                     existingIndex = i
             })
-
             if(existingIndex)
                 newSelected.splice(existingIndex, 1)
-
             newSelected.push({
                 node: node,
                 index: index,
                 openEdit: openEdit
             })
+            console.log(newSelected)
             setSelected(newSelected)
         }
-    }
+        else if(nodes !== undefined && Array.isArray(nodes)) {
+            let newSelected = []
+            nodes.forEach(b => {
+                let index
+                const node = pages[openPage].nodes.find((e, i) => {
+                    if(e.id === b.id) {
+                        index = i
+                        return e
+                    }
+                })
+
+                if(index !== undefined)
+                    newSelected.push({
+                        node: node,
+                        index: index,
+                        openEdit: false
+                    })
+            })
+
+            console.log(newSelected)
+            setSelected(newSelected)
+        }
+    }, [selected])
     const unselectNode = (nodeID, all) => {
         if (!all) {
             let index

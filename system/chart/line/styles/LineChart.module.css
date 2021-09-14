@@ -101,11 +101,6 @@
 
 
 .overview{
-    background: #f4f5fa;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    /*background: white;*/
-    border-radius: 5px;
-    padding: 16px;
     display: grid;
     justify-items: center;
     align-content: flex-start;

@@ -111,3 +111,9 @@
     align-content: center;
     gap: 6px;
 }
+
+.overflow{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

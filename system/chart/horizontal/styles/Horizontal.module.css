@@ -77,34 +77,21 @@
 }
 
 .overview {
-    background: #f4f5fa;
+
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     /*background: white;*/
     border-radius: 5px;
-    padding: 16px;
+    padding: 2px 8px;
     display: grid;
     justify-items: center;
     align-content: flex-start;
     gap: 16px;
+    font-weight: normal;
+    color: white;
+
 
 }
 
-.toolTipValue {
-
-    color: #666666;
-    font-size: .9rem;
-    text-align: left;
-    width: 100%;
-}
-
-.toolTipAxis {
-
-    color: #555555;
-    font-size: .9rem;
-    font-weight: bold;
-    text-align: left;
-    width: 100%
-}
 
 .titleInput {
     height: 30px;

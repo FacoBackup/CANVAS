@@ -8,10 +8,10 @@ export default function ToolTip(props) {
         <div className={styles.container}>
             {/*<div className={styles.arrow}*/}
             {/*     style={{borderBottom: props.color !== undefined ? props.color + ' 10px solid' : undefined}}/>*/}
-            <div className={styles.content} style={{display: props.content === undefined ? 'none' : undefined}}>
-                {props.content}
+            <div className={styles.content}>
+                {props.content === undefined ? props.children : props.content}
             </div>
-            {props.children}
+
         </div>
     )
     const ref = useRef()
@@ -19,24 +19,51 @@ export default function ToolTip(props) {
 
 
     const hover = (event) => {
+        mountingPoint.current.classList.remove(styles.exitAnim)
+        ReactDOM.unmountComponentAtNode(
+            mountingPoint.current
+        )
+        ReactDOM.render(
+            toolTip,
+            mountingPoint.current
+        )
+        const rect = ref.current?.parentNode.getBoundingClientRect()
+        if (rect !== undefined) {
+            mountingPoint.current.style.position = 'fixed'
+            mountingPoint.current.style.transform = `translate(${props.justify === 'end' ? '0' : '-50%'}, -50%)`
+            mountingPoint.current.style.zIndex = '999'
+            switch (props.align) {
 
-            mountingPoint.current.classList.remove(styles.exitAnim)
-            ReactDOM.unmountComponentAtNode(
-                mountingPoint.current
-            )
-            ReactDOM.render(
-                toolTip,
-                mountingPoint.current
-            )
-            const rect = ref.current?.parentNode.getBoundingClientRect()
-            if (rect !== undefined) {
-                mountingPoint.current.style.position = 'fixed'
-                mountingPoint.current.style.transform = `translate(-50%, -50%)`
-                mountingPoint.current.style.zIndex = '999'
-                mountingPoint.current.style.top = (rect.top + rect.height + 16) + 'px'
-                mountingPoint.current.style.left = ((rect.left + rect.width/2 )) + 'px'
-
+                case 'middle': {
+                    mountingPoint.current.style.top = (rect.top + rect.height / 2) + 'px'
+                    break
+                }
+                case 'start': {
+                    mountingPoint.current.style.top = (rect.top) + 'px'
+                    break
+                }
+                default: {
+                    mountingPoint.current.style.top = (rect.top + rect.height + 16) + 'px'
+                    break
+                }
             }
+            switch (props.justify) {
+                case 'end': {
+                    mountingPoint.current.style.left = (rect.left + rect.width + 16) + 'px'
+                    break
+                }
+                case 'start': {
+                    mountingPoint.current.style.left = (rect.left) + 'px'
+                    break
+                }
+                default: {
+                    mountingPoint.current.style.left = (rect.left + rect.width / 2) + 'px'
+                    break
+                }
+            }
+
+
+        }
     }
     const hoverEnd = (event) => {
         if (!document.elementsFromPoint(event.clientX, event.clientY).includes(mountingPoint.current)) {
@@ -78,5 +105,7 @@ export default function ToolTip(props) {
 ToolTip.propTypes = {
     content: PropTypes.string,
     children: PropTypes.node,
-    color: PropTypes.string
+    color: PropTypes.string,
+    justify: PropTypes.oneOf(['end', 'middle', 'start']),
+    align: PropTypes.oneOf(['end', 'middle', 'start'])
 }

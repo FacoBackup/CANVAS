@@ -6,50 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="063cb9af-f03d-420c-affc-3b1041605637" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/.idea/system.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/styles/Horizontal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/styles/Horizontal.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/horizontal/templates/Row.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/horizontal/templates/Row.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/line/styles/LineChart.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/styles/LineChart.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/line/templates/Line.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/line/templates/Line.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/tooltip/ToolTip.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/tooltip/ToolTip.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/chart/tooltip/styles/Styles.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/tooltip/styles/Styles.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/ChartContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/ChartContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/dataset/DatasetManagement.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/dataset/DatasetManagement.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/AnalyticsShapes.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/AnalyticsShapes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/ChartNode.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/ChartNode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/ChartNodeEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/ChartNodeEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/DatasetOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/DatasetOptions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/NodeDatasetEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/NodeDatasetEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/ConnectionIndicator.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/ConnectionIndicator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/ConnectionsWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/ConnectionsWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/Content.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/Content.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/Flowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/Flowchart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/FlowchartNodes.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/FlowchartNodes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/RenderLinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/RenderLinks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/flowchart/templates/FlowchartNodeEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/templates/FlowchartNodeEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/flowchart/templates/NodePropsTemplate.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/templates/NodePropsTemplate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/shared/hooks/useData.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/hooks/useData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/hooks/useLink.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/hooks/useLink.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/LazyLoader.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/LazyLoader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/SelectBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/SelectBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/context/CanvasContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/context/CanvasContext.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/shared/modules/context/ContextMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/context/ContextMenu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/shared/modules/context/NodeContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/context/NodeContext.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/shared/modules/engine/Engine.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/engine/Engine.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/shared/styles/Canvas.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/styles/Canvas.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/editor/BorderEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/editor/BorderEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/node/NodeWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/node/NodeWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/node/ResizeIndicator.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/node/ResizeIndicator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/node/SelectedWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/node/SelectedWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/presets/NewProjectTemplate.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/presets/NodeTemplate.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/shapes/Ellipse.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/shapes/Ellipse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/shapes/Polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/shapes/Polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/shapes/Rect.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/shapes/Rect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/shapes/Shape.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/shapes/Shape.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/tools/EditorWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/node/EditorWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/tools/HorizontalTabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/tools/HorizontalTabs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/tools/Loader.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/tools/Loader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/tools/VerticalTabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/tools/VerticalTabs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/utils/PlaceNode.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/utils/PlaceNode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/utils/ResizeNode.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/utils/ResizeNode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/styles/ContextMenu.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/styles/ContextMenu.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +120,8 @@
       <workItem from="1631392591575" duration="11666000" />
       <workItem from="1631466769804" duration="1803000" />
       <workItem from="1631474780967" duration="4406000" />
-      <workItem from="1631479316275" duration="1752000" />
+      <workItem from="1631479316275" duration="1831000" />
+      <workItem from="1631563758643" duration="13319000" />
     </task>
     <servers />
   </component>
@@ -176,7 +149,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/system/components/analytics/modules/Analytics.js</url>
-          <line>73</line>
+          <line>70</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

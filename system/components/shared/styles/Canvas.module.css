@@ -189,6 +189,6 @@
     background: rgba(0, 149, 255, .3);
     border-radius: 3px;
     position: fixed;
-    animation: enter 150ms linear;
+    /*animation: enter 150ms linear;*/
 
 }

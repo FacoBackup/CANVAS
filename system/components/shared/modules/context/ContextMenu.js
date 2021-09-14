@@ -16,6 +16,7 @@ export default function ContextMenu(props) {
         y: -1
     }
     let onRenderListener = false
+
     const remove = () => {
         ref.current.classList.add(styles.exitAnimation)
         ref.current.addEventListener('animationend', () => {
@@ -41,9 +42,9 @@ export default function ContextMenu(props) {
 
         if (event.button === 2) {
             if (canvas !== null && node === null)
-                newButtons = CanvasContext
+                newButtons = CanvasContext(props)
             else if (node !== null) {
-                newButtons = NodeContext
+                newButtons = NodeContext(props)
                 setNodeID(node.id.replace('-node', ''))
             }
             if (newButtons !== undefined)
@@ -72,9 +73,9 @@ export default function ContextMenu(props) {
 
     const handleExit = (event) => {
 
-        if (event && ((event.button === 0 && !document.elementsFromPoint(event.clientX, event.clientY).includes(ref.current)) || (event.button === 2 && onRenderListener)))
+        if (event && ((event.button === 0 && !document.elementsFromPoint(event.clientX, event.clientY).includes(ref.current)) || (event.button === 2 && onRenderListener))) {
             remove()
-        else if (!onRenderListener && event.button === 2)
+        } else if (!onRenderListener && event.button === 2)
             originalPlacement = {
                 x: event.clientX,
                 y: event.clientY
@@ -87,15 +88,19 @@ export default function ContextMenu(props) {
         document.addEventListener('mouseup', handleMouseUp)
         document.addEventListener('mousedown', handleExit)
         return () => {
+            if (onRender)
+                remove()
             document.body.removeEventListener('contextmenu', preventContext)
             document.removeEventListener('mousedown', handleExit)
             document.removeEventListener('mouseup', handleMouseUp)
         }
-    }, [props.data])
+    }, [props.data, props.selectedNodes])
+
+
     return (
-        <div ref={ref} style={{display: onRender ? undefined : 'none'}}
+        <div ref={ref} style={{display: onRender ? undefined : 'none'}} onBlur={() => alert('BLURREND')}
              className={onRender ? styles.context : undefined} id={'context-menu'}>
-            {buttons.map((button, i) => (
+            {buttons.map((button, i) => button.children !== undefined ? (
                 <div>
                     <div className={styles.header}>
                         {button.label}
@@ -103,14 +108,16 @@ export default function ContextMenu(props) {
                     {button.children.map(c => (
                         <button
                             onClick={() => {
-                                c.onClick(props, e, nodeID)
+                                c.onClick(e, nodeID)
                                 remove()
                             }} key={c.key}
                             disabled={c.getDisabled !== undefined ? c.getDisabled(props) : false}
                             className={styles.contextButton}
                         >
                             {c.icon}
-                            {c.label}
+                            <div className={styles.overflow}>
+                                {c.label}
+                            </div>
                             {c.shortcutButtons ?
                                 <div className={styles.shortcuts}>
                                     {c.shortcutButtons.map((s, index) => (
@@ -127,7 +134,7 @@ export default function ContextMenu(props) {
                         </button>
                     ))}
                 </div>
-            ))}
+            ) : null)}
         </div>
     )
 }
@@ -140,5 +147,8 @@ ContextMenu.propTypes = {
 
     copiedNode: PropTypes.object,
     setCopiedNode: PropTypes.func,
-    unselectNode: PropTypes.func, selectNode: PropTypes.func
+
+    selectedNodes: PropTypes.array,
+    unselectNode: PropTypes.func,
+    selectNode: PropTypes.func
 }
