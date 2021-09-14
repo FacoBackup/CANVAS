@@ -67,7 +67,7 @@ export default function PieChart(props) {
                         top: '50%',
                         left: '50%',
                         fontSize: (props.height > props.width ? (props.height) / 2 : props.width / 2) + 'px',
-                        color: '#0095ff',
+                        color: props.color ? props.color : '#0095ff',
                         position: "absolute"
                     }}
                 />
@@ -113,5 +113,6 @@ PieChart.propTypes = {
     legends: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,
         field: PropTypes.string
-    }))
+    })),
+    color: PropTypes.string
 }

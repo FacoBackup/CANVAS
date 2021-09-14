@@ -12,7 +12,6 @@ export default function ResizeIndicator(props) {
     const handleTranslateY = (px) => {
         const nodeRef = document.getElementById(props.node.id + '-node')
         let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
-        console.log("TRNASLATING Y" + parsedPlacement)
         parsedPlacement = parsedPlacement.split(', ')
 
         return props.placement.includes('s') ? parseInt(parsedPlacement[1]) + px : parseInt(parsedPlacement[1]) - px
@@ -20,7 +19,6 @@ export default function ResizeIndicator(props) {
     const handleTranslateX = (px) => {
         const nodeRef = document.getElementById(props.node.id + '-node')
         let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
-        console.log("TRNASLATING X" + parsedPlacement)
         parsedPlacement = parsedPlacement.split(', ')
 
         return parseInt(parsedPlacement[0]) - px
@@ -161,7 +159,6 @@ export default function ResizeIndicator(props) {
             className={styles.indicator}
             stroke={'transparent'} strokeWidth={'10'}
             onMouseDown={() => {
-                console.log(props.placement)
                 document.addEventListener('mousemove', handleResize)
                 document.addEventListener('mouseup', handleMouseUp, {once: true})
             }}

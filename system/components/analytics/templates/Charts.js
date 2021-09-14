@@ -6,27 +6,20 @@ import useNode from "../../shared/hooks/useNode";
 import ChartNode from "./ChartNode";
 
 export default function Charts(props) {
-    const nodeHook = useNode(props.data, props.setData)
-
     return (
-
         props.data.nodes.map((node, index) => node.id === undefined ? null : (
             <g key={node.id + '-charts-node-' + index}>
                 <NodeWrapper
-                    {...{
-                        node: node,
-                        index: index,
-                        setNode: event => nodeHook.handleNodeChange(index, node, event),
-
-                        savePlacement: event => nodeHook.savePlacement(event, node, index),
-
-                        scale: 1,
-                        selectNode: props.selectNode,
-                        unselectNode: props.unselectNode,
-                        selectedNodes: props.selectedNodes,
-                        controlComponents: [],
-                        noPlacementIndicator: true
-                    }}
+                    index={index}
+                    scale={1}
+                    selectNode={props.selectNode}
+                    unselectNode={props.unselectNode}
+                    selectedNodes={props.selectedNodes}
+                    controlComponents={[]}
+                    noPlacementIndicator={true}
+                    node={node}
+                    setData={props.setData}
+                    data={props.data}
                 >
                     {() => (
                         <ChartNode dataset={props.dataset} node={node}/>

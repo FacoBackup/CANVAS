@@ -20,7 +20,9 @@ export default function ChartNode(props) {
             width: props.node.dimensions.width,
             height: props.node.dimensions.height,
             title: props.node.title,
-            data: props.dataset
+            data: props.dataset,
+            color: props.node.styling.color,
+
         }
         switch (props.node.variant) {
 
@@ -44,7 +46,7 @@ export default function ChartNode(props) {
                 break
         }
         return res
-    }, [props.node.title, props.node.dataset, props.node.variant, props.node.dimensions])
+    }, [props.node.title, props.node.dataset, props.node.variant, props.node.dimensions, props.node.styling.color])
 
 
     return (

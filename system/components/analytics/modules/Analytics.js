@@ -18,7 +18,7 @@ import Dropdown from "../../shared/templates/tools/Dropdown";
 import HandleDownload from "../../shared/utils/HandleDownload";
 import DatasetManagement from "./dataset/DatasetManagement";
 import DataManagementBar from "./dataset/DataManagementBar";
-import ChartContent from "./ChartContent";
+import ChartContent from "../templates/ChartContent";
 import ChildrenSwitcher from "./ChildrenSwitcher";
 import Loader from "../../shared/templates/tools/Loader";
 import useData from "../../shared/hooks/useData";

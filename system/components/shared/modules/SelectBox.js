@@ -12,7 +12,6 @@ export default function SelectBox(props) {
         if (props.selectedNodes.find(b => b.node.id === e.id) === undefined)
             unselectedNodes.push(e)
     })
-    console.log(toBeSelected)
     const checkIntersections = () => {
         unselectedNodes.forEach((e, i) => {
             const bBox = box.getBoundingClientRect()

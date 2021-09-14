@@ -1,7 +1,12 @@
 import PropTypes from "prop-types";
 
 export default {
+
+    data: PropTypes.object,
+    setData: PropTypes.func,
+
     node: PropTypes.object,
+    index: PropTypes.number,
 
     selectNode: PropTypes.func,
     unselectNode: PropTypes.func,
@@ -10,8 +15,6 @@ export default {
     toBeLinked: PropTypes.object,
     scale: PropTypes.number,
 
-    savePlacement: PropTypes.func,
-    setNode: PropTypes.func,
     children: PropTypes.node,
     noPlacementIndicator: PropTypes.bool,
     showConnections: PropTypes.bool

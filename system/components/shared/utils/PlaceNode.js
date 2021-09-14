@@ -28,7 +28,7 @@ export default function PlaceNode(props) {
         let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
         parsedPlacement = parsedPlacement.split(', ')
 
-        if(placementRef !== null && !props.noPlacementIndicator)
+        if (placementRef !== null && !props.noPlacementIndicator)
             placementRef.innerText = `${Math.ceil(parseInt(parsedPlacement[0]))}, ${Math.ceil(parseInt(parsedPlacement[1]))}`
 
         const newPlacement = {
@@ -47,10 +47,8 @@ export default function PlaceNode(props) {
                 newTransform.x = 0
             if (newPlacement.y < 0)
                 newTransform.y = 0
-            props.savePlacement(newTransform)
+            props.dispatch({type: props.actions.PLACEMENT, payload: newTransform})
             nodeRef.setAttribute('transform', `translate(${newTransform.x}, ${newTransform.y})`)
-
-
         }
     }
 
@@ -63,8 +61,7 @@ export default function PlaceNode(props) {
             }
 
             handlePlacement(event, false)
-        }
-        else
+        } else
             event.currentTarget.removeEventListener('mousemove', movingEl)
     })
     document.addEventListener("mouseup", event => {
@@ -77,11 +74,13 @@ export default function PlaceNode(props) {
 }
 
 PlaceNode.propTypes = {
+
     scale: PropTypes.number,
     node: PropTypes.object,
     event: PropTypes.object,
     selectNode: PropTypes.func,
     unselectNode: PropTypes.func,
-    savePlacement: PropTypes.func,
+    dispatch: PropTypes.func,
+    actions: PropTypes.object,
     noPlacementIndicator: PropTypes.bool
 }

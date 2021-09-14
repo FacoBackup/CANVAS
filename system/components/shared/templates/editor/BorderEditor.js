@@ -12,16 +12,11 @@ export default function BorderEditor(props) {
                     <CirclePicker
                         width={'100%'}
                         color={{hex: props.node.styling.color}}
-                        onChangeComplete={event => {
-                            props.handleChange('styling',
-                                {
-                                    ...props.node.styling, ...{
-                                        color: event.hex
-                                    }
-                                }
-                            )
-                        }
-                        }/>
+                        onChangeComplete={event => props.dispatch({
+                            type: props.actions.VISUALS,
+                            payload: {...props.node.styling, color: event.hex}
+                        })}
+                    />
                 </div>
             </Accordion>
             <Accordion label={'Borda'}>
@@ -37,14 +32,10 @@ export default function BorderEditor(props) {
                         <input
                             className={styles.basicInput}
                             style={{transition: 'none', cursor: "pointer", height: '20px'}}
-                            onChange={event => {
-                                props.handleChange('styling',
-                                    {
-                                        ...props.node.styling, ...{
-                                            borderRadius: event.target.value,
-                                        }
-                                    })
-                            }}
+                            onChange={event => props.dispatch({
+                                type: props.actions.VISUALS,
+                                payload: {...props.node.styling, borderRadius: event.target.value}
+                            })}
                             value={props.node.styling.borderRadius}
                             type={'range'}
                             max={10} min={0}
@@ -61,14 +52,10 @@ export default function BorderEditor(props) {
                         <input
                             className={styles.basicInput}
                             style={{transition: 'none', cursor: "pointer", height: '20px'}}
-                            onChange={event => {
-                                props.handleChange('styling',
-                                    {
-                                        ...props.node.styling, ...{
-                                            strokeWidth: event.target.value
-                                        }
-                                    })
-                            }}
+                            onChange={event => props.dispatch({
+                                type: props.actions.VISUALS,
+                                payload: {...props.node.styling, strokeWidth: event.target.value}
+                            })}
                             value={props.node.styling.strokeWidth}
                             type={'range'}
                             max={10} min={0}
@@ -84,14 +71,10 @@ export default function BorderEditor(props) {
                         <input
                             className={styles.basicInput}
                             style={{transition: 'none', cursor: "pointer", height: '20px'}}
-                            onChange={event => {
-                                props.handleChange('styling',
-                                    {
-                                        ...props.node.styling, ...{
-                                            strokeDasharray: `${event.target.value}, ${event.target.value}`
-                                        }
-                                    })
-                            }}
+                            onChange={event => props.dispatch({
+                                type: props.actions.VISUALS,
+                                payload: {...props.node.styling, strokeDasharray: event.target.value}
+                            })}
                             value={props.node.styling.strokeDasharray === undefined ? 0 : props.node.styling.strokeDasharray.split(',')[0]}
                             type={'range'}
                             max={10} min={0}
@@ -105,5 +88,6 @@ export default function BorderEditor(props) {
 
 BorderEditor.propTypes = {
     node: PropTypes.object,
-    handleChange: PropTypes.func
+    dispatch: PropTypes.func,
+    actions: PropTypes.object
 }

@@ -5,6 +5,7 @@ import Shape from "../shapes/Shape";
 import styles from '../../styles/Node.module.css'
 import PlaceNode from "../../utils/PlaceNode";
 import ConnectionsWrapper from "../../../flowchart/modules/ConnectionsWrapper";
+import useNode from "../../hooks/useNode";
 
 
 export default function NodeWrapper(props) {
@@ -12,17 +13,16 @@ export default function NodeWrapper(props) {
     const selected = useMemo(() => {
         return props.selectedNodes.find(e => e.node.id === props.node.id)
     }, [props.selectedNodes])
-    const moveNode = (event) => {
-        PlaceNode({
-            scale: props.scale,
-            node: props.node,
-            event: event,
-            selectNode: props.selectNode,
-            unselectNode: props.unselectNode,
-            savePlacement: props.savePlacement,
-            noPlacementIndicator: props.noPlacementIndicator
-        })
-    }
+
+    const {ACTIONS, nodeState, dispatch, move} = useNode({
+        data: props.data,
+        setData: props.setData,
+        node: props.node,
+        scale: props.scale,
+        selectNode: props.selectNode,
+        unselectNode: props.unselectNode,
+        noPlacementIndicator: props.noPlacementIndicator
+    })
 
     return (
         <g
@@ -33,7 +33,8 @@ export default function NodeWrapper(props) {
             fill={'none'}
             className={styles.entityContainer}
         >
-            {props.showConnections ? <ConnectionsWrapper {...props} selected={selected}/> : undefined}
+            {props.showConnections ?
+                <ConnectionsWrapper node={nodeState} handleLink={props.handleLink} selected={selected}/> : undefined}
             <Shape
                 id={props.node.id}
                 shapeVariant={props.node.shapeVariant}
@@ -51,14 +52,14 @@ export default function NodeWrapper(props) {
                 onMouseDown={(event) => {
                     if (event.button === 0) {
                         if (selected !== undefined && selected.node.id === props.node.id)
-                            moveNode(event)
+                            move(event)
                     }
 
                 }}
                 onClick={(event) => {
-                    if(event.ctrlKey)
+                    if (event.ctrlKey)
                         props.selectNode(props.node)
-                    else{
+                    else {
                         props.unselectNode(undefined, true)
                         props.selectNode(props.node, false, true)
                     }
@@ -67,7 +68,8 @@ export default function NodeWrapper(props) {
 
                 {props.children({...props})}
             </Shape>
-            <SelectedWrapper {...props} selected={selected}/>
+            <SelectedWrapper selectNode={props.selectNode} node={nodeState} selected={selected} scale={props.scale}
+                             actions={ACTIONS} dispatch={dispatch}/>
         </g>
     )
 }

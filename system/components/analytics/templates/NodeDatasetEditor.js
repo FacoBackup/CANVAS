@@ -9,12 +9,11 @@ export default function NodeDatasetEditor(props) {
     const [openDropdown, setOpenDropdown] = useState(null)
     return (
         <>
-
             <div className={styles.fieldContainer}>
                 <div>Título</div>
                 <input
                     className={styles.basicInput}
-                    onChange={event => props.handleChange('title', event.target.value)}
+                    onChange={event => props.dispatch({type: props.actions.TITLE, payload: event.target.value})}
                     value={props.node.title}
                     placeholder={'Título'}
                 />
@@ -26,22 +25,23 @@ export default function NodeDatasetEditor(props) {
                         <div>Título do eixo</div>
                         <input
                             className={styles.basicInput}
-                            onChange={event => props.handleChange('dataset', {
-                                ...props.node.dataset,
-                                axisLabel: event.target.value
-                            })}
+                            onChange={event => props.dispatch({type: props.actions.DATASET, payload: {...props.node.dataset, axisLabel: event.target.value}})}
+                            // onChange={event => props.dispatch({type: 'dataset', {
+                            //     ...props.node.dataset,
+                            //     axisLabel: event.target.value
+                            // })}
                             value={props.node.axisLabel}
                             placeholder={'Eixo'}
                         />
                     </div>
                     <div className={styles.dropDownWrapper}>
                         <div className={styles.field} id={'add-field-node-axis'}
-                             style={{textTransform: props.node.dataset === undefined || props.node.dataset.axis === null ? 'capitalize' : undefined}}>
-                            {props.node.dataset === undefined || props.node.dataset.axis === null ?
+                             style={{textTransform: props.node.dataset === undefined || !props.node.dataset.axis ? 'capitalize' : undefined}}>
+                            {props.node.dataset === undefined || !props.node.dataset.axis ?
                                 <AddRounded style={{fontSize: '1.3rem'}}/> : null}
-                            {props.node.dataset === undefined || props.node.dataset.axis === null ? 'Adicionar campo de eixo' : props.node.dataset.axis}
+                            {props.node.dataset === undefined || !props.node.dataset.axis ? 'Adicionar campo de eixo' : props.node.dataset.axis}
                         </div>
-                        {props.node.dataset === undefined || props.node.dataset.axis === null ? null :
+                        {props.node.dataset === undefined || !props.node.dataset.axis ? null :
                             <Dropdown
                                 label={<ArrowDropDownRounded/>} open={openDropdown === 0}
                                 handleOpen={() => setOpenDropdown(0)}
@@ -52,10 +52,7 @@ export default function NodeDatasetEditor(props) {
                                         children: [
                                             {
                                                 label: 'Remover campo',
-                                                onClick: () => props.handleChange('dataset', {
-                                                    ...props.node.dataset,
-                                                    axis: null
-                                                }),
+                                                onClick: () => props.dispatch({type: props.actions.DATASET, payload: {...props.node.dataset, axis: null}}),
                                                 icon: <CloseRounded/>,
                                                 styles: {color: '#ff5555'}
                                             }
@@ -73,23 +70,20 @@ export default function NodeDatasetEditor(props) {
                         <div>Título dos valores</div>
                         <input
                             className={styles.basicInput}
-                            onChange={event => props.handleChange('dataset', {
-                                ...props.node.dataset,
-                                valueLabel: event.target.value
-                            })}
+                            onChange={event => props.dispatch({type: props.actions.DATASET, payload: {...props.node.dataset, valueLabel: event.target.value}})}
                             value={props.node.dataset === undefined ? '' : props.node.dataset.valueLabel}
                             placeholder={'Valores'}
                         />
                     </div>
                     <div className={styles.dropDownWrapper}>
                         <div className={styles.field} id={'add-field-node-value'}
-                             style={{textTransform: props.node.dataset === undefined || props.node.dataset.value === null ? 'capitalize' : undefined}}>
-                            {props.node.dataset === undefined || props.node.dataset.value === null ?
+                             style={{textTransform: props.node.dataset === undefined || !props.node.dataset.value ? 'capitalize' : undefined}}>
+                            {props.node.dataset === undefined || !props.node.dataset.value ?
                                 <AddRounded style={{fontSize: '1.3rem'}}/> : null}
-                            {props.node.dataset === undefined || props.node.dataset.value === null ? 'Adicionar campo de valor' : props.node.dataset.value}
+                            {props.node.dataset === undefined || !props.node.dataset.value ? 'Adicionar campo de valor' : props.node.dataset.value}
 
                         </div>
-                        {props.node.dataset === undefined || props.node.dataset.value === null ? null :
+                        {props.node.dataset === undefined || !props.node.dataset.value ? null :
                             <Dropdown
                                 label={<ArrowDropDownRounded/>} open={openDropdown === 0}
                                 handleOpen={() => setOpenDropdown(0)}
@@ -100,10 +94,7 @@ export default function NodeDatasetEditor(props) {
                                         children: [
                                             {
                                                 label: 'Remover campo',
-                                                onClick: () => props.handleChange('dataset', {
-                                                    ...props.node.dataset,
-                                                    value: null
-                                                }),
+                                                onClick: () => props.dispatch({type: props.actions.DATASET, payload: {...props.node.dataset, value: null}}),
                                                 icon: <CloseRounded/>,
                                                 styles: {color: '#ff5555'}
                                             }
@@ -122,5 +113,6 @@ export default function NodeDatasetEditor(props) {
 NodeDatasetEditor.propTypes = {
 
     node: PropTypes.object,
-    handleChange: PropTypes.func
+    dispatch: PropTypes.func,
+    actions: PropTypes.object
 }

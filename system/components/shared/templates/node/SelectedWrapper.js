@@ -35,73 +35,72 @@ export default function SelectedWrapper(props) {
                 </button>
             </foreignObject>
             <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                             savePlacement={(event) => props.setNode({...props.node, placement: event})}
-                             save={(dim, placement) => props.setNode({
-                                 ...props.node,
-                                 dimensions: dim,
-                                 placement: placement
-                             })}
+                             savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                             save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
                              placement={'nw'} node={node} setNode={setNode} scale={props.scale}/>
             <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                             savePlacement={(event) => props.setNode({...props.node, placement: event})}
-                             save={(dim, placement) => props.setNode({
-                                 ...props.node,
-                                 dimensions: dim,
-                                 placement: placement
-                             })}
+                             savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                             save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
                              placement={'ne'} node={node} setNode={setNode} scale={props.scale}/>
 
             <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                             savePlacement={(event) => props.setNode({...props.node, placement: event})}
-                             save={(dim, placement) => props.setNode({
-                                 ...props.node,
-                                 dimensions: dim,
-                                 placement: placement
-                             })}
+                             savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                             save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
                              placement={'sw'} node={node} setNode={setNode} scale={props.scale}/>
             <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                             savePlacement={(event) => props.setNode({...props.node, placement: event})}
-                             save={(dim, placement) => props.setNode({
-                                 ...props.node,
-                                 dimensions: dim,
-                                 placement: placement
-                             })}
+                             savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                             save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
                              placement={'se'} node={node} setNode={setNode} scale={props.scale}/>
 
             <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                             savePlacement={(event) => props.setNode({...props.node, placement: event})}
-                             save={(dim, placement) => props.setNode({
-                                 ...props.node,
-                                 dimensions: dim,
-                                 placement: placement
-                             })}
+                             savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                             save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
                              placement={'w'} node={node} setNode={setNode} scale={props.scale}/>
             <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                             savePlacement={(event) => props.setNode({...props.node, placement: event})}
-                             save={(dim, placement) => props.setNode({
-                                 ...props.node,
-                                 dimensions: dim,
-                                 placement: placement
-                             })}
+                             savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                             save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
                              placement={'s'} node={node} setNode={setNode} scale={props.scale}/>
             <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                             savePlacement={(event) => props.setNode({...props.node, placement: event})}
-                             save={(dim, placement) => props.setNode({
-                                 ...props.node,
-                                 dimensions: dim,
-                                 placement: placement
-                             })}
+                             savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                             save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
                              placement={'e'} node={node} setNode={setNode} scale={props.scale}/>
             <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                             savePlacement={(event) => props.setNode({...props.node, placement: event})}
-                             save={(dim, placement) => props.setNode({
-                                 ...props.node,
-                                 dimensions: dim,
-                                 placement: placement
-                             })}
+                             savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                             save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
                              placement={'n'} node={node} setNode={setNode} scale={props.scale}/>
         </g>
     )
 }
 
-SelectedWrapper.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object, selected: PropTypes.object}}
+SelectedWrapper.propTypes = {
+    dispatch: PropTypes.func,
+    actions: PropTypes.object,
+    node: PropTypes.object,
+    scale: PropTypes.number,
+    selectNode: PropTypes.func,
+    selected: PropTypes.object
+}

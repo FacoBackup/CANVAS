@@ -1,7 +1,7 @@
 import styles from '../../shared/styles/Shapes.module.css'
 import PropTypes from 'prop-types'
 import Accordion from "../../shared/templates/tools/Accordion";
-import {BarChartRounded, PieChartRounded, ShowChartRounded} from "@material-ui/icons";
+import {BarChartRounded, PieChartRounded, ShowChartRounded, TimelineRounded} from "@material-ui/icons";
 import PlaceNewAnalyticChart from "../utils/PlaceNewAnalyticChart";
 import ToolTip from "../../../chart/tooltip/ToolTip";
 
@@ -16,7 +16,6 @@ export default function AnalyticsShapes(props) {
             setData: props.setData
         })
     }
-    console.log(props.data)
     return (
 
         <Accordion {...props} label={'Módulos'}>
@@ -80,7 +79,7 @@ export default function AnalyticsShapes(props) {
                     draggable={true}
                 >
                     <div>
-                        <ShowChartRounded style={{fontSize: '2rem', color: '#0095ff'}}/>
+                        <TimelineRounded style={{fontSize: '2rem', color: '#0095ff'}}/>
                     </div>
                     <ToolTip content={'Line chart'}/>
                 </div>

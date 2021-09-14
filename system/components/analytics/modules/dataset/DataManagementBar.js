@@ -1,5 +1,5 @@
 import styles from "../../../shared/styles/Navigation.module.css";
-import {ShowChartRounded, TableChart} from "@material-ui/icons";
+import {FolderRounded, ShowChartRounded, TableChart} from "@material-ui/icons";
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -15,7 +15,7 @@ export default function DataManagementBar(props) {
             </button>
             <button
                 onClick={() => props.setOpenDataset(true)} className={[styles.button, styles.bigButton, props.openDataset ? styles.activeButton : ''].join(' ')}>
-                <TableChart style={{fontSize: '1.7rem'}}/>
+                <FolderRounded style={{fontSize: '1.7rem'}}/>
 
                 <div className={styles.overflow}>
                     Dados

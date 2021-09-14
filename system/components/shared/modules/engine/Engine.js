@@ -47,17 +47,20 @@ export default function Engine(props) {
 Engine.propTypes = {
     data: PropTypes.object,
     setData: PropTypes.func,
+
     scale: PropTypes.number,
-    setNodeOnOverview: PropTypes.func,
-    nodeOnOverview: PropTypes.object,
+
     toBeLinked: PropTypes.object,
     setToBeLinked: PropTypes.func,
+
     selectedNodes: PropTypes.object,
     selectNode: PropTypes.func,
     unselectNode: PropTypes.func,
+
     dimensions: PropTypes.shape({
         width: PropTypes.number,
         height: PropTypes.number
     }),
+
     children: PropTypes.node
 }

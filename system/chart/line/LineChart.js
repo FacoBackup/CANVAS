@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from './styles/LineChart.module.css'
 import {useEffect, useRef, useState} from "react";
-import {BarChartRounded, ShowChartRounded} from "@material-ui/icons";
+import {BarChartRounded, ShowChartRounded, TimelineRounded} from "@material-ui/icons";
 import GetPoints from "./templates/getPoints";
 import ToolTip from "../tooltip/ToolTip";
 import Line from "./templates/Line";
@@ -64,13 +64,13 @@ export default function LineChart(props) {
     return (
         <div>
             {props.value === undefined || props.axis === undefined || !props.value.field || !props.axis.field ?
-                <ShowChartRounded
+                <TimelineRounded
                     style={{
                         transform: 'translate(-50%, -50%)',
                         top: '50%',
                         left: '50%',
                         fontSize: (props.height > props.width ? (props.height) / 2 : props.width / 2) + 'px',
-                        color: '#0095ff',
+                        color: props.color ? props.color : '#0095ff',
                         position: "absolute"
                     }}
                 />
@@ -142,41 +142,10 @@ export default function LineChart(props) {
                         </div>
 
                     </div>
-                    {/*<div*/}
-                    {/*    id={props.id + '-labels'}*/}
-                    {/*    style={{*/}
-                    {/*        width: dimensions.width + 'px',*/}
-                    {/*        marginLeft: 'auto',*/}
-                    {/*        height: '20px',*/}
-                    {/*        overflowX: 'hidden',*/}
-                    {/*        padding: '0px 4px',*/}
-
-                    {/*    }}>*/}
-                    {/*    <svg*/}
-                    {/*        overflow={'visible'}*/}
-                    {/*        width={columnWidth * (props.data.length - 2)}*/}
-                    {/*        height={'100%'}*/}
-
-                    {/*    >*/}
-                    {/*        {points.map((e, i) => (*/}
-
-
-                    {/*                <text x={e.x} y={'50%'} fill={'#555555'} style={{fontSize: '.7rem'}}*/}
-                    {/*                      textAnchor={'middle'} key={'axis-' + props.id+'-'+i}>*/}
-                    {/*                    {e.axis}*/}
-                    {/*                </text>*/}
-
-
-                    {/*        ))}*/}
-                    {/*    </svg>*/}
-                    {/*</div>*/}
                     <div
                         onScroll={e => {
                             const labels = document.getElementById(props.id + '-labels')
-                            // console.log(labels)
                             chartRef.current.scrollLeft = e.target.scrollLeft
-                            // console.log(labels.scrollLeft)
-                            // labels.scrollLeft = e.target.scrollLeft
                         }}
                         style={{
                             width: dimensions.width + 'px',
@@ -216,5 +185,6 @@ LineChart.propTypes = {
     legends: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,
         field: PropTypes.string
-    }))
+    })),
+    color: PropTypes.string
 }

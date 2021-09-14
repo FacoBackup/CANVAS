@@ -35,8 +35,6 @@ export default function useData() {
     }
     const selectNode = useCallback((node, openEdit, clear, nodes) => {
         let index
-        let existingIndex
-        console.log(nodes)
         if (node !== undefined && node !== null) {
             pages[openPage].nodes.forEach((e, i) => {
                 if (e.id === node.id)
@@ -44,32 +42,28 @@ export default function useData() {
             })
 
             let newSelected = clear ? [] : [...selected]
-            newSelected.forEach((e, i) => {
-                if (e.id === node.id)
-                    existingIndex = i
-            })
-            if(existingIndex)
-                newSelected.splice(existingIndex, 1)
+            const found = newSelected.find((e, i) => e.node.id === node.id)
+            newSelected.splice(newSelected.indexOf(found), 1)
+
             newSelected.push({
                 node: node,
                 index: index,
                 openEdit: openEdit
             })
-            console.log(newSelected)
+
             setSelected(newSelected)
-        }
-        else if(nodes !== undefined && Array.isArray(nodes)) {
+        } else if (nodes !== undefined && Array.isArray(nodes)) {
             let newSelected = []
             nodes.forEach(b => {
                 let index
                 const node = pages[openPage].nodes.find((e, i) => {
-                    if(e.id === b.id) {
+                    if (e.id === b.id) {
                         index = i
                         return e
                     }
                 })
 
-                if(index !== undefined)
+                if (index !== undefined)
                     newSelected.push({
                         node: node,
                         index: index,
@@ -77,7 +71,6 @@ export default function useData() {
                     })
             })
 
-            console.log(newSelected)
             setSelected(newSelected)
         }
     }, [selected])
@@ -91,11 +84,8 @@ export default function useData() {
             })
             newSelected.splice(index, 1)
             setSelected(newSelected)
-        } else {
-            console.log('ALL')
+        } else
             setSelected([])
-        }
-
     }
     const handlePrint = useReactToPrint({
         content: () => document.getElementById('engine-content')

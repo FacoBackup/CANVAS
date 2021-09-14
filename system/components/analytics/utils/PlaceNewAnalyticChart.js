@@ -20,7 +20,6 @@ export default function PlaceNewAnalyticChart(props) {
     newWrapper.firstChild.style.alignItems = 'center'
     newWrapper.firstChild.style.height = '250px'
     newWrapper.firstChild.style.border = '#0095ff 2px dashed'
-    console.log(newWrapper.firstChild.firstChild.firstChild.style)
     newWrapper.firstChild.firstChild.firstChild.style.fontSize = '100px'
     newWrapper.firstChild.style.cursor = 'grabbing'
 

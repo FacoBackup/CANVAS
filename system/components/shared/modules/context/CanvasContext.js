@@ -46,7 +46,6 @@ export default function CanvasContext(props) {
                         }
                         let newNodes = [...props.data.nodes]
 
-                        console.log(newNode)
                         newNodes.push(newNode)
 
                         props.setData({

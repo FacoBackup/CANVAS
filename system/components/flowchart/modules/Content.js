@@ -9,20 +9,14 @@ export default function Content(props) {
     const [focused, setFocused] = useState(false)
     const handleChange = (e) => {
         const elements = e.type === 'click' ? document.elementsFromPoint(e.clientX, e.clientY) : []
-        try {
-            if (e.type === 'click' && e.target.closest('.' + topBarStyles.button) === null && !elements.includes(ref.current) && !elements.includes(document.getElementById('context-menu'))) {
-                setFocused(false)
-                props.setNode({
-                    ...props.node,
-                    richTitle: ref.current !== undefined && ref.current !== null && ref.current?.innerHTML !== undefined ? ref.current.innerHTML : null
-                })
-            }
 
-
-        } catch (e) {
-            console.log(e)
+        if (e.type === 'click' && e.target.closest('.' + topBarStyles.button) === null && !elements.includes(ref.current) && !elements.includes(document.getElementById('context-menu'))) {
+            setFocused(false)
+            props.setNode({
+                ...props.node,
+                richTitle: ref.current !== undefined && ref.current !== null && ref.current?.innerHTML !== undefined ? ref.current.innerHTML : null
+            })
         }
-
     }
 
     useEffect(() => {

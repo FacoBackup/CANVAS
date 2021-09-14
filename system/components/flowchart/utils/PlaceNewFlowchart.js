@@ -51,11 +51,7 @@ export default function PlaceNewFlowchart(props) {
     const dimensions = getDimensions()
     const variant = getVariant()
     const element = props.element.firstChild.cloneNode(true)
-    console.log(props.element.id)
-    console.log(props.element.children)
     const newWrapper = document.createElement('div')
-    document.body.appendChild(newWrapper)
-
 
     newWrapper.appendChild(element)
     newWrapper.style.position = 'fixed'
@@ -91,7 +87,7 @@ export default function PlaceNewFlowchart(props) {
                     x: root.getBoundingClientRect().left,
                     y: root.getBoundingClientRect().top
                 }
-                console.log(rootBounding)
+
                 props.setData(({
                     ...props.data,
                     nodes: [...props.data.nodes, ...[{

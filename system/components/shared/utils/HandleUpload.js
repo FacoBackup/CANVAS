@@ -101,7 +101,6 @@ export default async function HandleUpload(props) {
                 }
                 case 'csv': {
                     data = await handleCsv(newData, (e) => {
-                        console.log('THIS IS OBJECT => ' + JSON.stringify(e))
                         props.setDataset(e)
                         props.setDatasetName(name)
                     })

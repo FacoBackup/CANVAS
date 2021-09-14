@@ -64,4 +64,8 @@ export default function ConnectionsWrapper(props) {
     )
 }
 
-ConnectionsWrapper.propTypes = {...NodePropsTemplate, ...{onMove: PropTypes.bool}}
+ConnectionsWrapper.propTypes = {
+    node: PropTypes.object,
+    handleLink: PropTypes.func,
+    selected: PropTypes.object
+}

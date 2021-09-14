@@ -41,7 +41,7 @@ export default function NodeContext(props) {
                     key: 'node-2'
                 },
                 {
-                    label:props.selectedNodes.length > 1 ? 'Deletar selecionados' :  'Deletar',
+                    label: props.selectedNodes.length > 1 ? 'Deletar selecionados' : 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (event, nodeID) => {
                         props.unselectNode(nodeID)
@@ -57,10 +57,6 @@ export default function NodeContext(props) {
                         newNodes[index] = {}
 
                         props.setData({
-                            ...props.data,
-                            nodes: newNodes
-                        })
-                        console.log({
                             ...props.data,
                             nodes: newNodes
                         })
