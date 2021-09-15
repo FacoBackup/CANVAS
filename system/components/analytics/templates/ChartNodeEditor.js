@@ -13,7 +13,11 @@ export default function ChartNodeEditor(props) {
         return props.selectedNodes.find(e => e.openEdit)
     }, [props.selectedNodes])
 
-    const {ACTIONS, nodeState, dispatch} = useNode({data: props.data, setData: props.setData, node: openEdit?.node})
+    const {ACTIONS, nodeState, dispatch} = useNode({
+        data: props.data,
+        setData: props.setData,
+        node: openEdit ? props.data.nodes[openEdit.index] : undefined
+    })
 
     const [open, setOpen] = useState(0)
     return (

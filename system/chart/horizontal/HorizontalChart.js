@@ -11,7 +11,7 @@ import getPercentage from "../shared/getPercentage";
 export default function HorizontalChart(props) {
     const scrollableRef = useRef()
     const graphRef = useRef()
-    console.log("********************************* RERENDER *********************************")
+
     return (
         <div>
             {props.value === undefined || props.axis === undefined || !props.value.field || !props.axis.field ?
@@ -44,13 +44,13 @@ export default function HorizontalChart(props) {
                                 ))}
                             </svg>
                             <div style={{overflowY: 'auto', height: (props.height - offset * 2) + 'px', width: '100%'}}
-                                 ref={scrollableRef}>
+                                 >
                                 <svg
-
+                                    ref={scrollableRef}
                                     width={props.width - props.width * 0.7 - 20}
                                     overflow={'visible'}
                                     style={{position: 'relative', zIndex: 10}}
-                                    height={(props.data.length - 1) * 30}
+                                    // height={(props.data.length - 1) * 30}
                                 >
                                     <Content
                                         {...props}

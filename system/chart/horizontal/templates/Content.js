@@ -17,12 +17,11 @@ export default function Content(props) {
     }, [])
 
     return (
-        <LazyLoader data={props.data} scrollableRef={props.scrollableRef} scrollOrientation={'vertical'}>
+        <LazyLoader dimensions={props.height} scrollableRef={props.scrollableRef} dataLength={props.data.length} scrollOrientation={'vertical'}>
             {canRenderUntil =>
                 props.data.map((e, i) => (
-                    e[props.value.field] !== undefined?
-                    // && canRenderUntil !== undefined && i <= canRenderUntil ?
-                        <g key={i + '-row-content'} style={{display: i > 30 ? 'none' : undefined}}>
+                    e[props.value.field] !== undefined && canRenderUntil !== undefined && i <= canRenderUntil ?
+                        <g key={i + '-row-content'}>
                             <Row
                                 biggest={props.biggest} axisContent={e[props.axis.field]}
                                 value={parseInt(e[props.value.field])} color={color}
@@ -36,7 +35,6 @@ export default function Content(props) {
                         null
                 ))
             }
-
         </LazyLoader>
     )
 }

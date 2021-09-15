@@ -12,7 +12,7 @@ export default function DatasetOptions(props) {
 
         let newNode = {...newPage.nodes[openEditor.index]}
 
-        if(as === 'axis')
+        if (as === 'axis')
             newNode.dataset = {
                 value: newNode.dataset !== undefined ? newNode.dataset.value : null,
                 axis: field
@@ -29,65 +29,24 @@ export default function DatasetOptions(props) {
         props.handlePageChange(newPage)
     }
     return (
-        <>
-            {/*<Accordion {...props} label={'Módulos'} >*/}
-            {/*    <div className={styles.shapes}>*/}
-            {/*        <div*/}
-            {/*            className={styles.shapeContainer}*/}
-            {/*            id={'bar-vertical-draggable'}*/}
-            {/*            onMouseDown={event => drag(event, 'bar-vertical')}*/}
-            {/*        >*/}
-            {/*            <div>*/}
-            {/*                <BarChartRounded style={{fontSize: '2rem', color: '#0095ff'}}/>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*        <div*/}
-            {/*            className={styles.shapeContainer}*/}
-            {/*            id={'bar-horizontal-draggable'}*/}
-            {/*            onMouseDown={event => drag(event, 'bar-horizontal')}*/}
-            {/*        >*/}
-            {/*            <div>*/}
-            {/*                <BarChartRounded style={{transform: 'rotate(90deg)', fontSize: '2rem', color: '#0095ff'}}/>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*        <div*/}
-            {/*            className={styles.shapeContainer}*/}
-            {/*            id={'line-draggable'}*/}
-            {/*            onMouseDown={event => drag(event, 'line')}*/}
-            {/*        >*/}
-            {/*            <div>*/}
-            {/*                <ShowChartRounded style={{fontSize: '2rem', color: '#0095ff'}}/>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*        <div*/}
-            {/*            className={styles.shapeContainer}*/}
-            {/*            id={'pie-draggable'}*/}
-            {/*            onMouseDown={event => drag(event, 'pie')}*/}
-            {/*        >*/}
-            {/*            <div>*/}
-            {/*                <PieChartRounded style={{fontSize: '2rem', color: '#0095ff'}}/>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-
-            {/*    </div>*/}
-            {/*</Accordion>*/}
-            <Accordion {...props} label={'Data'}>
-                <div className={styles.fields}>
-                    {Object.keys(props.dataset[0]).map((d, i) => (
-                        <div
-                            className={styles.field}
-                            key={d + '-field-' + i}
-                            onMouseDown={(e) => {
-                                PlaceNewField({element: e.target, event: e, handleFieldLink: (as) => handleFieldLink(d, as)})
-                            }}
-                        >
-                            <DragIndicatorRounded style={{fontSize: '1.3rem'}}/>
-                            {d}
-                        </div>
-                    ))}
+        <div className={styles.fields}>
+            {Object.keys(props.dataset[0]).map((d, i) => (
+                <div
+                    className={styles.field}
+                    key={d + '-field-' + i}
+                    onMouseDown={(e) => {
+                        PlaceNewField({
+                            element: e.target,
+                            event: e,
+                            handleFieldLink: (as) => handleFieldLink(d, as)
+                        })
+                    }}
+                >
+                    <DragIndicatorRounded style={{fontSize: '1.3rem'}}/>
+                    {d}
                 </div>
-            </Accordion>
-        </>
+            ))}
+        </div>
     )
 }
 DatasetOptions.propTypes = {

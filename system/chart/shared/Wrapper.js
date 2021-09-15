@@ -1,39 +1,39 @@
 import PropTypes from 'prop-types'
 import styles from "../horizontal/styles/Horizontal.module.css";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 export default function Wrapper(props) {
-    const [iterations, setIterations] = useState([])
-    const [biggest, setBiggest] = useState(null)
-    useEffect(() => {
-        let b = undefined
+    const {biggest, iterations} = useMemo(() => {
+        let biggest
+        let iterations = []
         props.data.forEach((e) => {
-            if (b === undefined)
-                b = parseInt(e[props.value])
-            else if (parseInt(e[props.value]) > b)
-                b = parseInt(e[props.value])
+            if (biggest === undefined)
+                biggest = parseInt(e[props.value])
+            else if (parseInt(e[props.value]) > biggest)
+                biggest = parseInt(e[props.value])
         })
 
-        let value = b
+        let value = biggest
         let percent = Math.ceil(value * .2)
         let topValue = value - percent * 5
+
         if (topValue < 0) {
             topValue = topValue * (-1)
             value = value + topValue
             topValue = value - percent * 5
         }
 
-
-        let newIterations = []
-        for (let i = 0; i < 6; i++)
-            newIterations.push({
+        for (let i = 0; i < 6; i++) {
+            iterations.push({
                 value: (topValue > 0 ? topValue : value) - percent * (i),
                 x: (5 - i) * 17.5
             })
-        setIterations(newIterations)
-        setBiggest(newIterations[0].value)
+        }
 
+        biggest = iterations[0].value
+        return {biggest, iterations}
     }, [props.value, props.data])
+
 
     return (
         <div className={styles.chartWrapper}>
