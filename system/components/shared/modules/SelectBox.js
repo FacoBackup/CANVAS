@@ -5,9 +5,9 @@ export default function SelectBox(props) {
     let canMove = true
     let box = document.createElement('div')
     let boundedBy = {x: false, y: false}
-    const canvasBBox = props.event.target.getBoundingClientRect()
     let unselectedNodes = []
     let toBeSelected = props.selectedNodes.map(b => b.node)
+
     props.nodes.forEach((e) => {
         if (props.selectedNodes.find(b => b.node.id === e.id) === undefined)
             unselectedNodes.push(e)
@@ -33,6 +33,7 @@ export default function SelectBox(props) {
         box.style.left = props.event.clientX + 'px'
         box.setAttribute('ry', '3')
 
+        const canvasBBox = props.event.target.getBoundingClientRect()
         const handleDrag = (e) => {
             checkIntersections()
             const width = props.event.clientX > e.clientX ? (props.event.clientX - e.clientX) : (e.clientX - props.event.clientX)

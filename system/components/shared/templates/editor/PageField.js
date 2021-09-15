@@ -5,7 +5,7 @@ import {CloseRounded} from "@material-ui/icons";
 export default function PageField(props) {
 
     return (
-        <div className={styles.pageButtonsContainer}>
+        <div className={styles.pageButtonsContainer} style={{transform: props.page.default ? 'scale(1)' : 'scale(.93)'}}>
             <input value={props.page.title} onChange={event => props.renamePage(event.target.value)}
                    onBlur={() => props.handleClose()} className={styles.pageInput}
                    style={{
@@ -14,7 +14,6 @@ export default function PageField(props) {
             <button
                 className={styles.pageButton}
                 style={{
-                    background: props.page.default ? 'white' : '#FBFBFC',
                     display: props.open ? 'none' : undefined,
                     borderBottom: props.page.default ? '#0095ff 2px solid' : 'transparent 2px solid'
                 }}

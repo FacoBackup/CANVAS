@@ -2,26 +2,21 @@
     height: 100%;
     width: fit-content;
     display: flex;
+    background: white;
+    border: #ecedf2 1px solid;
+    border-radius: 5px;
 }
 .horizontalContainer {
     height: 100%;
     width: 100%;
     display: grid;
 }
-.buttons {
-    width: 55px;
-    height: 100%;
-    background: #f4f5fa;
-    display: grid;
-    align-content: flex-start;
-    gap: 12px;
-    padding: 4px;
-}
+
 .horizontalButtons{
     width: calc(100% - 32px);
     margin: auto;
 
-    background: #f4f5fa;
+
     border: #ecedf2 1px solid;
     display: flex;
     align-content: center;
@@ -30,6 +25,15 @@
     justify-content: space-between;
     padding: 8px 4px 0px 4px;
     border-radius: 5px;
+}
+.buttons {
+    width: 45px;
+    height: 100%;
+
+    display: grid;
+    align-content: flex-start;
+    gap: 12px;
+    padding: 4px;
 }
 .button {
     outline: none;
@@ -45,10 +49,12 @@
 
     border-radius: 5px;
     padding: 8px;
+    width: 37px;
+    height: 37px;
 }
 
 .button:hover {
-    background: #f4f5fa;
+
     color: #333333;
 }
 
@@ -81,8 +87,8 @@
     gap: 4px;
     align-content: flex-start;
     padding: 8px 8px 4px;
-    border-right: #ecedf2 1px solid;
-    border-left: #ecedf2 1px solid;
+
+
 }
 
 .enterAnimation{

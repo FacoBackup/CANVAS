@@ -5,7 +5,8 @@
     width: 100%;
     display: flex;
     align-items: center;
-    height: 35px;
+    height: 45px;
+    gap: 2px;
 }
 
 
@@ -35,18 +36,17 @@
 .newPageButton:disabled{
     cursor: unset;
     color: #999999;
-    background-color: white;
+    background: transparent;
 }
 
 .pageButton{
     width: 100%;
-
+    background: transparent;
     min-width: unset;
     height: 100%;
     outline: none;
-    /*border-radius: 5px 5px 0 0;*/
+
     border: none;
-    border-right: #ecedf2 1px solid;
     font-family: Roboto;
     color: #555555;
     font-size: .85rem;
@@ -85,9 +85,15 @@
 .pageButtonsContainer{
     display: flex;
     align-items: center;
-    width: 10%;
-    height: 100%;
+    border: #ecedf2 1px solid;
+
+    width: 150px;
+    height: 38px;
+    border-radius: 5px;
     position: relative;
+    overflow: hidden;
+
+    background: white;
 }
 .removePageButton{
     outline: none;
@@ -96,7 +102,7 @@
     transition: 150ms linear;
 
     position: absolute;
-    right: 8px;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     height: 100%;
@@ -121,8 +127,8 @@
     height: 100%;
     padding: 0 0 0 8px;
     border: none;
-    border-right: #ecedf2 1px solid;
     border-bottom: #0095ff 2px solid;
+
     text-align: left;
     font-family: Roboto;
     /*color: ;*/

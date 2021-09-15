@@ -63,12 +63,7 @@ export default function Analytics(props) {
             {/*<FrameView data={data}/>*/}
             <Loader loading={loading}/>
 
-            <ChartNodeEditor
-                data={pages[openPage]}
-                setData={handlePageChange}
-                selectedNodes={selected}
-                unselectNode={unselectNode}
-            />
+
 
             <input
                 type="file" ref={uploadRef}

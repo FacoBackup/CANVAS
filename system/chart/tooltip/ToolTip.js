@@ -30,38 +30,45 @@ export default function ToolTip(props) {
         const rect = ref.current?.parentNode.getBoundingClientRect()
         if (rect !== undefined) {
             mountingPoint.current.style.position = 'fixed'
-            mountingPoint.current.style.transform = `translate(${props.justify === 'end' ? '0' : '-50%'}, -50%)`
+
             mountingPoint.current.style.zIndex = '999'
+            let {translateX, translateY} = {}
             switch (props.align) {
 
                 case 'middle': {
                     mountingPoint.current.style.top = (rect.top + rect.height / 2) + 'px'
+                    translateY = '-50%'
                     break
                 }
                 case 'start': {
-                    mountingPoint.current.style.top = (rect.top) + 'px'
+                    mountingPoint.current.style.top = (rect.top - 8) + 'px'
+                    translateY = '-100%'
                     break
                 }
                 default: {
-                    mountingPoint.current.style.top = (rect.top + rect.height + 16) + 'px'
+                    mountingPoint.current.style.top = (rect.top + rect.height + 8) + 'px'
+                    translateY = '0'
                     break
                 }
             }
             switch (props.justify) {
                 case 'end': {
-                    mountingPoint.current.style.left = (rect.left + rect.width + 16) + 'px'
+                    mountingPoint.current.style.left = (rect.left + rect.width + 8) + 'px'
+                    translateX = '0'
                     break
                 }
                 case 'start': {
-                    mountingPoint.current.style.left = (rect.left) + 'px'
+                    mountingPoint.current.style.left = (rect.left - 8) + 'px'
+                    translateX = '-100%'
                     break
                 }
                 default: {
                     mountingPoint.current.style.left = (rect.left + rect.width / 2) + 'px'
+                    translateX = '-50%'
                     break
                 }
             }
-
+            mountingPoint.current.style.transform = `translate(${translateX}, ${translateY})`
 
         }
     }

@@ -8,13 +8,14 @@ export default function Engine(props) {
     const root = useRef()
 
     return (
-        <div
-            ref={root} className={styles.canvasContainer} style={{height: 'calc(100% - ' + props.offsetTop + 'px)'}}
-            id={'frame'}
-            onMouseDown={event => {
-                if (typeof event.target.className === 'object' && event.button === 2)
-                    PlaceCanvasScroll({canvas: root.current, event: event})
-            }}>
+        <div style={{paddingTop: '5px', height: 'calc(100% - 85px)'}}>
+            <div
+                ref={root} className={styles.canvasContainer}
+                id={'frame'}
+                onMouseDown={event => {
+                    if (typeof event.target.className === 'object' && event.button === 2)
+                        PlaceCanvasScroll({canvas: root.current, event: event})
+                }}>
             <svg
                 onContextMenu={event => {
                     event.preventDefault()
@@ -42,6 +43,7 @@ export default function Engine(props) {
                 {props.children}
             </svg>
         </div>
+        </div>
     )
 }
 Engine.propTypes = {
@@ -53,7 +55,7 @@ Engine.propTypes = {
     toBeLinked: PropTypes.object,
     setToBeLinked: PropTypes.func,
 
-    selectedNodes: PropTypes.object,
+    selectedNodes: PropTypes.array,
     selectNode: PropTypes.func,
     unselectNode: PropTypes.func,
 

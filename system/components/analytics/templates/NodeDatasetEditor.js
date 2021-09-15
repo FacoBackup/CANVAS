@@ -36,6 +36,11 @@ export default function NodeDatasetEditor(props) {
                     </div>
                     <div className={styles.dropDownWrapper}>
                         <div className={styles.field} id={'add-field-node-axis'}
+                             onDragOver={e => e.preventDefault()}
+                             onDrop={(e) => {
+                                 e.preventDefault()
+                                 props.dispatch({type: props.actions.DATASET, payload: {...props.node.dataset, axis: e.dataTransfer.getData('data')}})
+                             }}
                              style={{textTransform: props.node.dataset === undefined || !props.node.dataset.axis ? 'capitalize' : undefined}}>
                             {props.node.dataset === undefined || !props.node.dataset.axis ?
                                 <AddRounded style={{fontSize: '1.3rem'}}/> : null}
@@ -77,6 +82,11 @@ export default function NodeDatasetEditor(props) {
                     </div>
                     <div className={styles.dropDownWrapper}>
                         <div className={styles.field} id={'add-field-node-value'}
+                             onDragOver={e => e.preventDefault()}
+                             onDrop={(e) => {
+                                 e.preventDefault()
+                                 props.dispatch({type: props.actions.DATASET, payload: {...props.node.dataset, value: e.dataTransfer.getData('data')}})
+                             }}
                              style={{textTransform: props.node.dataset === undefined || !props.node.dataset.value ? 'capitalize' : undefined}}>
                             {props.node.dataset === undefined || !props.node.dataset.value ?
                                 <AddRounded style={{fontSize: '1.3rem'}}/> : null}
@@ -89,6 +99,7 @@ export default function NodeDatasetEditor(props) {
                                 handleOpen={() => setOpenDropdown(0)}
                                 justify={'left'} width={'175px'}
                                 handleClose={() => setOpenDropdown(null)}
+
                                 buttons={[
                                     {
                                         children: [

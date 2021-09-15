@@ -27,19 +27,21 @@ a {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 7px;
+    height: 7px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: #f9fafb;
     border-radius: 8px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #e0e0e0;
+    transition: 150ms linear;
+
     border-radius: 8px;
 }
 

@@ -18,7 +18,7 @@ export default function AnalyticsShapes(props) {
     }
     return (
 
-        <Accordion {...props} label={'Módulos'}>
+        <>
             <div className={styles.shapes}>
                 <div
                     className={styles.shapeContainer}
@@ -106,7 +106,7 @@ export default function AnalyticsShapes(props) {
                 </div>
 
             </div>
-        </Accordion>
+        </>
     )
 
 }

@@ -4,9 +4,10 @@ import DimensionPositionEditor from "../../shared/templates/editor/DimensionPosi
 import BorderEditor from "../../shared/templates/editor/BorderEditor";
 import NodeDatasetEditor from "./NodeDatasetEditor";
 import HorizontalTabs from "../../shared/templates/tools/HorizontalTabs";
-import {useMemo, useReducer, useState} from "react";
+import {useEffect, useMemo, useReducer, useState} from "react";
 import {EditAttributesRounded, FormatPaintRounded, PlaceRounded, StorageRounded} from "@material-ui/icons";
 import useNode from "../../shared/hooks/useNode";
+import VerticalTabs from "../../shared/templates/tools/VerticalTabs";
 
 export default function ChartNodeEditor(props) {
     const openEdit = useMemo(() => {
@@ -20,36 +21,54 @@ export default function ChartNodeEditor(props) {
     })
 
     const [open, setOpen] = useState(0)
+    const [extended, setExtended] = useState(false)
+
+    useEffect(() => {
+        if(openEdit === undefined){
+            setExtended(false)
+        }
+        else
+            setExtended(true)
+    }, [props.selectedNodes])
     return (
-        <EditorWrapper open={openEdit !== undefined}
-                       handleClose={() => props.unselectNode(openEdit?.node.id)}>
-            {openEdit !== undefined ?
-                <HorizontalTabs setOpenButton={setOpen} buttons={[
-                    {
-                        icon: <StorageRounded/>,
-                        label: 'Dados',
-                        content: (
+        <VerticalTabs
+            open={extended}
+            canExtend={openEdit !== undefined}
+            openButton={open}
+            styles={{paddingTop: '35px'}}
+            contentOrientation={'left'}
+            setOpenButton={setOpen}
+            buttons={[
+                {
+                    icon: <StorageRounded/>,
+                    label: 'Dados',
+                    content: (
+                        openEdit === undefined ? null :
                             <NodeDatasetEditor dispatch={dispatch} actions={ACTIONS} node={nodeState}/>
-                        )
-                    },
-                    {
-                        icon: <FormatPaintRounded/>,
-                        label: 'Visual',
-                        content: (
+                    ),
+                    disabled: openEdit === undefined
+                },
+                {
+                    icon: <FormatPaintRounded/>,
+                    label: 'Visual',
+                    content: (
+                        openEdit === undefined ? null :
                             <BorderEditor dispatch={dispatch} actions={ACTIONS} node={nodeState}/>
-                        )
-                    },
-                    {
-                        icon: <PlaceRounded/>,
-                        label: 'Posição e dimensões',
-                        content: (
-                            <DimensionPositionEditor dispatch={dispatch} actions={ACTIONS}
-                                                     node={nodeState}/>
-                        )
-                    }
-                ]} openButton={open}/>
-                : null}
-        </EditorWrapper>
+                    ),
+                    disabled: openEdit === undefined
+                },
+                {
+                    icon: <PlaceRounded/>,
+                    label: 'Posição e dimensões',
+                    content: (
+                        openEdit === undefined ? null : <DimensionPositionEditor dispatch={dispatch} actions={ACTIONS}
+                                                                                 node={nodeState}/>
+                    ),
+                    disabled: openEdit === undefined
+                }
+            ]}
+            setOpen={(e) => setExtended(e)}
+        />
     )
 }
 
