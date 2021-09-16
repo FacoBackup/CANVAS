@@ -63,6 +63,7 @@ export default function PlaceNewFlowchart(props) {
     newWrapper.firstChild.setAttribute('stroke-dasharray', '5,5')
     newWrapper.firstChild.firstChild.setAttribute('fill', 'transparent')
     newWrapper.style.cursor = 'grabbing'
+    document.body.appendChild(newWrapper)
 
     let lastPlacement = {
         x: props.event.clientX,
@@ -92,8 +93,7 @@ export default function PlaceNewFlowchart(props) {
                     ...props.data,
                     nodes: [...props.data.nodes, ...[{
                         id: uuid4().toString(),
-                        title: '',
-                        richTitle: [],
+                        title: null,
                         description: null,
                         placement: {
                             x: (event.clientX - rootBounding.x + root.scrollLeft -dimensions.width/2) / props.scale,

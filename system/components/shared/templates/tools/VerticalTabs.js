@@ -45,7 +45,11 @@ export default function VerticalTabs(props) {
 
 
     return (
-      <span style={{padding: '5px', height: 'calc(100% - 39px)'}}>
+      <span style={{
+          padding: '5px',
+          paddingLeft: props.contentOrientation !== 'left' ? 0 : undefined,
+          paddingRight: props.contentOrientation === 'left' ? 0 : undefined,
+          height: 'calc(100% - 39px)'}}>
             <div className={styles.container}>
             {props.contentOrientation === 'left' &&( props.open === true || props.open === undefined )? content : null}
                 <div className={styles.buttons}>

@@ -1,6 +1,5 @@
 import Link from "./link/Link";
 import React from "react";
-import CanvasTemplate from "../../shared/templates/CanvasPropsTemplate";
 import PropTypes from "prop-types";
 import {v4 as uuid4} from 'uuid';
 
@@ -73,14 +72,12 @@ export default function RenderLinks(props) {
     ) : null
 }
 RenderLinks.propTypes = {
-    ...CanvasTemplate,
-    ...{
-        contextMenuRef: PropTypes.object,
-        root: PropTypes.object,
-        setData: PropTypes.func,
-        data: PropTypes.object,
-        selectedLink: PropTypes.string,
-        setSelectedLink: PropTypes.func,
-        handleContextClose: PropTypes.func
-    }
+
+    contextMenuRef: PropTypes.object,
+    root: PropTypes.object,
+    setData: PropTypes.func,
+    data: PropTypes.object,
+    selectedLink: PropTypes.string,
+    setSelectedLink: PropTypes.func,
+    handleContextClose: PropTypes.func
 }

@@ -1,6 +1,5 @@
 import styles from '../../shared/styles/Canvas.module.css'
 import React, {useState} from "react";
-import SideBar from "../../shared/templates/tools/SideBar";
 import ContextMenu from "../../shared/modules/context/ContextMenu";
 import Pages from "../../shared/modules/engine/Pages";
 import FontVisualsBar from "./FontVisualsBar";
@@ -25,6 +24,7 @@ import HandleUpload from "../../shared/utils/HandleUpload";
 import Dropdown from "../../shared/templates/tools/Dropdown";
 import HandleDownload from "../../shared/utils/HandleDownload";
 import useData from "../../shared/hooks/useData";
+import VerticalTabs from "../../shared/templates/tools/VerticalTabs";
 
 export default function Flowchart(props) {
     const {
@@ -42,7 +42,7 @@ export default function Flowchart(props) {
         scale, setScale
     } = useData()
     const [openOptions, setOpenOptions] = useState(null)
-
+    const [openButton,setOpenButton] = useState(0)
     return (
         <>
 
@@ -60,13 +60,6 @@ export default function Flowchart(props) {
                         setToBeLinked(null)
                 }}
             >
-                <FlowchartNodeEditor
-                    data={pages[openPage]}
-                    setData={handlePageChange}
-                    selectedNodes={selected}
-                    selectNode={selectNode}
-                    unselectNode={unselectNode}
-                />
                 <input
                     type="file" ref={uploadRef}
                     style={{display: 'none'}} multiple={false}
@@ -133,7 +126,7 @@ export default function Flowchart(props) {
                                     {
                                         label: 'Exportar como PDF',
                                         icon: <PictureAsPdfRounded style={{fontSize: '1.2rem'}}/>,
-                                        onClick: () => uploadRef.current.click(),
+                                        onClick: () => handlePrint(),
                                         disabled: false
                                     },
                                     {
@@ -172,9 +165,10 @@ export default function Flowchart(props) {
                         handleClose={() => setOpenOptions(null)}
                     />
                 </FileOptions>
+                <FontVisualsBar scale={scale} setScale={setScale} data={metadata} setData={setMetadata}/>
                 <div style={{width: '100%', height: 'calc(100% - 40px)', display: 'flex'}}>
-                    <SideBar
-                        options={[
+                    <VerticalTabs
+                        buttons={[
                             {
                                 icon: <CategoryRounded/>,
                                 label: 'Formas',
@@ -205,14 +199,13 @@ export default function Flowchart(props) {
                                 )
                             }
                         ]}
+                        openButton={openButton}
+                        setOpenButton={setOpenButton}
                     />
                     <div className={styles.content}>
-                        <FontVisualsBar scale={scale} setScale={setScale} data={metadata} setData={setMetadata}/>
+
                         <div className={styles.contentWrapper}>
-                            <Pages
-                                defaultPage={openPage} setDefaultPage={setOpenPage} pages={pages} setPages={setPages}
-                                handlePageChange={handlePageChange}
-                            />
+
                             {props.children({
                                 data: pages[openPage],
                                 setData: handlePageChange,
@@ -225,10 +218,20 @@ export default function Flowchart(props) {
                                 selectedNodes: selected,
                                 selectNode: selectNode,
                                 unselectNode: unselectNode
-
                             })}
+                            <Pages
+                                defaultPage={openPage} setDefaultPage={setOpenPage} pages={pages} setPages={setPages}
+                                handlePageChange={handlePageChange}
+                            />
                         </div>
                     </div>
+                    <FlowchartNodeEditor
+                        data={pages[openPage]}
+                        setData={handlePageChange}
+                        selectedNodes={selected}
+                        selectNode={selectNode}
+                        unselectNode={unselectNode}
+                    />
                 </div>
             </div>
         </>

@@ -1,25 +1,38 @@
 .editButton {
-    border: #e0e0e0 2px solid;
-    background: white;
+    background: #f4f5fa;
+    /*background: white;*/
+    border: #ecedf2 1px solid;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
 
-    height: 40px;
-    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     outline: none;
     color: #555555;
 
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    transform: translate(-100%, -100%);
     cursor: pointer;
     transition: 150ms linear;
 }
 
 .editButton:hover {
-    background: #f4f5fa;
-    color: #0095ff;
+    background: #0095ff;
+    color: white;
 }
 
 .editButton:active {
-    color: #0095ff;
-    background: #E8F0FE;
+    background: #0095ff;
+    color: white;
+
+    opacity: .7;
 }
 
 .entityContainer {

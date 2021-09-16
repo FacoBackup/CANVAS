@@ -7,29 +7,23 @@ import useNode from "../../shared/hooks/useNode";
 import useLink from "../../shared/hooks/useLink";
 
 export default function FlowchartNodes(props) {
-    const nodeHook = useNode(props.data, props.setData)
+
     const linkHook = useLink(props.metadata, props.data, props.setData, props.toBeLinked, props.setToBeLinked, props.unselectNode)
 
-    const render = (node, index) => {
-        const wrapperProps = {
-            node: node,
-            index: index,
-            handleLinkDelete: linkHook.handleLinkDelete,
-            handleLink: (node, connection) => linkHook.handleLink(node, connection, index),
-            toBeLinked: props.toBeLinked,
-            setNode: event => nodeHook.handleNodeChange(index, node, event),
-
-            savePlacement: event => nodeHook.savePlacement(event, node, index),
-            selectedNodes: props.selectedNodes,
-            unselectNode: props.unselectNode,
-            selectNode: props.selectNode,
-            scale: props.scale,
-            showConnections: true
-        }
-        return (
+    return props.data !== undefined ? (
+        props.data.nodes.map((node, index) => node.id === undefined ? null : (
             <g key={`${node.id}-node-${index}`}>
                 <NodeWrapper
-                    {...wrapperProps}
+                    index={index}
+                    scale={1}
+                    selectNode={props.selectNode}
+                    unselectNode={props.unselectNode}
+                    selectedNodes={props.selectedNodes}
+                    controlComponents={[]}
+                    noPlacementIndicator={true}
+                    node={node}
+                    setData={props.setData}
+                    data={props.data}
                 >
                     {nodeProps => (
                         <foreignObject
@@ -39,8 +33,9 @@ export default function FlowchartNodes(props) {
                         >
                             <div className={styles.nodeShapeContainer} id={nodeProps.node.id + '-*wrapper'}>
                                 <Content
-                                    node={nodeProps.node} setNode={nodeProps.setNode}
-                                    currentTextStyles={nodeProps.currentTextStyles}
+                                    node={nodeProps.node}
+                                    dispatch={nodeProps.dispatch}
+                                    actions={nodeProps.actions}
                                 />
                             </div>
                             <div className={styles.nodePosition} id={nodeProps.node.id + '-placement'} style={{
@@ -51,10 +46,7 @@ export default function FlowchartNodes(props) {
                     )}
                 </NodeWrapper>
             </g>
-        )
-    }
-    return props.data !== undefined ? (
-        props.data.nodes.map((node, index) => node.id === undefined ? null : render(node, index))
+        ))
     ) : null
 }
 

@@ -35,7 +35,6 @@ export default function ChartNodeEditor(props) {
             open={extended}
             canExtend={openEdit !== undefined}
             openButton={open}
-            styles={{paddingTop: '35px'}}
             contentOrientation={'left'}
             setOpenButton={setOpen}
             buttons={[

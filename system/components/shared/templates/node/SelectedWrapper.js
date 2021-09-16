@@ -29,7 +29,6 @@ export default function SelectedWrapper(props) {
                 display: props.selected !== undefined && props.selected.node.id === props.node.id && props.selected.openEdit ? 'none' : undefined
             }} x={-1} y={-1}>
                 <button className={styles.editButton}
-                        style={{borderRadius: props.node.styling.borderRadius + 'px 0 5px 0'}}
                         onClick={() => props.selectNode(props.node, true)}>
                     <EditRounded style={{fontSize: '1.3rem'}}/>
                 </button>

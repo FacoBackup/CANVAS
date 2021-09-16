@@ -66,7 +66,7 @@ export default function NodeWrapper(props) {
                 }}
             >
 
-                {props.children({...props})}
+                {props.children({actions: ACTIONS, dispatch: dispatch, node: nodeState})}
             </Shape>
             <SelectedWrapper selectNode={props.selectNode} node={nodeState} selected={selected} scale={props.scale}
                              actions={ACTIONS} dispatch={dispatch}/>

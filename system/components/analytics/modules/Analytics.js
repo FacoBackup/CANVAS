@@ -57,14 +57,10 @@ export default function Analytics(props) {
 
     return (
 
-        <div
-            className={styles.wrapper}
-            >
+        <div className={styles.wrapper}>
             {/*<FrameView data={data}/>*/}
             <Loader loading={loading}/>
-
-
-
+            
             <input
                 type="file" ref={uploadRef}
                 style={{display: 'none'}} multiple={false}
@@ -196,6 +192,7 @@ export default function Analytics(props) {
                     handleClose={() => setOpenOptions(null)}
                 />
             </FileOptions>
+
             <DataManagementBar
                 setOpenDataset={e => {
                     unselectNode(undefined, true)

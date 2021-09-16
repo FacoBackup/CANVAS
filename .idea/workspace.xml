@@ -6,28 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="063cb9af-f03d-420c-affc-3b1041605637" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/tooltip/ToolTip.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/tooltip/ToolTip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/chart/tooltip/styles/Styles.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/chart/tooltip/styles/Styles.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/AnalyticsShapes.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/AnalyticsShapes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/ChartContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/ChartContent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/ChartNodeEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/ChartNodeEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/DatasetOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/DatasetOptions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/NodeDatasetEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/NodeDatasetEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/utils/PlaceNewField.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/SelectBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/SelectBox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/engine/Engine.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/engine/Engine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/styles/Canvas.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/styles/Canvas.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/styles/NodeOverview.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/styles/NodeOverview.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/styles/Pages.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/styles/Pages.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/styles/Tabs.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/styles/Tabs.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/editor/PageField.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/editor/PageField.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/node/EditorWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/node/EditorWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/tools/SideBar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/Content.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/Content.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/Flowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/Flowchart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/FlowchartNodes.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/FlowchartNodes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/RenderLinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/RenderLinks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/flowchart/templates/FlowchartNodeEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/templates/FlowchartNodeEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/flowchart/utils/PlaceNewFlowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/utils/PlaceNewFlowchart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/styles/Node.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/styles/Node.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/node/NodeWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/node/NodeWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/templates/node/SelectedWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/node/SelectedWrapper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/shared/templates/tools/VerticalTabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/tools/VerticalTabs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/pages/analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/pages/analytics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/pages/flowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/pages/flowchart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/system/styles/globals.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,6 +121,9 @@
       <workItem from="1631646574731" duration="6627000" />
       <workItem from="1631662494385" duration="5016000" />
       <workItem from="1631736020154" duration="8608000" />
+      <workItem from="1631802017508" duration="14000" />
+      <workItem from="1631802213416" duration="2759000" />
+      <workItem from="1631812761007" duration="425000" />
     </task>
     <servers />
   </component>
@@ -155,11 +148,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/system/pages/analytics.js</url>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/system/components/flowchart/modules/FlowchartNodes.js</url>
-          <line>50</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
