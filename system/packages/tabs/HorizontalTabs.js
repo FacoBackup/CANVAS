@@ -1,7 +1,7 @@
-import styles from '../../styles/Tabs.module.css'
+import styles from './styles/Tabs.module.css'
 import PropTypes from 'prop-types'
 import {useRef} from "react";
-import ToolTip from "../../../../chart/tooltip/ToolTip";
+import ToolTip from "../chart/tooltip/ToolTip";
 
 export default function HorizontalTabs(props) {
     const contentRef = useRef()

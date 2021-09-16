@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {useEffect, useRef, useState} from "react";
-import styles from '../../shared/styles/Canvas.module.css'
+import styles from '../styles/Layout.module.css'
 
 export default function ChildrenSwitcher(props) {
     const ref = useRef()

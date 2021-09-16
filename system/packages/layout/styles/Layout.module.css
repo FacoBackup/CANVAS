@@ -1,0 +1,44 @@
+
+.enterA {
+    animation: enter 250ms ease-in-out;
+}
+
+.exitA {
+    animation: exit 250ms ease-in-out;
+}
+
+@keyframes exit {
+    0% {
+        opacity: 1;
+        /*transform: translateX(0);*/
+    }
+    100% {
+        opacity: 0;
+        /*transform: translateX(-100%);*/
+    }
+}
+
+@keyframes enter {
+    0% {
+        opacity: 0;
+        /*transform: translateX(100%);*/
+    }
+    100% {
+        opacity: 1;
+        /*transform: translateX(0);*/
+    }
+}
+
+
+.wrapper {
+    height: 100%;
+    width: 100%;
+    user-select: none;
+    scroll-behavior: auto;
+    overflow: hidden;
+    background: #f4f5fa;
+}
+
+.wrapper > * {
+    font-family: Roboto !important;
+}

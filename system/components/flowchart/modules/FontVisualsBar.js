@@ -12,7 +12,7 @@ import {
 } from "@material-ui/icons";
 import Scale from "../templates/Scale";
 import React, {useState} from "react";
-import Dropdown from "../../shared/templates/tools/Dropdown";
+import Dropdown from "../../../packages/dropdown/Dropdown";
 import FontTemplates from "../templates/font/FontTemplates";
 import FontFamilyTemplates from "../templates/font/FontFamilyTemplates";
 

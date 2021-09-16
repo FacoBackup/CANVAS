@@ -1,8 +1,8 @@
-import Accordion from "../../shared/templates/tools/Accordion";
+import Accordion from "../../../packages/accordion/Accordion";
 import styles from "../styles/Dataset.module.css";
 import PropTypes from "prop-types";
 import {AddRounded, ArrowDropDownRounded, CloseRounded} from "@material-ui/icons";
-import Dropdown from "../../shared/templates/tools/Dropdown";
+import Dropdown from "../../../packages/dropdown/Dropdown";
 import {useState} from "react";
 
 export default function NodeDatasetEditor(props) {

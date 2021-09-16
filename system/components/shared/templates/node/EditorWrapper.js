@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom";
 import styles from '../../styles/NodeOverview.module.css'
-import shared from '../../styles/Tabs.module.css'
-import ToolTip from "../../../../chart/tooltip/ToolTip";
+import shared from '../../../../packages/tabs/styles/Tabs.module.css'
+import ToolTip from "../../../../packages/chart/tooltip/ToolTip";
 
 export default function EditorWrapper(props) {
     const contentRef = useRef()

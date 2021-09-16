@@ -1,9 +1,9 @@
 import styles from '../../shared/styles/Shapes.module.css'
 import PropTypes from 'prop-types'
-import Accordion from "../../shared/templates/tools/Accordion";
+import Accordion from "../../../packages/accordion/Accordion";
 import {BarChartRounded, PieChartRounded, ShowChartRounded, TimelineRounded} from "@material-ui/icons";
 import PlaceNewAnalyticChart from "../utils/PlaceNewAnalyticChart";
-import ToolTip from "../../../chart/tooltip/ToolTip";
+import ToolTip from "../../../packages/chart/tooltip/ToolTip";
 
 export default function AnalyticsShapes(props) {
     const drag = (event, shape) => {

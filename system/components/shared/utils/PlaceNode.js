@@ -57,7 +57,7 @@ export default function PlaceNode(props) {
         if (moving) {
             if (!onMove) {
                 onMove = true
-                props.unselectNode(props.node.id)
+                props.unselectNode(props.node.id, false)
             }
 
             handlePlacement(event, false)

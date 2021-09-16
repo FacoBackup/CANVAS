@@ -3,11 +3,11 @@ import EditorWrapper from "../../shared/templates/node/EditorWrapper";
 import DimensionPositionEditor from "../../shared/templates/editor/DimensionPositionEditor";
 import BorderEditor from "../../shared/templates/editor/BorderEditor";
 import NodeDatasetEditor from "./NodeDatasetEditor";
-import HorizontalTabs from "../../shared/templates/tools/HorizontalTabs";
+import HorizontalTabs from "../../../packages/tabs/HorizontalTabs";
 import {useEffect, useMemo, useReducer, useState} from "react";
 import {EditAttributesRounded, FormatPaintRounded, PlaceRounded, StorageRounded} from "@material-ui/icons";
 import useNode from "../../shared/hooks/useNode";
-import VerticalTabs from "../../shared/templates/tools/VerticalTabs";
+import VerticalTabs from "../../../packages/tabs/VerticalTabs";
 
 export default function ChartNodeEditor(props) {
     const openEdit = useMemo(() => {

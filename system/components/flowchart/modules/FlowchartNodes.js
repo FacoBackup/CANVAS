@@ -8,7 +8,7 @@ import useLink from "../../shared/hooks/useLink";
 
 export default function FlowchartNodes(props) {
 
-    const linkHook = useLink(props.metadata, props.data, props.setData, props.toBeLinked, props.setToBeLinked, props.unselectNode)
+    // const linkHook = useLink(props.metadata, props.data, props.setData, props.toBeLinked, props.setToBeLinked, props.unselectNode)
 
     return props.data !== undefined ? (
         props.data.nodes.map((node, index) => node.id === undefined ? null : (

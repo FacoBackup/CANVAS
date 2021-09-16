@@ -1,4 +1,4 @@
-.homeButton{
+.homeButton {
     background: transparent;
     outline: none;
     transition: 150ms linear;
@@ -12,14 +12,17 @@
     height: 35px;
     width: 45px;
 }
-.homeButton:hover{
+
+.homeButton:hover {
     background: #f4f5fa;
 
 }
-.homeButton:active{
+
+.homeButton:active {
     border: #0095ff 1px solid;
     background: #E8F0FE;
 }
+
 .textField {
     box-sizing: border-box;
     border-radius: 5px;
@@ -49,7 +52,8 @@
 .textField:focus, .textField:focus-within {
     background: #E8F0FE;
 }
-.fileOptionsWrapper{
+
+.fileOptionsWrapper {
     padding: 0 4px;
     overflow: hidden;
     background: white;

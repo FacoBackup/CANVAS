@@ -4,7 +4,7 @@ import BorderEditor from "../../shared/templates/editor/BorderEditor";
 import DimensionPositionEditor from "../../shared/templates/editor/DimensionPositionEditor";
 import {useEffect, useMemo, useState} from "react";
 import useNode from "../../shared/hooks/useNode";
-import VerticalTabs from "../../shared/templates/tools/VerticalTabs";
+import VerticalTabs from "../../../packages/tabs/VerticalTabs";
 import {FormatPaintRounded, PlaceRounded, StorageRounded} from "@material-ui/icons";
 import NodeDatasetEditor from "../../analytics/templates/NodeDatasetEditor";
 

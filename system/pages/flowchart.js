@@ -10,7 +10,7 @@ export default function flowchart() {
     return (
         <Flowchart>
             {props => (
-                <Engine {...props} offsetTop={85}>
+                <Engine {...props}>
                     {/*<LinkIndicator source={props.toBeLinked}/>*/}
                     <FlowchartNodes {...props}/>
                     {/*<RenderLinks*/}

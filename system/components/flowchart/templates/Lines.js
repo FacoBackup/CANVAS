@@ -1,5 +1,5 @@
-import Accordion from "../../shared/templates/tools/Accordion";
-import styles from "../../shared/styles/Shapes.module.css";
+import Accordion from "../../../packages/accordion/Accordion";
+import styles from '../../shared/styles/Shapes.module.css'
 import PropTypes from "prop-types";
 
 export default function Lines(props){

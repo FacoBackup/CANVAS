@@ -3,7 +3,7 @@ import {v4 as uuid4} from "uuid";
 import {useReactToPrint} from "react-to-print";
 
 export default function useData() {
-    const [openDataset, setOpenDataset] = useState(false)
+
     const [dataset, setDataset] = useState([])
     const [datasetName, setDatasetName] = useState()
     const uploadRef = useRef()
@@ -34,6 +34,9 @@ export default function useData() {
         setPages(newPages)
     }
     const selectNode = useCallback((node, openEdit, clear, nodes) => {
+        console.log('SELECTING')
+        console.log('THIS IS SELECTED ' + JSON.stringify(selected))
+        console.log('THIS IS TO BE SELECTED ' + JSON.stringify(nodes))
         let index
         if (node !== undefined && node !== null) {
             pages[openPage].nodes.forEach((e, i) => {
@@ -70,11 +73,10 @@ export default function useData() {
                         openEdit: false
                     })
             })
-
             setSelected(newSelected)
         }
     }, [selected])
-    const unselectNode = (nodeID, all) => {
+    const unselectNode = useCallback((nodeID, all) => {
         if (!all) {
             let index
             let newSelected = [...selected]
@@ -86,7 +88,8 @@ export default function useData() {
             setSelected(newSelected)
         } else
             setSelected([])
-    }
+
+    }, [selected])
     const handlePrint = useReactToPrint({
         content: () => document.getElementById('engine-content')
     });
@@ -108,8 +111,8 @@ export default function useData() {
         handlePageChange,
         selectNode,
         unselectNode,
-        dataset, setDataset, openDataset,
-        setOpenDataset, setDatasetName,
+        dataset, setDataset,
+        setDatasetName,
         datasetName,
         toBeLinked, setToBeLinked,
         uploadRef, handlePrint

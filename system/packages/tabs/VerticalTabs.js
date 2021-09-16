@@ -1,7 +1,7 @@
-import styles from '../../styles/Tabs.module.css'
+import styles from './styles/Tabs.module.css'
 import PropTypes from 'prop-types'
 import {useEffect, useMemo, useRef} from "react";
-import ToolTip from "../../../../chart/tooltip/ToolTip";
+import ToolTip from "../chart/tooltip/ToolTip";
 import {ArrowBackIosRounded} from "@material-ui/icons";
 
 export default function VerticalTabs(props) {
@@ -47,8 +47,8 @@ export default function VerticalTabs(props) {
     return (
       <span style={{
           padding: '5px',
-          paddingLeft: props.contentOrientation !== 'left' ? 0 : undefined,
-          paddingRight: props.contentOrientation === 'left' ? 0 : undefined,
+          paddingLeft: props.contentOrientation !== 'left' ? 0 : '5px',
+          paddingRight: props.contentOrientation === 'left' ? 0 : '5px',
           height: 'calc(100% - 39px)'}}>
             <div className={styles.container}>
             {props.contentOrientation === 'left' &&( props.open === true || props.open === undefined )? content : null}

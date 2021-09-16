@@ -5,7 +5,7 @@ import DatasetOptions from "./DatasetOptions";
 import styles from "../../shared/styles/Canvas.module.css";
 import Pages from "../../shared/modules/engine/Pages";
 import React, {useState} from "react";
-import VerticalTabs from "../../shared/templates/tools/VerticalTabs";
+import VerticalTabs from "../../../packages/tabs/VerticalTabs";
 import ChartNodeEditor from "./ChartNodeEditor";
 
 export default function ChartContent(props) {

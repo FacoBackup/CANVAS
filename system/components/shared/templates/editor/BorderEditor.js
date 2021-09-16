@@ -1,4 +1,4 @@
-import Accordion from "../tools/Accordion";
+import Accordion from "../../../../packages/accordion/Accordion";
 import styles from "../../styles/NodeOverview.module.css";
 import PropTypes from "prop-types";
 import {CirclePicker} from "react-color";

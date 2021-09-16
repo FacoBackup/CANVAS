@@ -1,7 +1,7 @@
 import React, {useMemo} from "react";
-import HorizontalChart from "../../../chart/horizontal/HorizontalChart";
-import PieChart from "../../../chart/pie/PieChart";
-import LineChart from "../../../chart/line/LineChart";
+import HorizontalChart from "../../../packages/chart/horizontal/HorizontalChart";
+import PieChart from "../../../packages/chart/pie/PieChart";
+import LineChart from "../../../packages/chart/line/LineChart";
 import PropTypes from 'prop-types'
 
 export default function ChartNode(props) {
