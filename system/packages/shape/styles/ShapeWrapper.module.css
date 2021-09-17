@@ -1,0 +1,22 @@
+
+.shapeContainer {
+    background: none;
+    cursor: grab;
+    height: fit-content;
+    width: calc(25% + 12px);
+    border-radius: 8px;
+    display: grid;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px;
+    overflow: hidden;
+    font-family: Roboto;
+    font-size: .85rem;
+    color: #555555;
+    text-align: center;
+
+    transition: background 150ms linear;
+}
+.shapeContainer:hover {
+    background: #f4f5fa;
+}

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import styles from '../../styles/ContextMenu.module.css'
+import styles from './styles/ContextMenu.module.css'
 import {useEffect, useRef, useState} from "react";
-import CanvasContext from "./CanvasContext";
-import NodeContext from "./NodeContext";
-import nodeStyles from '../../styles/Node.module.css'
+import CanvasContext from "./templates/CanvasContext";
+import NodeContext from "./templates/NodeContext";
+import nodeStyles from '../../components/shared/styles/Node.module.css'
 
 export default function ContextMenu(props) {
     const ref = useRef()
@@ -98,7 +98,7 @@ export default function ContextMenu(props) {
 
 
     return (
-        <div ref={ref} style={{display: onRender ? undefined : 'none'}} onBlur={() => alert('BLURREND')}
+        <div ref={ref} style={{display: onRender ? undefined : 'none'}}
              className={onRender ? styles.context : undefined} id={'context-menu'}>
             {buttons.map((button, i) => button.children !== undefined ? (
                 <div>

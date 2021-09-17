@@ -33,7 +33,6 @@ export default function Shape(props) {
         <g
             ref={ref} cursor={props.cursor}
             onClick={props.onClick} overflow={'hidden'}
-            onMouseDown={props.onMouseDown}
         >
             {getShape}
             {props.children}
@@ -54,7 +53,7 @@ Shape.propTypes = {
         fill: PropTypes.string,
         borderRadius: PropTypes.any
     }),
-    onMouseDown: PropTypes.func,
+
     id: PropTypes.string,
     children: PropTypes.node,
     cursor: PropTypes.string,

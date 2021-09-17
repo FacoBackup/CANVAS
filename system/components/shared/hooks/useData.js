@@ -34,19 +34,19 @@ export default function useData() {
         setPages(newPages)
     }
     const selectNode = useCallback((node, openEdit, clear, nodes) => {
-        console.log('SELECTING')
-        console.log('THIS IS SELECTED ' + JSON.stringify(selected))
-        console.log('THIS IS TO BE SELECTED ' + JSON.stringify(nodes))
         let index
         if (node !== undefined && node !== null) {
+
             pages[openPage].nodes.forEach((e, i) => {
                 if (e.id === node.id)
                     index = i
             })
 
             let newSelected = clear ? [] : [...selected]
-            const found = newSelected.find((e, i) => e.node.id === node.id)
-            newSelected.splice(newSelected.indexOf(found), 1)
+            const found = newSelected.findIndex((e, i) => e.node.id === node.id)
+
+            if(found !== -1)
+                newSelected.splice(found, 1)
 
             newSelected.push({
                 node: node,

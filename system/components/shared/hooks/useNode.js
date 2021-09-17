@@ -1,6 +1,5 @@
 import {useEffect, useReducer} from "react";
-import PlaceNode from "../utils/PlaceNode";
-import PropTypes, {node} from 'prop-types'
+import PropTypes from 'prop-types'
 
 export default function useNode(props) {
     const SET = 'SET'
@@ -71,24 +70,24 @@ export default function useNode(props) {
 
     const [nodeState, dispatch] = useReducer(reducer, props.node)
 
-    const move = (event) => {
-        PlaceNode({
-            scale: props.scale,
-            node: nodeState,
-            event: event,
-            selectNode: props.selectNode,
-            unselectNode: props.unselectNode,
-            dispatch: dispatch,
-            actions: ACTIONS,
-            noPlacementIndicator: props.noPlacementIndicator
-        })
-    }
+    // const move = (event) => {
+    //     PlaceNode({
+    //         scale: props.scale,
+    //         node: nodeState,
+    //         event: event,
+    //         selectNode: props.selectNode,
+    //         unselectNode: props.unselectNode,
+    //         dispatch: dispatch,
+    //         actions: ACTIONS,
+    //         noPlacementIndicator: props.noPlacementIndicator
+    //     })
+    // }
 
     useEffect(() => {
         dispatch({type: SET, payload: props.node})
     }, [props.node])
 
-    return {ACTIONS, nodeState, dispatch, move}
+    return {ACTIONS, nodeState, dispatch}
 }
 
 useNode.propTypes = {

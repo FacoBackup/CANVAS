@@ -1,6 +1,6 @@
 import styles from '../../shared/styles/Canvas.module.css'
 import React, {useEffect, useState} from "react";
-import ContextMenu from "../../shared/modules/context/ContextMenu";
+import ContextMenu from "../../../packages/context/ContextMenu";
 import keyboardControl from "../../shared/utils/KeyboardControl";
 import {
     DescriptionRounded,

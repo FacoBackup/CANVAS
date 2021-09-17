@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Accordion from "../../../packages/accordion/Accordion";
 import PlaceNewFlowchart from "../utils/PlaceNewFlowchart";
 import ToolTip from "../../../packages/chart/tooltip/ToolTip";
+import Draggable from "../../../packages/draggable/Draggable";
 
 export default function FlowchartShapes(props) {
     const drag = (event, shape) => {
@@ -114,30 +115,32 @@ export default function FlowchartShapes(props) {
 
                 </div>
 
-                <div
-                    className={styles.shapeContainer}
-                    id={'trapezoid-draggable'}
-                    onDragStart={event => {
-                        event.preventDefault()
-                        drag(event, 'trapezoid')
-                    }}
-                    onClick={() => {
-                        if (props.selectedNode !== undefined) {
-                            let newPage = {...props.data}
-                            newPage.nodes[props.selectedNode.index].shapeVariant = 'trapezoid'
-                            props.setData(newPage)
-                        }
-                    }}
-                    draggable={true}
-                >
-                    <svg overflow={'visible'} width={'100%'} height={'45px'} viewBox="0 0 200 100">
-                        <polygon points={'200,100 0,100 50,0 150,0'} stroke={'#0095ff'} strokeWidth={'2px'}
-                                 vectorEffect="non-scaling-stroke"
-                                 fill={'white'}/>
-                    </svg>
-                    <ToolTip content={'Trapezoid'}/>
 
-                </div>
+                    <div
+                        className={styles.shapeContainer}
+                        id={'trapezoid-draggable'}
+                        onDragStart={event => {
+                            event.preventDefault()
+                            drag(event, 'trapezoid')
+                        }}
+                        onClick={() => {
+                            if (props.selectedNode !== undefined) {
+                                let newPage = {...props.data}
+                                newPage.nodes[props.selectedNode.index].shapeVariant = 'trapezoid'
+                                props.setData(newPage)
+                            }
+                        }}
+                        draggable={true}
+                    >
+                        <svg overflow={'visible'} width={'100%'} height={'45px'} viewBox="0 0 200 100">
+                            <polygon points={'200,100 0,100 50,0 150,0'} stroke={'#0095ff'} strokeWidth={'2px'}
+                                     vectorEffect="non-scaling-stroke"
+                                     fill={'white'}/>
+                        </svg>
+                        <ToolTip content={'Trapezoid'}/>
+
+                    </div>
+
                 <div
                     className={styles.shapeContainer}
                     id={'parallelogram-draggable'}

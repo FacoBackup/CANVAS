@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import EditorWrapper from "../../shared/templates/node/EditorWrapper";
 import DimensionPositionEditor from "../../shared/templates/editor/DimensionPositionEditor";
 import BorderEditor from "../../shared/templates/editor/BorderEditor";
 import NodeDatasetEditor from "./NodeDatasetEditor";

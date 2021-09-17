@@ -1,6 +1,6 @@
 import styles from '../../shared/styles/Canvas.module.css'
 import React, {useState} from "react";
-import ContextMenu from "../../shared/modules/context/ContextMenu";
+import ContextMenu from "../../../packages/context/ContextMenu";
 import Pages from "../../shared/modules/engine/Pages";
 import FontVisualsBar from "./FontVisualsBar";
 import Header from "../../../packages/header/Header";

@@ -8,30 +8,24 @@
     transition: 150ms linear;
 }
 
-.shapeContainer {
-    background: none;
-    cursor: grab;
-    height: fit-content;
-    width: calc(25% + 12px);
-    border-radius: 8px;
-    display: grid;
+.shapeWrapper{
+    position: absolute;
+    border: #0095ff 2px dashed;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 8px;
-    overflow: hidden;
-    font-family: Roboto;
-    font-size: .85rem;
-    color: #555555;
-    text-align: center;
 
-    transition: background 150ms linear;
+    background: rgba(255,255,255, .4);
+
+    width: 500px;
+    height: 250px;
 }
 
-.shapeContainer:hover {
-    background: #f4f5fa;
-}
 .overflowEllipsis {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
