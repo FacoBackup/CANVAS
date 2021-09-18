@@ -134,8 +134,9 @@ export default function ContextMenu(props) {
     )
 }
 ContextMenu.propTypes = {
-    data: PropTypes.object,
-    setData: PropTypes.func,
+    openPage: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    actions: PropTypes.object,
 
     scale: PropTypes.number,
     setScale: PropTypes.func,

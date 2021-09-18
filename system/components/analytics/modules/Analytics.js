@@ -21,25 +21,25 @@ import DataManagementBar from "./dataset/DataManagementBar";
 import ChartContent from "../templates/ChartContent";
 import ChildrenSwitcher from "../../../packages/layout/modules/ChildrenSwitcher";
 import Loader from "../../../packages/loader/Loader";
-import useData from "../../shared/hooks/useData";
+import useData from "../../shared/hooks/data/useData";
 import Layout from "../../../packages/layout/Layout";
 
 export default function Analytics(props) {
     const {
+        openPage, pages, dispatchPage,
+        ACTIONS, setCurrentPage, hasFuture, hasPast, currentPage,
         dataset, setDataset,
-
         setDatasetName, datasetName,
         copied, setCopied,
-        pages, setPages,
         metadata, setMetadata,
         selected, loading,
-        setLoading, openPage,
-        setOpenPage, handlePageChange,
+        setLoading,
         selectNode,
         unselectNode,
         uploadRef,
         handlePrint
     } = useData()
+
     const [openOptions, setOpenOptions] = useState(null)
     const [openDataset, setOpenDataset] = useState(false)
 
@@ -85,8 +85,9 @@ export default function Analytics(props) {
 
 
                         <ContextMenu
-                            data={pages[openPage]}
-                            setData={handlePageChange}
+                            openPage={openPage}
+                            dispatchPage={dispatchPage}
+                            actions={ACTIONS}
                             selectNode={selectNode}
                             selectedNodes={selected}
                             unselectNode={unselectNode}
@@ -208,10 +209,14 @@ export default function Analytics(props) {
                     <React.Fragment key={'content'}>
                         <ChartContent
                             selectNode={selectNode}
+                            pages={pages}
+                            openPage={openPage}
+                            dispatchPage={dispatchPage}
+                            actions={ACTIONS}
                             unselectNode={unselectNode}
-                            setDefaultPage={setOpenPage} defaultPage={openPage} dataset={dataset}
-                            children={props.children} setPages={setPages} pages={pages}
-                            handlePageChange={handlePageChange} openDataset={openDataset} metadata={metadata}
+                            setDefaultPage={setCurrentPage} defaultPage={currentPage} dataset={dataset}
+                            children={props.children}
+                            openDataset={openDataset} metadata={metadata}
                             setMetadata={setMetadata} selectedNodes={selected}
                         />
                     </React.Fragment>,

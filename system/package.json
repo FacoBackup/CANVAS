@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "parcel_dev": "parcel pages/index.html",
     "dev": "NODE_OPTIONS=\"--max_old_space_size=8192\" next",
     "build": "../node_modules/.bin/next build",
     "start": "../node_modules/.bin/next start"
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@material-ui/pickers": "^3.3.10",
     "@material-ui/styles": "^4.11.3",
+    "parcel": "^2.0.0-rc.0",
     "universal-cookie": "^4.0.4"
   }
 }

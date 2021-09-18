@@ -34,10 +34,8 @@ export default function AnalyticsShapes(props) {
                 x: (event.clientX - rootBounding.x + root.scrollLeft),
                 y: (event.clientY - rootBounding.y + root.scrollTop)
             }
-            let newData = {...props.data}
-
-            newData.nodes.push({...getNewNode(dimensions, 'rect', placement), variant: chart})
-            props.setData(newData)
+            console.log('CALLING DISPATCH')
+            props.dispatchPage({action: props.actions.ADD_NODE, payload: {id: props.openPage.id, node: {...getNewNode(dimensions, 'rect', placement), variant: chart}}})
         }
 
         draggableRef.current.style.display = 'none'
@@ -69,7 +67,7 @@ export default function AnalyticsShapes(props) {
             <div className={styles.shapes}>
                 <ShapeWrapper
                     scale={1} canDrag={canDrag} onMove={onMove}
-                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.data}
+                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.openPage}
                     targetID={'draggable-shape'}
                     content={
                         <BarChartRounded style={{fontSize: '2rem', color: '#0095ff'}}/>
@@ -79,7 +77,7 @@ export default function AnalyticsShapes(props) {
                 />
                 <ShapeWrapper
                     scale={1} canDrag={canDrag} onMove={onMove}
-                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.data}
+                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.openPage}
                     targetID={'draggable-shape'}
 
                     content={
@@ -93,7 +91,7 @@ export default function AnalyticsShapes(props) {
 
                 <ShapeWrapper
                     scale={1} canDrag={canDrag} onMove={onMove}
-                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.data}
+                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.openPage}
                     targetID={'draggable-shape'}
                     content={
                         <TimelineRounded style={{fontSize: '2rem', color: '#0095ff'}}/>
@@ -103,7 +101,7 @@ export default function AnalyticsShapes(props) {
                 />
                 <ShapeWrapper
                     scale={1} canDrag={canDrag} onMove={onMove}
-                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.data}
+                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.openPage}
                     targetID={'draggable-shape'}
                     content={
                         <PieChartRounded style={{fontSize: '2rem', color: '#0095ff'}}/>
@@ -118,7 +116,9 @@ export default function AnalyticsShapes(props) {
 }
 
 AnalyticsShapes.propTypes = {
-    setData: PropTypes.func,
-    data: PropTypes.object,
+    openPage: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    actions: PropTypes.object,
+
     selectedNodes: PropTypes.array
 }

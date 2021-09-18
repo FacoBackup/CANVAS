@@ -6,6 +6,7 @@ import styles from '../../styles/Node.module.css'
 import ConnectionsWrapper from "../../../flowchart/modules/ConnectionsWrapper";
 import useNode from "../../hooks/useNode";
 import Draggable from "../../../../packages/draggable/Draggable";
+import PropTypes from "prop-types";
 
 
 export default function Node(props) {
@@ -16,8 +17,10 @@ export default function Node(props) {
     }, [props.selectedNodes])
 
     const {ACTIONS,  dispatch} = useNode({
-        data: props.data,
-        setData: props.setData,
+        openPage: props.openPage,
+        dispatchPage: props.dispatchPage,
+        actions: props.actions,
+
         node: props.node,
         scale: props.scale,
         selectNode: props.selectNode,

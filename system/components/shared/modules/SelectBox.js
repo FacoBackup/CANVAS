@@ -93,7 +93,7 @@ export default function SelectBox(props) {
                 x: event.clientX - wrapperBox.left,
                 y: event.clientY - wrapperBox.top
             }
-            const copy = [...props.data.nodes]
+            const copy = [...props.openPage.nodes]
             copy.forEach((e) => {
                 if (props.selectedNodes.find(b => b.node.id === e.id) === undefined)
                     unselectedNodes.push(e)
@@ -138,7 +138,7 @@ export default function SelectBox(props) {
             document.removeEventListener('mousemove', handleDrag)
             wrapper.removeChild(box)
         }
-    }, [props.selectedNodes, props.data])
+    }, [props.selectedNodes, props.openPage])
 
     return handleMouseDown
 }
@@ -148,5 +148,5 @@ SelectBox.propTypes = {
     selectNode: PropTypes.func,
     unselectNode: PropTypes.func,
 
-    data: PropTypes.object
+    openPage: PropTypes.object
 }

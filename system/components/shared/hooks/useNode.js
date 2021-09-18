@@ -13,7 +13,6 @@ export default function useNode(props) {
     const dispatch = useCallback( (p) => {
 
             let newNode = {...props.node}
-            let newNodes = [...props.data.nodes]
             switch (p.type) {
                 case ACTIONS.PLACEMENT: {
                     newNode = {
@@ -59,20 +58,21 @@ export default function useNode(props) {
                     break
             }
             if (props.node !== undefined) {
-                newNodes[newNodes.findIndex(e => props.node.id === e.id)] = newNode
-                props.setData({
-                    ...props.data,
-                    nodes: newNodes
-                })
+                props.dispatchPage({action: props.actions.UPDATE_NODE, payload: {
+                    id: props.openPage.id,
+                    data: newNode
+                }})
             }
 
-    }, [props.node, props.data])
+    }, [props.node, props.openPage])
 
     return {ACTIONS,  dispatch}
 }
 
 useNode.propTypes = {
-    data: PropTypes.object,
-    setData: PropTypes.func,
+    openPage: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    actions: PropTypes.object,
+
     node: PropTypes.object
 }

@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 
 export default {
-
-    data: PropTypes.object,
-    setData: PropTypes.func,
+    openPage: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    actions: PropTypes.object,
 
     node: PropTypes.object,
     index: PropTypes.number,

@@ -23,7 +23,7 @@ import FlowchartNodeEditor from "../templates/FlowchartNodeEditor";
 import HandleUpload from "../../shared/utils/HandleUpload";
 import Dropdown from "../../../packages/dropdown/Dropdown";
 import HandleDownload from "../../shared/utils/HandleDownload";
-import useData from "../../shared/hooks/useData";
+import useData from "../../shared/hooks/data/useData";
 import VerticalTabs from "../../../packages/tabs/VerticalTabs";
 import Layout from "../../../packages/layout/Layout";
 

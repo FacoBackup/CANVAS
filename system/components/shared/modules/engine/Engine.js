@@ -10,7 +10,7 @@ export default function Engine(props) {
         selectedNodes: props.selectedNodes,
         selectNode: props.selectNode,
         unselectNode: props.unselectNode,
-        data: props.data
+        openPage: props.openPage
     })
 
     return (
@@ -45,13 +45,10 @@ export default function Engine(props) {
     )
 }
 Engine.propTypes = {
-    data: PropTypes.object,
-    setData: PropTypes.func,
+    openPage: PropTypes.object,
 
     scale: PropTypes.number,
 
-    toBeLinked: PropTypes.object,
-    setToBeLinked: PropTypes.func,
 
     selectedNodes: PropTypes.array,
     selectNode: PropTypes.func,

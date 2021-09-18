@@ -10,19 +10,19 @@ export default function Pages(props) {
         <div className={styles.pagesContainer}>
 
             {props.pages.map((page, index) => (
-                <React.Fragment key={'page-' + index}>
+                <React.Fragment key={page.id + '-page'}>
                     <PageField
                         page={{...page, ...{default: props.defaultPage === index}}}
-                        renamePage={event => {
-                            let d = {...props.pages[props.defaultPage]}
-                            d.title = event
-                            props.handlePageChange(d)
-                        }} handleOpen={() => setOpenInput(index)} open={openInput === index}
+                        renamePage={event => props.dispatchPage({
+                            action: props.actions.RENAME,
+                            payload: {id: page.id, data: event}
+                        })}
+                        handleOpen={() => setOpenInput(index)}
+                        open={openInput === index}
                         handleClose={() => setOpenInput(null)}
                         length={props.pages.length}
                         index={index}
                         removePage={() => {
-                            let newPages = [...props.pages]
                             if (index !== props.defaultPage && props.defaultPage !== 0 && props.defaultPage > index)
                                 props.setDefaultPage(props.defaultPage - 1)
 
@@ -33,8 +33,8 @@ export default function Pages(props) {
                                     props.setDefaultPage(0)
                             }
 
-                            newPages.splice(index, 1)
-                            props.setPages(newPages)
+                            props.dispatchPage({action: props.actions.DELETE, payload: {id: props.page.id}})
+
                         }}
                         setAsDefault={() => {
                             props.setDefaultPage(index)
@@ -45,16 +45,7 @@ export default function Pages(props) {
             <button
                 className={styles.newPageButton}
                 style={{display: props.pages.length < 5 ? undefined : 'none'}}
-                onClick={() => {
-                    let newPages = [...props.pages]
-                    newPages.push({
-                        title: 'Página ' + (props.pages.length + 1),
-                        nodes: [],
-                        links: [],
-                        default: false
-                    })
-                    props.setPages(newPages)
-                }}>
+                onClick={() => props.dispatchPage({action: props.actions.CREATE})}>
                 <AddRounded style={{fontSize: '1.5rem'}}/>
             </button>
         </div>
@@ -62,9 +53,11 @@ export default function Pages(props) {
 }
 
 Pages.propTypes = {
-    setPages: PropTypes.func,
     pages: PropTypes.array,
-    handlePageChange: PropTypes.func,
+    openPage: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    actions: PropTypes.object,
+
     setDefaultPage: PropTypes.func,
     defaultPage: PropTypes.number
 }

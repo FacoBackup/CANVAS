@@ -7,7 +7,7 @@ import ChartNode from "./ChartNode";
 
 export default function Charts(props) {
     return (
-        props.data.nodes.map((node, index) => node.id === undefined ? null : (
+        props.openPage.nodes.map((node, index) => node.id === undefined ? null : (
             <g key={node.id + '-charts-node-' + index}>
                 <Node
                     index={index}
@@ -18,8 +18,9 @@ export default function Charts(props) {
                     controlComponents={[]}
                     noPlacementIndicator={true}
                     node={node}
-                    setData={props.setData}
-                    data={props.data}
+                    openPage={props.openPage}
+                    dispatchPage={props.dispatchPage}
+                    actions={props.actions}
                 >
                     {() => (
                         <ChartNode dataset={props.dataset} node={node}/>
@@ -33,8 +34,10 @@ export default function Charts(props) {
 }
 
 Charts.propTypes = {
-    setData: PropTypes.func,
-    data: PropTypes.object,
+    openPage: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    actions: PropTypes.object,
+
     selectNode: PropTypes.func,
     unselectNode: PropTypes.func,
     selectedNodes: PropTypes.array,

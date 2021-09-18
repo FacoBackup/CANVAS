@@ -1,6 +1,7 @@
 import {useCallback, useRef, useState} from "react";
 import {v4 as uuid4} from "uuid";
 import {useReactToPrint} from "react-to-print";
+import usePages from "./usePages";
 
 export default function useData() {
 
@@ -10,11 +11,7 @@ export default function useData() {
     const [copied, setCopied] = useState()
     const [selected, setSelected] = useState([])
     const [loading, setLoading] = useState(false)
-    const [pages, setPages] = useState([{
-        title: 'Página 1',
-        nodes: [],
-        links: []
-    }])
+
     const [metadata, setMetadata] = useState({
         id: uuid4().toString(),
         subject: 'Sem título',
@@ -23,24 +20,23 @@ export default function useData() {
             height: 10000
         },
     })
-    const [openPage, setOpenPage] = useState(0)
+    // const [openPage, setOpenPage] = useState(0)
+    // const [pages, setPages] = useState([{
+    //     title: 'Página 1',
+    //     nodes: [],
+    //     links: []
+    // }])
+    //
+
+    const {openPage, pages, dispatchPage, ACTIONS, setCurrentPage, hasFuture, hasPast, currentPage} = usePages()
     const [scale, setScale] = useState(1)
     const [toBeLinked, setToBeLinked] = useState(null)
 
-    const handlePageChange = (e) => {
-        let newPages = [...pages]
-
-        newPages[openPage] = e
-        setPages(newPages)
-    }
     const selectNode = useCallback((node, openEdit, clear, nodes) => {
         let index
         if (node !== undefined && node !== null) {
 
-            pages[openPage].nodes.forEach((e, i) => {
-                if (e.id === node.id)
-                    index = i
-            })
+            index = openPage.nodes.findIndex(e => e.id === node.id)
 
             let newSelected = clear ? [] : [...selected]
             const found = newSelected.findIndex((e, i) => e.node.id === node.id)
@@ -59,7 +55,7 @@ export default function useData() {
             let newSelected = []
             nodes.forEach(b => {
                 let index
-                const node = pages[openPage].nodes.find((e, i) => {
+                const node = openPage.nodes.find((e, i) => {
                     if (e.id === b.id) {
                         index = i
                         return e
@@ -78,12 +74,9 @@ export default function useData() {
     }, [selected])
     const unselectNode = useCallback((nodeID, all) => {
         if (!all) {
-            let index
+            let index = openPage.nodes.findIndex(e => e.id === nodeID)
             let newSelected = [...selected]
-            pages[openPage].nodes.forEach((e, i) => {
-                if (e.id === nodeID)
-                    index = i
-            })
+
             newSelected.splice(index, 1)
             setSelected(newSelected)
         } else
@@ -95,26 +88,19 @@ export default function useData() {
     });
 
     return {
-        scale,
-        setScale,
-        copied,
-        setCopied,
-        pages,
-        setPages,
-        metadata,
-        setMetadata,
-        selected,
-        loading,
-        setLoading,
-        openPage,
-        setOpenPage,
-        handlePageChange,
-        selectNode,
-        unselectNode,
+        openPage, pages, dispatchPage, ACTIONS, setCurrentPage, hasFuture, hasPast, currentPage,
+
+        scale, setScale,
+        copied, setCopied,
+        metadata, setMetadata,
+        loading, setLoading,
+        selected, selectNode, unselectNode,
         dataset, setDataset,
-        setDatasetName,
-        datasetName,
+
+        datasetName,setDatasetName,
+
         toBeLinked, setToBeLinked,
-        uploadRef, handlePrint
+        uploadRef,
+        handlePrint
     }
 }

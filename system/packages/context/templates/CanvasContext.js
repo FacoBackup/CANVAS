@@ -1,5 +1,6 @@
 import {AddRounded, FileCopyRounded, ZoomInRounded, ZoomOutRounded} from "@material-ui/icons";
 import {v4 as uuid4} from "uuid";
+import PropTypes from "prop-types";
 
 export default function CanvasContext(props) {
     return [
@@ -35,7 +36,7 @@ export default function CanvasContext(props) {
                 {
                     label: 'Colar',
                     icon: <FileCopyRounded/>,
-                    onClick: ( event) => {
+                    onClick: (event) => {
                         let newNode = {...props.copiedNode}
                         const frameContent = document.getElementById('engine-content')
                         const frame = document.getElementById('frame')
@@ -44,14 +45,15 @@ export default function CanvasContext(props) {
                             x: event.clientX - frameContent.getBoundingClientRect().left + frame.scrollLeft - newNode.dimensions.width / 2,
                             y: event.clientY - frameContent.getBoundingClientRect().top + frame.scrollTop - newNode.dimensions.height / 2
                         }
-                        let newNodes = [...props.data.nodes]
 
-                        newNodes.push(newNode)
-
-                        props.setData({
-                            ...props.data,
-                            nodes: newNodes
+                        props.dispatchPage({
+                            action: props.actions.ADD_NODE,
+                            payload: {
+                                id: props.openPage.id,
+                                data: newNode
+                            }
                         })
+
 
                         props.setCopiedNode(null)
                     },
@@ -60,7 +62,18 @@ export default function CanvasContext(props) {
                 }
             ]
         }
-
-
     ]
+}
+
+CanvasContext.propTypes = {
+    openPage: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    actions: PropTypes.object,
+
+    scale: PropTypes.number,
+    setScale: PropTypes.func,
+
+    copiedNode: PropTypes.object,
+    setCopiedNode: PropTypes.func,
+
 }

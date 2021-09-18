@@ -23,8 +23,5 @@ export default function DatasetOptions(props) {
     )
 }
 DatasetOptions.propTypes = {
-    pages: PropTypes.array,
-    handlePageChange: PropTypes.func,
-    defaultPage: PropTypes.number,
-    selectedNodes: PropTypes.array
+    dataset: PropTypes.array
 }

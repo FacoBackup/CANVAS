@@ -14,9 +14,10 @@ export default function ChartNodeEditor(props) {
     }, [props.selectedNodes])
 
     const {ACTIONS,  dispatch} = useNode({
-        data: props.data,
-        setData: props.setData,
-        node: openEdit ? props.data.nodes[openEdit.index] : undefined
+        openPage: props.openPage,
+        dispatchPage: props.dispatchPage,
+        actions: props.actions,
+        node: openEdit ? props.openPage.nodes[openEdit.index] : undefined
     })
 
     const [open, setOpen] = useState(0)
@@ -43,7 +44,7 @@ export default function ChartNodeEditor(props) {
                     label: 'Dados',
                     content: (
                         openEdit === undefined ? null :
-                            <NodeDatasetEditor dispatch={dispatch} actions={ACTIONS} node={props.data.nodes[openEdit.index]}/>
+                            <NodeDatasetEditor dispatch={dispatch} actions={ACTIONS} node={props.openPage.nodes[openEdit.index]}/>
                     ),
                     disabled: openEdit === undefined
                 },
@@ -52,7 +53,7 @@ export default function ChartNodeEditor(props) {
                     label: 'Visual',
                     content: (
                         openEdit === undefined ? null :
-                            <BorderEditor dispatch={dispatch} actions={ACTIONS} node={props.data.nodes[openEdit.index]}/>
+                            <BorderEditor dispatch={dispatch} actions={ACTIONS} node={props.openPage.nodes[openEdit.index]}/>
                     ),
                     disabled: openEdit === undefined
                 },
@@ -61,7 +62,7 @@ export default function ChartNodeEditor(props) {
                     label: 'Posição e dimensões',
                     content: (
                         openEdit === undefined ? null : <DimensionPositionEditor dispatch={dispatch} actions={ACTIONS}
-                                                                                 node={props.data.nodes[openEdit.index]}/>
+                                                                                 node={props.openPage.nodes[openEdit.index]}/>
                     ),
                     disabled: openEdit === undefined
                 }
@@ -76,7 +77,9 @@ ChartNodeEditor.propTypes = {
     unselectNode: PropTypes.func,
 
 
-    setData: PropTypes.func,
-    data: PropTypes.object,
+    openPage: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    actions: PropTypes.object,
+
     handleClose: PropTypes.func,
 }

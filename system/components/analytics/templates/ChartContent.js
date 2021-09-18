@@ -22,9 +22,11 @@ export default function ChartContent(props) {
                         content: (
 
                             <AnalyticsShapes
-                                data={props.pages[props.defaultPage]}
+                                openPage={props.openPage}
+                                dispatchPage={props.dispatchPage}
+                                actions={props.actions}
+
                                 selectedNodes={props.selectedNodes}
-                                setData={(e) => props.handlePageChange(e)}
                             />
 
                         )
@@ -35,10 +37,6 @@ export default function ChartContent(props) {
                         content: props.dataset === undefined || props.dataset === null || props.dataset.length === 0 ? null : (
 
                             <DatasetOptions
-                                pages={props.pages}
-                                handlePageChange={props.handlePageChange}
-                                defaultPage={props.defaultPage}
-                                selectedNodes={props.selectedNodes}
                                 dataset={props.dataset}
                             />
                         ),
@@ -56,20 +54,28 @@ export default function ChartContent(props) {
             <div className={styles.contentWrapper}>
 
                 {props.children({
-                    data: props.pages[props.defaultPage],
-                    setData: (event) => props.handlePageChange(event),
-                    dataset: props.dataset,
+                    openPage: props.openPage,
+                    dispatchPage: props.dispatchPage,
+                    actions: props.actions,
+
                     dimensions: props.metadata.dimensions,
                     selectedNodes: props.selectedNodes,
                     selectNode: props.selectNode,
                     unselectNode: props.unselectNode
                 })}
-                <Pages pages={props.pages} handlePageChange={props.handlePageChange} defaultPage={props.defaultPage}
-                       setDefaultPage={props.setDefaultPage} setPages={props.setPages}/>
+                <Pages
+                    pages={props.pages}
+                    defaultPage={props.defaultPage}
+                    setDefaultPage={props.setDefaultPage}
+                    openPage={props.openPage}
+                    dispatchPage={props.dispatchPage}
+                    actions={props.actions}
+                />
             </div>
             <ChartNodeEditor
-                data={props.pages[props.defaultPage]}
-                setData={props.handlePageChange}
+                openPage={props.openPage}
+                dispatchPage={props.dispatchPage}
+                actions={props.actions}
                 selectedNodes={props.selectedNodes}
                 unselectNode={props.unselectNode}
             />
@@ -79,9 +85,12 @@ export default function ChartContent(props) {
 
 ChartContent.propTypes = {
     dataset: PropTypes.array,
+
     pages: PropTypes.array,
-    handlePageChange: PropTypes.func,
-    setPages: PropTypes.func,
+    openPage: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    actions: PropTypes.object,
+
     metadata: PropTypes.object,
     setMetadata: PropTypes.func,
     selectedNodes: PropTypes.array,
