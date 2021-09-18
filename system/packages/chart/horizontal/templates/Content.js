@@ -4,7 +4,7 @@ import {useEffect, useRef, useState} from "react";
 import styles from '../styles/Horizontal.module.css'
 import getPercentage from "../../shared/getPercentage";
 import Row from "./Row";
-import LazyLoader from "../../../../components/shared/modules/LazyLoader";
+import LazyLoader from "../../../lazy_loader/LazyLoader";
 
 export default function Content(props) {
     const random_hex_color_code = () => {

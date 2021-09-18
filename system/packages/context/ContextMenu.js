@@ -18,15 +18,9 @@ export default function ContextMenu(props) {
     let onRenderListener = false
 
     const remove = () => {
-        ref.current.classList.add(styles.exitAnimation)
-        ref.current.addEventListener('animationend', () => {
-            if (ref.current.classList.length === 2) {
-                setOnRender(false)
-                onRenderListener = false
-                ref.current.classList.remove(styles.exitAnimation)
-                setButtons([])
-            }
-        }, {once: true})
+        setOnRender(false)
+        onRenderListener = false
+        setButtons([])
     }
 
     const preventContext = (event) => {
@@ -88,8 +82,8 @@ export default function ContextMenu(props) {
         document.addEventListener('mouseup', handleMouseUp)
         document.addEventListener('mousedown', handleExit)
         return () => {
-            if (onRender)
-                remove()
+
+            remove()
             document.body.removeEventListener('contextmenu', preventContext)
             document.removeEventListener('mousedown', handleExit)
             document.removeEventListener('mouseup', handleMouseUp)
@@ -101,7 +95,7 @@ export default function ContextMenu(props) {
         <div ref={ref} style={{display: onRender ? undefined : 'none'}}
              className={onRender ? styles.context : undefined} id={'context-menu'}>
             {buttons.map((button, i) => button.children !== undefined ? (
-                <div>
+                <div key={i + '-buttons'}>
                     <div className={styles.header}>
                         {button.label}
                     </div>
@@ -110,19 +104,20 @@ export default function ContextMenu(props) {
                             onClick={() => {
                                 c.onClick(e, nodeID)
                                 remove()
-                            }} key={c.key}
+                            }} key={c.key + '-button'}
                             disabled={c.getDisabled !== undefined ? c.getDisabled(props) : false}
                             className={styles.contextButton}
+
                         >
                             {c.icon}
                             <div className={styles.overflow}>
                                 {c.label}
                             </div>
                             {c.shortcutButtons ?
-                                <div className={styles.shortcuts}>
+                                <div className={styles.shortcuts} key={c.key + '-shortcut'}>
                                     {c.shortcutButtons.map((s, index) => (
                                         <div className={index === 0 ? styles.mainButton : styles.secondaryButton}
-                                             key={c.key + '-shortcut'}>
+                                             key={c.key + '-shortcut-element-' + s}>
 
                                             {index > 0 ? <div> + </div> : null}
                                             {s}

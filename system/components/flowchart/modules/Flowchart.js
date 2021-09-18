@@ -77,7 +77,10 @@ export default function Flowchart(props) {
                         {/*<FrameView/>*/}
                         <ContextMenu
                             data={pages[openPage]}
-                            setData={handlePageChange}
+                            setData={(e) => {
+                                console.log('SET DATA ' + JSON.stringify(e))
+                                handlePageChange(e)
+                            }}
                             scale={scale} setScale={setScale} copiedNode={copied}
                             setCopiedNode={setCopied}
                             selectNode={selectNode} selectedNodes={selected}
@@ -167,8 +170,9 @@ export default function Flowchart(props) {
                     </>
                 }
                 body={[
-                    <div style={{width: '100%', height: 'calc(100% - 40px)', display: 'flex'}}>
+                    <div style={{width: '100%', height: 'calc(100% - 40px)', display: 'flex'}} key={'content'}>
                         <VerticalTabs
+                            tabsKey={'flowchart-content'}
                             buttons={[
                                 {
                                     icon: <CategoryRounded/>,
@@ -178,7 +182,7 @@ export default function Flowchart(props) {
                                             <FlowchartShapes
                                                 data={pages[openPage]}
                                                 setData={handlePageChange}
-                                                scale={scale}
+                                                scale={scale} selectedNodes={selected}
                                             />
 
                                         </>

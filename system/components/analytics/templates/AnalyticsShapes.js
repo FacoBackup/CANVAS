@@ -8,6 +8,8 @@ import ShapeWrapper from "../../../packages/shape/ShapeWrapper";
 
 export default function AnalyticsShapes(props) {
     const draggableRef = useRef()
+    const [canDrag, setCanDrag] = useState(false)
+
     const handleDrag = (event, logo) => {
         draggableRef.current.style.display = 'flex'
         draggableRef.current.style.top = (event.clientY - draggableRef.current.offsetHeight / 2) + 'px'
@@ -18,7 +20,7 @@ export default function AnalyticsShapes(props) {
             draggableRef.current
         )
     }
-    const handleDrop = useCallback((event, chart) => {
+    const handleDrop = (event, chart) => {
         const root = document.getElementById('frame')
         const dimensions = {width: 500, height: 250}
 
@@ -29,16 +31,11 @@ export default function AnalyticsShapes(props) {
                 y: root.getBoundingClientRect().top
             }
             const placement = {
-                x: (event.clientX - rootBounding.x + root.scrollLeft - dimensions.width / 2),
-                y: (event.clientY - rootBounding.y + root.scrollTop - dimensions.height / 2)
+                x: (event.clientX - rootBounding.x + root.scrollLeft),
+                y: (event.clientY - rootBounding.y + root.scrollTop)
             }
-            console.log(dimensions)
-            console.log(rootBounding)
-            console.log(event)
-            console.log(props.scale)
-
             let newData = {...props.data}
-            console.log(newData)
+
             newData.nodes.push({...getNewNode(dimensions, 'rect', placement), variant: chart})
             props.setData(newData)
         }
@@ -47,9 +44,9 @@ export default function AnalyticsShapes(props) {
         ReactDOM.unmountComponentAtNode(
             draggableRef.current
         )
-    }, [props.data])
+    }
 
-    const [canDrag, setCanDrag] = useState(false)
+
     useEffect(() => {
         draggableRef.current = document.createElement('div')
         draggableRef.current.classList.add(styles.shapeWrapper)
@@ -72,7 +69,7 @@ export default function AnalyticsShapes(props) {
             <div className={styles.shapes}>
                 <ShapeWrapper
                     scale={1} canDrag={canDrag} onMove={onMove}
-                    handleDrag={handleDrag} handleDrop={handleDrop}
+                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.data}
                     targetID={'draggable-shape'}
                     content={
                         <BarChartRounded style={{fontSize: '2rem', color: '#0095ff'}}/>
@@ -82,7 +79,7 @@ export default function AnalyticsShapes(props) {
                 />
                 <ShapeWrapper
                     scale={1} canDrag={canDrag} onMove={onMove}
-                    handleDrag={handleDrag} handleDrop={handleDrop}
+                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.data}
                     targetID={'draggable-shape'}
 
                     content={
@@ -96,7 +93,7 @@ export default function AnalyticsShapes(props) {
 
                 <ShapeWrapper
                     scale={1} canDrag={canDrag} onMove={onMove}
-                    handleDrag={handleDrag} handleDrop={handleDrop}
+                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.data}
                     targetID={'draggable-shape'}
                     content={
                         <TimelineRounded style={{fontSize: '2rem', color: '#0095ff'}}/>
@@ -106,7 +103,7 @@ export default function AnalyticsShapes(props) {
                 />
                 <ShapeWrapper
                     scale={1} canDrag={canDrag} onMove={onMove}
-                    handleDrag={handleDrag} handleDrop={handleDrop}
+                    handleDrag={handleDrag} handleDrop={handleDrop} data={props.data}
                     targetID={'draggable-shape'}
                     content={
                         <PieChartRounded style={{fontSize: '2rem', color: '#0095ff'}}/>

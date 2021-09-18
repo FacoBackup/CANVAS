@@ -1,87 +1,105 @@
-import React, {useEffect, useMemo, useRef} from "react";
+import PropTypes from 'prop-types'
 import NodePropsTemplate from "../../../flowchart/templates/NodePropsTemplate";
-import SelectedWrapper from "./SelectedWrapper";
-import Shape from "../shapes/Shape";
+import Resizer from "./Resizer";
 import styles from '../../styles/Node.module.css'
-import ConnectionsWrapper from "../../../flowchart/modules/ConnectionsWrapper";
-import useNode from "../../hooks/useNode";
-import Draggable from "../../../../packages/draggable/Draggable";
-
+import {EditRounded} from "@material-ui/icons";
+import {useEffect, useState} from "react";
 
 export default function NodeWrapper(props) {
-    const ref = useRef()
+    const [node, setNode] = useState(props.node)
 
-    const selected = useMemo(() => {
-        return props.selectedNodes.find(e => e.node.id === props.node.id)
-    }, [props.selectedNodes])
-
-    const {ACTIONS, nodeState, dispatch} = useNode({
-        data: props.data,
-        setData: props.setData,
-        node: props.node,
-        scale: props.scale,
-        selectNode: props.selectNode,
-        unselectNode: props.unselectNode,
-        noPlacementIndicator: props.noPlacementIndicator
-    })
+    useEffect(() => {
+        setNode(props.node)
+    }, [props.node.dimensions])
     return (
-        <Draggable
-            scale={props.scale} canDrag={selected !== undefined && selected.node.id === props.node.id}
-            onDrop={e => {
-                dispatch({type: ACTIONS.PLACEMENT, payload: e.currentPlacement})
-                ref.current.style.opacity = '1'
-            }}
-            onDragStart={() => {
-                ref.current.style.opacity = '.5'
-            }}
-            onMove={e => ref.current.setAttribute('transform', `translate(${e.placement.x}, ${e.placement.y})`)}
-            rootID={'frame'}>
-            <g
-                id={nodeState.id + '-node'}
-                transform={`translate(${nodeState.placement.x}, ${nodeState.placement.y})`}
-                ref={ref}
-                overflow={'hidden'}
-                fill={'none'}
-                className={styles.entityContainer}
-            >
-                {props.showConnections ?
-                    <ConnectionsWrapper node={nodeState} handleLink={props.handleLink}
-                                        selected={selected}/> : undefined}
-                <Shape
-                    id={props.node.id}
-                    shapeVariant={props.node.shapeVariant}
-                    shape={props.node.styling.shape}
-                    dimensions={{...props.node.dimensions}}
-                    cursor={selected !== undefined && selected.node.id === props.node.id ? 'grab' : undefined}
-                    styles={{
-                        fill: props.node.styling.fill,
-                        stroke: props.node.styling.color,
-                        strokeDasharray: props.node.styling.strokeDasharray,
-                        strokeWidth: props.node.styling.strokeWidth,
-                        borderRadius: props.node.styling.borderRadius,
-                        dropShadow: props.node.styling.dropShadow
-                    }}
+        <g
+            visibility={props.selected !== undefined && props.selected.node.id === props.node.id ? 'visible' : 'hidden'}
+            opacity={props.selected !== undefined && props.selected.node.id === props.node.id ? '1' : '0'}
+            style={{transition: 'opacity 150ms linear, visibility 150ms linear'}}
+            overflow={'visible'}>
 
-                    onClick={(event) => {
-                        if (event.ctrlKey) {
-                            console.log('CONTROL CLICKED')
-                            props.selectNode(props.node)
-                        }
-                        else {
-                            console.log('CLEANING')
-                            props.unselectNode(undefined, true)
-                            props.selectNode(props.node, false, true)
-                        }
-                    }}
-                >
+            <rect stroke={'#555555'} strokeOpacity={.2} strokeWidth={2}
+                  strokeDasharray={'4,4'}
+                  x={0} y={0}
+                  width={node.dimensions.width} height={node.dimensions.height} fill={'none'}/>
 
-                    {props.children({actions: ACTIONS, dispatch: dispatch, node: nodeState})}
-                </Shape>
-                <SelectedWrapper selectNode={props.selectNode} node={nodeState} selected={selected} scale={props.scale}
-                                 actions={ACTIONS} dispatch={dispatch}/>
-            </g>
-        </Draggable>
+            <foreignObject overflow={'visible'} style={{
+                width: '40px',
+                height: '40px',
+                display: props.selected !== undefined && props.selected.node.id === props.node.id && props.selected.openEdit ? 'none' : undefined
+            }} x={-1} y={-1}>
+                <button className={styles.editButton}
+                        onClick={() => props.selectNode(props.node, true)}>
+                    <EditRounded style={{fontSize: '1.3rem'}}/>
+                </button>
+            </foreignObject>
+            <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                     savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                     save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
+                     placement={'nw'} node={node} setNode={setNode} scale={props.scale}/>
+            <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                     savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                     save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
+                     placement={'ne'} node={node} setNode={setNode} scale={props.scale}/>
+
+            <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                     savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                     save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
+                     placement={'sw'} node={node} setNode={setNode} scale={props.scale}/>
+            <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                     savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                     save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
+                     placement={'se'} node={node} setNode={setNode} scale={props.scale}/>
+
+            <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                     savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                     save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
+                     placement={'w'} node={node} setNode={setNode} scale={props.scale}/>
+            <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                     savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                     save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
+                     placement={'s'} node={node} setNode={setNode} scale={props.scale}/>
+            <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                     savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                     save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
+                     placement={'e'} node={node} setNode={setNode} scale={props.scale}/>
+            <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                     savePlacement={(event) => props.dispatch({type: props.actions.PLACEMENT, payload: event})}
+                     save={(dimensions, placement) => {
+                                 props.dispatch({type: props.actions.PLACEMENT, payload: placement})
+                                 props.dispatch({type: props.actions.DIMENSIONS, payload: dimensions})
+                             }}
+                     placement={'n'} node={node} setNode={setNode} scale={props.scale}/>
+        </g>
     )
 }
 
-NodeWrapper.propTypes = NodePropsTemplate
+NodeWrapper.propTypes = {
+    dispatch: PropTypes.func,
+    actions: PropTypes.object,
+    node: PropTypes.object,
+    scale: PropTypes.number,
+    selectNode: PropTypes.func,
+    selected: PropTypes.object
+}

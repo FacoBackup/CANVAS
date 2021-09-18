@@ -128,13 +128,15 @@ export default function Draggable(props) {
             if (dragPivot !== null)
                 dragPivot.removeEventListener('mousedown', handleMouseDown)
         }
-    }, [props.canDrag, props.targetID])
+    }, [props.canDrag, props.targetID, props.updateReference])
 
 
     return (props.children)
 }
 
 Draggable.propTypes = {
+    updateReference: PropTypes.any,
+
     targetID: PropTypes.any,
     children: PropTypes.node,
     canDrag: PropTypes.bool,

@@ -1,6 +1,5 @@
 import {CropRounded, DeleteRounded, EditRounded, FileCopyRounded} from "@material-ui/icons";
-import {useCallback, useContext, useMemo} from "react";
-
+import {v4 as uuid4} from "uuid";
 export default function NodeContext(props) {
     return [
         {
@@ -29,7 +28,7 @@ export default function NodeContext(props) {
                         })
                     },
                     shortcutButtons: ['ctrl', 'x'],
-                    key: 'node-1'
+                    key: uuid4().toString()
                 },
                 {
                     label: props.selectedNodes.length > 1 ? 'Copiar selecionados' : 'Copiar',
@@ -38,23 +37,22 @@ export default function NodeContext(props) {
                         props.setCopiedNode(props.data.nodes.find(node => nodeID === node.id))
                     },
                     shortcutButtons: ['ctrl', 'c'],
-                    key: 'node-2'
+                    key: uuid4().toString()
                 },
                 {
                     label: props.selectedNodes.length > 1 ? 'Deletar selecionados' : 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (event, nodeID) => {
-                        props.unselectNode(nodeID)
+                        let indexes =[]
 
-                        let index
-                        props.data.nodes.forEach((node, i) => {
-                            if (nodeID === node.id)
-                                index = i
+                        props.selectedNodes.forEach((e, i) => {
+                            indexes.push(i)
                         })
+                        indexes.push(props.data.nodes.findIndex(e => nodeID.includes(e.id)))
 
                         let newNodes = [...props.data.nodes]
 
-                        newNodes[index] = {}
+                        indexes.forEach(e => newNodes[e] = {})
 
                         props.setData({
                             ...props.data,
@@ -62,7 +60,7 @@ export default function NodeContext(props) {
                         })
                     },
                     shortcutButtons: ['del'],
-                    key: 'node-3',
+                    key: uuid4().toString()
 
                 },
             ]
@@ -76,11 +74,9 @@ export default function NodeContext(props) {
                     onClick: (event, nodeID) => {
                         props.selectNode(props.data.nodes.find((node, i) => nodeID === node.id), true)
                     },
-                    key: 'node-4'
+                    key: uuid4().toString()
                 },
             ]
         }
-
     ]
-
 }

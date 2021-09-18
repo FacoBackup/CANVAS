@@ -1,4 +1,4 @@
-import styles from '../../styles/FrameOverview.module.css'
+import styles from './styles/FrameOverview.module.css'
 import {useEffect, useRef} from "react";
 import PropTypes from 'prop-types'
 

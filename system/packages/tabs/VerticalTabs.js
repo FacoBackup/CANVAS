@@ -3,14 +3,17 @@ import PropTypes from 'prop-types'
 import {useEffect, useMemo, useRef} from "react";
 import ToolTip from "../chart/tooltip/ToolTip";
 import {ArrowBackIosRounded} from "@material-ui/icons";
+import {v4 as uuid4} from "uuid";
 
 export default function VerticalTabs(props) {
     const contentRef = useRef()
+    const key = props.tabsKey
     const content = useMemo(() => {
         return (
             <div className={styles.content} ref={contentRef}
-                 style={{display: props.openButton === undefined || props.openButton === null ? 'none' : null,
-                     borderRight:props.contentOrientation !== 'left' ? null :'#ecedf2 1px solid',
+                 style={{
+                     display: props.openButton === undefined || props.openButton === null ? 'none' : null,
+                     borderRight: props.contentOrientation !== 'left' ? null : '#ecedf2 1px solid',
                      borderLeft: props.contentOrientation === 'left' ? null : '#ecedf2 1px solid'
                  }}>
 
@@ -18,7 +21,7 @@ export default function VerticalTabs(props) {
                     <span className={styles.enterAnimation} style={{
                         display: 'grid',
                         gap: '4px'
-                    }}>
+                    }} key={JSON.stringify(key) + '-vertical-tab-button-' + i}>
                         <div className={styles.header}>
                             {button.label}
                         </div>
@@ -45,13 +48,14 @@ export default function VerticalTabs(props) {
 
 
     return (
-      <span style={{
-          padding: '5px',
-          paddingLeft: props.contentOrientation !== 'left' ? 0 : '5px',
-          paddingRight: props.contentOrientation === 'left' ? 0 : '5px',
-          height: 'calc(100% - 39px)'}}>
+        <span style={{
+            padding: '5px',
+            paddingLeft: props.contentOrientation !== 'left' ? 0 : '5px',
+            paddingRight: props.contentOrientation === 'left' ? 0 : '5px',
+            height: 'calc(100% - 39px)'
+        }}>
             <div className={styles.container}>
-            {props.contentOrientation === 'left' &&( props.open === true || props.open === undefined )? content : null}
+            {props.contentOrientation === 'left' && (props.open === true || props.open === undefined) ? content : null}
                 <div className={styles.buttons}>
                 {props.open !== undefined ?
                     <span>
@@ -82,13 +86,14 @@ export default function VerticalTabs(props) {
 
                     ) : null)}
             </div>
-                {props.contentOrientation !== 'left' && (props.open === true || props.open === undefined)? content : null}
+                {props.contentOrientation !== 'left' && (props.open === true || props.open === undefined) ? content : null}
         </div>
       </span>
     )
 }
 
 VerticalTabs.propTypes = {
+    tabsKey: PropTypes.any,
     canExtend: PropTypes.bool,
     buttons: PropTypes.arrayOf(PropTypes.shape({
         icon: PropTypes.object,

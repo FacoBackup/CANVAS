@@ -10,7 +10,7 @@ export default function Engine(props) {
         selectedNodes: props.selectedNodes,
         selectNode: props.selectNode,
         unselectNode: props.unselectNode,
-        nodes: props.data.nodes
+        data: props.data
     })
 
     return (
@@ -20,8 +20,6 @@ export default function Engine(props) {
                     ref={root} className={styles.canvasContainer}
                     id={'frame'}
                     onMouseDown={event => {
-
-
                         if (typeof event.target.className === 'object' && event.button === 2)
                             PlaceCanvasScroll({canvas: root.current, event: event})
                     }}>

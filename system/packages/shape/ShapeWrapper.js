@@ -8,20 +8,16 @@ import ToolTip from "../chart/tooltip/ToolTip";
 export default function ShapeWrapper(props){
     return(
         <Draggable
-            rootID={'body'}
+            rootID={'body'} updateReference={props.data}
             targetID={props.targetID}
             onMove={props.onMove}
             canDrag={props.canDrag}
-            onDragStart={(e) => props.handleDrag(e,props.content)}
+            onDragStart={(e) => props.handleDrag(e,props.content, props.value)}
             onDrop={data => props.handleDrop(data.event, props.value)} scale={props.scale}>
             <div
                 className={styles.shapeContainer}
                 id={JSON.stringify(props.value)+ '-draggable'}
-                onClick={() => {
-                    let newPage = {...props.data}
-                    props.selectedNodes.forEach(e => newPage.nodes[e.index].variant = 'bar-horizontal')
-                    props.setData(newPage)
-                }}
+                onClick={props.onClick}
             >
                 {props.content}
                 <ToolTip content={props.label}/>
@@ -31,6 +27,7 @@ export default function ShapeWrapper(props){
 }
 
 ShapeWrapper.propTypes={
+    data: PropTypes.object,
     onMove: PropTypes.func,
     handleDrop: PropTypes.func,
     handleDrag: PropTypes.func ,
@@ -41,5 +38,6 @@ ShapeWrapper.propTypes={
     label: PropTypes.string,
 
     value: PropTypes.string,
-    scale: PropTypes.number
+    scale: PropTypes.number,
+    onClick: PropTypes.func
 }

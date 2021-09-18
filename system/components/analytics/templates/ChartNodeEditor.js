@@ -13,7 +13,7 @@ export default function ChartNodeEditor(props) {
         return props.selectedNodes.find(e => e.openEdit)
     }, [props.selectedNodes])
 
-    const {ACTIONS, nodeState, dispatch} = useNode({
+    const {ACTIONS,  dispatch} = useNode({
         data: props.data,
         setData: props.setData,
         node: openEdit ? props.data.nodes[openEdit.index] : undefined
@@ -31,6 +31,7 @@ export default function ChartNodeEditor(props) {
     }, [props.selectedNodes])
     return (
         <VerticalTabs
+            tabsKey={'chart-node-editor'}
             open={extended}
             canExtend={openEdit !== undefined}
             openButton={open}
@@ -42,7 +43,7 @@ export default function ChartNodeEditor(props) {
                     label: 'Dados',
                     content: (
                         openEdit === undefined ? null :
-                            <NodeDatasetEditor dispatch={dispatch} actions={ACTIONS} node={nodeState}/>
+                            <NodeDatasetEditor dispatch={dispatch} actions={ACTIONS} node={props.data.nodes[openEdit.index]}/>
                     ),
                     disabled: openEdit === undefined
                 },
@@ -51,7 +52,7 @@ export default function ChartNodeEditor(props) {
                     label: 'Visual',
                     content: (
                         openEdit === undefined ? null :
-                            <BorderEditor dispatch={dispatch} actions={ACTIONS} node={nodeState}/>
+                            <BorderEditor dispatch={dispatch} actions={ACTIONS} node={props.data.nodes[openEdit.index]}/>
                     ),
                     disabled: openEdit === undefined
                 },
@@ -60,7 +61,7 @@ export default function ChartNodeEditor(props) {
                     label: 'Posição e dimensões',
                     content: (
                         openEdit === undefined ? null : <DimensionPositionEditor dispatch={dispatch} actions={ACTIONS}
-                                                                                 node={nodeState}/>
+                                                                                 node={props.data.nodes[openEdit.index]}/>
                     ),
                     disabled: openEdit === undefined
                 }

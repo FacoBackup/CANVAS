@@ -15,7 +15,7 @@ export default {
     toBeLinked: PropTypes.object,
     scale: PropTypes.number,
 
-    children: PropTypes.node,
+    children: PropTypes.func,
     noPlacementIndicator: PropTypes.bool,
     showConnections: PropTypes.bool
 }

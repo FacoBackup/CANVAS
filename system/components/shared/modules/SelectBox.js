@@ -3,8 +3,8 @@ import styles from '../styles/Canvas.module.css'
 import {useCallback, useEffect} from "react";
 
 export default function SelectBox(props) {
-    let wrapper
-    let wrapperBox
+    let wrapper = null
+    let wrapperBox = null
     let lastPlacement = {
         x: undefined,
         y: undefined
@@ -19,7 +19,7 @@ export default function SelectBox(props) {
             const element = document.getElementById(e.id + '-node')
             if (element !== null) {
                 const b = element.getBoundingClientRect()
-                const eBBox ={
+                const eBBox = {
                     width: b.width,
                     height: b.height,
                     left: b.left - wrapperBox.left,
@@ -48,7 +48,7 @@ export default function SelectBox(props) {
             x: e.clientX - wrapperBox.left,
             y: e.clientY - wrapperBox.top
         }
-        const width = lastPlacement.x > currentPlacement.x ? Math.abs(lastPlacement.x - currentPlacement.x ) : Math.abs(currentPlacement.x - lastPlacement.x)
+        const width = lastPlacement.x > currentPlacement.x ? Math.abs(lastPlacement.x - currentPlacement.x) : Math.abs(currentPlacement.x - lastPlacement.x)
         const height = lastPlacement.y > currentPlacement.y ? Math.abs(lastPlacement.y - currentPlacement.y) : Math.abs(currentPlacement.y - lastPlacement.y)
         let newTop = lastPlacement.y > (currentPlacement.y) ? ((box.offsetTop + box.offsetHeight) + (currentPlacement.y - lastPlacement.y)) : box.offsetTop
         let newLeft = lastPlacement.x > (currentPlacement.x) ? ((box.offsetLeft + box.offsetWidth) + (currentPlacement.x - lastPlacement.x)) : box.offsetLeft
@@ -60,16 +60,19 @@ export default function SelectBox(props) {
     }
 
     const handleMouseUp = () => {
-        if (canMove) {
 
+        if (canMove) {
             canMove = false
 
-            props.selectNode(null,null, null,toBeSelected)
+            props.selectNode(null, null, null, toBeSelected)
 
             box.classList.remove(styles.enterA)
             box.classList.add(styles.exitA)
-            if (toBeSelected.length === 0)
+
+            if (toBeSelected.length === 0) {
+                console.log('UNSELECTING NODES')
                 props.unselectNode(undefined, true)
+            }
 
             box.style.display = 'none'
             box.style.transform = null
@@ -85,12 +88,12 @@ export default function SelectBox(props) {
     }
 
     const handleMouseDown = (event) => {
-        if (event.target.id === 'engine-content' && event.button === 0) {
+        if (event.target.id === 'engine-content' && event.button === 0 && wrapperBox !== null) {
             lastPlacement = {
                 x: event.clientX - wrapperBox.left,
                 y: event.clientY - wrapperBox.top
             }
-            const copy = [...props.nodes]
+            const copy = [...props.data.nodes]
             copy.forEach((e) => {
                 if (props.selectedNodes.find(b => b.node.id === e.id) === undefined)
                     unselectedNodes.push(e)
@@ -113,9 +116,10 @@ export default function SelectBox(props) {
     }
 
     useEffect(() => {
-        wrapper = document.getElementById('select-box-wrapper')
-        wrapperBox = wrapper.getBoundingClientRect()
-
+        if (wrapper === null) {
+            wrapper = document.getElementById('select-box-wrapper')
+            wrapperBox = wrapper.getBoundingClientRect()
+        }
         box = document.createElement('div')
         wrapper.appendChild(box)
         box.classList.add(styles.selectBox)
@@ -134,18 +138,15 @@ export default function SelectBox(props) {
             document.removeEventListener('mousemove', handleDrag)
             wrapper.removeChild(box)
         }
-    }, [props])
+    }, [props.selectedNodes, props.data])
 
-    return useCallback((event) => {
-        handleMouseDown(event)
-    }, [props])
-
+    return handleMouseDown
 }
 
 SelectBox.propTypes = {
     selectedNodes: PropTypes.arrayOf(PropTypes.object),
     selectNode: PropTypes.func,
     unselectNode: PropTypes.func,
-    nodes: PropTypes.array,
-    event: PropTypes.object
+
+    data: PropTypes.object
 }

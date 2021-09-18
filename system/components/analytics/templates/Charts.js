@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import NodeWrapper from "../../shared/templates/node/NodeWrapper";
+import Node from "../../shared/templates/node/Node";
 
 import useNode from "../../shared/hooks/useNode";
 import ChartNode from "./ChartNode";
@@ -9,7 +9,7 @@ export default function Charts(props) {
     return (
         props.data.nodes.map((node, index) => node.id === undefined ? null : (
             <g key={node.id + '-charts-node-' + index}>
-                <NodeWrapper
+                <Node
                     index={index}
                     scale={1}
                     selectNode={props.selectNode}
@@ -24,7 +24,7 @@ export default function Charts(props) {
                     {() => (
                         <ChartNode dataset={props.dataset} node={node}/>
                     )}
-                </NodeWrapper>
+                </Node>
             </g>
         ))
 

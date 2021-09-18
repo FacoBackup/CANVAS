@@ -1,4 +1,4 @@
-import {useEffect, useReducer} from "react";
+import {useCallback, useEffect, useReducer} from "react";
 import PropTypes from 'prop-types'
 
 export default function useNode(props) {
@@ -10,91 +10,69 @@ export default function useNode(props) {
         TITLE: 'TITLE',
         VISUALS: 'VISUALS'
     }
-    const reducer = (nodeState, action) => {
-        let newNode = {...nodeState}
-        let newNodes = [...props.data.nodes]
-        switch (action.type) {
-            case ACTIONS.PLACEMENT: {
-                newNode = {
-                    ...nodeState,
-                    placement: action.payload
+    const dispatch = useCallback( (p) => {
+
+            let newNode = {...props.node}
+            let newNodes = [...props.data.nodes]
+            switch (p.type) {
+                case ACTIONS.PLACEMENT: {
+                    newNode = {
+                        ...props.node,
+                        placement: p.payload
+                    }
+                    break
                 }
-                break
-            }
-            case ACTIONS.DIMENSIONS: {
-                newNode = {
-                    ...nodeState,
-                    dimensions: action.payload
+                case ACTIONS.DIMENSIONS: {
+                    newNode = {
+                        ...props.node,
+                        dimensions: p.payload
+                    }
+                    break
                 }
-                break
-            }
-            case ACTIONS.DATASET: {
-                newNode = {
-                    ...nodeState,
-                    dataset: action.payload
+                case ACTIONS.DATASET: {
+                    newNode = {
+                        ...props.node,
+                        dataset: p.payload
+                    }
+                    break
                 }
-                break
-            }
-            case ACTIONS.TITLE: {
-                newNode = {
-                    ...nodeState,
-                    title: action.payload
+                case ACTIONS.TITLE: {
+                    newNode = {
+                        ...props.node,
+                        title: p.payload
+                    }
+                    break
                 }
-                break
-            }
-            case ACTIONS.VISUALS: {
+                case ACTIONS.VISUALS: {
 
-                newNode = {
-                    ...nodeState,
-                    styling: action.payload
+                    newNode = {
+                        ...props.node,
+                        styling: p.payload
+                    }
+                    break
                 }
-                break
+                case SET: {
+                    newNode = p.payload
+                    break
+                }
+                default:
+                    break
             }
-            case SET: {
-                newNode = action.payload
-                break
+            if (props.node !== undefined) {
+                newNodes[newNodes.findIndex(e => props.node.id === e.id)] = newNode
+                props.setData({
+                    ...props.data,
+                    nodes: newNodes
+                })
             }
-            default:
-                break
-        }
-        if (props.node !== undefined) {
-            newNodes[newNodes.findIndex(e => props.node.id === e.id)] = newNode
-            props.setData({
-                ...props.data,
-                nodes: newNodes
-            })
-        }
 
-        return newNode
-    }
+    }, [props.node, props.data])
 
-    const [nodeState, dispatch] = useReducer(reducer, props.node)
-
-    // const move = (event) => {
-    //     PlaceNode({
-    //         scale: props.scale,
-    //         node: nodeState,
-    //         event: event,
-    //         selectNode: props.selectNode,
-    //         unselectNode: props.unselectNode,
-    //         dispatch: dispatch,
-    //         actions: ACTIONS,
-    //         noPlacementIndicator: props.noPlacementIndicator
-    //     })
-    // }
-
-    useEffect(() => {
-        dispatch({type: SET, payload: props.node})
-    }, [props.node])
-
-    return {ACTIONS, nodeState, dispatch}
+    return {ACTIONS,  dispatch}
 }
 
 useNode.propTypes = {
-    scale: PropTypes.number,
-    selectNode: PropTypes.func,
-    unselectNode: PropTypes.func,
-    noPlacementIndicator: PropTypes.bool,
-    data: PropTypes.object, setData: PropTypes.func,
+    data: PropTypes.object,
+    setData: PropTypes.func,
     node: PropTypes.object
 }

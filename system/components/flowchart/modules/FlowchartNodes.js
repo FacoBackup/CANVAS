@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import NodeWrapper from "../../shared/templates/node/NodeWrapper";
+import Node from "../../shared/templates/node/Node";
 import styles from "../../shared/styles/Node.module.css";
 import Content from "./Content";
 import useNode from "../../shared/hooks/useNode";
@@ -13,7 +13,7 @@ export default function FlowchartNodes(props) {
     return props.data !== undefined ? (
         props.data.nodes.map((node, index) => node.id === undefined ? null : (
             <g key={`${node.id}-node-${index}`}>
-                <NodeWrapper
+                <Node
                     index={index}
                     scale={1}
                     selectNode={props.selectNode}
@@ -44,7 +44,7 @@ export default function FlowchartNodes(props) {
                             }}/>
                         </foreignObject>
                     )}
-                </NodeWrapper>
+                </Node>
             </g>
         ))
     ) : null

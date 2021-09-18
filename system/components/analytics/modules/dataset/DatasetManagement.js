@@ -82,7 +82,7 @@ export default function DatasetManagement(props) {
 DatasetManagement.propTypes = {
     setDatasetName: PropTypes.func,
     setDataset: PropTypes.func,
-    dataset: PropTypes.object,
+    dataset: PropTypes.array,
     handleUpload: PropTypes.func,
     fileName: PropTypes.string
 }

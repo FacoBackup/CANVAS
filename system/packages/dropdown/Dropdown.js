@@ -33,11 +33,14 @@ export default function Dropdown(props) {
                 width: props.width
             }}>
                 {props.buttons.map((b, i) => (
-                    <div style={{width: '100%', borderTop: i > 0 ? '#e0e0e0 1px solid' : "unset"}}>
-                        {b.children.map(c => (
+                    <div style={{width: '100%', borderTop: i > 0 ? '#e0e0e0 1px solid' : "unset"}}
+                         key={'children-dropdown-' + i}>
+                        {b.children.map((c, ic) => (
                             <button
-                                className={[styles.dropdownButton, c.active ? styles.activeButton : undefined].join(' ')} disabled={c.disabled}
+                                className={[styles.dropdownButton, c.active ? styles.activeButton : undefined].join(' ')}
+                                disabled={c.disabled}
                                 style={{...{paddingLeft: c.icon === undefined ? '32px' : "4px"}, ...c.styles}}
+                                key={i + '-button-' + ic}
                                 onClick={() => {
                                     c.onClick()
                                     props.handleClose(null)

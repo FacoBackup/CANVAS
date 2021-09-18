@@ -47,16 +47,20 @@ export default function getNewNode(dimensions, shape, placement){
     }
 
     const variant = getVariant()
+    let d = dimensions === undefined ? getDimensions() : dimensions
+    let p = {...placement}
+
+    p.x = p.x - d.width / 2
+    p.y = p.y - d.height / 2
 
     return {
         id: uuid4().toString(),
-        title: null,
-        description: null,
-        placement: placement,
+        title: '',
+        placement: p,
         shapeVariant: variant,
         creationDate: (new Date()).getTime(),
         links: [],
-        dimensions: dimensions,
+        dimensions: d,
         styling: {
             shape: shape,
             borderRadius: 0,

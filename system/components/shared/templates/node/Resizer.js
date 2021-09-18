@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import GetNodeResizeParams from "../../utils/GetNodeResizeParams";
 import styles from '../../styles/Node.module.css'
 
-export default function ResizeIndicator(props) {
+export default function Resizer(props) {
     const params = GetNodeResizeParams(props)
     let lastMousePlacement
     let dimensions = props.node.dimensions
@@ -165,7 +165,7 @@ export default function ResizeIndicator(props) {
         />
     )
 }
-ResizeIndicator.propTypes = {
+Resizer.propTypes = {
     savePlacement: PropTypes.func,
     save: PropTypes.func,
     placement: PropTypes.oneOf(['nw', 'w', 'e', 'n', 's', 'ne', 'se', 'sw']),

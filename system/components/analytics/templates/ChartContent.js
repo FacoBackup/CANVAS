@@ -14,6 +14,7 @@ export default function ChartContent(props) {
     return (
         <div style={{width: '100%', height: 'calc(100% - 70px)', display: 'flex'}}>
             <VerticalTabs
+                tabsKey={'chart-content'}
                 buttons={[
                     {
                         icon: <CategoryRounded/>,
@@ -88,6 +89,6 @@ ChartContent.propTypes = {
     unselectNode: PropTypes.func,
     defaultPage: PropTypes.number,
     setDefaultPage: PropTypes.func,
-    children: PropTypes.node,
+    children: PropTypes.func,
     openDataset: PropTypes.bool
 }

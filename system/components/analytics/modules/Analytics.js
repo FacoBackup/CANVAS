@@ -205,23 +205,26 @@ export default function Analytics(props) {
                     </>
                 }
                 body={[
-
-                    <ChartContent
-                        selectNode={selectNode}
-                        unselectNode={unselectNode}
-                        setDefaultPage={setOpenPage} defaultPage={openPage} dataset={dataset}
-                        children={props.children} setPages={setPages} pages={pages}
-                        handlePageChange={handlePageChange} openDataset={openDataset} metadata={metadata}
-                        setMetadata={setMetadata} selectedNodes={selected}
-                    />,
-                    <DatasetManagement
-                        dataset={dataset} fileName={datasetName}
-                        setDataset={setDataset} setDatasetName={setDatasetName} openDataset={openDataset}
-                        handleUpload={() => {
-                            uploadRef.current.setAttribute('accept', '.csv, .json')
-                            uploadRef.current.click()
-                        }}
-                    />
+                    <React.Fragment key={'content'}>
+                        <ChartContent
+                            selectNode={selectNode}
+                            unselectNode={unselectNode}
+                            setDefaultPage={setOpenPage} defaultPage={openPage} dataset={dataset}
+                            children={props.children} setPages={setPages} pages={pages}
+                            handlePageChange={handlePageChange} openDataset={openDataset} metadata={metadata}
+                            setMetadata={setMetadata} selectedNodes={selected}
+                        />
+                    </React.Fragment>,
+                    <React.Fragment key={'dataset'}>
+                        <DatasetManagement
+                            dataset={dataset} fileName={datasetName}
+                            setDataset={setDataset} setDatasetName={setDatasetName} openDataset={openDataset}
+                            handleUpload={() => {
+                                uploadRef.current.setAttribute('accept', '.csv, .json')
+                                uploadRef.current.click()
+                            }}
+                        />
+                    </React.Fragment>
                 ]}
             />
             <Loader loading={loading}/>

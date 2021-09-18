@@ -11,14 +11,14 @@ export default function CanvasContext(props) {
                     icon: <ZoomOutRounded/>,
                     onClick: () => props.setScale(props.scale - .25),
                     getDisabled: () => props.scale === .5,
-                    key: 'canvas-1'
+                    key: uuid4().toString()
                 },
                 {
                     label: 'Reduzir',
                     icon: <ZoomInRounded/>,
                     onClick: () => props.setScale(props.scale + .25),
                     getDisabled: () => props.scale === 2,
-                    key: 'canvas-2'
+                    key: uuid4().toString()
                 },
             ]
         },
@@ -29,7 +29,7 @@ export default function CanvasContext(props) {
                     label: 'Adicionar novo módulo',
                     icon: <AddRounded/>,
                     onClick: () => null,
-                    key: 'canvas-3'
+                    key: uuid4().toString()
 
                 },
                 {
@@ -56,7 +56,7 @@ export default function CanvasContext(props) {
                         props.setCopiedNode(null)
                     },
                     getDisabled: (props) => props.copiedNode === null,
-                    key: 'canvas-4'
+                    key: uuid4().toString()
                 }
             ]
         }
