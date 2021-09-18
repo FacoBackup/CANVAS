@@ -10,15 +10,16 @@ export default function AnalyticsShapes(props) {
     const draggableRef = useRef()
     const [canDrag, setCanDrag] = useState(false)
 
-    const handleDrag = (event, logo) => {
+    const handleDrag = (event, logo, type, target) => {
         draggableRef.current.style.display = 'flex'
-        draggableRef.current.style.top = (event.clientY - draggableRef.current.offsetHeight / 2) + 'px'
-        draggableRef.current.style.left = (event.clientX - draggableRef.current.offsetWidth / 2) + 'px'
 
         ReactDOM.render(
             logo,
             draggableRef.current
         )
+        draggableRef.current.style.top = (event.clientY - 125) + 'px'
+        draggableRef.current.style.left = (event.clientX - 250) + 'px'
+
     }
     const handleDrop = (event, chart) => {
         const root = document.getElementById('frame')
@@ -34,7 +35,7 @@ export default function AnalyticsShapes(props) {
                 x: (event.clientX - rootBounding.x + root.scrollLeft),
                 y: (event.clientY - rootBounding.y + root.scrollTop)
             }
-            console.log('CALLING DISPATCH')
+
             props.dispatchPage({action: props.actions.ADD_NODE, payload: {id: props.openPage.id, node: {...getNewNode(dimensions, 'rect', placement), variant: chart}}})
         }
 

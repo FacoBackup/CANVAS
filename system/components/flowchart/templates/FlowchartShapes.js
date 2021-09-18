@@ -12,7 +12,7 @@ import getNewNode from "../../shared/utils/GetNewNode";
 
 export default function FlowchartShapes(props) {
     const draggableRef = useRef()
-    const handleDrag = (event, logo, value) => {
+    const handleDrag = (event, logo, value, target) => {
         draggableRef.current.style.display = 'flex'
 
         ReactDOM.render(

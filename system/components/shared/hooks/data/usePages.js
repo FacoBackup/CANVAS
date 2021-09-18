@@ -2,13 +2,15 @@ import {useCallback, useMemo, useReducer, useState} from "react";
 import useHistory from "./useHistory";
 import {v4 as uuid4} from "uuid";
 
+
 export default function usePages() {
+    const {getPrevious, pushChange, getFollowing, hasFuture, hasPast} = useHistory()
+
     const ACTIONS = {
         // ARRAY LEVEL
         DELETE: '0-0',
         CREATE: '0-1',
         REPOSITION: '0-2',
-
 
         // OBJECT LEVEL
         RENAME: '1-0',
@@ -22,14 +24,9 @@ export default function usePages() {
         REWIND: '3-0',
         FORWARD: '3-1',
     }
-    const getNewPage = (pages) => {
-        return {id: uuid4().toString(), title: pages.length + 1, nodes: [], links: []}
-    }
 
-    const {getPrevious, pushChange, getFollowing, hasFuture, hasPast} = useHistory()
-
-    const reducer = useCallback( (state, action) => {
-
+    const reducer = (state, action) => {
+        console.log('REDUCER', action)
         switch (action.action) {
             case ACTIONS.DELETE: {
                 let value = [...state]
@@ -54,43 +51,33 @@ export default function usePages() {
             case ACTIONS.RENAME: {
                 let value = [...state]
                 let page = value[state.findIndex(e => e.id === action.payload.id)]
-
                 page.title = action.payload.data
-
                 pushChange({
                     id: action.payload.id,
                     data: action.payload.data
                 }, ACTIONS.RENAME)
-
                 return value
             }
             case ACTIONS.ADD_NODE: {
-
                 let value = [...state]
-
                 let page = value[state.findIndex(e => e.id === action.payload.id)]
-
                 page.nodes.push(action.payload.node)
-
                 pushChange({
                     id: action.payload.id,
                     data: action.payload.node
                 }, ACTIONS.ADD_NODE)
-                console.log(value)
                 return value
             }
             case ACTIONS.UPDATE_NODE: {
                 let value = [...state]
                 const pageIndex = state.findIndex(e => e.id === action.payload.id)
                 let page = value[pageIndex]
-                const nodeIndex = page.nodes.findIndex(e => e.id === action.payload.nodeID)
-                page.nodes[nodeIndex] = action.payload.node
-
+                const nodeIndex = page.nodes.findIndex(e => e.id === action.payload.data.id)
+                page.nodes[nodeIndex] = action.payload.data
                 pushChange({
                     id: action.payload.id,
                     data: state[pageIndex].nodes[nodeIndex]
                 }, ACTIONS.UPDATE_NODE)
-
                 return value
             }
             case ACTIONS.REMOVE_NODE: {
@@ -99,24 +86,19 @@ export default function usePages() {
                 let page = value[pageIndex]
                 const nodeIndex = page.nodes.findIndex(e => e.id === action.payload.nodeID)
                 page.nodes[nodeIndex] = {}
-
                 pushChange({
                     id: action.payload.id,
                     data: state[pageIndex].nodes[nodeIndex]
                 }, ACTIONS.REMOVE_NODE)
-
                 return value
             }
             case ACTIONS.ADD_LINK: {
                 let value = [...state]
                 let page = value[state.findIndex(e => e.id === action.payload.id)]
-
                 page.links.push(action.payload.link)
-
                 pushChange({
                     id: action.payload.id
                 }, ACTIONS.ADD_LINK)
-
                 return value
             }
             case ACTIONS.REMOVE_LINK: {
@@ -125,12 +107,10 @@ export default function usePages() {
                 let page = value[pageIndex]
                 const linkIndex = page.links.findIndex(e => e.id === action.payload.linkID)
                 page.links[linkIndex] = {}
-
                 pushChange({
                     id: action.payload.id,
                     data: state[pageIndex].links[linkIndex]
                 }, ACTIONS.REMOVE_LINK)
-
                 return value
             }
             case ACTIONS.REWIND: {
@@ -215,14 +195,18 @@ export default function usePages() {
                 return state
         }
 
-    }, [])
-
-    const [currentPage, setCurrentPage] = useState(0)
-    const init = e => {
-        return e
     }
-    const [pages, dispatchPage] = useReducer(reducer,[getNewPage([])], init)
+    const getNewPage = (pages) => {
+        return {id: uuid4().toString(), title: pages.length + 1, nodes: [], links: []}
+    }
+    const [currentPage, setCurrentPage] = useState(0)
 
+    const [pages, setPages] = useState([getNewPage([])])
+
+    const dispatchPage = useCallback((action) => {
+        console.log('DISPATCH ', action)
+        setPages(reducer(pages, action))
+    }, [pages])
 
     const openPage = useMemo(() => {
         return pages[currentPage]

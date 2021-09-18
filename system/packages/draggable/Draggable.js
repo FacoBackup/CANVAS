@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 
 export default function Draggable(props) {
-    let dragPivot = null
-    let target = null
+    let toBeDragged = null
     let root = null
     let canDrag = false
     let onDrag = false
@@ -21,7 +20,7 @@ export default function Draggable(props) {
     }
     const handleDrag = (event) => {
         handleDragStart(event)
-        const targetRect = target.getBoundingClientRect()
+        const targetRect = toBeDragged.getBoundingClientRect()
         const bounding = {
             x: root.scrollLeft - root.getBoundingClientRect().left,
             y: root.scrollTop - root.getBoundingClientRect().top
@@ -39,11 +38,21 @@ export default function Draggable(props) {
             x: (targetRect.left + bounding.x) - toBeApplied.x / props.scale,
             y: (targetRect.top + bounding.y) - toBeApplied.y / props.scale
         }
+
+        let x = mousePlacement.x - offset.x
+        let y = mousePlacement.y - offset.y
+        if(props.grid !== undefined){
+            if(props.grid.x > 0)
+                x = Math.round(x / props.grid.x) * props.grid.x
+            if(props.grid.y > 0)
+                y = Math.round(y / props.grid.y) * props.grid.y
+        }
+
         props.onMove({
             event: event,
             placement: {
-                x: currentPlacement.x < 0 ? 0 : mousePlacement.x - offset.x,
-                y: currentPlacement.y < 0 ? 0 : mousePlacement.y - offset.y
+                x: x,
+                y: y
             }
         })
     }
@@ -56,12 +65,12 @@ export default function Draggable(props) {
             }
 
             const targetPlacement = {
-                x: target.getBoundingClientRect().x + bounding.x,
-                y: target.getBoundingClientRect().y + bounding.y
+                x: toBeDragged.getBoundingClientRect().x + bounding.x,
+                y: toBeDragged.getBoundingClientRect().y + bounding.y
             }
 
             props.onDrop({event: event, currentPlacement: targetPlacement})
-            target.style.cursor = ''
+            toBeDragged.style.cursor = ''
         }
 
         onDrag = false
@@ -70,7 +79,8 @@ export default function Draggable(props) {
         document.removeEventListener('mousemove', handleDrag)
     }
     const handleMouseDown = (event) => {
-        if (event.button === 0 && props.canDrag) {
+        if (event.button === 0 && props.canDrag && (event.target === event.currentTarget || props.allowAnyClick)) {
+            // props.onMouseDown(event)
             canDrag = true
             document.addEventListener('mousemove', handleDrag)
         }
@@ -79,8 +89,9 @@ export default function Draggable(props) {
     const handleDragStart = (e) => {
         if (canDrag && onDrag === false) {
             onDrag = true
-            if (props.onDragStart)
-                props.onDragStart(e)
+            if (props.onDragStart !== undefined)
+                props.onDragStart(e, toBeDragged)
+
             const bounding = {
                 x: root.scrollLeft - root.getBoundingClientRect().left,
                 y: root.scrollTop - root.getBoundingClientRect().top
@@ -92,8 +103,8 @@ export default function Draggable(props) {
             }
 
             const targetPlacement = {
-                x: target.getBoundingClientRect().x + bounding.x,
-                y: target.getBoundingClientRect().y + bounding.y
+                x: toBeDragged.getBoundingClientRect().x + bounding.x,
+                y: toBeDragged.getBoundingClientRect().y + bounding.y
             }
 
             offset = {
@@ -105,43 +116,49 @@ export default function Draggable(props) {
                 y: targetPlacement.y
             }
 
-            target.style.cursor = 'grabbing'
+            toBeDragged.style.cursor = 'grabbing'
         }
     }
 
 
     useEffect(() => {
-        target =  document.getElementById(props.targetID ? props.targetID : props.children.props.id)
-        root = props.rootID === 'body' ? document.body : document.getElementById(props.rootID)
-        dragPivot = document.getElementById(props.children.props.id)
+        root = props.root === 'body' ? document.body : document.getElementById(props.root)
+        toBeDragged = props.toBeDragged ? document.getElementById(props.toBeDragged) : props.reference.current
 
-        if(target !== null) {
-            dragPivot.addEventListener("mousedown", handleMouseDown);
+        if (toBeDragged !== null) {
+            props.reference.current.addEventListener("mousedown", handleMouseDown);
             document.addEventListener("mouseup", handleMouseUp);
-
         }
-
         return () => {
             canDrag = false
             onDrag = false
             document.removeEventListener('mouseup', handleMouseUp)
-            if (dragPivot !== null)
-                dragPivot.removeEventListener('mousedown', handleMouseDown)
+            props.reference.current.removeEventListener('mousedown', handleMouseDown)
         }
-    }, [props.canDrag, props.targetID, props.updateReference])
+    }, [props.canDrag, props.updateReference, props.toBeDragged])
+
+    return (
+        React.cloneElement(props.children, {ref: props.reference})
+    )
 
 
-    return (props.children)
 }
 
 Draggable.propTypes = {
     updateReference: PropTypes.any,
+    grid: PropTypes.object,
 
-    targetID: PropTypes.any,
+    reference: PropTypes.object,
+    toBeDragged: PropTypes.string,
+
     children: PropTypes.node,
     canDrag: PropTypes.bool,
     scale: PropTypes.number,
-    rootID: PropTypes.any,
+
+    root: PropTypes.any,
+
+    allowAnyClick: PropTypes.bool,
+
     onDragStart: PropTypes.func,
     onDrop: PropTypes.func,
     onMove: PropTypes.func

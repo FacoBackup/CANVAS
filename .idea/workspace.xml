@@ -6,27 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="063cb9af-f03d-420c-affc-3b1041605637" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/modules/Analytics.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/AnalyticsShapes.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/AnalyticsShapes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/ChartContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/ChartContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/ChartNodeEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/ChartNodeEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/Charts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/analytics/templates/DatasetOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/analytics/templates/DatasetOptions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/flowchart/modules/Flowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/modules/Flowchart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/flowchart/templates/NodePropsTemplate.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/templates/NodePropsTemplate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/hooks/useData.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/hooks/data/useData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/hooks/useNode.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/hooks/useNode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/SelectBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/SelectBox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/engine/Engine.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/engine/Engine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/components/shared/modules/engine/Pages.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/modules/engine/Pages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/flowchart/templates/FlowchartShapes.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/flowchart/templates/FlowchartShapes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/components/shared/hooks/data/usePages.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/hooks/data/usePages.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/components/shared/templates/node/Node.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/components/shared/templates/node/Node.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/system/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/packages/context/ContextMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/packages/context/ContextMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/packages/context/templates/CanvasContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/packages/context/templates/CanvasContext.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/packages/context/templates/NodeContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/packages/context/templates/NodeContext.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/pages/_app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/system/yarn-error.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/system/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/packages/draggable/Draggable.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/packages/draggable/Draggable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/packages/shape/ShapeWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/system/packages/shape/ShapeWrapper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,6 +127,7 @@
       <workItem from="1631963824422" duration="1647000" />
       <workItem from="1631965616591" duration="927000" />
       <workItem from="1631970592587" duration="10004000" />
+      <workItem from="1631997644137" duration="7321000" />
     </task>
     <servers />
   </component>

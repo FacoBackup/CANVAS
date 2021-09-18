@@ -3,20 +3,28 @@ import styles from './styles/ShapeWrapper.module.css'
 import Draggable from "../draggable/Draggable";
 import {BarChartRounded} from "@material-ui/icons";
 import ToolTip from "../chart/tooltip/ToolTip";
+import {useEffect, useRef} from "react";
 
 
-export default function ShapeWrapper(props){
-    return(
+export default function ShapeWrapper(props) {
+    const ref = useRef()
+
+
+    return (
         <Draggable
-            rootID={'body'} updateReference={props.data}
-            targetID={props.targetID}
+            root={'body'}
+            updateReference={props.data}
+            allowAnyClick={true}
+            reference={ref}
+            toBeDragged={props.targetID}
+            grid={{x: 25, y: 25}}
             onMove={props.onMove}
             canDrag={props.canDrag}
-            onDragStart={(e) => props.handleDrag(e,props.content, props.value)}
+            onDragStart={(e, target) => props.handleDrag(e, props.content, props.value, target)}
             onDrop={data => props.handleDrop(data.event, props.value)} scale={props.scale}>
             <div
                 className={styles.shapeContainer}
-                id={JSON.stringify(props.value)+ '-draggable'}
+                id={JSON.stringify(props.value) + '-draggable'}
                 onClick={props.onClick}
             >
                 {props.content}
@@ -26,11 +34,11 @@ export default function ShapeWrapper(props){
     )
 }
 
-ShapeWrapper.propTypes={
+ShapeWrapper.propTypes = {
     data: PropTypes.object,
     onMove: PropTypes.func,
     handleDrop: PropTypes.func,
-    handleDrag: PropTypes.func ,
+    handleDrag: PropTypes.func,
 
     canDrag: PropTypes.bool,
     targetID: PropTypes.string,
