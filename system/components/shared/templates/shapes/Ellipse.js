@@ -15,7 +15,7 @@ export default function Ellipse(props) {
                 ry={props.dimensions.height / 2}
                 cx={props.dimensions.width / 2}
                 cy={props.dimensions.height / 2}
-                style={{transition: '150ms linear'}}
+                // style={{transition: '150ms linear'}}
 
                 vectorEffect={"non-scaling-stroke"}
                  filter={'drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.08))'}

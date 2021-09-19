@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import styles from "../../styles/Pages.module.css";
+import styles from "../styles/Pages.module.css";
 import {AddRounded} from "@material-ui/icons";
-import PageField from "../../templates/editor/PageField";
+import PageField from "../templates/editor/PageField";
 import React, {useState} from 'react'
 
 export default function Pages(props) {

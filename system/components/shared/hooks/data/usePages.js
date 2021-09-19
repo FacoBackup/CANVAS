@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useReducer, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import useHistory from "./useHistory";
 import {v4 as uuid4} from "uuid";
 
@@ -26,7 +26,6 @@ export default function usePages() {
     }
 
     const reducer = (state, action) => {
-        console.log('REDUCER', action)
         switch (action.action) {
             case ACTIONS.DELETE: {
                 let value = [...state]
@@ -204,7 +203,6 @@ export default function usePages() {
     const [pages, setPages] = useState([getNewPage([])])
 
     const dispatchPage = useCallback((action) => {
-        console.log('DISPATCH ', action)
         setPages(reducer(pages, action))
     }, [pages])
 

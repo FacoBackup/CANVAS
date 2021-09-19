@@ -15,7 +15,7 @@ export default function Rect(props) {
                 y={0}
 
                 width={props.dimensions.width} height={props.dimensions.height}
-                style={{transition: '150ms linear'}}
+                // style={{transition: '150ms linear'}}
                 vectorEffect={"non-scaling-stroke"}
                 filter={'drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.08))'}
                 fill={props.styles.fill !== undefined ? props.styles.fill : 'white'}

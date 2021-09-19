@@ -116,6 +116,7 @@ export default function SelectBox(props) {
     }
 
     useEffect(() => {
+        console.log('SELECT BOX REFRESH')
         if (wrapper === null) {
             wrapper = document.getElementById('select-box-wrapper')
             wrapperBox = wrapper.getBoundingClientRect()
@@ -138,7 +139,7 @@ export default function SelectBox(props) {
             document.removeEventListener('mousemove', handleDrag)
             wrapper.removeChild(box)
         }
-    }, [props.selectedNodes, props.openPage])
+    }, [props.selectedNodes, props.pages])
 
     return handleMouseDown
 }
@@ -147,6 +148,6 @@ SelectBox.propTypes = {
     selectedNodes: PropTypes.arrayOf(PropTypes.object),
     selectNode: PropTypes.func,
     unselectNode: PropTypes.func,
-
+    pages: PropTypes.array,
     openPage: PropTypes.object
 }

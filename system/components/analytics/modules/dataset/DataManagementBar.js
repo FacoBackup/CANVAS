@@ -1,5 +1,5 @@
 import styles from "../../../shared/styles/Navigation.module.css";
-import {FolderRounded, ShowChartRounded, TableChart} from "@material-ui/icons";
+import {FolderRounded, ShowChartRounded} from "@material-ui/icons";
 import React from "react";
 import PropTypes from "prop-types";
 

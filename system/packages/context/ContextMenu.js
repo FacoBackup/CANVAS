@@ -88,7 +88,7 @@ export default function ContextMenu(props) {
             document.removeEventListener('mousedown', handleExit)
             document.removeEventListener('mouseup', handleMouseUp)
         }
-    }, [props.data, props.selectedNodes])
+    }, [props.pages, props.selectedNodes])
 
 
     return (
@@ -135,6 +135,7 @@ export default function ContextMenu(props) {
 }
 ContextMenu.propTypes = {
     openPage: PropTypes.object,
+    pages: PropTypes.array,
     dispatchPage: PropTypes.func,
     actions: PropTypes.object,
 

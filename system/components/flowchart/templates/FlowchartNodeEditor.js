@@ -4,8 +4,7 @@ import DimensionPositionEditor from "../../shared/templates/editor/DimensionPosi
 import {useEffect, useMemo, useState} from "react";
 import useNode from "../../shared/hooks/useNode";
 import VerticalTabs from "../../../packages/tabs/VerticalTabs";
-import {FormatPaintRounded, PlaceRounded, StorageRounded} from "@material-ui/icons";
-import NodeDatasetEditor from "../../analytics/templates/NodeDatasetEditor";
+import {FormatPaintRounded, PlaceRounded} from "@material-ui/icons";
 
 export default function FlowchartNodeEditor(props) {
     const openEdit = useMemo(() => {

@@ -8,16 +8,16 @@ export default function Resizer(props) {
     let dimensions = props.node.dimensions
     let currentDimensions = props.node.dimensions
     let currentPlacement = props.node.placement
-
+    let lastPlacement = props.node.placement
     const handleTranslateY = (px) => {
-        const nodeRef = document.getElementById(props.node.id + '-node')
+        const nodeRef = document.getElementById(props.node.id + '-node-wrapper')
         let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
         parsedPlacement = parsedPlacement.split(', ')
 
         return props.placement.includes('s') ? parseInt(parsedPlacement[1]) + px : parseInt(parsedPlacement[1]) - px
     }
     const handleTranslateX = (px) => {
-        const nodeRef = document.getElementById(props.node.id + '-node')
+        const nodeRef = document.getElementById(props.node.id + '-node-wrapper')
         let parsedPlacement = nodeRef.getAttribute('transform').replace('translate(', '').replace(')', '')
         parsedPlacement = parsedPlacement.split(', ')
 
@@ -129,26 +129,31 @@ export default function Resizer(props) {
             default:
                 break
         }
-
+        currentPlacement = {
+            x: newWidth > 50 ? currentPlacement.x : lastPlacement.x,
+            y: newHeight > 50 ? currentPlacement.y : lastPlacement.y
+        }
         props.setNode({
             ...props.node,
             dimensions: {
                 width: newWidth > 50 ? newWidth : 50,
                 height: newHeight > 50 ? newHeight : 50,
-            }
+            },
+            placement: currentPlacement
         })
-        props.savePlacement(currentPlacement)
+
+        lastPlacement = currentPlacement
         currentDimensions = {
             width: newWidth > 50 ? newWidth : 50,
             height: newHeight > 50 ? newHeight : 50,
         }
     }
+
     const handleMouseUp = () => {
-
         lastMousePlacement = undefined
-        document.removeEventListener('mousemove', handleResize)
 
-        props.save(currentDimensions, currentPlacement)
+        document.removeEventListener('mousemove', handleResize)
+        props.save(currentDimensions)
     }
 
 
@@ -166,12 +171,10 @@ export default function Resizer(props) {
     )
 }
 Resizer.propTypes = {
-    savePlacement: PropTypes.func,
     save: PropTypes.func,
     placement: PropTypes.oneOf(['nw', 'w', 'e', 'n', 's', 'ne', 'se', 'sw']),
     viewBox: PropTypes.object,
     node: PropTypes.object,
-    setNode: PropTypes.func,
     scale: PropTypes.number
 
 }

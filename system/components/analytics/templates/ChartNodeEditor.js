@@ -2,9 +2,8 @@ import PropTypes from 'prop-types'
 import DimensionPositionEditor from "../../shared/templates/editor/DimensionPositionEditor";
 import BorderEditor from "../../shared/templates/editor/BorderEditor";
 import NodeDatasetEditor from "./NodeDatasetEditor";
-import HorizontalTabs from "../../../packages/tabs/HorizontalTabs";
-import {useEffect, useMemo, useReducer, useState} from "react";
-import {EditAttributesRounded, FormatPaintRounded, PlaceRounded, StorageRounded} from "@material-ui/icons";
+import {useEffect, useMemo, useState} from "react";
+import {FormatPaintRounded, PlaceRounded, StorageRounded} from "@material-ui/icons";
 import useNode from "../../shared/hooks/useNode";
 import VerticalTabs from "../../../packages/tabs/VerticalTabs";
 

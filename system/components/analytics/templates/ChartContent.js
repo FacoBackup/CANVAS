@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types'
-import {CategoryRounded, FilterListRounded, FilterRounded, StorageRounded} from "@material-ui/icons";
+import {CategoryRounded, FilterListRounded, StorageRounded} from "@material-ui/icons";
 import AnalyticsShapes from "./AnalyticsShapes";
 import DatasetOptions from "./DatasetOptions";
-import styles from "../../shared/styles/Canvas.module.css";
-import Pages from "../../shared/modules/engine/Pages";
-import React, {useState} from "react";
+import styles from "../../../packages/engine/styles/Canvas.module.css";
+import Pages from "../../shared/modules/Pages";
+import React, {useEffect, useState} from "react";
 import VerticalTabs from "../../../packages/tabs/VerticalTabs";
 import ChartNodeEditor from "./ChartNodeEditor";
 
 export default function ChartContent(props) {
     const [openButton, setOpenButton] = useState(0)
-
+    useEffect(() => {
+        console.log('ccccccccccccc', props.pages)
+    }, [props.pages])
     return (
         <div style={{width: '100%', height: 'calc(100% - 70px)', display: 'flex'}}>
             <VerticalTabs
@@ -57,7 +59,7 @@ export default function ChartContent(props) {
                     openPage: props.openPage,
                     dispatchPage: props.dispatchPage,
                     actions: props.actions,
-
+                    pages: props.pages,
                     dimensions: props.metadata.dimensions,
                     selectedNodes: props.selectedNodes,
                     selectNode: props.selectNode,

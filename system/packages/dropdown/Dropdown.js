@@ -75,10 +75,9 @@ Dropdown.propTypes = {
                 styles: PropTypes.object
             }
         ))
-
     })),
     justify: PropTypes.oneOf(['left', 'right']),
-    label: PropTypes.string,
+    label: PropTypes.any,
     open: PropTypes.bool,
     handleOpen: PropTypes.func,
     handleClose: PropTypes.func,

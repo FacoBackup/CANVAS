@@ -1,14 +1,15 @@
-import {useCallback, useEffect, useReducer} from "react";
+import {useCallback} from "react";
 import PropTypes from 'prop-types'
 
 export default function useNode(props) {
-    const SET = 'SET'
+
     const ACTIONS = {
         PLACEMENT: 'PLACEMENT',
         DIMENSIONS: 'DIMENSIONS',
         DATASET: 'DATASET',
         TITLE: 'TITLE',
-        VISUALS: 'VISUALS'
+        VISUALS: 'VISUALS',
+        SET: 'SET'
     }
     const dispatch = useCallback( (p) => {
 
@@ -19,6 +20,7 @@ export default function useNode(props) {
                         ...props.node,
                         placement: p.payload
                     }
+
                     break
                 }
                 case ACTIONS.DIMENSIONS: {
@@ -50,7 +52,7 @@ export default function useNode(props) {
                     }
                     break
                 }
-                case SET: {
+                case ACTIONS.SET: {
                     newNode = p.payload
                     break
                 }

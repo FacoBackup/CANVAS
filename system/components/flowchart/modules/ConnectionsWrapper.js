@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import {useEffect, useState} from "react";
-import NodePropsTemplate from "../templates/NodePropsTemplate";
 import ConnectionIndicator from "./ConnectionIndicator";
 import styles from '../../shared/styles/Node.module.css'
 

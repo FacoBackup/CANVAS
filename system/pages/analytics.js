@@ -1,4 +1,4 @@
-import Engine from "../components/shared/modules/engine/Engine";
+import Engine from "../packages/engine/Engine";
 import React from "react";
 import 'typeface-roboto'
 import Analytics from "../components/analytics/modules/Analytics";

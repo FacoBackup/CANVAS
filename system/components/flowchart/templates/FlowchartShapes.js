@@ -1,12 +1,8 @@
 import styles from '../../shared/styles/Shapes.module.css'
 import PropTypes from 'prop-types'
-import Accordion from "../../../packages/accordion/Accordion";
 import PlaceNewFlowchart from "../utils/PlaceNewFlowchart";
-import ToolTip from "../../../packages/chart/tooltip/ToolTip";
-import Draggable from "../../../packages/draggable/Draggable";
 import ShapeWrapper from "../../../packages/shape/ShapeWrapper";
-import {BarChartRounded} from "@material-ui/icons";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom";
 import getNewNode from "../../shared/utils/GetNewNode";
 

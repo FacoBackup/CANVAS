@@ -1,5 +1,5 @@
 import Flowchart from "../components/flowchart/modules/Flowchart";
-import Engine from "../components/shared/modules/engine/Engine";
+import Engine from "../packages/engine/Engine";
 // import LinkIndicator from "../components/flowchart/modules/link/LinkIndicator";
 import FlowchartNodes from "../components/flowchart/modules/FlowchartNodes";
 // import RenderLinks from "../components/flowchart/modules/RenderLinks";

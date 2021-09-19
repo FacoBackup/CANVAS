@@ -1,7 +1,7 @@
 import styles from '../../shared/styles/Shapes.module.css'
 import PropTypes from 'prop-types'
-import {BarChartRounded, PieChartRounded, ShowChartRounded, TimelineRounded} from "@material-ui/icons";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {BarChartRounded, PieChartRounded, TimelineRounded} from "@material-ui/icons";
+import {useEffect, useRef, useState} from "react";
 import ReactDOM from 'react-dom'
 import getNewNode from "../../shared/utils/GetNewNode";
 import ShapeWrapper from "../../../packages/shape/ShapeWrapper";

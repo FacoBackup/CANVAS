@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import styles from "../../styles/Canvas.module.css";
-import PlaceCanvasScroll from "../../utils/PlaceCanvasScroll";
+import styles from "./styles/Canvas.module.css";
+import PlaceCanvasScroll from "../../components/shared/utils/PlaceCanvasScroll";
 import React, {useEffect, useRef} from "react";
-import SelectBox from "../SelectBox";
+import SelectBox from "./modules/SelectBox";
 
 export default function Engine(props) {
     const root = useRef()
@@ -10,9 +10,9 @@ export default function Engine(props) {
         selectedNodes: props.selectedNodes,
         selectNode: props.selectNode,
         unselectNode: props.unselectNode,
-        openPage: props.openPage
+        openPage: props.openPage,
+        pages: props.pages
     })
-
     return (
         <div style={{paddingTop: '5px', height: 'calc(100% - 85px)'}}>
             <div style={{overflow: 'hidden', position: 'relative', height: '100%', width: '100%'}} id={'select-box-wrapper'}>
@@ -46,7 +46,7 @@ export default function Engine(props) {
 }
 Engine.propTypes = {
     openPage: PropTypes.object,
-
+    pages: PropTypes.array,
     scale: PropTypes.number,
 
 

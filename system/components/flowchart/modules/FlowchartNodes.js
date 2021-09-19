@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import Node from "../../shared/templates/node/Node";
 import styles from "../../shared/styles/Node.module.css";
 import Content from "./Content";
-import useNode from "../../shared/hooks/useNode";
-import useLink from "../../shared/hooks/useLink";
 
 export default function FlowchartNodes(props) {
 

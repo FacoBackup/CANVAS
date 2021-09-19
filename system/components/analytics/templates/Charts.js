@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from 'prop-types'
 import Node from "../../shared/templates/node/Node";
-
-import useNode from "../../shared/hooks/useNode";
 import ChartNode from "./ChartNode";
 
 export default function Charts(props) {
+    useEffect(() => {
+        console.log('CDDDDDDDDDDDDDDDD')
+    }, [props.openPage])
     return (
         props.openPage.nodes.map((node, index) => node.id === undefined ? null : (
             <g key={node.id + '-charts-node-' + index}>

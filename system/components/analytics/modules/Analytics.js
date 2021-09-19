@@ -1,4 +1,3 @@
-import styles from '../../shared/styles/Canvas.module.css'
 import React, {useEffect, useState} from "react";
 import ContextMenu from "../../../packages/context/ContextMenu";
 import keyboardControl from "../../shared/utils/KeyboardControl";
@@ -12,14 +11,12 @@ import {
     SaveRounded
 } from "@material-ui/icons";
 import Header from "../../../packages/header/Header";
-import ChartNodeEditor from "../templates/ChartNodeEditor";
 import HandleUpload from "../../shared/utils/HandleUpload";
 import Dropdown from "../../../packages/dropdown/Dropdown";
 import HandleDownload from "../../shared/utils/HandleDownload";
 import DatasetManagement from "./dataset/DatasetManagement";
 import DataManagementBar from "./dataset/DataManagementBar";
 import ChartContent from "../templates/ChartContent";
-import ChildrenSwitcher from "../../../packages/layout/modules/ChildrenSwitcher";
 import Loader from "../../../packages/loader/Loader";
 import useData from "../../shared/hooks/data/useData";
 import Layout from "../../../packages/layout/Layout";
@@ -37,7 +34,8 @@ export default function Analytics(props) {
         selectNode,
         unselectNode,
         uploadRef,
-        handlePrint
+        handlePrint,
+        setScale, scale
     } = useData()
 
     const [openOptions, setOpenOptions] = useState(null)
@@ -86,6 +84,9 @@ export default function Analytics(props) {
 
                         <ContextMenu
                             openPage={openPage}
+                            pages={pages}
+                            scale={scale}
+                            setScale={setScale}
                             dispatchPage={dispatchPage}
                             actions={ACTIONS}
                             selectNode={selectNode}
