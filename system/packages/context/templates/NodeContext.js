@@ -1,6 +1,7 @@
 import {CropRounded, DeleteRounded, EditRounded, FileCopyRounded} from "@material-ui/icons";
 import {v4 as uuid4} from "uuid";
 import PropTypes from "prop-types";
+
 export default function NodeContext(props) {
     return [
         {

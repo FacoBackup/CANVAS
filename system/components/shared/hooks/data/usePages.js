@@ -26,6 +26,7 @@ export default function usePages() {
     }
 
     const reducer = (state, action) => {
+        console.log('REDUCER', action)
         switch (action.action) {
             case ACTIONS.DELETE: {
                 let value = [...state]

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {useEffect, useMemo, useRef} from "react";
 import ToolTip from "../chart/tooltip/ToolTip";
 import {ArrowBackIosRounded} from "@material-ui/icons";
-import {v4 as uuid4} from "uuid";
 
 export default function VerticalTabs(props) {
     const contentRef = useRef()

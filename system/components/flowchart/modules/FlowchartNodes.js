@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import Node from "../../shared/templates/node/Node";
-import styles from "../../shared/styles/Node.module.css";
+import Node from "../../../packages/node/Node";
+import styles from "../../../packages/node/styles/Node.module.css";
 import Content from "./Content";
 
 export default function FlowchartNodes(props) {
 
     // const linkHook = useLink(props.metadata, props.data, props.setData, props.toBeLinked, props.setToBeLinked, props.unselectNode)
 
-    return props.data !== undefined ? (
-        props.data.nodes.map((node, index) => node.id === undefined ? null : (
+    return props.openPage !== undefined ? (
+        props.openPage.nodes.map((node, index) => node.id === undefined ? null : (
             <g key={`${node.id}-node-${index}`}>
                 <Node
                     index={index}
@@ -20,8 +20,11 @@ export default function FlowchartNodes(props) {
                     controlComponents={[]}
                     noPlacementIndicator={true}
                     node={node}
-                    setData={props.setData}
-                    data={props.data}
+
+                    actions={props.actions}
+                    dispatchPage={props.dispatchPage}
+                    openPage={props.openPage}
+
                 >
                     {nodeProps => (
                         <foreignObject
@@ -51,8 +54,11 @@ export default function FlowchartNodes(props) {
 FlowchartNodes.propTypes = {
     metadata: PropTypes.object,
     scale: PropTypes.number,
-    setData: PropTypes.func,
-    data: PropTypes.object,
+
+    actions: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    openPage: PropTypes.object,
+
     selectedNodes: PropTypes.array,
     unselectNode: PropTypes.func,
     selectNode: PropTypes.func,

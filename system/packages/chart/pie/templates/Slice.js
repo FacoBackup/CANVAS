@@ -1,8 +1,7 @@
-import getPercentage from "../../shared/getPercentage";
 import styles from "../styles/PieChart.module.css";
 import ToolTip from "../../tooltip/ToolTip";
 import PropTypes from "prop-types";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function Slice(props) {
     const percentage = (props.current[props.valueKey] / props.sum) * 100

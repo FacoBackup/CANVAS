@@ -1,4 +1,4 @@
-import styles from "../../shared/styles/Node.module.css";
+import styles from "../../../packages/node/styles/Node.module.css";
 import React, {useRef, useState} from "react";
 import PropTypes from 'prop-types'
 

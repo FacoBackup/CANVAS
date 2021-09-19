@@ -20,27 +20,28 @@ import {
     SaveRounded
 } from "@material-ui/icons";
 import FlowchartNodeEditor from "../templates/FlowchartNodeEditor";
-import HandleUpload from "../../shared/utils/HandleUpload";
+import HandleUpload from "../../shared/utils/handleUpload";
 import Dropdown from "../../../packages/dropdown/Dropdown";
-import HandleDownload from "../../shared/utils/HandleDownload";
+import HandleDownload from "../../shared/utils/handleDownload";
 import useData from "../../shared/hooks/data/useData";
 import VerticalTabs from "../../../packages/tabs/VerticalTabs";
 import Layout from "../../../packages/layout/Layout";
 
 export default function Flowchart(props) {
     const {
+        openPage, pages, dispatchPage,
+        ACTIONS, setCurrentPage, hasFuture, hasPast, currentPage,
+        dataset, setDataset,
+        setDatasetName, datasetName,
         copied, setCopied,
-        toBeLinked, setToBeLinked,
-        pages, setPages,
         metadata, setMetadata,
         selected, loading,
-        setLoading, openPage,
-        setOpenPage, handlePageChange,
+        setLoading,
         selectNode,
         unselectNode,
         uploadRef,
         handlePrint,
-        scale, setScale
+        setScale, scale, setToBeLinked, toBeLinked
     } = useData()
     const [openOptions, setOpenOptions] = useState(null)
     const [openButton, setOpenButton] = useState(0)
@@ -76,13 +77,9 @@ export default function Flowchart(props) {
 
                         {/*<FrameView/>*/}
                         <ContextMenu
-                            data={pages[openPage]}
-                            setData={(e) => {
-                                console.log('SET DATA ' + JSON.stringify(e))
-                                handlePageChange(e)
-                            }}
                             scale={scale} setScale={setScale} copiedNode={copied}
-                            setCopiedNode={setCopied}
+                            setCopiedNode={setCopied} pages={pages} actions={ACTIONS}
+                            dispatchPage={dispatchPage} openPage={openPage}
                             selectNode={selectNode} selectedNodes={selected}
                             unselectNode={unselectNode}
                         />
@@ -180,8 +177,8 @@ export default function Flowchart(props) {
                                     content: (
                                         <>
                                             <FlowchartShapes
-                                                data={pages[openPage]}
-                                                setData={handlePageChange}
+                                                pages={pages} actions={ACTIONS}
+                                                dispatchPage={dispatchPage} openPage={openPage}
                                                 scale={scale} selectedNodes={selected}
                                             />
 
@@ -212,8 +209,10 @@ export default function Flowchart(props) {
                             <div className={styles.contentWrapper}>
 
                                 {props.children({
-                                    data: pages[openPage],
-                                    setData: handlePageChange,
+                                    openPage: openPage,
+                                    dispatchPage: dispatchPage,
+                                    actions: ACTIONS,
+
                                     metadata: metadata,
                                     toBeLinked: toBeLinked,
                                     setToBeLinked: setToBeLinked,
@@ -224,17 +223,17 @@ export default function Flowchart(props) {
                                     selectNode: selectNode,
                                     unselectNode: unselectNode
                                 })}
-                                <Pages
-                                    defaultPage={openPage} setDefaultPage={setOpenPage} pages={pages} setPages={setPages}
-                                    handlePageChange={handlePageChange}
+                                <Pages pages={pages} openPage={openPage}
+                                       dispatchPage={dispatchPage} actions={ACTIONS}
+                                       setDefaultPage={setCurrentPage} defaultPage={currentPage}
                                 />
                             </div>
                         </div>
                         <FlowchartNodeEditor
-                            data={pages[openPage]}
-                            setData={handlePageChange}
+                            openPage={openPage}
+                            dispatchPage={dispatchPage}
+                            actions={ACTIONS}
                             selectedNodes={selected}
-                            selectNode={selectNode}
                             unselectNode={unselectNode}
                         />
                     </div>

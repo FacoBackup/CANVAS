@@ -1,9 +1,8 @@
 import PropTypes from "prop-types";
 import styles from './styles/ShapeWrapper.module.css'
 import Draggable from "../draggable/Draggable";
-import {BarChartRounded} from "@material-ui/icons";
 import ToolTip from "../chart/tooltip/ToolTip";
-import {useEffect, useRef} from "react";
+import {useRef} from "react";
 
 
 export default function ShapeWrapper(props) {

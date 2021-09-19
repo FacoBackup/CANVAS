@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from "../../../../shared/styles/Node.module.css";
+import styles from "../../../../../packages/node/styles/Node.module.css";
 import React, {useEffect, useState} from "react";
 
 export default function Step(props) {

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ContextMenu from "../../../packages/context/ContextMenu";
-import keyboardControl from "../../shared/utils/KeyboardControl";
+import handleKeyClick from "../../shared/utils/handleKeyClick";
 import {
     DescriptionRounded,
     FileCopyRounded,
@@ -11,9 +11,9 @@ import {
     SaveRounded
 } from "@material-ui/icons";
 import Header from "../../../packages/header/Header";
-import HandleUpload from "../../shared/utils/HandleUpload";
+import HandleUpload from "../../shared/utils/handleUpload";
 import Dropdown from "../../../packages/dropdown/Dropdown";
-import HandleDownload from "../../shared/utils/HandleDownload";
+import HandleDownload from "../../shared/utils/handleDownload";
 import DatasetManagement from "./dataset/DatasetManagement";
 import DataManagementBar from "./dataset/DataManagementBar";
 import ChartContent from "../templates/ChartContent";
@@ -42,7 +42,7 @@ export default function Analytics(props) {
     const [openDataset, setOpenDataset] = useState(false)
 
     const handleKeyDown = (e) => {
-        keyboardControl({
+        handleKeyClick({
             event: e
         })
     }

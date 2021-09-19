@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-export default function PlaceCanvasScroll(props) {
+export default function ScrollCanvas(props) {
     let scrolling = true
     let pos = {top: 0, left: 0, x: 0, y: 0};
 
@@ -27,7 +27,7 @@ export default function PlaceCanvasScroll(props) {
         scrolling = false
     }, {once: true})
 }
-PlaceCanvasScroll.propTypes = {
+ScrollCanvas.propTypes = {
     canvas: PropTypes.object,
     event: PropTypes.object
 }

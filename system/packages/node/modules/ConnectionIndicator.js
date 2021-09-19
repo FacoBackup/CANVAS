@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 
-import GetNodeResizeParams from "../../shared/utils/GetNodeResizeParams";
+import GetNodeResizeParams from "../../../components/shared/utils/getNodeResizeParams";
 
 export default function ConnectionIndicator(props) {
     const params = GetNodeResizeParams(props)

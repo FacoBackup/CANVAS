@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default function keyboardControl(props) {
+export default function handleKeyClick(props) {
     switch (props.event.key) {
         case 'Delete': {
             // let index
@@ -24,6 +24,6 @@ export default function keyboardControl(props) {
 
 }
 
-keyboardControl.propTypes={
+handleKeyClick.propTypes={
     event: PropTypes.object
 }

@@ -1,12 +1,12 @@
 import React, {useMemo, useRef, useState} from "react";
-import NodePropsTemplate from "../../../flowchart/templates/NodePropsTemplate";
-import NodeWrapper from "./NodeWrapper";
-import Shape from "../shapes/Shape";
-import styles from '../../styles/Node.module.css'
-import ConnectionsWrapper from "../../../flowchart/modules/ConnectionsWrapper";
-import useNode from "../../hooks/useNode";
-import Draggable from "../../../../packages/draggable/Draggable";
-import useDrag from "../../../../packages/draggable/useDrag";
+import NodePropsTemplate from "./templates/NodePropsTemplate";
+import NodeWrapper from "./modules/NodeWrapper";
+import Shape from "../../components/shared/templates/shapes/Shape";
+import styles from './styles/Node.module.css'
+import ConnectionsWrapper from "./modules/ConnectionsWrapper";
+import useNode from "../../components/shared/hooks/useNode";
+import Draggable from "../draggable/Draggable";
+import useDrag from "../draggable/useDrag";
 
 
 export default function Node(props) {

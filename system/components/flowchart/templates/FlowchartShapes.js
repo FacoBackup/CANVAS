@@ -1,10 +1,9 @@
 import styles from '../../shared/styles/Shapes.module.css'
 import PropTypes from 'prop-types'
-import PlaceNewFlowchart from "../utils/PlaceNewFlowchart";
 import ShapeWrapper from "../../../packages/shape/ShapeWrapper";
 import {useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom";
-import getNewNode from "../../shared/utils/GetNewNode";
+import getNewNode from "../../shared/utils/getNewNode";
 
 export default function FlowchartShapes(props) {
     const draggableRef = useRef()
@@ -57,10 +56,11 @@ export default function FlowchartShapes(props) {
                 y: (event.clientY - rootBounding.y + root.scrollTop)
             }
 
-            let newData = {...props.data}
-            newData.nodes.push({...getNewNode(undefined, shape, placement)})
+            props.dispatchPage({
+                action: props.actions.ADD_NODE,
+                payload: {id: props.openPage.id, node: {...getNewNode(undefined, shape, placement)}}
+            })
 
-            props.setData(newData)
         }
 
 
@@ -92,16 +92,6 @@ export default function FlowchartShapes(props) {
         draggableRef.current.style.top = e.placement.y + 'px'
     }
 
-    const drag = (event, shape) => {
-        PlaceNewFlowchart({
-            event: event,
-            scale: props.scale,
-            element: document.getElementById(shape + '-draggable'),
-            type: shape,
-            data: props.data,
-            setData: props.setData
-        })
-    }
 
     return (
         <div className={styles.shapes}>
@@ -110,7 +100,7 @@ export default function FlowchartShapes(props) {
                 handleDrag={handleDrag} handleDrop={handleDrop}
                 onClick={() => {
                     if (props.selectedNodes !== undefined) {
-                        let newPage = {...props.data}
+                        let newPage = {...props.openPage}
                         props.selectedNodes.forEach(e => {
                             newPage.nodes[e.index].styling.shape = 'square'
                             newPage.nodes[e.index].shapeVariant = 'rect'
@@ -119,7 +109,7 @@ export default function FlowchartShapes(props) {
                         props.setData(newPage)
                     }
                 }}
-                targetID={'draggable-shape'} data={props.data}
+                targetID={'draggable-shape'} data={props.openPage}
                 content={
                     <svg overflow={'visible'} width={'100%'} height={'100%'} viewBox={'0 0 100 100'}>
                         <rect fill={'white'} x={0} y={0} width={'100'} height={'100'} stroke={"#0095ff"}
@@ -134,7 +124,7 @@ export default function FlowchartShapes(props) {
                 handleDrag={handleDrag} handleDrop={handleDrop}
                 onClick={() => {
                     if (props.selectedNodes !== undefined) {
-                        let newPage = {...props.data}
+                        let newPage = {...props.openPage}
                         props.selectedNodes.forEach(e => {
                             newPage.nodes[e.index].styling.shape = 'rect'
                             newPage.nodes[e.index].shapeVariant = 'rect'
@@ -143,7 +133,7 @@ export default function FlowchartShapes(props) {
                         props.setData(newPage)
                     }
                 }}
-                targetID={'draggable-shape'} data={props.data}
+                targetID={'draggable-shape'} data={props.openPage}
                 content={
                     <svg overflow={'visible'} width={'100%'} height={'45'} viewBox={'0 0 200 100'}>
                         <rect fill={'white'} x={0} y={0} width={'200'} height={'100'} stroke={"#0095ff"}
@@ -158,7 +148,7 @@ export default function FlowchartShapes(props) {
                 handleDrag={handleDrag} handleDrop={handleDrop}
                 onClick={() => {
                     if (props.selectedNodes !== undefined) {
-                        let newPage = {...props.data}
+                        let newPage = {...props.openPage}
                         props.selectedNodes.forEach(e => {
                             newPage.nodes[e.index].styling.shape = 'circle'
                             newPage.nodes[e.index].shapeVariant = 'ellipse'
@@ -167,7 +157,7 @@ export default function FlowchartShapes(props) {
                         props.setData(newPage)
                     }
                 }}
-                targetID={'draggable-shape'} data={props.data}
+                targetID={'draggable-shape'} data={props.openPage}
                 content={
                     <svg overflow={'visible'} width={'45px'} height={'45px'} viewBox={'0 0 100 100'}>
                         <circle fill={'white'} cx={'50%'} cy={'50%'} r={'50%'} stroke={"#0095ff"}
@@ -179,10 +169,10 @@ export default function FlowchartShapes(props) {
             <ShapeWrapper
                 scale={props.scale} canDrag={canDrag} onMove={onMove}
                 handleDrag={handleDrag} handleDrop={handleDrop}
-                targetID={'draggable-shape'} data={props.data}
+                targetID={'draggable-shape'} data={props.openPage}
                 onClick={() => {
                     if (props.selectedNodes !== undefined) {
-                        let newPage = {...props.data}
+                        let newPage = {...props.openPage}
                         props.selectedNodes.forEach(e => {
                             newPage.nodes[e.index].styling.shape = 'ellipse'
                             newPage.nodes[e.index].shapeVariant = 'ellipse'
@@ -204,10 +194,10 @@ export default function FlowchartShapes(props) {
             <ShapeWrapper
                 scale={props.scale} canDrag={canDrag} onMove={onMove}
                 handleDrag={handleDrag} handleDrop={handleDrop}
-                targetID={'draggable-shape'} data={props.data}
+                targetID={'draggable-shape'} data={props.openPage}
                 onClick={() => {
                     if (props.selectedNodes !== undefined) {
-                        let newPage = {...props.data}
+                        let newPage = {...props.openPage}
                         props.selectedNodes.forEach(e => {
                             newPage.nodes[e.index].styling.shape = 'trapezoid'
                             newPage.nodes[e.index].shapeVariant = 'polygon'
@@ -230,10 +220,10 @@ export default function FlowchartShapes(props) {
             <ShapeWrapper
                 scale={props.scale} canDrag={canDrag} onMove={onMove}
                 handleDrag={handleDrag} handleDrop={handleDrop}
-                targetID={'draggable-shape'} data={props.data}
+                targetID={'draggable-shape'} data={props.openPage}
                 onClick={() => {
                     if (props.selectedNodes !== undefined) {
-                        let newPage = {...props.data}
+                        let newPage = {...props.openPage}
                         props.selectedNodes.forEach(e => {
                             newPage.nodes[e.index].styling.shape = 'parallelogram'
                             newPage.nodes[e.index].shapeVariant = 'polygon'
@@ -256,10 +246,10 @@ export default function FlowchartShapes(props) {
             <ShapeWrapper
                 scale={props.scale} canDrag={canDrag} onMove={onMove}
                 handleDrag={handleDrag} handleDrop={handleDrop}
-                targetID={'draggable-shape'} data={props.data}
+                targetID={'draggable-shape'} data={props.openPage}
                 onClick={() => {
                     if (props.selectedNodes !== undefined) {
-                        let newPage = {...props.data}
+                        let newPage = {...props.openPage}
                         props.selectedNodes.forEach(e => {
                             newPage.nodes[e.index].styling.shape = 'triangle'
                             newPage.nodes[e.index].shapeVariant = 'polygon'
@@ -279,10 +269,10 @@ export default function FlowchartShapes(props) {
             <ShapeWrapper
                 scale={props.scale} canDrag={canDrag} onMove={onMove}
                 handleDrag={handleDrag} handleDrop={handleDrop}
-                targetID={'draggable-shape'} data={props.data}
+                targetID={'draggable-shape'} data={props.openPage}
                 onClick={() => {
                     if (props.selectedNodes !== undefined) {
-                        let newPage = {...props.data}
+                        let newPage = {...props.openPage}
                         props.selectedNodes.forEach(e => {
                             newPage.nodes[e.index].styling.shape = 'relationship'
                             newPage.nodes[e.index].shapeVariant = 'polygon'
@@ -308,8 +298,9 @@ export default function FlowchartShapes(props) {
 }
 
 FlowchartShapes.propTypes = {
-    setData: PropTypes.func,
-    data: PropTypes.object,
+    actions: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    openPage: PropTypes.object,
     selectedNodes: PropTypes.array,
     scale: PropTypes.number
 }

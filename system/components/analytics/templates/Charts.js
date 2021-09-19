@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import PropTypes from 'prop-types'
-import Node from "../../shared/templates/node/Node";
+import Node from "../../../packages/node/Node";
 import ChartNode from "./ChartNode";
 
 export default function Charts(props) {

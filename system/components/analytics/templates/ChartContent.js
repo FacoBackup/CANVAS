@@ -60,6 +60,7 @@ export default function ChartContent(props) {
                     dispatchPage: props.dispatchPage,
                     actions: props.actions,
                     pages: props.pages,
+                    dataset: props.dataset,
                     dimensions: props.metadata.dimensions,
                     selectedNodes: props.selectedNodes,
                     selectNode: props.selectNode,

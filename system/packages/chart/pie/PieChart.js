@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types'
-import styles from './styles/PieChart.module.css'
 import {useEffect, useRef, useState} from "react";
-import {BarChartRounded, PieChartRounded} from "@material-ui/icons";
-import ToolTip from "../tooltip/ToolTip";
-import Wrapper from "../shared/Wrapper";
-import getPercentage from "../shared/getPercentage";
+import {PieChartRounded} from "@material-ui/icons";
 import Slice from "./templates/Slice";
 
 

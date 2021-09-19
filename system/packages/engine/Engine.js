@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from "./styles/Canvas.module.css";
-import PlaceCanvasScroll from "../../components/shared/utils/PlaceCanvasScroll";
+import ScrollCanvas from "../../components/shared/utils/scrollCanvas";
 import React, {useEffect, useRef} from "react";
 import SelectBox from "./modules/SelectBox";
 
@@ -13,6 +13,18 @@ export default function Engine(props) {
         openPage: props.openPage,
         pages: props.pages
     })
+
+    const handleScroll = (e) => {
+        e.preventDefault()
+    }
+
+    useEffect(() => {
+        root.current.addEventListener('mousewheel', handleScroll, {passive: false})
+        return () => {
+            root.current.removeEventListener('mousewheel', handleScroll)
+        }
+    }, [])
+
     return (
         <div style={{paddingTop: '5px', height: 'calc(100% - 85px)'}}>
             <div style={{overflow: 'hidden', position: 'relative', height: '100%', width: '100%'}} id={'select-box-wrapper'}>
@@ -21,8 +33,9 @@ export default function Engine(props) {
                     id={'frame'}
                     onMouseDown={event => {
                         if (typeof event.target.className === 'object' && event.button === 2)
-                            PlaceCanvasScroll({canvas: root.current, event: event})
-                    }}>
+                            ScrollCanvas({canvas: root.current, event: event})
+                    }}
+                >
                     <svg
                         onContextMenu={event => {
                             event.preventDefault()

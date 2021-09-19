@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import Resizer from "./Resizer";
-import styles from '../../styles/Node.module.css'
+import styles from '../styles/Node.module.css'
 import {EditRounded} from "@material-ui/icons";
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function NodeWrapper(props) {
     const [node, setNode] = useState(props.node)

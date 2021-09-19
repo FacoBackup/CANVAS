@@ -4,7 +4,8 @@ import DimensionPositionEditor from "../../shared/templates/editor/DimensionPosi
 import {useEffect, useMemo, useState} from "react";
 import useNode from "../../shared/hooks/useNode";
 import VerticalTabs from "../../../packages/tabs/VerticalTabs";
-import {FormatPaintRounded, PlaceRounded} from "@material-ui/icons";
+import {FormatPaintRounded, PlaceRounded, StorageRounded} from "@material-ui/icons";
+import NodeDatasetEditor from "../../analytics/templates/NodeDatasetEditor";
 
 export default function FlowchartNodeEditor(props) {
     const openEdit = useMemo(() => {
@@ -12,9 +13,10 @@ export default function FlowchartNodeEditor(props) {
     }, [props.selectedNodes])
 
     const {ACTIONS,  dispatch} = useNode({
-        data: props.data,
-        setData: props.setData,
-        node: openEdit ? props.data.nodes[openEdit.index] : undefined
+        openPage: props.openPage,
+        dispatchPage: props.dispatchPage,
+        actions: props.actions,
+        node: openEdit ? props.openPage.nodes[openEdit.index] : undefined
     })
 
     const [open, setOpen] = useState(0)
@@ -27,10 +29,9 @@ export default function FlowchartNodeEditor(props) {
         else
             setExtended(true)
     }, [props.selectedNodes])
-
     return (
         <VerticalTabs
-            tabsKey={'flowchart-editor'}
+            tabsKey={'chart-node-editor'}
             open={extended}
             canExtend={openEdit !== undefined}
             openButton={open}
@@ -42,7 +43,7 @@ export default function FlowchartNodeEditor(props) {
                     label: 'Visual',
                     content: (
                         openEdit === undefined ? null :
-                            <BorderEditor dispatch={dispatch} actions={ACTIONS} node={props.data.nodes[openEdit.index]}/>
+                            <BorderEditor dispatch={dispatch} actions={ACTIONS} node={props.openPage.nodes[openEdit.index]}/>
                     ),
                     disabled: openEdit === undefined
                 },
@@ -51,7 +52,7 @@ export default function FlowchartNodeEditor(props) {
                     label: 'Posição e dimensões',
                     content: (
                         openEdit === undefined ? null : <DimensionPositionEditor dispatch={dispatch} actions={ACTIONS}
-                                                                                 node={props.data.nodes[openEdit.index]}/>
+                                                                                 node={props.openPage.nodes[openEdit.index]}/>
                     ),
                     disabled: openEdit === undefined
                 }
@@ -62,9 +63,13 @@ export default function FlowchartNodeEditor(props) {
 }
 
 FlowchartNodeEditor.propTypes = {
-    setData: PropTypes.func,
-    data: PropTypes.object,
     selectedNodes: PropTypes.array,
-    selectNode: PropTypes.func,
-    unselectNode: PropTypes.func
+    unselectNode: PropTypes.func,
+
+
+    openPage: PropTypes.object,
+    dispatchPage: PropTypes.func,
+    actions: PropTypes.object,
+
+    handleClose: PropTypes.func,
 }

@@ -8,7 +8,7 @@ export default function analytics() {
     return (
         <Analytics>
             {props => (
-                <Engine {...props} offsetTop={85}>
+                <Engine {...props}>
                     <Charts {...props}/>
                 </Engine>
             )}

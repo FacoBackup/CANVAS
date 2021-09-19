@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from '../styles/Canvas.module.css'
-import {useCallback, useEffect} from "react";
+import {useEffect} from "react";
 
 export default function SelectBox(props) {
     let wrapper = null

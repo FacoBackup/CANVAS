@@ -3,7 +3,7 @@ import styles from './styles/ContextMenu.module.css'
 import {useEffect, useRef, useState} from "react";
 import CanvasContext from "./templates/CanvasContext";
 import NodeContext from "./templates/NodeContext";
-import nodeStyles from '../../components/shared/styles/Node.module.css'
+import nodeStyles from '../node/styles/Node.module.css'
 
 export default function ContextMenu(props) {
     const ref = useRef()

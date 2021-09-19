@@ -2,7 +2,7 @@ import getPercentage from "../../shared/getPercentage";
 import styles from "../styles/Horizontal.module.css";
 import ToolTip from "../../tooltip/ToolTip";
 import PropTypes from "prop-types";
-import {useEffect, useRef} from "react";
+import {useRef} from "react";
 
 export default function Row(props) {
     const ref = useRef()

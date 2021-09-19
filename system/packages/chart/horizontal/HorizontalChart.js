@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types'
-import styles from './styles/Horizontal.module.css'
-import {useEffect, useRef, useState} from "react";
+import {useRef} from "react";
 import Content from "./templates/Content";
 import {BarChartRounded} from "@material-ui/icons";
-import ToolTip from "../tooltip/ToolTip";
 import Wrapper from "../shared/Wrapper";
-import getPercentage from "../shared/getPercentage";
 
 
 export default function HorizontalChart(props) {

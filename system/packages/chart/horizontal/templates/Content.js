@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types'
-import ToolTip from "../../tooltip/ToolTip";
-import {useEffect, useRef, useState} from "react";
-import styles from '../styles/Horizontal.module.css'
-import getPercentage from "../../shared/getPercentage";
+import {useEffect, useState} from "react";
 import Row from "./Row";
 import LazyLoader from "../../../lazy_loader/LazyLoader";
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import GetNodeResizeParams from "../../utils/GetNodeResizeParams";
-import styles from '../../styles/Node.module.css'
+import GetNodeResizeParams from "../../../components/shared/utils/getNodeResizeParams";
+import styles from '../styles/Node.module.css'
 
 export default function Resizer(props) {
     const params = GetNodeResizeParams(props)

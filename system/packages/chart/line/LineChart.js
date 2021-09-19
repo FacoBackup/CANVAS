@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types'
 import styles from './styles/LineChart.module.css'
 import {useEffect, useRef, useState} from "react";
-import {BarChartRounded, ShowChartRounded, TimelineRounded} from "@material-ui/icons";
+import {TimelineRounded} from "@material-ui/icons";
 import GetPoints from "./templates/getPoints";
-import ToolTip from "../tooltip/ToolTip";
 import Line from "./templates/Line";
-import handleScroll from "./templates/handleScroll";
 
 export default function LineChart(props) {
 

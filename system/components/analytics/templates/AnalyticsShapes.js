@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {BarChartRounded, PieChartRounded, TimelineRounded} from "@material-ui/icons";
 import {useEffect, useRef, useState} from "react";
 import ReactDOM from 'react-dom'
-import getNewNode from "../../shared/utils/GetNewNode";
+import getNewNode from "../../shared/utils/getNewNode";
 import ShapeWrapper from "../../../packages/shape/ShapeWrapper";
 
 export default function AnalyticsShapes(props) {
