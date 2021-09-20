@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useRef} from "react";
-import FollowMouse from "../../utils/FollowMouse";
+import FollowMouse from "../../components/flowchart/utils/FollowMouse";
 
 export default function LinkIndicator(props) {
     const pathRef = useRef()
@@ -58,7 +58,6 @@ export default function LinkIndicator(props) {
 LinkIndicator.propTypes = {
     source: PropTypes.shape({
         id: PropTypes.string,
-        nodeShape: PropTypes.string,
         connectionPoint: PropTypes.oneOf(['e', 'w', 's', 'n']),
         connectionType: PropTypes.string
     })

@@ -4,6 +4,7 @@ import getPlacement from "./utils/getPlacement";
 import handleExit from "./utils/handleExit";
 import getOffset from "./utils/getOffset";
 import getInitialState from "./utils/getInitialState";
+import usePlacement from "./usePlacement";
 
 export default function Draggable(props) {
     let {
@@ -36,19 +37,21 @@ export default function Draggable(props) {
 
     const handleDrag = (event) => {
         handleDragStart(event)
+        const placement = getPlacement({
+            grid: props.grid,
+            lastPlacement: lastPlacement,
+            currentPlacement: currentPlacement,
+            event: event,
+            root: root,
+            toBeDragged: toBeDragged,
+            offset: offset,
+            scale: props.scale
+        })
         props.onMove({
             event: event,
-            placement: getPlacement({
-                grid: props.grid,
-                lastPlacement: lastPlacement,
-                currentPlacement: currentPlacement,
-                event: event,
-                root: root,
-                toBeDragged: toBeDragged,
-                offset: offset,
-                scale: props.scale
-            })
+            placement: placement
         })
+
     }
 
     const handleMouseUp = (event) => {

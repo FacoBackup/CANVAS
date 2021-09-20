@@ -1,49 +1,35 @@
-export default function useLink(metadata, data, setData, toBeLinked, setToBeLinked, unselectNode){
-    const handleLink = (node, connection, index) => {
-        if (toBeLinked !== null) {
-            unselectNode(undefined, true)
-            let newLink = {
-                type: 'dashed-path',
-                parent: {
-                    id: toBeLinked.id,
-                    connectionPoint: toBeLinked.connectionPoint,
-                    nodeShape: toBeLinked.nodeShape,
-                    index: toBeLinked.index
-                },
-                child: {
-                    id: node.id,
-                    connectionPoint: connection,
-                    nodeShape: node.shape,
-                    index: index
-                }
-            }
-            let newLinks = [...data.links, ...[newLink]]
+import {useMemo, useState} from "react";
+import getCurve from "../../flowchart/utils/getCurve";
 
-            setData({...data, links: newLinks})
-            setToBeLinked(null)
-        } else {
-            unselectNode(undefined, true)
-            setToBeLinked({
-                id: node.id,
-                connectionPoint: connection,
-                index: index,
-                connectionType: metadata.connectionType
-            })
-        }
+export default function useLink(pages, link, openPage, placements){
+    const target = useMemo(() => {
+        return openPage.nodes.find(node => node.id === link.target.id)
+    }, [pages, placements])
+    const source = useMemo(() => {
+        return openPage.nodes.find(node => node.id === link.source.id)
+    }, [pages, placements])
+    const color = useMemo(() => {
+        return openPage.nodes.find(node => node.id === link.target.id).color
+    }, [target])
+
+    const curve = useMemo(() => {
+        return getCurve({
+            target: {
+                id: link.target.id,
+                connectionPoint: link.target.connectionPoint
+            },
+            source: {
+                id: link.source.id,
+                connectionPoint: link.source.connectionPoint
+            },
+            connectionType: link.type
+        })
+    }, [target, source])
+    const [selected, setSelected] = useState(false)
+
+
+    return{
+        selected, setSelected,
+        curve, color
     }
-
-    const handleLinkDelete = (link) => {
-        let newLinks = [...data.links]
-        const index = newLinks.indexOf(link)
-
-        if (index > -1) {
-            newLinks.splice(index, 1)
-            setData({
-                ...data,
-                links: newLinks
-            })
-        }
-    }
-
-    return {handleLink, handleLinkDelete}
 }

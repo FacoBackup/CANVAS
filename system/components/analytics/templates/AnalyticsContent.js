@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Node from "../../../packages/node/Node";
 import ChartNode from "./ChartNode";
 
-export default function Charts(props) {
+export default function AnalyticsContent(props) {
     useEffect(() => {
         console.log('CDDDDDDDDDDDDDDDD')
     }, [props.openPage])
@@ -34,7 +34,7 @@ export default function Charts(props) {
 
 }
 
-Charts.propTypes = {
+AnalyticsContent.propTypes = {
     openPage: PropTypes.object,
     dispatchPage: PropTypes.func,
     actions: PropTypes.object,

@@ -1,22 +1,23 @@
 import PropTypes from 'prop-types'
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 
-import GetNodeResizeParams from "../../../components/shared/utils/getNodeResizeParams";
+import getNodeResizeParams from "../../../components/shared/utils/getNodeResizeParams";
+import styles from "../styles/Node.module.css";
 
 export default function ConnectionIndicator(props) {
-    const params = GetNodeResizeParams(props)
+    const placement = useMemo(() => {
+        return getNodeResizeParams({...props, offset: 10})
+    }, [props.viewBox])
     const [hovered, setHovered] = useState(false)
 
     return (
         <circle
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
             onMouseDown={() => props.handleLink(props.node, props.placement)}
             onMouseUp={() => props.handleLink(props.node, props.placement)}
-            style={{transition: '150ms linear'}}
+            style={{transition: '150ms linear'}} r={'4'}
             id={props.node.id + '-' + props.placement + '-*node-selector'}
-            r={hovered ? '8' : '4'} fill={'blue'} cx={params.x} cy={params.y}
-            stroke={'transparent'} strokeWidth={'10'}
+            className={styles.indicator}
+            fill={'blue'} cx={placement.x} cy={placement.y}
         />
     )
 }

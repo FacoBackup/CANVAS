@@ -1,33 +1,47 @@
 import PropTypes from 'prop-types'
-import Resizer from "./Resizer";
+import ResizeIndicator from "./ResizeIndicator";
 import styles from '../styles/Node.module.css'
 import {EditRounded} from "@material-ui/icons";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import ConnectionIndicator from "./ConnectionIndicator";
+import useWrapper from "../hooks/useWrapper";
 
 export default function NodeWrapper(props) {
-    const [node, setNode] = useState(props.node)
-
-    useEffect(() => {
-        setNode(props.node)
-    }, [props.selected])
-
-    const getPlacement = () => {
-        const wrapper = document.getElementById(props.node.id + '-node-wrapper')
-        let parsedPlacement = wrapper.getAttribute('transform').replace('translate(', '').replace(')', '')
-        parsedPlacement = parsedPlacement.split(', ')
-        return {
-            x: parseInt(parsedPlacement[0]),
-            y: parseInt(parsedPlacement[1]),
-        }
-    }
-
+    const ref = useRef()
+    const {canRender, getPlacement, node, setNode} = useWrapper({
+        nodeParam: props.node,
+        reference: ref.current,
+        selected: props.selected
+    })
     return (
-        <g>
+        <g ref={ref}>
             {props.children}
             <g
                 display={props.selected !== undefined && props.selected.node.id === props.node.id ? undefined : 'none'}
                 transform={`translate(${node.placement.x}, ${node.placement.y})`}
                 overflow={'visible'} id={props.node.id + '-node-wrapper'}>
+
+                <ConnectionIndicator
+                    node={props.node}
+                    viewBox={{x: props.node.dimensions.width, y: props.node.dimensions.height}}
+                    placement={'e'} handleLink={props.handleLink}
+                />
+                <ConnectionIndicator
+                    node={props.node}
+                    viewBox={{x: props.node.dimensions.width, y: props.node.dimensions.height}}
+                    placement={'w'} handleLink={props.handleLink}
+                />
+                <ConnectionIndicator
+                    node={props.node}
+                    viewBox={{x: props.node.dimensions.width, y: props.node.dimensions.height}}
+                    placement={'s'} handleLink={props.handleLink}
+                />
+                <ConnectionIndicator
+                    node={props.node}
+                    viewBox={{x: props.node.dimensions.width, y: props.node.dimensions.height}}
+                    placement={'n'}
+                    handleLink={props.handleLink}
+                />
 
                 <rect stroke={'#555555'} strokeOpacity={.2} strokeWidth={2}
                       strokeDasharray={'4,4'}
@@ -44,9 +58,32 @@ export default function NodeWrapper(props) {
                         <EditRounded style={{fontSize: '1.3rem'}}/>
                     </button>
                 </foreignObject>
-                <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                         save={(dimensions) => {
+                <ResizeIndicator
+                    viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                    save={(dimensions) => {
+                        const p = getPlacement()
+                        props.dispatch({
+                            type: props.actions.SET,
+                            payload: {...props.node, placement: p, dimensions: dimensions}
+                        })
+                    }}
+                    placement={'nw'} node={node} setNode={setNode} scale={props.scale}/>
+                <ResizeIndicator
+                    viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                    savePlacement={(event) => setNode({...node, placement: event})}
+                    save={(dimensions) => {
+                        const p = getPlacement()
 
+                        props.dispatch({
+                            type: props.actions.SET,
+                            payload: {...props.node, placement: p, dimensions: dimensions}
+                        })
+                    }}
+                    placement={'ne'} node={node} setNode={setNode} scale={props.scale}/>
+
+                <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                                 savePlacement={(event) => setNode({...node, placement: event})}
+                                 save={(dimensions) => {
                              const p = getPlacement()
 
                              props.dispatch({
@@ -54,10 +91,10 @@ export default function NodeWrapper(props) {
                                  payload: {...props.node, placement: p, dimensions: dimensions}
                              })
                          }}
-                         placement={'nw'} node={node} setNode={setNode} scale={props.scale}/>
-                <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                         savePlacement={(event) => setNode({...node, placement: event})}
-                         save={(dimensions) => {
+                                 placement={'sw'} node={node} setNode={setNode} scale={props.scale}/>
+                <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                                 savePlacement={(event) => setNode({...node, placement: event})}
+                                 save={(dimensions) => {
                              const p = getPlacement()
 
                              props.dispatch({
@@ -65,11 +102,11 @@ export default function NodeWrapper(props) {
                                  payload: {...props.node, placement: p, dimensions: dimensions}
                              })
                          }}
-                         placement={'ne'} node={node} setNode={setNode} scale={props.scale}/>
+                                 placement={'se'} node={node} setNode={setNode} scale={props.scale}/>
 
-                <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                         savePlacement={(event) => setNode({...node, placement: event})}
-                         save={(dimensions) => {
+                <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                                 savePlacement={(event) => setNode({...node, placement: event})}
+                                 save={(dimensions) => {
                              const p = getPlacement()
 
                              props.dispatch({
@@ -77,10 +114,10 @@ export default function NodeWrapper(props) {
                                  payload: {...props.node, placement: p, dimensions: dimensions}
                              })
                          }}
-                         placement={'sw'} node={node} setNode={setNode} scale={props.scale}/>
-                <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                         savePlacement={(event) => setNode({...node, placement: event})}
-                         save={(dimensions) => {
+                                 placement={'w'} node={node} setNode={setNode} scale={props.scale}/>
+                <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                                 savePlacement={(event) => setNode({...node, placement: event})}
+                                 save={(dimensions) => {
                              const p = getPlacement()
 
                              props.dispatch({
@@ -88,11 +125,10 @@ export default function NodeWrapper(props) {
                                  payload: {...props.node, placement: p, dimensions: dimensions}
                              })
                          }}
-                         placement={'se'} node={node} setNode={setNode} scale={props.scale}/>
-
-                <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                         savePlacement={(event) => setNode({...node, placement: event})}
-                         save={(dimensions) => {
+                                 placement={'s'} node={node} setNode={setNode} scale={props.scale}/>
+                <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                                 savePlacement={(event) => setNode({...node, placement: event})}
+                                 save={(dimensions) => {
                              const p = getPlacement()
 
                              props.dispatch({
@@ -100,10 +136,10 @@ export default function NodeWrapper(props) {
                                  payload: {...props.node, placement: p, dimensions: dimensions}
                              })
                          }}
-                         placement={'w'} node={node} setNode={setNode} scale={props.scale}/>
-                <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                         savePlacement={(event) => setNode({...node, placement: event})}
-                         save={(dimensions) => {
+                                 placement={'e'} node={node} setNode={setNode} scale={props.scale}/>
+                <ResizeIndicator viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
+                                 savePlacement={(event) => setNode({...node, placement: event})}
+                                 save={(dimensions) => {
                              const p = getPlacement()
 
                              props.dispatch({
@@ -111,29 +147,7 @@ export default function NodeWrapper(props) {
                                  payload: {...props.node, placement: p, dimensions: dimensions}
                              })
                          }}
-                         placement={'s'} node={node} setNode={setNode} scale={props.scale}/>
-                <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                         savePlacement={(event) => setNode({...node, placement: event})}
-                         save={(dimensions) => {
-                             const p = getPlacement()
-
-                             props.dispatch({
-                                 type: props.actions.SET,
-                                 payload: {...props.node, placement: p, dimensions: dimensions}
-                             })
-                         }}
-                         placement={'e'} node={node} setNode={setNode} scale={props.scale}/>
-                <Resizer viewBox={{x: node.dimensions.width, y: node.dimensions.height}}
-                         savePlacement={(event) => setNode({...node, placement: event})}
-                         save={(dimensions) => {
-                             const p = getPlacement()
-
-                             props.dispatch({
-                                 type: props.actions.SET,
-                                 payload: {...props.node, placement: p, dimensions: dimensions}
-                             })
-                         }}
-                         placement={'n'} node={node} setNode={setNode} scale={props.scale}/>
+                                 placement={'n'} node={node} setNode={setNode} scale={props.scale}/>
             </g>
         </g>
     )

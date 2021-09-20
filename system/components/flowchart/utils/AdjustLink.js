@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import GetCurve from "./GetCurve";
+import getCurve from "./getCurve";
 
 export default function AdjustLink(props) {
     let moving = true
@@ -28,7 +28,7 @@ export default function AdjustLink(props) {
 
 
         if (props.pathRef !== null)
-            props.pathRef.setAttribute('d', GetCurve({
+            props.pathRef.setAttribute('d', getCurve({
                 target: props.target,
                 source: props.source,
                 connectionType: props.connectionType

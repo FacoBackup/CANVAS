@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import GetCurve from "./GetCurve";
+import getCurve from "./getCurve";
 
 export default function FollowMouse(props) {
     let moving = true
@@ -25,7 +25,7 @@ export default function FollowMouse(props) {
 
     const update = (event) => {
         if (props.pathRef !== null && frame !== null) {
-            props.pathRef.setAttribute('d', GetCurve({
+            props.pathRef.setAttribute('d', getCurve({
                 followMouse: true,
                 target: {
                     x: event.clientX - frame.getBoundingClientRect().left + frame.scrollLeft,

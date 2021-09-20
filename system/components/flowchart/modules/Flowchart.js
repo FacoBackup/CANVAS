@@ -212,6 +212,7 @@ export default function Flowchart(props) {
                                     openPage: openPage,
                                     dispatchPage: dispatchPage,
                                     actions: ACTIONS,
+                                    pages: pages,
 
                                     metadata: metadata,
                                     toBeLinked: toBeLinked,

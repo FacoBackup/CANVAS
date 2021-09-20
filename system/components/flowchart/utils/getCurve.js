@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from "react";
 
-export default function GetCurve(props) {
+export default function getCurve(props) {
     let response
     let pivots = {}
     let target
@@ -128,7 +128,7 @@ export default function GetCurve(props) {
 
     return response
 }
-GetCurve.propTypes = {
+getCurve.propTypes = {
     connectionType: PropTypes.string,
 
     source: PropTypes.shape({

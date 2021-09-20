@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
 
 export default {
+    onDragStart: PropTypes.func,
+    onDrop: PropTypes.func,
+    onMove: PropTypes.func,
+
     openPage: PropTypes.object,
     dispatchPage: PropTypes.func,
     actions: PropTypes.object,

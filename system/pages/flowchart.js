@@ -1,7 +1,7 @@
 import Flowchart from "../components/flowchart/modules/Flowchart";
 import Engine from "../packages/engine/Engine";
 // import LinkIndicator from "../components/flowchart/modules/link/LinkIndicator";
-import FlowchartNodes from "../components/flowchart/modules/FlowchartNodes";
+import FlowchartContent from "../components/flowchart/modules/FlowchartContent";
 // import RenderLinks from "../components/flowchart/modules/RenderLinks";
 import React from "react";
 import 'typeface-roboto'
@@ -11,11 +11,7 @@ export default function flowchart() {
         <Flowchart>
             {props => (
                 <Engine {...props}>
-                    {/*<LinkIndicator source={props.toBeLinked}/>*/}
-                    <FlowchartNodes {...props}/>
-                    {/*<RenderLinks*/}
-                    {/*    {...props}*/}
-                    {/*/>*/}
+                    <FlowchartContent {...props}/>
                 </Engine>
             )}
         </Flowchart>

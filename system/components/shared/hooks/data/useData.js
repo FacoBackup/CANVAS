@@ -20,13 +20,6 @@ export default function useData() {
             height: 10000
         },
     })
-    // const [openPage, setOpenPage] = useState(0)
-    // const [pages, setPages] = useState([{
-    //     title: 'Página 1',
-    //     nodes: [],
-    //     links: []
-    // }])
-    //
 
     const {openPage, pages, dispatchPage, ACTIONS, setCurrentPage, hasFuture, hasPast, currentPage} = usePages()
     const [scale, setScale] = useState(1)
@@ -83,6 +76,7 @@ export default function useData() {
             setSelected([])
 
     }, [selected])
+
     const handlePrint = useReactToPrint({
         content: () => document.getElementById('engine-content')
     });

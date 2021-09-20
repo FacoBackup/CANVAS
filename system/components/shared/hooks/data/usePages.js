@@ -17,16 +17,15 @@ export default function usePages() {
         ADD_NODE: '1-1',
         UPDATE_NODE: '1-2',
         REMOVE_NODE: '1-3',
-        ADD_LINK: '1-4',
-        REMOVE_LINK: '1-5',
-
+        // ADD_LINK: '1-4',
+        // REMOVE_LINK: '1-5',
+        LINKS: '1-4',
         // VERSION CONTROL
         REWIND: '3-0',
         FORWARD: '3-1',
     }
 
     const reducer = (state, action) => {
-        console.log('REDUCER', action)
         switch (action.action) {
             case ACTIONS.DELETE: {
                 let value = [...state]
@@ -92,26 +91,31 @@ export default function usePages() {
                 }, ACTIONS.REMOVE_NODE)
                 return value
             }
-            case ACTIONS.ADD_LINK: {
-                let value = [...state]
-                let page = value[state.findIndex(e => e.id === action.payload.id)]
-                page.links.push(action.payload.link)
-                pushChange({
-                    id: action.payload.id
-                }, ACTIONS.ADD_LINK)
-                return value
-            }
-            case ACTIONS.REMOVE_LINK: {
-                let value = [...state]
-                const pageIndex = state.findIndex(e => e.id === action.payload.id)
-                let page = value[pageIndex]
-                const linkIndex = page.links.findIndex(e => e.id === action.payload.linkID)
-                page.links[linkIndex] = {}
-                pushChange({
-                    id: action.payload.id,
-                    data: state[pageIndex].links[linkIndex]
-                }, ACTIONS.REMOVE_LINK)
-                return value
+            // case ACTIONS.ADD_LINK: {
+            //     let value = [...state]
+            //     let page = value[state.findIndex(e => e.id === action.payload.id)]
+            //     page.links.push(action.payload.link)
+            //     pushChange({
+            //         id: action.payload.id
+            //     }, ACTIONS.ADD_LINK)
+            //     return value
+            // }
+            // case ACTIONS.REMOVE_LINK: {
+            //     let value = [...state]
+            //     const pageIndex = state.findIndex(e => e.id === action.payload.id)
+            //     let page = value[pageIndex]
+            //     const linkIndex = page.links.findIndex(e => e.id === action.payload.linkID)
+            //     page.links[linkIndex] = {}
+            //     pushChange({
+            //         id: action.payload.id,
+            //         data: state[pageIndex].links[linkIndex]
+            //     }, ACTIONS.REMOVE_LINK)
+            //     return value
+            // }
+            //
+
+            case ACTIONS.LINKS: {
+                return [...state][state.findIndex(e => e.id === action.payload.id)].links = action.payload.data
             }
             case ACTIONS.REWIND: {
                 const previousAction = getPrevious()

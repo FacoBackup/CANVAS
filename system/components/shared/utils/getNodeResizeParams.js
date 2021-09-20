@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default function GetNodeResizeParams(props){
+export default function getNodeResizeParams(props){
     let res = {}
     switch (props.placement) {
 
@@ -9,7 +9,7 @@ export default function GetNodeResizeParams(props){
             res = {
                 cursor: 'row-resize',
                 x: props.viewBox.x / 2,
-                y: 0
+                y: 0 - props.offset
             }
             break
         }
@@ -17,14 +17,14 @@ export default function GetNodeResizeParams(props){
             res = {
                 cursor: 'row-resize',
                 x: props.viewBox.x / 2,
-                y: props.viewBox.y
+                y: props.viewBox.y + props.offset
             }
             break
         }
         case 'e': {
             res = {
                 cursor: 'col-resize',
-                x: props.viewBox.x,
+                x: props.viewBox.x + props.offset,
                 y: props.viewBox.y / 2
             }
 
@@ -33,7 +33,7 @@ export default function GetNodeResizeParams(props){
         case 'w': {
             res = {
                 cursor: 'col-resize',
-                x: 0,
+                x: 0 - props.offset,
                 y: props.viewBox.y / 2
             }
             break
@@ -42,39 +42,40 @@ export default function GetNodeResizeParams(props){
         case 'sw': {
             res = {
                 cursor: props.placement + '-resize',
-                x: 0,
-                y: props.viewBox.y
+                x: 0 - props.offset,
+                y: props.viewBox.y + props.offset
             }
             break
         }
         case 'se': {
             res = {
                 cursor: props.placement + '-resize',
-                x: props.viewBox.x,
-                y: props.viewBox.y
+                x: props.viewBox.x + props.offset,
+                y: props.viewBox.y+ props.offset
             }
             break
         }
         case 'nw': {
             res = {
                 cursor: props.placement + '-resize',
-                x: 0,
-                y: 0
+                x: -props.offset,
+                y: -props.offset
             }
             break
         }
         case 'ne': {
             res = {
                 cursor: props.placement + '-resize',
-                x: props.viewBox.x,
-                y: 0
+                x: props.viewBox.x + props.offset,
+                y: -props.offset
             }
             break
         }
     }
     return res
 }
-GetNodeResizeParams.propTypes = {
+getNodeResizeParams.propTypes = {
     placement: PropTypes.oneOf(['nw', 'w', 'e', 'n', 's', 'ne', 'se', 'sw']),
-    viewBox: PropTypes.object
+    viewBox: PropTypes.object,
+    offset: PropTypes.number
 }
