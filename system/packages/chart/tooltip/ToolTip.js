@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import styles from './styles/Styles.module.css'
 import React, {useEffect, useRef} from "react";
 
+
 export default function ToolTip(props) {
     const toolTip = (
         <div className={styles.container}>
@@ -19,7 +20,6 @@ export default function ToolTip(props) {
 
 
     const hover = (event) => {
-        mountingPoint.current.classList.remove(styles.exitAnim)
         ReactDOM.unmountComponentAtNode(
             mountingPoint.current
         )
@@ -74,15 +74,9 @@ export default function ToolTip(props) {
     }
     const hoverEnd = (event) => {
         if (!document.elementsFromPoint(event.clientX, event.clientY).includes(mountingPoint.current)) {
-
-            mountingPoint.current.classList.add(styles.exitAnim)
-            mountingPoint.current.addEventListener('animationend', () => {
-
-                if (mountingPoint.current.classList.length === 1)
-                    ReactDOM.unmountComponentAtNode(
-                        mountingPoint.current
-                    )
-            }, {once: true})
+            ReactDOM.unmountComponentAtNode(
+                mountingPoint.current
+            )
         }
     }
     useEffect(() => {
@@ -104,9 +98,9 @@ export default function ToolTip(props) {
             )
             document.body.removeChild(newElement)
         }
-    })
+    }, [])
 
-    return <div ref={ref}/>
+    return <div ref={ref} style={{display: 'none'}}/>
 }
 
 ToolTip.propTypes = {
